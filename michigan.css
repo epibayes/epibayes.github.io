@@ -1,0 +1,30 @@
+#map, #mapbox-legend { 
+    position: relative;
+    top: 0px;
+    left: 10px;
+    width: 550px;
+    height: 500px;
+}
+
+  
+.top-buffer {
+    margin-top: 20px;
+    margin-left: 18px;
+}
+
+#slider {
+    margin-top: 20px;
+    width: 90%;
+}
+
+#info-container, #slider-container {
+    margin-left: 20px;
+}
+
+#startdate {
+    margin-left: 20px;
+}
+
+/* .radios, .checkboxes {
+    border: solid green 1px;
+} */

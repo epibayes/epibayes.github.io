@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8' />
+    <title>Michigan Covid-19 Tracker</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <!-- Mapbox GL JS -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
+    <!-- Mapbox GL Geocoder -->
+    <script
+        src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet'
+        href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css'>
+    <!-- bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- d3 utilities -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <!-- project files -->
+    <link rel="stylesheet" href="michigan.css">
+    <link rel="stylesheet" href="incidence.css">
+</head>
+
+<body>
+
+    <div style="margin-left: 24px; padding-top: 12px; ">
+        <div class="row" style="">
+            <div style="margin-left: 0px;" class="col-1">
+                <img src="logo.png" style="height: 50px; width: 52px;">
+            </div>
+            <h2 style="padding-top: 4px; margin-left: -36px;" class="col-6">Michigan Covid-19 Tracker</h2>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="max-width: 1600px;">
+        <div style="padding-top: 24px; " class="row">
+            <div class="col" style="padding-bottom: 12px;">
+                <div id="map"></div>
+                <div class="row" style="padding-top: 8px;">
+                    <div style="padding-top: 8px; margin-top: 2px;" class="col-1">
+                        <img src="public health logo.png" style="height: 52px; width: 44px;">
+                    </div>
+                    <p class="col-8"
+                        style="margin-left: 4px; padding-top: 12px; color: gray; opacity: 0.75; width: 150px;">Built &
+                        maintained by
+                        the University of Michigan School of Public Health. Last updated May 4th.
+                </div>
+                </p>
+            </div>
+            <div class="col text-left" style="width: 500px;">
+                <div id="info-container">
+                    <h1 id="total"></h1>
+                    <div style="display: inline-block;">
+                        <p class="d-inline" style="margin-top: -14px;">cases</p>
+                        <p class="d-inline dayrange" style="margin-left: 0px; margin-top: -14px;" id="startdate"></p>
+                        <p class="d-inline" style="margin-top: -14px;">to</p>
+                        <p class="d-inline dayrange" style="margin-top: -14px;" id="enddate"></p>
+                    </div>
+                </div>
+                <div style="padding-top: 16px; width: 500px; margin-left: 4px;" class="text-center">
+                    <div class="row">
+                        <div class="col">
+                            <input type="radio" class="custom-control-input metric" id="casecum" name="attributes"
+                                value="casecum" checked>
+                            <label class="custom-control-label" for="casecum">Show cumulative cases</label>
+                        </div>
+                        <div class="col">
+                            <input type="radio" class="custom-control-input metric" id="caseweek" name="attributes"
+                                value="caseweek">
+                            <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 12px;" class="">
+                    <div id="incidence"></div>
+                    <div class="" style="margin-top: -8px; margin-left: 12px;" id="slider-container">
+                        <input class="custom-range" style="width: 464px; opacity: 0.75" id="slider" type="range" min="0"
+                            step="1">
+                    </div>
+                </div>
+                <div class="" style="padding-top: 20px;">
+                    <p style="width: 500px;">
+                        The goal of this COVID-19 mapping project is to put COVID in its spatial and social context, to
+                        allow
+                        better exploration and understanding of geographic patterning in detected cases and deaths. We
+                        will
+                        also
+                        explore how the distribution of COVID-19 cases change with respect to social risk factors, such
+                        as
+                        urban/rural environment, age and race. We have developed this interactive map for you to
+                        physically
+                        explore the spread of COVID-19 cases around the state of Michigan through space and time, from
+                        the
+                        first
+                        detected case on March 8 until May 3rd.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row" style="padding-top: 24px;">
+            <div class="col" style="width: 550px;">
+                <div>
+                    <h3>How is COVID-19 transmitted?</h3>
+                    <h6 style=" color: gray; opacity: 0.75;">Close contact. Surfaces. Respiratory droplets.</h6>
+                    <p style="width: 525px;">
+                        COVID-19 is transmitted through respiratory droplets. Respiratory droplets, according to the
+                        WHO,
+                        refers
+                        to
+                        droplets >5-10 μm (micrometers) in diameter. Transmission by respiratory droplets typically
+                        requires
+                        close
+                        contact between individuals. The WHO defines such contact as within about 1 meter (approximately
+                        3
+                        feet)
+                        of
+                        someone experiencing respiratory symptoms like coughing or sneezing. However, transmission can
+                        also
+                        occur
+                        through droplets on surfaces, and if someone touches that surface and then touches their
+                        eyes/mouth/nose,
+                        the virus can spread.
+                    </p>
+                </div>
+                <div>
+                    <h3>Where are we getting these numbers?</h3>
+                    <p style="width: 525px;">
+                        These data come from the <a style="color:steelblue;"
+                            href="https://www.michigan.gov/mdhhs/">Michigan
+                            Department of Health and
+                            Human Services</a>
+                        and reflect daily counts of confirmed COVID-19 cases in Michigan. As a
+                        result, this specifically reflects risk among those who are being tested in the state of
+                        Michigan.
+                        Information on testing in Michigan is available at the <a style="color: steelblue"
+                            href="https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173_99225---,00.html">Michigan.gov
+                            coronavirus page</a>.
+                        However, it is
+                        important to keep in mind that the numbers on the map here reflect not the total number of
+                        COVID-19
+                        infections, but confirmed cases who are being tested. Specific criteria are required in order to
+                        be
+                        tested, and this has changed over time. The percent positive rate is a good way to contextualize
+                        how
+                        many of the ‘true’ cases are being captured. The cumulative percent positive rate <a
+                            style="color: steelblue"
+                            href="https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173_99225---,00.html">is
+                            about
+                            25%</a>
+                        in the state of Michigan, meaning that on average, for every case detected by a COVID-19 test,
+                        there are
+                        three
+                        negative tests. This high rate of positives indicates we are likely missing a good portion of
+                        the true
+                        extent of cases, indicating that risk estimates on this map are conservative.
+                    </p>
+                </div>
+
+            </div>
+            <div class="col" style="width: 550px;">
+                <h3>What can we learn from mapping COVID-19?</h3>
+                <h6 style="color: gray; opacity: 0.75;">Importance of social distancing</h6>
+                <p style="width: 525px;">
+                    This droplet-based transmission is why wearing masks, washing your hands carefully, and maintaining
+                    6 feet
+                    of distance whenever possible can help to stem the spread of coronavirus. Additionally, droplet
+                    transmission
+                    indicates that individuals need to be close to one another in physical space to spread the virus.
+                    This means
+                    that someone’s risk of infection is strongly influenced by local rates of infection in their
+                    surroundings,
+                    making a map of local disease incidence potentially helpful for understanding infection risks in
+                    your area.
+                </p>
+                <h6 style="color: gray; opacity: 0.75;">Locating risk areas</h6>
+                <p style="width: 525px;">
+                    However, we have learned that exposure to the SARS-CoV-2 virus is not the only factor driving
+                    transmission
+                    in Michigan and other U.S. states. For example, areas with more elderly individuals may be at higher
+                    risk of
+                    having cases of severe disease and death. Places with higher rates of poverty, unstable housing, and
+                    pre-existing medical conditions have also seen increased risk.
+                </p>
+                <h6 style="color: gray; opacity: 0.75;">Estimating infection</h6>
+                <p style="width: 525px;">
+                    Finally, our map currently includes only <b>reported</b> cases, and necessarily represents an
+                    underestimate
+                    of the
+                    amount of infection that has and continues to occur. This is due to the fact that many cases may be
+                    fully
+                    asymptomatic, and that some individuals with mild symptoms of COVID-19 may not seek medical
+                    attention. These
+                    effects may vary in space, and these maps should be viewed with these limitations in mind.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="init.js"></script>
+    <script src="ui.js"></script>
+    <script src="legend.js"></script>
+    <script src="michigan.js"></script>
+    <script src="incidence.js"></script>
+
+</body>
+
+</html>
