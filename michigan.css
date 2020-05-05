@@ -18,11 +18,24 @@
 
 #title-heading {
     padding-top: 4px;
-    margin-left: -36px;
+    margin-left: -12px;
 }
 
-#content-container {
-    max-width: 1500px;
+.mapboxgl-popup-content {
+    padding: 10px 20px 10px;
+}
+
+#public-health-logo-div {
+    padding-top: 8px;
+    margin-top: 2px;
+}
+
+#byline {
+    margin-left: 4px;
+    padding-top: 12px;
+    color: gray;
+    opacity: 0.75;
+    width: 150px;
 }
 
   
