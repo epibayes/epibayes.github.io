@@ -6,6 +6,25 @@
     height: 500px;
 }
 
+#header-div {
+    margin-left: 24px;
+    padding-top: 12px;
+}
+
+#epibayes-logo {
+    height: 50px;
+    width: 52px;
+}
+
+#title-heading {
+    padding-top: 4px;
+    margin-left: -36px;
+}
+
+#content-container {
+    max-width: 1500px;
+}
+
   
 .top-buffer {
     margin-top: 20px;
