@@ -158,7 +158,7 @@ function createPopup(e) {
         : value === '<=5' ? '≤5'
         : numFmt(hexcases[metric][k].get(idx))
     let text = `Cases: ${cases}`
-    text += `<br>${idx}`
+//    text += `<br>${idx}`
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(text)
