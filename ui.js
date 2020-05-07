@@ -27,21 +27,19 @@ function setDateRange(startDate, endDate) {
 }
 
 function updateTotal(metric) {
-    // total case count
-    console.log("total", d3.sum(data20f, d => d.n))
-
-    let data = metric === 'casecum' ? data20f : pastweekFilter(data20f, N)
-    d3.select('#total').text(numFmt(d3.sum(data, d => d.n)))
+    let sliderValue = d3.select('#slider').property('value')
+    let total = metric === 'casecum' ? incidenceData[sliderValue]['cumulative'] : incidenceData[sliderValue]['weekly']
+    d3.select('#total').text(numFmt(total))
 }
 
-function updateLastWeek() {
-    let data = pastweekFilter(data20f, N)
-    d3.select('#caseweek').text(numFmt(d3.sum(data, d => d.n)))
-}
+// function updateLastWeek() {
+//     let data = pastweekFilter(data20f, N)
+//     d3.select('#caseweek').text(numFmt(d3.sum(data, d => d.n)))
+// }
 
 function updateMap(sliderValue) {
-    data20f = dateSliderFilter(data20, dateSlider(sliderValue))
-    data10f = dateSliderFilter(data10, dateSlider(sliderValue))
+    // data20f = dateSliderFilter(data20, dateSlider(sliderValue))
+    // data10f = dateSliderFilter(data10, dateSlider(sliderValue))
     updateFillExpression(metric)
     updateHexLayers(metric)
     updateDateRange(metric)

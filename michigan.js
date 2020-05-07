@@ -1,21 +1,29 @@
 async function initDashboard(filename) {
-    const bin20 = await d3.csv('binned_case_20_km_hex_index.csv', type)
-    const bin10 = await d3.csv('binned_case_10_km_hex_index.csv', type)
-
-    data20 = bin20.filter(d => d.n > 0)
-    data10 = bin10.filter(d => d.n > 0)
+    // const bin20 = await d3.csv('binned_case_20_km_hex_index.csv', type2)
+    // const bin10 = await d3.csv('binned_case_10_km_hex_index.csv', type2)
+    const bin20 = await d3.csv('weeklycum_cases_20km.csv', type)
+    const bin10 = await d3.csv('weeklycum_cases_10km.csv', type)    
+    data20 = bin20.filter(d => d.weekly != null)
+    data10 = bin10.filter(d => d.weekly != null)
     let dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
-    data20f = dateSliderFilter(data20, maxDate)
-    data10f = dateSliderFilter(data10, maxDate)
-    incidenceData = Array.from(
-        d3.rollup(data20, v => d3.sum(v, d => d.n), d => +d.date),
-        ([key, value]) => ({ 'date': new Date(key), 'daily': value })
-    ).sort((a, b) => d3.ascending(a.date, b.date))
-    incidenceData.map((d, i, arr) => {
-        d.cum = d3.sum(arr.slice(0, i + 1), d => d.daily)
-        d.value = d.cum
+    // data20f = dateSliderFilter(data20, maxDate)
+    // data10f = dateSliderFilter(data10, maxDate)
+    // incidenceData = Array.from(
+    //     d3.rollup(data20, v => d3.sum(v, d => d.n), d => +d.date),
+    //     ([key, value]) => ({ 'date': new Date(key), 'daily': value })
+    // ).sort((a, b) => d3.ascending(a.date, b.date))
+    // incidenceData.map((d, i, arr) => {
+    //     d.cum = d3.sum(arr.slice(0, i + 1), d => d.daily)
+    //     d.value = d.cum
+    //     d.idx = i
+    //     return d
+    // })
+    incidenceData = await d3.csv('dailyweeklycum_cases_statewide.csv', d3.autoType)
+    incidenceData.map((d,i) => {
+        d.date = d3.timeParse('%y%m%d')(d.date)
+        d.value = d.cumulative
         d.idx = i
         return d
     })
@@ -29,13 +37,13 @@ async function initDashboard(filename) {
         'casecum': Array(2),
     }
 
+    initSlider()
     let metrics = ['caseweek', 'casecum']
     metrics.forEach(key => updateFillExpression(key))
 
-    initSlider()
     setDateRange(minDate, maxDate)
     updateTotal(metric)
-    updateLastWeek()
+    // updateLastWeek()
     initMap()
     makeIncidenceChart()
 }
@@ -145,34 +153,42 @@ function toggleMapLayer(layerId = 'county-border') {
 function createPopup(e) {
     const idx = e.features[0].properties.index;
     k = map.getZoom() < zoomThreshold ? 0 : 1
-    let text = `Cases: ${numFmt(hexcases[metric][k].get(idx) || 0)}`
+    let value = hexcases[metric][k].get(idx) 
+    let cases = value === undefined ? 0
+        : value === '<=5' ? '≤5'
+        : numFmt(hexcases[metric][k].get(idx))
+    let text = `Cases: ${cases}`
+    text += `<br>${idx}`
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(text)
         .addTo(map);
-    console.log(e.lngLat)
 }
 
 function updateFillExpression(key) {
-    let dataArrays = [data20f, data10f]
+    let sliderValue = d3.select('#slider').property('value')
+    let day = d3.timeDay(dateSlider(sliderValue))
+    let dataArrays = [data20.filter(d => +d.date === +day), data10.filter(d => +d.date === +day)]
     let colorScale = getColorScale(key)
     if (key === 'casecum') {
         dataArrays.forEach((data, i) => {
-            hexcases[key][i] = groupbyHex(data)
+            hexcases[key][i] = groupbyHex(data, key)
             hexfill[key][i] = createFillExpression(hexcases[key][i], colorScale)
         })
     } else {
         dataArrays.forEach((data, i) => {
-            let pastweek = pastweekFilter(data, N)
-            hexcases[key][i] = groupbyHex(pastweek)
+//            let pastweek = pastweekFilter(data, N)
+            hexcases[key][i] = groupbyHex(data, key)
             hexfill[key][i] = createFillExpression(hexcases[key][i], colorScale)
         })
     }
+
 }
 
 function createFillExpression(data, colorScale) {
     let expression = ['match', ['get', 'index']];
-    data.forEach((n, idx) => expression.push(idx, colorScale(n)));
+    data.forEach((n, idx) => 
+    expression.push(idx, n === '<=5' ? colorScale(5) : colorScale(n)));
     expression.push(colorScale(0)) // unknown case
     return expression
 }
@@ -185,17 +201,19 @@ function getColorScale(key = metric) {
 function type(d) {
     d.index = +d.index
     d.date = d3.timeParse('%y%m%d')(d.date)
-    d.n = +d.n
+    d.weekly = d.weekly === '<=5' ? d.weekly : +d.weekly
+    d.cumulative = d.cumulative === '<=5' ? d.cumulative : +d.cumulative
     return d
 }
 
-function pastweekFilter(data, N) {
-    const endDate = d3.max(data, d => d.date)
-    return data.filter(d => d.date > d3.timeDay.offset(endDate, -N))
-}
+// function pastweekFilter(data, N) {
+//     const endDate = d3.max(data, d => d.date)
+//     return data.filter(d => d.date > d3.timeDay.offset(endDate, -N))
+// }
 
-function groupbyHex(data) {
-    return d3.rollup(data, v => d3.sum(v, d => d.n), d => d.index)
+function groupbyHex(data, key) {
+    let column = key === 'casecum' ? 'cumulative' : 'weekly'
+    return new Map(data.map(d => [d.index, d[column]]))
 }
 
 function dateSliderFilter(data, endDate) {
