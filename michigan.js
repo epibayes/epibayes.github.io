@@ -138,14 +138,13 @@ function toggleMapLayer(layerId = 'county-border') {
 
 function createPopup(e) {
     const idx = e.features[0].properties.index;
-    k = map.getZoom() < zoomThreshold ? 0 : 1
-    casecum = getMetricValue('casecum',k,idx)
-    caseweek = getMetricValue('caseweek',k,idx)
-    let text = `Cumulative Cases: ${casecum}`
-    text += `<br>Weekly Cases: ${caseweek}`
+    const k = map.getZoom() < zoomThreshold ? 0 : 1
+    const casecum = getMetricValue('casecum',k,idx)
+    const caseweek = getMetricValue('caseweek',k,idx)
+    const html = createTablePopup([casecum, caseweek])
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML(text)
+        .setHTML(html)
         .addTo(map);
 }
 
@@ -154,6 +153,16 @@ function getMetricValue(metric,k,idx) {
     return value === undefined ? 0
         : value === '<=5' ? '≤5'
         : numFmt(value)
+}
+
+function createTablePopup(data) {
+    let sliderValue = d3.select('#slider').property('value')
+    let day = d3.timeDay(dateSlider(sliderValue))
+    return `<table>
+    <tr><th>${d3.timeFormat('%b %d')(day)}</th><th>Cases</th></tr>
+    <tr><td>Cumulative</td><td align="right">${data[0]}</td></tr>
+    <tr><td>Previous Week</td><td align="right">${data[1]}</td></tr>
+    </table>`
 }
 
 function updateFillExpression(key) {
