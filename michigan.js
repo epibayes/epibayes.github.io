@@ -151,7 +151,7 @@ function createPopup(e) {
 function getMetricValue(metric,k,idx) {
     let value = hexcases[metric][k].get(idx) 
     return value === undefined ? 0
-        : value === '<=5' ? '≤5'
+        : value <= 5 ? '≤5'
         : numFmt(value)
 }
 
@@ -178,8 +178,7 @@ function updateFillExpression(key) {
 
 function createFillExpression(data, colorScale) {
     let expression = ['match', ['get', 'index']];
-    data.forEach((n, idx) => 
-    expression.push(idx, n === '<=5' ? colorScale(5) : colorScale(n)));
+    data.forEach((n, idx) => expression.push(idx, colorScale(n)));
     expression.push(colorScale(0)) // unknown case
     return expression
 }
@@ -192,8 +191,8 @@ function getColorScale(key = metric) {
 function type(d) {
     d.index = +d.index
     d.date = d3.timeParse('%y%m%d')(d.date)
-    d.weekly = d.weekly === '<=5' ? d.weekly : +d.weekly
-    d.cumulative = d.cumulative === '<=5' ? d.cumulative : +d.cumulative
+    d.weekly = +d.weekly || 0
+    d.cumulative = +d.cumulative
     return d
 }
 
