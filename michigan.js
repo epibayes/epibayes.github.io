@@ -1,6 +1,4 @@
 async function initDashboard(filename) {
-    // const bin20 = await d3.csv('binned_case_20_km_hex_index.csv', type2)
-    // const bin10 = await d3.csv('binned_case_10_km_hex_index.csv', type2)
     const bin20 = await d3.csv('weeklycum_cases_20km.csv', type)
     const bin10 = await d3.csv('weeklycum_cases_10km.csv', type)    
     data20 = bin20.filter(d => d.weekly != null)
@@ -8,18 +6,7 @@ async function initDashboard(filename) {
     let dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
-    // data20f = dateSliderFilter(data20, maxDate)
-    // data10f = dateSliderFilter(data10, maxDate)
-    // incidenceData = Array.from(
-    //     d3.rollup(data20, v => d3.sum(v, d => d.n), d => +d.date),
-    //     ([key, value]) => ({ 'date': new Date(key), 'daily': value })
-    // ).sort((a, b) => d3.ascending(a.date, b.date))
-    // incidenceData.map((d, i, arr) => {
-    //     d.cum = d3.sum(arr.slice(0, i + 1), d => d.daily)
-    //     d.value = d.cum
-    //     d.idx = i
-    //     return d
-    // })
+
     incidenceData = await d3.csv('dailyweeklycum_cases_statewide.csv', d3.autoType)
     incidenceData.map((d,i) => {
         d.date = d3.timeParse('%y%m%d')(d.date)
@@ -43,7 +30,6 @@ async function initDashboard(filename) {
 
     setDateRange(minDate, maxDate)
     updateTotal(metric)
-    // updateLastWeek()
     initMap()
     makeIncidenceChart()
 }
@@ -153,16 +139,21 @@ function toggleMapLayer(layerId = 'county-border') {
 function createPopup(e) {
     const idx = e.features[0].properties.index;
     k = map.getZoom() < zoomThreshold ? 0 : 1
-    let value = hexcases[metric][k].get(idx) 
-    let cases = value === undefined ? 0
-        : value === '<=5' ? '≤5'
-        : numFmt(hexcases[metric][k].get(idx))
-    let text = `Cases: ${cases}`
-//    text += `<br>${idx}`
+    casecum = getMetricValue('casecum',k,idx)
+    caseweek = getMetricValue('caseweek',k,idx)
+    let text = `Cumulative Cases: ${casecum}`
+    text += `<br>Weekly Cases: ${caseweek}`
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(text)
         .addTo(map);
+}
+
+function getMetricValue(metric,k,idx) {
+    let value = hexcases[metric][k].get(idx) 
+    return value === undefined ? 0
+        : value === '<=5' ? '≤5'
+        : numFmt(value)
 }
 
 function updateFillExpression(key) {
@@ -170,19 +161,10 @@ function updateFillExpression(key) {
     let day = d3.timeDay(dateSlider(sliderValue))
     let dataArrays = [data20.filter(d => +d.date === +day), data10.filter(d => +d.date === +day)]
     let colorScale = getColorScale(key)
-    if (key === 'casecum') {
-        dataArrays.forEach((data, i) => {
-            hexcases[key][i] = groupbyHex(data, key)
-            hexfill[key][i] = createFillExpression(hexcases[key][i], colorScale)
-        })
-    } else {
-        dataArrays.forEach((data, i) => {
-//            let pastweek = pastweekFilter(data, N)
-            hexcases[key][i] = groupbyHex(data, key)
-            hexfill[key][i] = createFillExpression(hexcases[key][i], colorScale)
-        })
-    }
-
+    dataArrays.forEach((data, i) => {
+        hexcases[key][i] = groupbyHex(data, key)
+        hexfill[key][i] = createFillExpression(hexcases[key][i], colorScale)
+    })
 }
 
 function createFillExpression(data, colorScale) {
@@ -205,11 +187,6 @@ function type(d) {
     d.cumulative = d.cumulative === '<=5' ? d.cumulative : +d.cumulative
     return d
 }
-
-// function pastweekFilter(data, N) {
-//     const endDate = d3.max(data, d => d.date)
-//     return data.filter(d => d.date > d3.timeDay.offset(endDate, -N))
-// }
 
 function groupbyHex(data, key) {
     let column = key === 'casecum' ? 'cumulative' : 'weekly'

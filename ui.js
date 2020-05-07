@@ -32,14 +32,7 @@ function updateTotal(metric) {
     d3.select('#total').text(numFmt(total))
 }
 
-// function updateLastWeek() {
-//     let data = pastweekFilter(data20f, N)
-//     d3.select('#caseweek').text(numFmt(d3.sum(data, d => d.n)))
-// }
-
 function updateMap(sliderValue) {
-    // data20f = dateSliderFilter(data20, dateSlider(sliderValue))
-    // data10f = dateSliderFilter(data10, dateSlider(sliderValue))
     updateFillExpression(metric)
     updateHexLayers(metric)
     updateDateRange(metric)
