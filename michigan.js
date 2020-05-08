@@ -1,9 +1,7 @@
 async function initDashboard(filename) {
-    const bin20 = await d3.csv('weeklycum_cases_20km.csv', type)
-    const bin10 = await d3.csv('weeklycum_cases_10km.csv', type)    
-    data20 = bin20.filter(d => d.weekly != null)
-    data10 = bin10.filter(d => d.weekly != null)
-    let dateExtent = d3.extent(data20, d => d.date)
+    const data20 = await d3.csv('weeklycum_cases_20km.csv', type)
+    const data10 = await d3.csv('weeklycum_cases_10km.csv', type)    
+    const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
 
@@ -19,9 +17,9 @@ async function initDashboard(filename) {
         'caseweek': Array(2),
         'casecum': Array(2),
     }
-    hexcases = { // Object to contain the data for hex grid
-        'caseweek': Array(2),
-        'casecum': Array(2),
+    hexdata = {
+        'hex20': d3.group(data20, d => +d.date, d => d.index),
+        'hex10': d3.group(data10, d => +d.date, d => d.index),
     }
 
     initSlider()
@@ -42,9 +40,8 @@ function initMap() {
     map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v10',
-        center: [-84.597, 44.48],
-        // center: [-86.34,45.01],
-        zoom: 5.68,
+        center: [-86.04, 44.66],
+        zoom: 5.48,
         maxBounds: [[-100, 36], [-75, 52]],
         attributionControl: false,
     })
@@ -136,55 +133,68 @@ function toggleMapLayer(layerId = 'county-border') {
     d3.select('#county-borders').text(label)
 }
 
-function createPopup(e) {
-    const idx = e.features[0].properties.index;
-    const k = map.getZoom() < zoomThreshold ? 0 : 1
-    const casecum = getMetricValue('casecum',k,idx)
-    const caseweek = getMetricValue('caseweek',k,idx)
-    const html = createTablePopup([casecum, caseweek])
-    new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(html)
-        .addTo(map);
-}
-
-function getMetricValue(metric,k,idx) {
-    let value = hexcases[metric][k].get(idx) 
-    return value === undefined ? 0
-        : value <= 5 ? '≤5'
-        : numFmt(value)
-}
-
-function createTablePopup(data) {
-    let sliderValue = d3.select('#slider').property('value')
-    let day = d3.timeDay(dateSlider(sliderValue))
-    return `<table>
-    <tr><th>${d3.timeFormat('%b %d')(day)}</th><th>Cases</th></tr>
-    <tr><td>Cumulative</td><td align="right">${data[0]}</td></tr>
-    <tr><td>Previous Week</td><td align="right">${data[1]}</td></tr>
-    </table>`
+function getHexLayer() {
+    return map.getZoom() < zoomThreshold ? 'hex20' : 'hex10'
 }
 
 function updateFillExpression(key) {
-    let sliderValue = d3.select('#slider').property('value')
-    let day = d3.timeDay(dateSlider(sliderValue))
-    let dataArrays = [data20.filter(d => +d.date === +day), data10.filter(d => +d.date === +day)]
+    let day = getDateFromSlider()
     let colorScale = getColorScale(key)
-    dataArrays.forEach((data, i) => {
-        hexcases[key][i] = groupbyHex(data, key)
-        hexfill[key][i] = createFillExpression(hexcases[key][i], colorScale)
+    let column = key === 'casecum' ? 'cumulative' : 'weekly'
+    hexLayers.forEach((h,i) => {
+        hexfill[key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
 
-function createFillExpression(data, colorScale) {
+function createFillExpression(data, colorScale, column) {
     let expression = ['match', ['get', 'index']];
-    data.forEach((n, idx) => expression.push(idx, colorScale(n)));
+    data.forEach((d, idx) => expression.push(idx, colorScale(d[0][column])));
     expression.push(colorScale(0)) // unknown case
     return expression
 }
 
 function getColorScale(key = metric) {
     return key === 'casecum' ? colorCaseCum : colorCaseWeek
+}
+
+function createPopup(e) {
+    popupIdx = e.features[0].properties.index;
+    const h = getHexLayer()
+    const casecum = getMetricValue(h,popupIdx,'cumulative')
+    const caseweek = getMetricValue(h,popupIdx,'weekly')
+    const html = createTablePopup([casecum, caseweek])
+    popup = new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(html)
+        .addTo(map);
+}
+
+function createTablePopup(data) {
+    let day = getDateFromSlider()
+    return `<table>
+    <tr><th id="popup-date">${d3.timeFormat('%b %d')(day)}</th><th>Cases</th></tr>
+    <tr><td>Cumulative</td><td id="popup-cum" align="right">${data[0]}</td></tr>
+    <tr><td>Previous Week</td><td id="popup-week" align="right">${data[1]}</td></tr>
+    </table>`
+}
+
+function updatePopup() {
+    if (typeof popup === 'undefined' || !popup.isOpen()) return
+    let day = getDateFromSlider()
+    d3.select('#popup-date').text(d3.timeFormat('%b %d')(day))
+    const h = getHexLayer()
+    const casecum = getMetricValue(h,popupIdx,'cumulative')
+    const caseweek = getMetricValue(h,popupIdx,'weekly')
+    d3.select('#popup-cum').text(casecum)
+    d3.select('#popup-week').text(caseweek)
+}
+
+function getMetricValue(h,idx,column) {
+    let day = getDateFromSlider()
+    let value = hexdata[h].get(+day).get(idx)
+    return value === undefined ? 0
+        : value[0][column] <= 5 ? '≤5'
+        : numFmt(value[0][column])
 }
 
 // Data Wrangling Related Functions
@@ -196,15 +206,11 @@ function type(d) {
     return d
 }
 
-function groupbyHex(data, key) {
-    let column = key === 'casecum' ? 'cumulative' : 'weekly'
-    return new Map(data.map(d => [d.index, d[column]]))
+function filterByDate(data, date) {
+    return data.filter(d => +d.date === +date)
 }
 
-function dateSliderFilter(data, endDate) {
-    return data.filter(d => d.date <= endDate)
-}
-
+// Animation Functions
 function animateMap() {
     let timer;
     d3.select('#play').on('click', function () {
