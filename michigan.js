@@ -125,22 +125,14 @@ function updateHexFill(layerId, scale) {
     map.setPaintProperty(layerId, 'fill-color', scale)
 }
 
-function toggleMapLayer(layerId = 'county-border') {
-    const visibility = map.getLayoutProperty(layerId, 'visibility')
-    let value = visibility === 'visible' ? 'none' : 'visible'
-    map.setLayoutProperty(layerId, 'visibility', value)
-    let label = visibility === 'visible' ? 'Show Counties' : 'Hide Counties'
-    d3.select('#county-borders').text(label)
-}
-
 function getHexLayer() {
     return map.getZoom() < zoomThreshold ? 'hex20' : 'hex10'
 }
 
 function updateFillExpression(key) {
-    let day = getDateFromSlider()
-    let colorScale = getColorScale(key)
-    let column = key === 'casecum' ? 'cumulative' : 'weekly'
+    const day = getDateFromSlider()
+    const colorScale = getColorScale(key)
+    const column = key === 'casecum' ? 'cumulative' : 'weekly'
     hexLayers.forEach((h,i) => {
         hexfill[key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
@@ -170,7 +162,7 @@ function createPopup(e) {
 }
 
 function createTablePopup(data) {
-    let day = getDateFromSlider()
+    const day = getDateFromSlider()
     return `<table>
     <tr><th id="popup-date">${d3.timeFormat('%b %d')(day)}</th><th>Cases</th></tr>
     <tr><td>Cumulative</td><td id="popup-cum" align="right">${data[0]}</td></tr>
@@ -180,7 +172,7 @@ function createTablePopup(data) {
 
 function updatePopup() {
     if (typeof popup === 'undefined' || !popup.isOpen()) return
-    let day = getDateFromSlider()
+    const day = getDateFromSlider()
     const h = getHexLayer()
     const casecum = getMetricValue(h, hexIdx, 'cumulative')
     const caseweek = getMetricValue(h, hexIdx, 'weekly')
@@ -190,8 +182,8 @@ function updatePopup() {
 }
 
 function getMetricValue(h,idx,column) {
-    let day = getDateFromSlider()
-    let value = hexdata[h].get(+day).get(idx)
+    const day = getDateFromSlider()
+    const value = hexdata[h].get(+day).get(idx)
     return value === undefined ? 0
         : value[0][column] <= 5 ? '≤5'
         : numFmt(value[0][column])
@@ -215,18 +207,20 @@ function animateMap() {
     let timer;
     d3.select('#play').on('click', function () {
         let k = parseInt(d3.select('#slider').property('value'))
+        let kmax = parseInt(d3.select('#slider').property('max'))
         if (!playing) {
             timer = setInterval(function () {
-                k = dateSlider(k) > maxDate ? 0 : k + 1
+                k = k > kmax ? 0 : k+1
+                if (k > kmax) return // temp fix
                 d3.select('#slider').property('value', k)
-                updateMap(k)
+                updateMapInfo(k)
                 updateIncidenceCircle(k)
             }, delay);
             d3.select(this).html('Stop');
             playing = true;
         } else {
             clearInterval(timer);
-            d3.select(this).html('Play');
+            d3.select(this).html('Play cases over time');
             playing = false;
         }
     });

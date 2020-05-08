@@ -21,7 +21,7 @@ function makeIncidenceChart() {
     let svg = d3.select("#incidence").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .append("g")
+      .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
     // Add the valueline path.
@@ -75,7 +75,7 @@ function makeIncidenceChart() {
 }
 
 function updateIncidenceCircle(k, anim = true) {
-    let circle = d3.select('#current-circle').datum(incidenceData[getSliderValue()])
+    let circle = d3.select('#current-circle').datum(incidenceData[k])
     if (anim && k > 0) {
         circle.transition().duration(delay)
             .attr('cx', d => xInc(d.date))
