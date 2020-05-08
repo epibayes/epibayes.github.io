@@ -22,7 +22,6 @@ const N = 7
 const zoomThreshold = 8.5
 let minDate, maxDate;
 let playing = false;
-let fwd = true;
 let incidenceData;
 let delay = 100;
 let alpha = 0.65;

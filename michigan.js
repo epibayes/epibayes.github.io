@@ -217,11 +217,7 @@ function animateMap() {
         let k = parseInt(d3.select('#slider').property('value'))
         if (!playing) {
             timer = setInterval(function () {
-                if (fwd) {
-                    dateSlider(k) >= maxDate ? fwd = false : k += 1
-                } else {
-                    dateSlider(k) <= minDate ? fwd = true : k -= 1
-                }
+                k = dateSlider(k) > maxDate ? 0 : k + 1
                 d3.select('#slider').property('value', k)
                 updateMap(k)
                 updateIncidenceCircle(k)
@@ -232,7 +228,6 @@ function animateMap() {
             clearInterval(timer);
             d3.select(this).html('Play');
             playing = false;
-            fwd = true;
         }
     });
 }
