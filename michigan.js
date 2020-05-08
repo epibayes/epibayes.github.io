@@ -40,7 +40,7 @@ function initMap() {
     map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v10',
-        center: [-86.04, 44.66],
+        center: [-86.04, 44.65],
         zoom: 5.48,
         maxBounds: [[-100, 36], [-75, 52]],
         attributionControl: false,
@@ -158,10 +158,10 @@ function getColorScale(key = metric) {
 }
 
 function createPopup(e) {
-    popupIdx = e.features[0].properties.index;
+    hexIdx = e.features[0].properties.index;
     const h = getHexLayer()
-    const casecum = getMetricValue(h,popupIdx,'cumulative')
-    const caseweek = getMetricValue(h,popupIdx,'weekly')
+    const casecum = getMetricValue(h, hexIdx, 'cumulative')
+    const caseweek = getMetricValue(h, hexIdx, 'weekly')
     const html = createTablePopup([casecum, caseweek])
     popup = new mapboxgl.Popup()
         .setLngLat(e.lngLat)
@@ -181,10 +181,10 @@ function createTablePopup(data) {
 function updatePopup() {
     if (typeof popup === 'undefined' || !popup.isOpen()) return
     let day = getDateFromSlider()
-    d3.select('#popup-date').text(d3.timeFormat('%b %d')(day))
     const h = getHexLayer()
-    const casecum = getMetricValue(h,popupIdx,'cumulative')
-    const caseweek = getMetricValue(h,popupIdx,'weekly')
+    const casecum = getMetricValue(h, hexIdx, 'cumulative')
+    const caseweek = getMetricValue(h, hexIdx, 'weekly')
+    d3.select('#popup-date').text(d3.timeFormat('%b %d')(day))
     d3.select('#popup-cum').text(casecum)
     d3.select('#popup-week').text(caseweek)
 }

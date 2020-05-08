@@ -31,7 +31,7 @@ function makeIncidenceChart() {
         .attr("d", valueline);
 
     svg.append('circle')
-        .data(incidenceData.filter(d => d.idx == d3.select('#slider').property('value')))
+        .data(Array(incidenceData[getSliderValue()]))
         .attr('id', 'current-circle')
         .attr('cx', d => xInc(d.date))
         .attr('cy', d => yInc(d.value))
@@ -71,12 +71,11 @@ function makeIncidenceChart() {
         .attr('font-size', '0.7em')
         .text('cumulative cases')
     
-    let ticks = d3.selectAll('.y-axis .tick')
-    ticks.each((d,i) => { if (i === ticks.size()-1) updateYAxisLabel(d) })
+    setYAxisLabel()
 }
 
 function updateIncidenceCircle(k, anim = true) {
-    let circle = d3.select('#current-circle').data(incidenceData.filter(d => d.idx == k))
+    let circle = d3.select('#current-circle').datum(incidenceData[getSliderValue()])
     if (anim && k > 0) {
         circle.transition().duration(delay)
             .attr('cx', d => xInc(d.date))
@@ -96,16 +95,20 @@ function updateIncidenceChart(metric) {
     }
     yInc.domain([0, d3.max(incidenceData, d => d.value)]).nice()
     d3.select('.y-axis').call(yAxis).call(formatAxis)
-    let ticks = d3.selectAll('.y-axis .tick')
-    ticks.each((d,i) => { if (i === ticks.size()-1) updateYAxisLabel(d) })
+    setYAxisLabel()
     d3.select('.daily-incidence').transition().duration(T)
         .attr('d', valueline)
     d3.select('#current-circle').transition().duration(T)
         .attr('cy', d => yInc(d.value))
 }
 
+function setYAxisLabel() {
+    let ticks = d3.selectAll('.y-axis .tick')
+    ticks.each((d,i) => { if (i === ticks.size()-1) updateYAxisLabel(d) })    
+}
+
 function updateYAxisLabel(d) {
     d3.select('#yaxislabel')
         .attr('y', yInc(d)) 
-        .text(metric === 'caseweek' ? 'daily cases' : 'cumulative cases')    
+        .text(metric === 'casecum' ? 'cumulative cases' : 'daily cases')    
 }
