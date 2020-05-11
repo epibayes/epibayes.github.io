@@ -1,4 +1,4 @@
-async function initDashboard(filename) {
+async function initDashboard(embedMap=false) {
     const data20 = await d3.csv('weeklycum_cases_20km.csv', type)
     const data10 = await d3.csv('weeklycum_cases_10km.csv', type)    
     const dateExtent = d3.extent(data20, d => d.date)
@@ -25,15 +25,15 @@ async function initDashboard(filename) {
 
     initSlider()
     let metrics = ['caseweek', 'casecum']
-    metrics.forEach(key => updateFillExpression(key))
+    metrics.forEach(key => updateFillExpression(key, maxDate))
 
     setDateRange(minDate, maxDate)
-    updateTotal(metric)
+    if (!embedMap) updateTotal(metric)
     initMap()
-    makeIncidenceChart()
+    if (!embedMap) makeIncidenceChart()
 }
 
-initDashboard()
+//initDashboard(embedMap=true)
 
 // Mapbox Related Functions
 function initMap() {
@@ -130,8 +130,7 @@ function getHexLayer() {
     return map.getZoom() < zoomThreshold ? 'hex20' : 'hex10'
 }
 
-function updateFillExpression(key) {
-    const day = getDateFromSlider()
+function updateFillExpression(key, day=getDateFromSlider()) {
     const colorScale = getColorScale(key)
     const column = key === 'casecum' ? 'cumulative' : 'weekly'
     hexLayers.forEach((h,i) => {
@@ -214,15 +213,15 @@ function insertDates(maxDate) {
 function animateMap() {
     let timer;
     d3.select('#play').on('click', function () {
-        let k = parseInt(d3.select('#slider').property('value'))
-        let kmax = parseInt(d3.select('#slider').property('max'))
+        sliderValue = parseInt(d3.select('#slider').property('value'))
+        let sliderMax = parseInt(d3.select('#slider').property('max'))
         if (!playing) {
             timer = setInterval(function () {
-                k = k > kmax ? 0 : k+1
-                if (k > kmax) return // temp fix
-                d3.select('#slider').property('value', k)
-                updateMapInfo(k)
-                updateIncidenceCircle(k)
+                sliderValue = sliderValue > sliderMax ? 0 : sliderValue+1
+                if (sliderValue > sliderMax) return // temp fix
+                d3.select('#slider').property('value', sliderValue)
+                updateMapInfo(sliderValue)
+                updateIncidenceCircle(sliderValue)
             }, delay);
             d3.select(this).html('Stop');
             playing = true;

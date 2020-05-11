@@ -25,6 +25,7 @@ let playing = false;
 let incidenceData;
 let delay = 100;
 let alpha = 0.65;
+let sliderValue;
 
 let metric = 'casecum'
 let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)

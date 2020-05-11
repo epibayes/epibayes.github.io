@@ -4,11 +4,13 @@ function initSlider() {
     dateSlider = d3.scaleLinear()
         .domain([0, days])
         .range([minDate, maxDate])
-
+    sliderValue = dateSlider.invert(maxDate)
+        
     d3.select('#slider')
         .attr('max', days)
         .attr('value', days)
         .on('input', function () {
+            sliderValue = this.value
             updateMapInfo(this.value)
             updateIncidenceCircle(this.value, anim = false)
         })
@@ -26,13 +28,13 @@ function setDateRange(startDate, endDate) {
 }
 
 function updateTotal(metric) {
-    const sliderValue = getSliderValue()
+//    const sliderValue = getSliderValue()
     const total = metric === 'casecum' ? incidenceData[sliderValue]['cumulative'] : incidenceData[sliderValue]['weekly']
     d3.select('#total').text(numFmt(total))
 }
 
 function getDateFromSlider() {
-    const sliderValue = getSliderValue()
+//    const sliderValue = getSliderValue()
     return d3.timeDay(dateSlider(sliderValue))
 }
 
