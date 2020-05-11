@@ -18,7 +18,7 @@ function initSlider() {
 
 function updateDateRange(metric) {
     const endDate = getDateFromSlider()
-    startDate = metric === 'casecum' ? minDate : d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))])
+    startDate = metric === 'cumulative' ? minDate : d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))])
     setDateRange(startDate, endDate)
 }
 
@@ -29,7 +29,7 @@ function setDateRange(startDate, endDate) {
 
 function updateTotal(metric) {
 //    const sliderValue = getSliderValue()
-    const total = metric === 'casecum' ? incidenceData[sliderValue]['cumulative'] : incidenceData[sliderValue]['weekly']
+    const total = incidenceData[sliderValue][metric]
     d3.select('#total').text(numFmt(total))
 }
 

@@ -75,7 +75,7 @@ function updateLegend(metric) {
       .join("stop")
         .attr("offset", d => d.offset)
         .attr("stop-color", d => d.color);
-    legendAxis.call(metric === 'casecum' ? axisRightCaseCum : axisRightCaseWeek)
+    legendAxis.call(metric === 'cumulative' ? axisRightCaseCum : axisRightCaseWeek)
     legend.select('path.domain').remove()
 }
 

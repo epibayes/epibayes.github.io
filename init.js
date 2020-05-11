@@ -27,7 +27,7 @@ let delay = 100;
 let alpha = 0.65;
 let sliderValue;
 
-let metric = 'casecum'
+let metric = 'cumulative'
 let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)
     .domain([1, 100000])
     .clamp(true)

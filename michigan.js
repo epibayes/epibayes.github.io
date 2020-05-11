@@ -15,8 +15,8 @@ async function initDashboard(embedMap=false) {
     })
 
     hexfill = { // Object to contain the fill expressions for hex grid
-        'caseweek': Array(2),
-        'casecum': Array(2),
+        'weekly': Array(2),
+        'cumulative': Array(2),
     }
     hexdata = {
         'hex20': d3.group(data20, d => +d.date, d => d.index),
@@ -24,7 +24,7 @@ async function initDashboard(embedMap=false) {
     }
 
     initSlider()
-    let metrics = ['caseweek', 'casecum']
+    let metrics = ['weekly', 'cumulative']
     metrics.forEach(key => updateFillExpression(key, maxDate))
 
     setDateRange(minDate, maxDate)
@@ -132,7 +132,7 @@ function getHexLayer() {
 
 function updateFillExpression(key, day=getDateFromSlider()) {
     const colorScale = getColorScale(key)
-    const column = key === 'casecum' ? 'cumulative' : 'weekly'
+    const column = key
     hexLayers.forEach((h,i) => {
         hexfill[key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
@@ -146,7 +146,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale(key = metric) {
-    return key === 'casecum' ? colorCaseCum : colorCaseWeek
+    return key === 'cumulative' ? colorCaseCum : colorCaseWeek
 }
 
 function createPopup(e) {
