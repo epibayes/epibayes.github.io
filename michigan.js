@@ -4,6 +4,7 @@ async function initDashboard(filename) {
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
+    insertDates(maxDate)
 
     incidenceData = await d3.csv('dailyweeklycum_cases_statewide.csv', d3.autoType)
     incidenceData.map((d,i) => {
@@ -200,6 +201,20 @@ function type(d) {
 
 function filterByDate(data, date) {
     return data.filter(d => +d.date === +date)
+}
+
+function insertDates(maxDate) {
+    introText = d3.select('#intro-text').text()
+    d3.select('#intro-text').text(introText.replace('lastDate',`${sliderFmt(maxDate)}${dateSuffix(maxDate)}`))
+    byline = d3.select('#byline').text()
+    d3.select('#byline').text(byline.replace('updateDate',`${sliderFmt(d3.timeDay.offset(maxDate))}${dateSuffix(maxDate)}`))
+}
+
+function dateSuffix(d) {
+    return d.getDate() == 1 ? 'st'
+        : d.getDate() == 2 ? 'nd'
+        : d.getDate() == 3 ? 'rd'
+        : 'th'   
 }
 
 // Animation Functions
