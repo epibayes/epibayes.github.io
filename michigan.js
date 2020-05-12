@@ -205,16 +205,9 @@ function filterByDate(data, date) {
 
 function insertDates(maxDate) {
     introText = d3.select('#intro-text').text()
-    d3.select('#intro-text').text(introText.replace('lastDate',`${sliderFmt(maxDate)}${dateSuffix(maxDate)}`))
+    d3.select('#intro-text').text(`${introText} ${sliderFmt(maxDate)}.`)
     byline = d3.select('#byline').text()
-    d3.select('#byline').text(byline.replace('updateDate',`${sliderFmt(d3.timeDay.offset(maxDate))}${dateSuffix(maxDate)}`))
-}
-
-function dateSuffix(d) {
-    return d.getDate() == 1 ? 'st'
-        : d.getDate() == 2 ? 'nd'
-        : d.getDate() == 3 ? 'rd'
-        : 'th'   
+    d3.select('#byline').text(`${byline} ${d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate))}`)
 }
 
 // Animation Functions

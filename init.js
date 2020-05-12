@@ -16,7 +16,7 @@ const hex10TilesetSrc = {
 }
 
 const hexLayers = ['hex20','hex10']
-const sliderFmt = d3.timeFormat('%B %-d')
+const sliderFmt = d3.timeFormat('%B %e')
 const numFmt = d3.format(',')
 const N = 7
 const zoomThreshold = 8.5
