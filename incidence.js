@@ -1,6 +1,6 @@
 function makeIncidenceChart() {
     // set the dimensions and margins of the graph
-    let margin = { top: 10, right: 20, bottom: 30, left: 20 },
+    let margin = { top: 20, right: 20, bottom: 30, left: 20 },
         width = 490 - margin.left - margin.right,
         height = 150 - margin.top - margin.bottom;
 
