@@ -35,7 +35,7 @@ function initToggle() {
     d3.select('#toggle-count-rate').on('click', function() { // updateToggle
         let active = d3.select(this).classed('active')
         metric = active ? metric.replace('rate','') : metric + 'rate'
-        d3.select(this).text(active ? 'Show Case Rate' : 'Show Case Count')
+        d3.select(this).text(active ? 'Show cases per 100,000 people' : 'Show case count')
         updateFillExpression(metric)
         updateHexLayers(metric)
         updateLegend(metric)

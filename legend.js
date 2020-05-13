@@ -19,7 +19,7 @@ let legendYAxisLog = d3.axisRight(legendScaleLog)
     .tickSize(0)
     .tickValues(tickValues[metric])
 let legendYAxis = d3.axisRight(legendScale)
-    .ticks(3, ',')
+    .ticks(3, 'd')
     .tickSize(0)
     .tickValues(tickValues[metric])
 
