@@ -9,7 +9,7 @@ function initSlider() {
     d3.select('#slider')
         .attr('max', days)
         .attr('value', days)
-        .on('input', function() {
+        .on('input', function() { // updateSlider
             sliderValue = this.value
             updateMapInfo(this.value)
             updateIncidenceCircle(this.value, anim = false)
@@ -18,7 +18,7 @@ function initSlider() {
 
 function initRadio() {
     // change choropleth fill based on radio button
-    d3.selectAll('.metric').on('change', function() {
+    d3.selectAll('.metric').on('change', function() { // updateRadio
         metric = this.value
         let active = d3.select('#toggle-count-rate').classed('active')
         metric = active ? metric + 'rate' : metric
@@ -32,7 +32,7 @@ function initRadio() {
 }
 
 function initToggle() {
-    d3.select('#toggle-count-rate').on('click', function() {
+    d3.select('#toggle-count-rate').on('click', function() { // updateToggle
         let active = d3.select(this).classed('active')
         metric = active ? metric.replace('rate','') : metric + 'rate'
         d3.select(this).text(active ? 'Show Case Rate' : 'Show Case Count')

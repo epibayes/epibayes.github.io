@@ -25,11 +25,9 @@ async function initDashboard(embedMap=false) {
         'hex10': d3.group(data10, d => +d.date, d => d.index),
     }
 
-    if (!embedMap) {
-        initSlider()
-        initRadio()
-        initToggle()
-    }
+    initSlider()
+    initRadio()
+    initToggle()
     let metrics = ['weekly','cumulative','weeklyrate','cumulativerate']
     metrics.forEach(key => updateFillExpression(key, maxDate))
 
