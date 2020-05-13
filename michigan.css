@@ -38,7 +38,6 @@
     width: 150px;
 }
 
-  
 .top-buffer {
     margin-top: 20px;
     margin-left: 18px;
@@ -55,6 +54,17 @@
 
 #startdate {
     margin-left: 20px;
+}
+
+#toggle-count-rate {
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+#popup-header {
+    width: 60px;
+    text-align: right;
+    line-height: 0.9em;
 }
 
 /* .radios, .checkboxes {

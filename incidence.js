@@ -88,10 +88,11 @@ function updateIncidenceCircle(k, anim = true) {
 
 function updateIncidenceChart(metric) {
     let T = 750
-    if (metric === 'caseweek') {
-        incidenceData.map(d => { d.value = d.daily; return d })
-    } else {
+    const key = metric.replace('rate','')
+    if (key === 'cumulative') {
         incidenceData.map(d => { d.value = d.cumulative; return d })
+    } else {
+        incidenceData.map(d => { d.value = d.daily; return d })
     }
     yInc.domain([0, d3.max(incidenceData, d => d.value)]).nice()
     d3.select('.y-axis').call(yAxis).call(formatAxis)
@@ -110,5 +111,5 @@ function setYAxisLabel() {
 function updateYAxisLabel(d) {
     d3.select('#yaxislabel')
         .attr('y', yInc(d)) 
-        .text(metric === 'casecum' ? 'cumulative cases' : 'daily cases')    
+        .text(metric === 'cumulative' ? 'cumulative cases' : 'daily cases')    
 }

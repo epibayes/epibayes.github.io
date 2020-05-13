@@ -1,20 +1,27 @@
 // D3 Legend Variables
 const w = 20
 const h = 120
-let axisScaleCaseCum = d3.scaleLog()
-    .domain(colorCaseCum.domain())
+let colorScale = getColorScale()
+let tickValues = {
+    'cumulative': [10, 100, 1000, 10000],
+    'weekly': [10, 100],
+    'cumulativerate': [200, 400, 600, 800],
+    'weeklyrate': [100, 200, 300],
+}
+let legendScaleLog = d3.scaleLog()
+    .domain(colorScale.domain())
     .range([h, 0])
-let axisRightCaseCum = d3.axisRight(axisScaleCaseCum)
+let legendScale = d3.scaleLinear()
+    .domain(colorScale.domain())
+    .range([h, 0])
+let legendYAxisLog = d3.axisRight(legendScaleLog)
     .ticks(3, ',')
     .tickSize(0)
-    .tickValues([10, 100, 1000, 10000])
-let axisScaleCaseWeek = d3.scaleLog()
-    .domain(colorCaseWeek.domain())
-    .range([h, 0])
-let axisRightCaseWeek = d3.axisRight(axisScaleCaseWeek)
-    .ticks(3, ',')
+    .tickValues(tickValues[metric])
+let legendYAxis = d3.axisRight(legendScale)
+    .ticks(3, 'd')
     .tickSize(0)
-    .tickValues([10, 100])
+    .tickValues(tickValues[metric])
 
 // Legend Related Functions
 function addLegend() {
@@ -23,7 +30,6 @@ function addLegend() {
     let svg = d3.select(container).append("svg")
         .attr('id', 'mapbox-legend')
 
-    // d3 legend
     const xpos = 5
     const ypos = 345
 
@@ -55,7 +61,7 @@ function addLegend() {
     legendAxis = legend.append('g')
         .attr("class", `legend-axis`)
         .attr("transform", `translate(${w + 2},0)`)
-        .call(axisRightCaseCum)
+        .call(legendYAxisLog)
 
     legend.select('path.domain').remove()
 }
@@ -75,7 +81,15 @@ function updateLegend(metric) {
       .join("stop")
         .attr("offset", d => d.offset)
         .attr("stop-color", d => d.color);
-    legendAxis.call(metric === 'casecum' ? axisRightCaseCum : axisRightCaseWeek)
+    if (metric.includes('rate')) {
+        legendScale.domain(colorScale.domain())
+        legendYAxis.tickValues(tickValues[metric])
+        legendAxis.call(legendYAxis)
+    } else {
+        legendScaleLog.domain(colorScale.domain())
+        legendYAxisLog.tickValues(tickValues[metric])
+        legendAxis.call(legendYAxisLog)
+    }
     legend.select('path.domain').remove()
 }
 

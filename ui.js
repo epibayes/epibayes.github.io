@@ -4,19 +4,45 @@ function initSlider() {
     dateSlider = d3.scaleLinear()
         .domain([0, days])
         .range([minDate, maxDate])
-
+    sliderValue = dateSlider.invert(maxDate)
+        
     d3.select('#slider')
         .attr('max', days)
         .attr('value', days)
-        .on('input', function () {
-            updateMapInfo(this.value)
+        .on('input', function() { // updateSlider
+            sliderValue = this.value
+            updateMapInfo()
             updateIncidenceCircle(this.value, anim = false)
         })
 }
 
+function initRadio() {
+    // change choropleth fill based on radio button
+    d3.selectAll('.metric').on('change', function() { // updateRadio
+        metric = this.value
+        let active = d3.select('#toggle-count-rate').classed('active')
+        metric = active ? metric + 'rate' : metric
+        updateHexGrid()
+        updateLegend(metric)
+        updateTotalInfo()
+        updateIncidenceChart(metric)
+    })
+}
+
+function initToggle() {
+    d3.select('#toggle-count-rate').on('click', function() { // updateToggle
+        let active = d3.select(this).classed('active')
+        metric = active ? metric.replace('rate','') : metric + 'rate'
+        d3.select(this).text(active ? 'Show cases per 100,000 people' : 'Show case count')
+        updateHexGrid()
+        updateLegend(metric)
+    })
+}
+
 function updateDateRange(metric) {
     const endDate = getDateFromSlider()
-    startDate = metric === 'casecum' ? minDate : d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))])
+    const key = metric.replace('rate','')
+    startDate = key === 'cumulative' ? minDate : d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))])
     setDateRange(startDate, endDate)
 }
 
@@ -26,13 +52,12 @@ function setDateRange(startDate, endDate) {
 }
 
 function updateTotal(metric) {
-    const sliderValue = getSliderValue()
-    const total = metric === 'casecum' ? incidenceData[sliderValue]['cumulative'] : incidenceData[sliderValue]['weekly']
+    const key = metric.replace('rate','')
+    const total = incidenceData[sliderValue][key]
     d3.select('#total').text(numFmt(total))
 }
 
 function getDateFromSlider() {
-    const sliderValue = getSliderValue()
     return d3.timeDay(dateSlider(sliderValue))
 }
 
@@ -40,10 +65,18 @@ function getSliderValue() {
     return d3.select('#slider').property('value')
 }
 
-function updateMapInfo(sliderValue) {
-    updateFillExpression(metric)
-    updateHexLayers(metric)
-    updateDateRange(metric)
-    updateTotal(metric)
+function updateMapInfo() {
+    updateHexGrid()
     updatePopup()
+    updateTotalInfo()
+}
+
+function updateHexGrid() {
+    updateFillExpression(metric)
+    updateHexLayers(metric)    
+}
+
+function updateTotalInfo() {
+    updateTotal(metric)
+    updateDateRange(metric)    
 }
