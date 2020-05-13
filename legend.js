@@ -1,27 +1,12 @@
 // D3 Legend Variables
 const w = 20
 const h = 120
-let colorScale = getColorScale()
 let tickValues = {
     'cumulative': [10, 100, 1000, 10000],
     'weekly': [10, 100],
     'cumulativerate': [200, 400, 600, 800],
     'weeklyrate': [100, 200, 300],
 }
-let legendScaleLog = d3.scaleLog()
-    .domain(colorScale.domain())
-    .range([h, 0])
-let legendScale = d3.scaleLinear()
-    .domain(colorScale.domain())
-    .range([h, 0])
-let legendYAxisLog = d3.axisRight(legendScaleLog)
-    .ticks(3, ',')
-    .tickSize(0)
-    .tickValues(tickValues[metric])
-let legendYAxis = d3.axisRight(legendScale)
-    .ticks(3, 'd')
-    .tickSize(0)
-    .tickValues(tickValues[metric])
 
 // Legend Related Functions
 function addLegend() {
@@ -58,10 +43,26 @@ function addLegend() {
         .attr('height', h)
         .style('fill', 'url(#linear-gradient)')
 
+    legendScaleLog = d3.scaleLog()
+        .domain(colorScale.domain())
+        .range([h, 0])
+    legendScale = d3.scaleLinear()
+        .domain(colorScale.domain())
+        .range([h, 0])
+    legendYAxisLog = d3.axisRight(legendScaleLog)
+        .ticks(3, ',')
+        .tickSize(0)
+        .tickValues(tickValues[metric])
+    legendYAxis = d3.axisRight(legendScale)
+        .ticks(3, 'd')
+        .tickSize(0)
+        .tickValues(tickValues[metric])
+    let yAxis = metric.includes('rate') ? legendYAxis : legendYAxisLog
+
     legendAxis = legend.append('g')
         .attr("class", `legend-axis`)
         .attr("transform", `translate(${w + 2},0)`)
-        .call(legendYAxisLog)
+        .call(yAxis)
 
     legend.select('path.domain').remove()
 }
@@ -75,6 +76,7 @@ function convert2rgba(rgb) {
 }
 
 function updateLegend(metric) {
+    let yAxis;
     let colorScale = getColorScale()
     linearGradient.selectAll("stop")
       .data(getLinearGradientData(colorScale))
@@ -83,16 +85,16 @@ function updateLegend(metric) {
         .attr("stop-color", d => d.color);
     if (metric.includes('rate')) {
         legendScale.domain(colorScale.domain())
-        legendYAxis.tickValues(tickValues[metric])
-        legendAxis.call(legendYAxis)
+        yAxis = legendYAxis
     } else {
         legendScaleLog.domain(colorScale.domain())
-        legendYAxisLog.tickValues(tickValues[metric])
-        legendAxis.call(legendYAxisLog)
+        yAxis = legendYAxisLog
     }
+    yAxis.tickValues(tickValues[metric])
+    legendAxis.call(yAxis)
     legend.select('path.domain').remove()
 }
 
 function LegendText(d, i, arr) {
-    return i < arr.length - 1 ? `${numFmt(d)}-${numFmt(arr[i + 1].__data__)}` : `${numFmt(d)}+`
+    return i < arr.length - 1 ? `${numFmt(d)}-${numFmt(arr[i+1].__data__)}` : `${numFmt(d)}+`
 }
