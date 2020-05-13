@@ -57,6 +57,17 @@
     margin-left: 20px;
 }
 
+#toggle-count-rate {
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+#popup-rate {
+    width: 60px;
+    text-align: right;
+    line-height: 0.9em;
+}
+
 /* .radios, .checkboxes {
     border: solid green 1px;
 } */

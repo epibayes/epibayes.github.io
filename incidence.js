@@ -88,7 +88,8 @@ function updateIncidenceCircle(k, anim = true) {
 
 function updateIncidenceChart(metric) {
     let T = 750
-    if (metric === 'cumulative') {
+    const key = metric.replace('rate','')
+    if (key === 'cumulative') {
         incidenceData.map(d => { d.value = d.cumulative; return d })
     } else {
         incidenceData.map(d => { d.value = d.daily; return d })

@@ -1,20 +1,20 @@
 // D3 Legend Variables
 const w = 20
 const h = 120
-let axisScaleCaseCum = d3.scaleLog()
-    .domain(colorCaseCum.domain())
+let colorScale = getColorScale()
+let tickValues = {
+    'cumulative': [10, 100, 1000, 10000],
+    'weekly': [10, 100],
+    'cumulativerate': [10, 100, 1000],
+    'weeklyrate': [10, 100, 1000],
+}
+let legendScale = d3.scaleLog()
+    .domain(colorScale.domain())
     .range([h, 0])
-let axisRightCaseCum = d3.axisRight(axisScaleCaseCum)
+let legendYAxis = d3.axisRight(legendScale)
     .ticks(3, ',')
     .tickSize(0)
-    .tickValues([10, 100, 1000, 10000])
-let axisScaleCaseWeek = d3.scaleLog()
-    .domain(colorCaseWeek.domain())
-    .range([h, 0])
-let axisRightCaseWeek = d3.axisRight(axisScaleCaseWeek)
-    .ticks(3, ',')
-    .tickSize(0)
-    .tickValues([10, 100])
+    .tickValues(tickValues[metric])
 
 // Legend Related Functions
 function addLegend() {
@@ -23,7 +23,6 @@ function addLegend() {
     let svg = d3.select(container).append("svg")
         .attr('id', 'mapbox-legend')
 
-    // d3 legend
     const xpos = 5
     const ypos = 345
 
@@ -55,7 +54,7 @@ function addLegend() {
     legendAxis = legend.append('g')
         .attr("class", `legend-axis`)
         .attr("transform", `translate(${w + 2},0)`)
-        .call(axisRightCaseCum)
+        .call(legendYAxis)
 
     legend.select('path.domain').remove()
 }
@@ -75,7 +74,9 @@ function updateLegend(metric) {
       .join("stop")
         .attr("offset", d => d.offset)
         .attr("stop-color", d => d.color);
-    legendAxis.call(metric === 'cumulative' ? axisRightCaseCum : axisRightCaseWeek)
+    legendScale.domain(colorScale.domain())
+    legendYAxis.tickValues(tickValues[metric])
+    legendAxis.call(legendYAxis)
     legend.select('path.domain').remove()
 }
 

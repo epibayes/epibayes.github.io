@@ -8,7 +8,7 @@ async function initDashboard(embedMap=false) {
 
     incidenceData = await d3.csv('dailyweeklycum_cases_statewide.csv', d3.autoType)
     incidenceData.map((d,i) => {
-        d.date = d3.timeParse('%y%m%d')(d.date)
+        d.date = dateParser(d.date)
         d.value = d.cumulative
         d.idx = i
         return d
@@ -17,14 +17,20 @@ async function initDashboard(embedMap=false) {
     hexfill = { // Object to contain the fill expressions for hex grid
         'weekly': Array(2),
         'cumulative': Array(2),
+        'weeklyrate': Array(2),
+        'cumulativerate': Array(2),
     }
     hexdata = {
         'hex20': d3.group(data20, d => +d.date, d => d.index),
         'hex10': d3.group(data10, d => +d.date, d => d.index),
     }
 
-    initSlider()
-    let metrics = ['weekly', 'cumulative']
+    if (!embedMap) {
+        initSlider()
+        initRadio()
+        initToggle()
+    }
+    let metrics = ['weekly','cumulative','weeklyrate','cumulativerate']
     metrics.forEach(key => updateFillExpression(key, maxDate))
 
     setDateRange(minDate, maxDate)
@@ -32,8 +38,6 @@ async function initDashboard(embedMap=false) {
     initMap()
     if (!embedMap) makeIncidenceChart()
 }
-
-//initDashboard(embedMap=true)
 
 // Mapbox Related Functions
 function initMap() {
@@ -102,17 +106,6 @@ function initMap() {
             map.on('mouseenter', layerId, () => map.getCanvas().style.cursor = 'pointer');
             map.on('mouseleave', layerId, () => map.getCanvas().style.cursor = '');
         })
-        // change choropleth fill based on radio button
-        d3.selectAll('.metric').on('change', function () {
-            metric = this.value
-            updateFillExpression(metric)
-            updateHexLayers(metric)
-            updateDateRange(metric)
-            updateTotal(metric)
-            updateLegend(metric)
-            updateIncidenceChart(metric)
-        })
-
         addLegend()
         animateMap()
     });
@@ -145,8 +138,8 @@ function createFillExpression(data, colorScale, column) {
     return expression
 }
 
-function getColorScale(key = metric) {
-    return key === 'cumulative' ? colorCaseCum : colorCaseWeek
+function getColorScale() {
+    return colorScales[metric]
 }
 
 function createPopup(e) {
@@ -154,7 +147,9 @@ function createPopup(e) {
     const h = getHexLayer()
     const casecum = getMetricValue(h, hexIdx, 'cumulative')
     const caseweek = getMetricValue(h, hexIdx, 'weekly')
-    const html = createTablePopup([casecum, caseweek])
+    const casecumrate = getMetricValue(h, hexIdx, 'cumulativerate')
+    const caseweekrate = getMetricValue(h, hexIdx, 'weeklyrate')
+    const html = createTablePopup([casecum, casecumrate, caseweek, caseweekrate])
     popup = new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(html)
@@ -164,10 +159,23 @@ function createPopup(e) {
 function createTablePopup(data) {
     const day = getDateFromSlider()
     return `<table>
-    <tr><th id="popup-date">${d3.timeFormat('%b %d')(day)}</th><th>Cases</th></tr>
-    <tr><td>Cumulative</td><td id="popup-cum" align="right">${data[0]}</td></tr>
-    <tr><td>Previous Week</td><td id="popup-week" align="right">${data[1]}</td></tr>
-    </table>`
+    <thead>
+    <tr>
+        <th id="popup-date">${d3.timeFormat('%b %d')(day)}</th>
+        <th>Cases</th>
+        <th id="popup-rate">per 100,000 people</th>
+    </tr>
+    </thead>
+    <tr>
+        <td>Cumulative</td>
+        <td id="popup-cum" align="right">${data[0]}</td>
+        <td id="popup-cumrate" align="right">${data[1]}</td>
+    </tr>
+    <tr>
+        <td>Previous Week</td>
+        <td id="popup-week" align="right">${data[2]}</td>
+        <td id="popup-weekrate" align="right">${data[3]}</td>
+    </tr></table>`
 }
 
 function updatePopup() {
@@ -176,25 +184,31 @@ function updatePopup() {
     const h = getHexLayer()
     const casecum = getMetricValue(h, hexIdx, 'cumulative')
     const caseweek = getMetricValue(h, hexIdx, 'weekly')
+    const casecumrate = getMetricValue(h, hexIdx, 'cumulativerate')
+    const caseweekrate = getMetricValue(h, hexIdx, 'weeklyrate')
     d3.select('#popup-date').text(d3.timeFormat('%b %d')(day))
     d3.select('#popup-cum').text(casecum)
     d3.select('#popup-week').text(caseweek)
+    d3.select('#popup-cumrate').text(casecumrate)
+    d3.select('#popup-weekrate').text(caseweekrate)
 }
 
 function getMetricValue(h,idx,column) {
     const day = getDateFromSlider()
     const value = hexdata[h].get(+day).get(idx)
     return value === undefined ? 0
-        : value[0][column] <= 5 ? '≤5'
+        : ((!column.includes('rate')) && (value[0][column] > 0) && (value[0][column] <= 5)) ? '≤5'
         : numFmt(value[0][column])
 }
 
 // Data Wrangling Related Functions
 function type(d) {
     d.index = +d.index
-    d.date = d3.timeParse('%y%m%d')(d.date)
+    d.date = dateParser(d.date)
     d.weekly = +d.weekly || 0
     d.cumulative = +d.cumulative
+    d.weeklyrate = +d.weeklyrate || 0
+    d.cumulativerate = +d.cumulativerate
     return d
 }
 
