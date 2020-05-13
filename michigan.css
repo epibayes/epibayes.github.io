@@ -38,7 +38,6 @@
     width: 150px;
 }
 
-  
 .top-buffer {
     margin-top: 20px;
     margin-left: 18px;
@@ -62,7 +61,7 @@
     margin-left: 20px;
 }
 
-#popup-rate {
+#popup-header {
     width: 60px;
     text-align: right;
     line-height: 0.9em;

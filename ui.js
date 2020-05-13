@@ -11,7 +11,7 @@ function initSlider() {
         .attr('value', days)
         .on('input', function() { // updateSlider
             sliderValue = this.value
-            updateMapInfo(this.value)
+            updateMapInfo()
             updateIncidenceCircle(this.value, anim = false)
         })
 }
@@ -22,11 +22,9 @@ function initRadio() {
         metric = this.value
         let active = d3.select('#toggle-count-rate').classed('active')
         metric = active ? metric + 'rate' : metric
-        updateFillExpression(metric)
-        updateHexLayers(metric)
+        updateHexGrid()
         updateLegend(metric)
-        updateTotal(metric)
-        updateDateRange(metric)
+        updateTotalInfo()
         updateIncidenceChart(metric)
     })
 }
@@ -36,8 +34,7 @@ function initToggle() {
         let active = d3.select(this).classed('active')
         metric = active ? metric.replace('rate','') : metric + 'rate'
         d3.select(this).text(active ? 'Show cases per 100,000 people' : 'Show case count')
-        updateFillExpression(metric)
-        updateHexLayers(metric)
+        updateHexGrid()
         updateLegend(metric)
     })
 }
@@ -68,10 +65,18 @@ function getSliderValue() {
     return d3.select('#slider').property('value')
 }
 
-function updateMapInfo(sliderValue) {
-    updateFillExpression(metric)
-    updateHexLayers(metric)
+function updateMapInfo() {
+    updateHexGrid()
     updatePopup()
+    updateTotalInfo()
+}
+
+function updateHexGrid() {
+    updateFillExpression(metric)
+    updateHexLayers(metric)    
+}
+
+function updateTotalInfo() {
     updateTotal(metric)
-    updateDateRange(metric)
+    updateDateRange(metric)    
 }

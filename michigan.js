@@ -28,7 +28,6 @@ async function initDashboard(embedMap=false) {
     initSlider()
     initRadio()
     initToggle()
-    let metrics = ['weekly','cumulative','weeklyrate','cumulativerate']
     metrics.forEach(key => updateFillExpression(key, maxDate))
 
     setDateRange(minDate, maxDate)
@@ -142,61 +141,56 @@ function getColorScale() {
 
 function createPopup(e) {
     hexIdx = e.features[0].properties.index;
-    const h = getHexLayer()
-    const casecum = getMetricValue(h, hexIdx, 'cumulative')
-    const caseweek = getMetricValue(h, hexIdx, 'weekly')
-    const casecumrate = getMetricValue(h, hexIdx, 'cumulativerate')
-    const caseweekrate = getMetricValue(h, hexIdx, 'weeklyrate')
-    const html = createTablePopup([casecum, casecumrate, caseweek, caseweekrate])
+    const data = getMetricValues(hexIdx)
+    d3.select('.mapboxgl-popup').remove()
     popup = new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML(html)
-        .addTo(map);
-}
-
-function createTablePopup(data) {
-    const day = getDateFromSlider()
-    return `<table>
-    <thead>
-    <tr>
-        <th id="popup-date">${d3.timeFormat('%b %d')(day)}</th>
-        <th>Cases</th>
-        <th id="popup-rate">per 100,000 people</th>
-    </tr>
-    </thead>
-    <tr>
-        <td>Cumulative</td>
-        <td id="popup-cum" align="right">${data[0]}</td>
-        <td id="popup-cumrate" align="right">${data[1]}</td>
-    </tr>
-    <tr>
-        <td>Previous Week</td>
-        <td id="popup-week" align="right">${data[2]}</td>
-        <td id="popup-weekrate" align="right">${data[3]}</td>
-    </tr></table>`
+        .setHTML(createTableTemplate())
+        .addTo(map)
+    setPopupData(data)
 }
 
 function updatePopup() {
     if (typeof popup === 'undefined' || !popup.isOpen()) return
-    const day = getDateFromSlider()
-    const h = getHexLayer()
-    const casecum = getMetricValue(h, hexIdx, 'cumulative')
-    const caseweek = getMetricValue(h, hexIdx, 'weekly')
-    const casecumrate = getMetricValue(h, hexIdx, 'cumulativerate')
-    const caseweekrate = getMetricValue(h, hexIdx, 'weeklyrate')
-    d3.select('#popup-date').text(d3.timeFormat('%b %d')(day))
-    d3.select('#popup-cum').text(casecum)
-    d3.select('#popup-week').text(caseweek)
-    d3.select('#popup-cumrate').text(casecumrate)
-    d3.select('#popup-weekrate').text(caseweekrate)
+    const data = getMetricValues(hexIdx)
+    setTableData(data)
 }
 
-function getMetricValue(h,idx,column) {
+function setPopupData(data) {
+    d3.selectAll('.tabledata').data(data).text(d => d)
+}
+
+function getMetricValues(idx) {
     const day = getDateFromSlider()
-    const value = hexdata[h].get(+day).get(idx)
-    return value === undefined ? 0
-        : ((!column.includes('rate')) && (value[0][column] > 0) && (value[0][column] <= 5)) ? '≤5'
-        : numFmt(value[0][column])
+    const h = getHexLayer()
+    const array = hexdata[h].get(+day).get(idx)
+    let data = metrics.map((col,i) => array === undefined ? '0'
+        : ( (i%2 == 0) && (d3.range(1,6).includes(array[0][col])) ) ? '≤5'
+        : numFmt(array[0][col])
+    )
+    // assigns ≤ to rate values where appropriate
+    data.forEach((d,i) => { if ((d.includes('≤')) && (i%2 == 0)) data[i+1] = `≤${data[i+1]}` })
+    data.splice(0, 0, sliderFmt(day))
+    return data
+}
+
+function createTableTemplate(data) {
+    return `<table>
+    <tr>
+      <th class="tabledata"></th>
+      <th>Cases</th>
+      <th id="popup-header">per 100,000 people</th>
+    </tr>
+    <tr>
+      <td>Cumulative</td>
+      <td class="tabledata" align="right"></td>
+      <td class="tabledata" align="right"></td>
+    </tr>
+    <tr>
+      <td>Previous Week</td>
+      <td class="tabledata" align="right"></td>
+      <td class="tabledata" align="right"></td>
+    </tr></table>`
 }
 
 // Data Wrangling Related Functions
@@ -232,7 +226,7 @@ function animateMap() {
                 sliderValue = sliderValue > sliderMax ? 0 : sliderValue+1
                 if (sliderValue > sliderMax) return // temp fix
                 d3.select('#slider').property('value', sliderValue)
-                updateMapInfo(sliderValue)
+                updateMapInfo()
                 updateIncidenceCircle(sliderValue)
             }, delay);
             d3.select(this).html('Stop');

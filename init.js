@@ -25,6 +25,7 @@ let minDate, maxDate, incidenceData, sliderValue;
 let playing = false;
 let delay = 100;
 let alpha = 0.65;
+let metrics = ['cumulative','cumulativerate','weekly','weeklyrate']
 let metric = 'cumulative';
 
 let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)
