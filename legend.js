@@ -5,12 +5,19 @@ let colorScale = getColorScale()
 let tickValues = {
     'cumulative': [10, 100, 1000, 10000],
     'weekly': [10, 100],
-    'cumulativerate': [10, 100, 1000],
-    'weeklyrate': [10, 100, 1000],
+    'cumulativerate': [200, 400, 600, 800],
+    'weeklyrate': [100, 200, 300],
 }
-let legendScale = d3.scaleLog()
+let legendScaleLog = d3.scaleLog()
     .domain(colorScale.domain())
     .range([h, 0])
+let legendScale = d3.scaleLinear()
+    .domain(colorScale.domain())
+    .range([h, 0])
+let legendYAxisLog = d3.axisRight(legendScaleLog)
+    .ticks(3, ',')
+    .tickSize(0)
+    .tickValues(tickValues[metric])
 let legendYAxis = d3.axisRight(legendScale)
     .ticks(3, ',')
     .tickSize(0)
@@ -54,7 +61,7 @@ function addLegend() {
     legendAxis = legend.append('g')
         .attr("class", `legend-axis`)
         .attr("transform", `translate(${w + 2},0)`)
-        .call(legendYAxis)
+        .call(legendYAxisLog)
 
     legend.select('path.domain').remove()
 }
@@ -74,9 +81,15 @@ function updateLegend(metric) {
       .join("stop")
         .attr("offset", d => d.offset)
         .attr("stop-color", d => d.color);
-    legendScale.domain(colorScale.domain())
-    legendYAxis.tickValues(tickValues[metric])
-    legendAxis.call(legendYAxis)
+    if (metric.includes('rate')) {
+        legendScale.domain(colorScale.domain())
+        legendYAxis.tickValues(tickValues[metric])
+        legendAxis.call(legendYAxis)
+    } else {
+        legendScaleLog.domain(colorScale.domain())
+        legendYAxisLog.tickValues(tickValues[metric])
+        legendAxis.call(legendYAxisLog)
+    }
     legend.select('path.domain').remove()
 }
 
