@@ -28,7 +28,6 @@ async function initDashboard(embedMap=false) {
     initSlider()
     initRadio()
     initToggle()
-    metrics.forEach(key => updateFillExpression(key, maxDate))
 
     setDateRange(minDate, maxDate)
     if (!embedMap) updateTotal(metric)
@@ -38,6 +37,8 @@ async function initDashboard(embedMap=false) {
 
 // Mapbox Related Functions
 function initMap() {
+    metrics.forEach(metric => updateFillExpression(metric, maxDate))
+
     mapboxgl.accessToken = 'pk.eyJ1IjoiY2FvYSIsImEiOiJjazkxc2QyMTcwMHp4M2ZubnByeWwycjYwIn0.HMO_9ZdIJxTIXLl_zqyuHw';
     map = new mapboxgl.Map({
         container: 'map',
@@ -61,7 +62,6 @@ function initMap() {
         compact: true,
         customAttribution: 'University of Michigan Public Health',
     }));
-
     map.on('load', () => { // load from tileset directly
         map.addLayer({
             "id": "hex20",
@@ -153,7 +153,7 @@ function createPopup(e) {
 function updatePopup() {
     if (typeof popup === 'undefined' || !popup.isOpen()) return
     const data = getMetricValues(hexIdx)
-    setTableData(data)
+    setPopupData(data)
 }
 
 function setPopupData(data) {
