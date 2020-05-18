@@ -35,7 +35,7 @@ function makeIncidenceChart() {
         .attr('id', 'current-circle')
         .attr('cx', d => xInc(d.date))
         .attr('cy', d => yInc(d.value))
-        .attr('r', 5)
+        .attr('r', 4)
 
     xAxis = d3.axisBottom(xInc).ticks(5).tickSizeOuter(0)
     yAxis = d3.axisRight(yInc).ticks(4)

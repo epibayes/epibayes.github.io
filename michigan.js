@@ -1,6 +1,6 @@
 async function initDashboard(embedMap=false) {
-    const data20 = await d3.csv('weeklycum_cases_20km.csv', type)
-    const data10 = await d3.csv('weeklycum_cases_10km.csv', type)    
+    const data20 = await d3.csv('weeklycum_cases_20km_with_rateper100k.csv', type)
+    const data10 = await d3.csv('weeklycum_cases_10km_with_rateper100k.csv', type)    
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
