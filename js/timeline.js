@@ -30,7 +30,7 @@ async function makeTimeline() {
     let grps = d3.group(annotations, d => +d.date)
 
     // Set the dimensions and margins of the graph
-    const margin = {top: 10, right: 80, bottom: 50, left: 100};
+    const margin = {top: 10, right: 40, bottom: 50, left: 80};
     const W = 600;
     const width = W - margin.left - margin.right;
     const H = 200;
@@ -60,7 +60,7 @@ async function makeTimeline() {
       .selectAll(".bar")
       .data(daily)
       .join("rect")
-        .attr('class', d => grps.get(+d.date) ? 'highlight' : 'bar')
+        .attr('class', 'bar')
         .attr('x', d => x(d3.timeHour.offset(d.date)))
         .attr('y', d => y(d.daily))
         .attr('width', x(79200*1000)-x(0))
@@ -92,10 +92,10 @@ async function makeTimeline() {
     // add milestone text
     svg.selectAll('.milestone')
       .data(annotations)
-      .join('line')
+      .join('line').lower()
         .attr('class', 'milestone')
-        .attr('x1', d => x(d.date))
-        .attr('x2', d => x(d.date))
+        .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
+        .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
         .attr('y1', d => {
             let k = d3.timeDay.count(minDate,d.date)
             return y(daily[k]['daily'] + 30)
@@ -103,12 +103,23 @@ async function makeTimeline() {
         .attr('y2', d => y(d.y2))
 
     svg.selectAll('.milestoneText')
-        .data(annotations)
-        .join('text')
-          .attr('class', d => `milestoneText ${d.date < new Date(2020,3,7) ? 'end' : ''}`)
-          .attr('x', d => x(d.date))
-          .attr('y', d => y(d.y2) - 3)
-          .text(d => d.annotation)
+      .data(annotations)
+      .join('text')
+        .attr('class', d => `milestoneText ${d.date < new Date(2020,3,3) ? 'end' : ''}`)
+        .attr('x', d => x(d3.timeHour.offset(d.date,12)))
+        .attr('y', d => y(d.y2) - 3)
+        .text(d => d.annotation)
+        .attr("data-toggle", "tooltip")
+        .attr("data-html", true)
+        .attr("title", d => {
+            if (grps.get(+d.date)) {
+                let array = grps.get(+d.date)
+                let html = `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${array[0].description}`
+                return html
+            } else {
+                return ''
+            }
+        })     
 
     // Annotation section
     const y0 = height + 30
@@ -138,32 +149,12 @@ async function makeTimeline() {
         .attr('x', x(new Date(2020,3,12)))
         .attr('y', y(2350))
         .text('Stay Home, Stay Safe period')
-
-    svg.selectAll('.tooltipbar')
-        .data(daily)
-        .join('rect')
-          .attr('class', 'tooltipbar')
-          .attr('x', d => x(d3.timeHour.offset(d.date)))
-          .attr('y', d => y(1000))
-          .attr('width', x(79200*1000)-x(0))
-          .attr('height', d => height - y(1000))
-          .attr("data-toggle", "tooltip")
-          .attr("data-html", true)
-          .attr("title", d => {
-              if (grps.get(+d.date)) {
-                  let array = grps.get(+d.date)
-                  let html = `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${array[0].description}`
-                  return html
-              } else {
-                  return ''
-              }
-          })                
-  
+          
       // Add bootstrap tooltip
       $(function() {
           $('[data-toggle="tooltip"]').tooltip({
-              'placement': 'bottom',
-              'trigger': 'hover',
+//              'placement': 'auto',
+//              'trigger': 'hover',
           })
       })
 

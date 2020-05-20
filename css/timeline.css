@@ -2,27 +2,18 @@
   /* border: 1px solid green; */
 }
 
-.tooltipbar {
-  fill: white;
-  fill-opacity: 0;
-}
-
 .bar {
-  fill: #FFCB05;
-}
-
-.highlight {
-  fill: #B3AC17;
+  fill: #B73737;
 }
 
 .avgLine {
   fill: none;
-  stroke: #174992;
+  stroke: #000;
   stroke-width: 1.5px;
 }
 
 .axis {
-  font-size: 0.4em;
+  font-size: 0.35em;
 }
 
 /* Text Related Stuff */
@@ -32,8 +23,13 @@
 }
 
 .milestoneText {
-  font-size: 0.4em;
+  font-size: 0.35em;
   font-weight: 300;
+}
+
+.rect {
+  fill: #ADB5BD;
+  fill-opacity: 0.3;
 }
 
 .rectText {
@@ -41,16 +37,6 @@
   font-weight: 300;
 }
 
-.mid {
-  text-anchor: middle;
-}
-
 .end {
   text-anchor: end;
 }
-
-.rect {
-  fill: blue;
-  fill-opacity: 0.1;
-}
-
