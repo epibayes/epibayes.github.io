@@ -65,27 +65,6 @@ async function makeTimeline() {
         .attr('y', d => y(d.daily))
         .attr('width', x(79200*1000)-x(0))
         .attr('height', d => height - y(d.daily))
-        .attr("data-toggle", "tooltip")
-        .attr("data-html", true)
-//        .attr("title", d => grps.get(+d.date) ? d3.timeFormat('%b %e')(d.date) : '')
-        .attr("title", d => {
-            if (grps.get(+d.date)) {
-                let array = grps.get(+d.date)
-                let html = `${array[0].description}`
-                return html
-            } else {
-                return ''
-            }
-        })
-
-    // Add bootstrap tooltip
-    $(function() {
-        $('[data-toggle="tooltip"]').tooltip({
-            'placement': 'bottom',
-            'trigger': 'hover',
-//            'delay': {'show':250, 'hide':250},
-        })
-    })
 
     svg.append('g')
         .attr('class', 'x-axis axis')
@@ -159,6 +138,34 @@ async function makeTimeline() {
         .attr('x', x(new Date(2020,3,12)))
         .attr('y', y(1850))
         .text('Stay Home, Stay Safe period')
+
+    svg.selectAll('.tooltipbar')
+        .data(daily)
+        .join('rect')
+          .attr('class', 'tooltipbar')
+          .attr('x', d => x(d3.timeHour.offset(d.date)))
+          .attr('y', d => y(1000))
+          .attr('width', x(79200*1000)-x(0))
+          .attr('height', d => height - y(1000))
+          .attr("data-toggle", "tooltip")
+          .attr("data-html", true)
+          .attr("title", d => {
+              if (grps.get(+d.date)) {
+                  let array = grps.get(+d.date)
+                  let html = `${array[0].description}`
+                  return html
+              } else {
+                  return ''
+              }
+          })                
+  
+      // Add bootstrap tooltip
+      $(function() {
+          $('[data-toggle="tooltip"]').tooltip({
+              'placement': 'bottom',
+              'trigger': 'hover',
+          })
+      })
 
 }
 makeTimeline()

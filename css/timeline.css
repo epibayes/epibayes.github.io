@@ -2,6 +2,11 @@
   /* border: 1px solid green; */
 }
 
+.info {
+  fill: white;
+  fill-opacity: 0;
+}
+
 .bar {
   fill: #FFCB05;
 }
