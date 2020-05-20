@@ -1,12 +1,12 @@
 async function initDashboard(embedMap=false) {
-    const data20 = await d3.csv('weeklycum_cases_20km_with_rateper100k.csv', type)
-    const data10 = await d3.csv('weeklycum_cases_10km_with_rateper100k.csv', type)    
+    const data20 = await d3.csv('data/weeklycum_cases_20km_with_rateper100k.csv', type)
+    const data10 = await d3.csv('data/weeklycum_cases_10km_with_rateper100k.csv', type)    
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
     if (!embedMap) insertDates(maxDate)
 
-    incidenceData = await d3.csv('dailyweeklycum_cases_statewide.csv', d3.autoType)
+    incidenceData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
     incidenceData.map((d,i) => {
         d.date = dateParser(d.date)
         d.value = d.cumulative

@@ -16,15 +16,15 @@ const dateParser = d3.timeParse('%y%m%d')
 
 async function makeTimeline() {
     // Get data
-    daily = await d3.csv('dailyweeklycum_cases_statewide.csv', d3.autoType)
+    daily = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
     daily.map((d,i) => {
         d.date = dateParser(d.date)
         return d
     })
     let minDate = d3.min(daily, d => d.date)
     const movingAvgData = movingAverage(daily, 7, 'daily');
-    let annotations = await d3.csv('timeline.csv', d => {
-        d.date = d3.timeParse('%Y-%m-%d')(d.date)
+    let annotations = await d3.csv('data/timeline.csv', d => {
+        d.date = d3.timeParse('%m/%d/%y')(d.date)
         return d
     })
     let grps = d3.group(annotations, d => +d.date)
