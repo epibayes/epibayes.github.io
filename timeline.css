@@ -1,0 +1,51 @@
+#timeline {
+  /* border: 1px solid green; */
+}
+
+.bar {
+  fill: #FFCB05;
+}
+
+.highlight {
+  fill: #B3AC17;
+}
+
+.avgLine {
+  fill: none;
+  stroke: #174992;
+  stroke-width: 1.5px;
+}
+
+.axis {
+  font-size: 0.4em;
+}
+
+/* Text Related Stuff */
+.milestone {
+  stroke: lightgray;
+  stroke-width: 1;
+}
+
+.milestoneText {
+  font-size: 0.4em;
+  font-weight: 300;
+}
+
+.rectText {
+  font-size: 0.5em;
+  font-weight: 300;
+}
+
+.mid {
+  text-anchor: middle;
+}
+
+.end {
+  text-anchor: end;
+}
+
+.rect {
+  fill: blue;
+  fill-opacity: 0.1;
+}
+
