@@ -30,8 +30,8 @@ async function makeTimeline() {
     let grps = d3.group(annotations, d => +d.date)
 
     // Set the dimensions and margins of the graph
-    const margin = {top: 10, right: 30, bottom: 50, left: 10};
-    const W = 500;
+    const margin = {top: 10, right: 80, bottom: 50, left: 100};
+    const W = 600;
     const width = W - margin.left - margin.right;
     const H = 200;
     const height = H - margin.top - margin.bottom;
@@ -50,7 +50,7 @@ async function makeTimeline() {
         .range([0, width])
 
     let y = d3.scaleLinear()
-        .domain([0, d3.max(daily, d => d.daily)+200]).nice()
+        .domain([0, 2500])
         .range([height, 0])
 
     let xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0),
@@ -90,25 +90,25 @@ async function makeTimeline() {
         .attr('d', mvAvgLine)
 
     // add milestone text
-    // svg.selectAll('.milestoneText')
-    //   .data(annotations)
-    //   .join('text')
-    //     .attr('class', 'milestoneText end')
-    //     .attr('x', d => x(d.date))
-    //     .attr('y', d => y(d.y3))
-    //     .text(d => d.description)
+    svg.selectAll('.milestone')
+      .data(annotations)
+      .join('line')
+        .attr('class', 'milestone')
+        .attr('x1', d => x(d.date))
+        .attr('x2', d => x(d.date))
+        .attr('y1', d => {
+            let k = d3.timeDay.count(minDate,d.date)
+            return y(daily[k]['daily'] + 30)
+        })
+        .attr('y2', d => y(d.y2))
 
-    // svg.selectAll('.milestone')
-    //   .data(annotations)
-    //   .join('line')
-    //     .attr('class', 'milestone')
-    //     .attr('x1', d => x(d.date))
-    //     .attr('x2', d => x(d.date))
-    //     .attr('y1', d => {
-    //         let k = d3.timeDay.count(minDate,d.date)
-    //         return y(daily[k]['daily'] + 30)
-    //     })
-    //     .attr('y2', d => y(d.y2))
+    svg.selectAll('.milestoneText')
+        .data(annotations)
+        .join('text')
+          .attr('class', d => `milestoneText ${d.date < new Date(2020,3,7) ? 'end' : ''}`)
+          .attr('x', d => x(d.date))
+          .attr('y', d => y(d.y2) - 3)
+          .text(d => d.annotation)
 
     // Annotation section
     const y0 = height + 30
@@ -136,7 +136,7 @@ async function makeTimeline() {
     svg.append('text')
         .attr('class', 'rectText')
         .attr('x', x(new Date(2020,3,12)))
-        .attr('y', y(1850))
+        .attr('y', y(2350))
         .text('Stay Home, Stay Safe period')
 
     svg.selectAll('.tooltipbar')
@@ -152,7 +152,7 @@ async function makeTimeline() {
           .attr("title", d => {
               if (grps.get(+d.date)) {
                   let array = grps.get(+d.date)
-                  let html = `${array[0].description}`
+                  let html = `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${array[0].description}`
                   return html
               } else {
                   return ''
