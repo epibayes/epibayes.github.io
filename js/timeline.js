@@ -54,7 +54,7 @@ async function makeTimeline() {
         .range([height, 0])
 
     let xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0),
-        yAxis = d3.axisRight(y).ticks(5)
+        yAxis = d3.axisRight(y).ticks(5).tickValues([0,500,1000,1500,2000])
 
     svg.append("g")
       .selectAll(".bar")
