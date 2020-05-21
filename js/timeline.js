@@ -30,7 +30,7 @@ async function makeTimeline() {
     let grps = d3.group(annotations, d => +d.date)
 
     // Set the dimensions and margins of the graph
-    const margin = {top: 10, right: 40, bottom: 50, left: 80};
+    const margin = {top: 10, right: 25, bottom: 50, left: 60};
     const W = 600;
     const width = W - margin.left - margin.right;
     const H = 200;
@@ -54,7 +54,7 @@ async function makeTimeline() {
         .range([height, 0])
 
     let xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0),
-        yAxis = d3.axisRight(y).ticks(5).tickValues([0,500,1000,1500,2000])
+        yAxis = d3.axisRight(y).ticks(5).tickValues([0,500,1000,1500,2000]).tickSize(3)
 
     svg.append("g")
       .selectAll(".bar")
@@ -100,7 +100,10 @@ async function makeTimeline() {
             let k = d3.timeDay.count(minDate,d.date)
             return y(daily[k]['daily'] + 30)
         })
-        .attr('y2', d => y(d.y2))
+        .attr('y2', d => {
+            let array = grps.get(+d.date)
+            return array.length > 1 ? y(d.y2 - 100) : y(d.y2)
+        })
 
     svg.selectAll('.milestoneText')
       .data(annotations)
@@ -152,11 +155,7 @@ async function makeTimeline() {
           
       // Add bootstrap tooltip
       $(function() {
-          $('[data-toggle="tooltip"]').tooltip({
-//              'placement': 'auto',
-//              'trigger': 'hover',
-          })
+          $('[data-toggle="tooltip"]').tooltip()
       })
-
 }
 makeTimeline()
