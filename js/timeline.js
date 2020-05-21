@@ -21,6 +21,8 @@ async function makeTimeline() {
         d.date = dateParser(d.date)
         return d
     })
+    insertAvgCase()
+
     let minDate = d3.min(daily, d => d.date)
     const movingAvgData = movingAverage(daily, 7, 'daily');
     let annotations = await d3.csv('data/timeline.csv', d => {
@@ -30,7 +32,7 @@ async function makeTimeline() {
     let grps = d3.group(annotations, d => +d.date)
 
     // Set the dimensions and margins of the graph
-    const margin = {top: 10, right: 30, bottom: 50, left: 60};
+    const margin = {top: 10, right: 40, bottom: 30, left: 60};
     const W = 600;
     const width = W - margin.left - margin.right;
     const H = 200;
@@ -116,17 +118,17 @@ async function makeTimeline() {
         .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
 
     // Annotation section
-    const y0 = height + 30
+    const x0 = 20, y0 = 15;
     svg.append('line')
         .attr('class', 'avgLine')
-        .attr('x1', 0)
-        .attr('x2', 20)
+        .attr('x1', x0)
+        .attr('x2', x0+20)
         .attr('y1', y0)
         .attr('y2', y0)
 
     svg.append('text')
         .attr('class', 'milestoneText')
-        .attr('x', 25)
+        .attr('x', x0+25)
         .attr('y', y0)
         .attr('dy', '0.35em')
         .text('7-day average')
@@ -149,4 +151,10 @@ async function makeTimeline() {
           $('[data-toggle="tooltip"]').tooltip()
       })
 }
+
+function insertAvgCase() {
+    let value = Math.round(daily[daily.length-1]['weekly']/7/50)*50
+    d3.select('#avg-case').text(value)
+}
+
 makeTimeline()
