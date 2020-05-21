@@ -13,6 +13,7 @@ function movingAverage(data, N, column) {
     });
 }
 const dateParser = d3.timeParse('%y%m%d')
+const numFmt = d3.format(',.0f')
 
 async function makeTimeline() {
     // Get data
@@ -66,6 +67,9 @@ async function makeTimeline() {
         .attr('y', d => y(d.daily))
         .attr('width', x(79200*1000)-x(0))
         .attr('height', d => height - y(d.daily))
+        .attr("data-toggle", "tooltip")
+        .attr("data-html", true)
+        .attr("title", d => `${d3.timeFormat('%B %e')(d.date)}<br>Cases: ${numFmt(d.daily)}<br>7-day avg: ${numFmt(d.weekly/7)}`)    
 
     svg.append('g')
         .attr('class', 'x-axis axis')
