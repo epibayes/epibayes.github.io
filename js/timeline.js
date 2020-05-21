@@ -30,7 +30,7 @@ async function makeTimeline() {
     let grps = d3.group(annotations, d => +d.date)
 
     // Set the dimensions and margins of the graph
-    const margin = {top: 10, right: 25, bottom: 50, left: 60};
+    const margin = {top: 10, right: 30, bottom: 50, left: 60};
     const W = 600;
     const width = W - margin.left - margin.right;
     const H = 200;
@@ -41,7 +41,6 @@ async function makeTimeline() {
     const svg = d3.select(`#timeline`).append("svg")
         .attr("viewBox", `0 ${-yoffset} ${W} ${H+yoffset}`)
         .attr("preserveAspectRatio", "xMidYMid meet")
-//        .attr('class', 'svg-content')
       .append('g')
         .attr("transform", `translate(${margin.left},${margin.top})`)
 
@@ -78,6 +77,12 @@ async function makeTimeline() {
 
     svg.select('.y-axis .domain').remove()
 
+    svg.append('text')
+        .attr('id', 'ylabel')
+        .attr('x', width+2)
+        .attr('y', y(2400))
+        .text('Daily Cases')
+
     // Moving average section
     let mvAvgLine = d3.line()
         .curve(d3.curveCardinal)
@@ -96,14 +101,8 @@ async function makeTimeline() {
         .attr('class', 'milestone')
         .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
         .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
-        .attr('y1', d => {
-            let k = d3.timeDay.count(minDate,d.date)
-            return y(daily[k]['daily'] + 30)
-        })
-        .attr('y2', d => {
-            let array = grps.get(+d.date)
-            return array.length > 1 ? y(d.y2 - 100) : y(d.y2)
-        })
+        .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
+        .attr('y2', d => grps.get(+d.date).length > 1 ? y(d.y2 - 100) : y(d.y2) )
 
     svg.selectAll('.milestoneText')
       .data(annotations)
@@ -114,15 +113,7 @@ async function makeTimeline() {
         .text(d => d.annotation)
         .attr("data-toggle", "tooltip")
         .attr("data-html", true)
-        .attr("title", d => {
-            if (grps.get(+d.date)) {
-                let array = grps.get(+d.date)
-                let html = `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${array[0].description}`
-                return html
-            } else {
-                return ''
-            }
-        })     
+        .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
 
     // Annotation section
     const y0 = height + 30

@@ -12,7 +12,7 @@
   stroke-width: 1.5px;
 }
 
-.axis {
+.axis, #ylabel {
   font-size: 0.35em;
 }
 
