@@ -53,7 +53,7 @@ async function makeTimeline(weekBin=false) {
         .range([0, width])
 
     let y = d3.scaleLinear()
-        .domain([0, weekBin ? 12500 : 2500])
+        .domain([0, weekBin ? 13000 : 2500])
         .range([height, 0])
 
     let ticks = [0,500,1000,1500,2000],
@@ -136,7 +136,7 @@ async function makeTimeline(weekBin=false) {
         .attr("data-html", true)
         .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
 
-    const x0 = weekBin ? -50 : 20, y0 = 15;
+    const x0 = weekBin ? -20 : 20, y0 = 15;
     svg.append('line')
         .attr('class', 'avgLine')
         .attr('x1', x0)
