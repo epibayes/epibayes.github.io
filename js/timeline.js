@@ -15,7 +15,7 @@ function movingAverage(data, N, column) {
 const dateParser = d3.timeParse('%y%m%d')
 const numFmt = d3.format(',.0f')
 
-async function makeTimeline() {
+async function makeTimeline(weekBin=false) {
     // Get data
     daily = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
     daily.map((d,i) => {
@@ -23,6 +23,7 @@ async function makeTimeline() {
         return d
     })
     insertAvgCase()
+    weekly = daily.filter((d,i) => i%7 === 6)
 
     let minDate = d3.min(daily, d => d.date)
     const movingAvgData = movingAverage(daily, 7, 'daily');
@@ -33,7 +34,7 @@ async function makeTimeline() {
     let grps = d3.group(annotations, d => +d.date)
 
     // Set the dimensions and margins of the graph
-    const margin = {top: 10, right: 40, bottom: 30, left: 60};
+    const margin = {top: 10, right: 40, bottom: 30, left: 80};
     const W = 600;
     const width = W - margin.left - margin.right;
     const H = 200;
@@ -41,7 +42,7 @@ async function makeTimeline() {
     const yoffset = 0;
 
     // append timetable svg
-    const svg = d3.select(`#timeline`).append("svg")
+    const svg = d3.select(weekBin ? '#timeline-weekly' : '#timeline').append("svg")
         .attr("viewBox", `0 ${-yoffset} ${W} ${H+yoffset}`)
         .attr("preserveAspectRatio", "xMidYMid meet")
       .append('g')
@@ -52,24 +53,32 @@ async function makeTimeline() {
         .range([0, width])
 
     let y = d3.scaleLinear()
-        .domain([0, 2500])
+        .domain([0, weekBin ? 12500 : 2500])
         .range([height, 0])
 
-    let xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0),
-        yAxis = d3.axisRight(y).ticks(5).tickValues([0,500,1000,1500,2000]).tickSize(3)
+    let ticks = [0,500,1000,1500,2000],
+        xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0),
+        yAxis = d3.axisRight(y)
+            .ticks(5)
+            .tickValues(weekBin ? ticks.map(d => d*5) : ticks)
+            .tickSize(3)
 
     svg.append("g")
       .selectAll(".bar")
-      .data(daily)
+      .data(weekBin ? weekly : daily)
       .join("rect")
         .attr('class', 'bar')
-        .attr('x', d => x(d3.timeHour.offset(d.date)))
-        .attr('y', d => y(d.daily))
-        .attr('width', x(79200*1000)-x(0))
-        .attr('height', d => height - y(d.daily))
+        .attr('x', d => x(weekBin ? d3.timeHour.offset(d3.timeDay.offset(d.date,-6),3) : d3.timeHour.offset(d.date)))
+        .attr('y', d => y(weekBin ? d.weekly : d.daily))
+        .attr('width', weekBin ? x(583200*1000)-x(0) : x(79200*1000)-x(0))
+        .attr('height', d => height - y(weekBin ? d.weekly : d.daily))
         .attr("data-toggle", "tooltip")
         .attr("data-html", true)
-        .attr("title", d => `${d3.timeFormat('%B %e')(d.date)}<br>Cases: ${numFmt(d.daily)}<br>7-day avg: ${numFmt(d.weekly/7)}`)    
+        .attr("title", d => {
+            txt = `${d3.timeFormat('%B %e')(d.date)}<br>Cases: ${numFmt(weekBin ? d.weekly : d.daily)}`
+            txt += weekBin ? '' : `<br>7-day avg: ${numFmt(d.weekly/7)}`
+            return txt
+        })
 
     svg.append('g')
         .attr('class', 'x-axis axis')
@@ -86,21 +95,21 @@ async function makeTimeline() {
     svg.append('text')
         .attr('id', 'ylabel')
         .attr('x', width+2)
-        .attr('y', y(2400))
-        .text('Daily Cases')
+        .attr('y', 5)
+        .text(weekBin ? 'Weekly Cases' : 'Daily Cases')
 
     // Moving average section
     let mvAvgLine = d3.line()
         .curve(d3.curveCardinal)
         .x(d => x(d.date))
-        .y(d => y(d.avg))
+        .y(d => weekBin ? y(d.avg*7) : y(d.avg))
 
     let avgLine = svg.append('path')
         .datum(movingAvgData)
         .attr('class', 'avgLine')
         .attr('d', mvAvgLine)
 
-    // add milestone text
+    // Annotation section
     svg.selectAll('.milestone')
       .data(annotations)
       .join('line').lower()
@@ -108,21 +117,26 @@ async function makeTimeline() {
         .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
         .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
         .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
-        .attr('y2', d => grps.get(+d.date).length > 1 ? y(d.y2 - 100) : y(d.y2) )
+        .attr('y2', d => {
+            if (weekBin) {
+                return grps.get(+d.date).length > 1 ? y(d.y3 - 100) : y(d.y3)
+            } else {
+                return grps.get(+d.date).length > 1 ? y(d.y2 - 100) : y(d.y2)
+            }
+        })
 
     svg.selectAll('.milestone-text')
       .data(annotations)
       .join('text')
         .attr('class', d => `milestone-text ${d.date < new Date(2020,3,3) ? 'end' : ''}`)
         .attr('x', d => x(d3.timeHour.offset(d.date,12)))
-        .attr('y', d => y(d.y2) - 3)
+        .attr('y', d => weekBin ? y(d.y3) - 3 :y(d.y2) - 3)
         .text(d => d.annotation)
         .attr("data-toggle", "tooltip")
         .attr("data-html", true)
         .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
 
-    // Annotation section
-    const x0 = 20, y0 = 15;
+    const x0 = weekBin ? -50 : 20, y0 = 15;
     svg.append('line')
         .attr('class', 'avgLine')
         .attr('x1', x0)
@@ -147,13 +161,13 @@ async function makeTimeline() {
     svg.append('text')
         .attr('class', 'rect-text')
         .attr('x', x(new Date(2020,3,12)))
-        .attr('y', y(2350))
+        .attr('y', 10)
         .text('Stay Home, Stay Safe period')
           
-      // Add bootstrap tooltip
-      $(function() {
-          $('[data-toggle="tooltip"]').tooltip()
-      })
+    // Add bootstrap tooltip
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 }
 
 function insertAvgCase() {
@@ -162,3 +176,4 @@ function insertAvgCase() {
 }
 
 makeTimeline()
+makeTimeline(weekBin=true)
