@@ -24,7 +24,7 @@
   stroke-width: 1;
 }
 
-.milestoneText {
+.milestone-text {
   font-size: 0.25em;
   font-weight: 300;
 }
@@ -34,7 +34,7 @@
   fill-opacity: 0.3;
 }
 
-.rectText {
+.rect-text {
   font-size: 0.5em;
   font-weight: 300;
 }

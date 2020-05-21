@@ -106,10 +106,10 @@ async function makeTimeline() {
         .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
         .attr('y2', d => grps.get(+d.date).length > 1 ? y(d.y2 - 100) : y(d.y2) )
 
-    svg.selectAll('.milestoneText')
+    svg.selectAll('.milestone-text')
       .data(annotations)
       .join('text')
-        .attr('class', d => `milestoneText ${d.date < new Date(2020,3,3) ? 'end' : ''}`)
+        .attr('class', d => `milestone-text ${d.date < new Date(2020,3,3) ? 'end' : ''}`)
         .attr('x', d => x(d3.timeHour.offset(d.date,12)))
         .attr('y', d => y(d.y2) - 3)
         .text(d => d.annotation)
@@ -127,7 +127,7 @@ async function makeTimeline() {
         .attr('y2', y0)
 
     svg.append('text')
-        .attr('class', 'milestoneText')
+        .attr('class', 'milestone-text')
         .attr('x', x0+25)
         .attr('y', y0)
         .attr('dy', '0.35em')
@@ -141,7 +141,7 @@ async function makeTimeline() {
         .attr('height', height)
 
     svg.append('text')
-        .attr('class', 'rectText')
+        .attr('class', 'rect-text')
         .attr('x', x(new Date(2020,3,12)))
         .attr('y', y(2350))
         .text('Stay Home, Stay Safe period')
