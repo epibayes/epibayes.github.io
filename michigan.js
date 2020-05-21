@@ -57,11 +57,13 @@ function initMap() {
         mapboxgl: mapboxgl,
         placeholder: 'Search Map',
     }), 'top-left');
+    // map.addControl(new mapboxgl.FullscreenControl());
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
     map.addControl(new mapboxgl.AttributionControl({
         compact: true,
         customAttribution: 'University of Michigan Public Health',
     }));
+
     map.on('load', () => { // load from tileset directly
         map.addLayer({
             "id": "hex20",
