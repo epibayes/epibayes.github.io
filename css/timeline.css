@@ -1,4 +1,6 @@
-#timeline, #intro {
+#timeline, .timeline-text {
+  margin-top: 10px;
+  margin-bottom: 10px;
   /* border: 1px solid green; */
 }
 
