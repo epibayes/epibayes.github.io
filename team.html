@@ -1,0 +1,182 @@
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37324839-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-37324839-1');
+    </script>
+
+    <meta charset='utf-8' />
+    <title>Michigan COVID-19 Tracker</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <!-- bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- d3 utilities -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <!-- project files -->
+    <link rel="stylesheet" href="css/timeline.css">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div style="padding-top: 16px; padding-bottom: 16px;">
+                    <h2>The Team</h2>
+                    <h4 style=" color: gray; opacity: 0.75;">Meet the folks behind the Michigan COVID-19 Tracker
+                    </h4>
+                </div>
+                <div style="padding-top: 32px;" style=>
+                    <h5>Jon Zelner</h5>
+                    <div class="row" style="">
+                        <div class="col-md-auto" style="">
+                            <img style="margin-top: 8px; height: 200px" src="./img/nina.jpg">
+                        </div>
+                        <div class="col-9">
+                            <p style="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dolor turpis,
+                                rhoncus ac augue id, congue venenatis lectus. Aliquam porta felis vitae varius congue.
+                                Sed luctus a augue non tempus. Vivamus consectetur ultrices purus, eget sagittis nisl
+                                tincidunt at. Duis mattis velit eu ex dignissim sagittis. Mauris consequat non eros
+                                rhoncus venenatis. Etiam non porta nunc, non ullamcorper lectus. Aenean cursus pharetra
+                                est accumsan porta. Duis nec ex sed elit tincidunt iaculis ut vel sem. Maecenas sed nisl
+                                vitae ligula varius sagittis ac non justo. Pellentesque habitant morbi tristique
+                                senectus et netus et malesuada fames ac turpis egestas. Aenean aliquam enim urna, quis
+                                fermentum arcu pulvinar sed.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 32px;" style=>
+                    <h5>Nina Masters</h5>
+                    <div class="row" style="">
+                        <div class="col-md-auto" style="">
+                            <img style="margin-top: 8px; height: 200px" src="./img/nina.jpg">
+                        </div>
+                        <div class="col-9">
+                            <p style="">Nina is a doctoral
+                                candidate in Epidemiology at
+                                the University of
+                                Michigan. She did her MPH in Global Health Epidemiology at the University of
+                                Michigan
+                                and her bachelors in Chemistry and Materials Engineering at Princeton University.
+                                Her
+                                dissertation research focuses on spatial transmission models of infectious diseases,
+                                the
+                                impact of clustered non-vaccination on outbreak risk, and the evolution of vaccine
+                                hesitancy. She is passionate about science communication and seeks to make
+                                epidemiologic
+                                research accessible with her blog: <a href="knowyourvax.com">knowyourvax.com</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 32px;">
+                    <h5>Robert Trangucci</h5>
+                    <div class="row" style="">
+                        <div class="col-md-auto">
+                            <img style="margin-top: 8px; height: 200px" src="./img/nina.jpg">
+                        </div>
+                        <div class="col-9">
+                            <p style="">Rob is a PhD candidate in the Statistics department at the University of
+                                Michigan. His current research focuses on developing novel Bayesian statistical
+                                methodology for problems in epidemiology, and creating tools to understand how
+                                modeling assumptions impact inference. He has also done research in survey
+                                methodology. He got his Master’s in Quantitative Methods in the Social Sciences from
+                                Columbia University and his BA in Physics from Bucknell University. </p>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 32px;">
+                    <h5>Paul Delamater</h5>
+                    <div class="row" style="">
+                        <div class="col-md-auto" style="">
+                            <img style="margin-top: 8px; height: 200px" src="./img/paul.jpg">
+                        </div>
+                        <div class="col-9">
+                            <p style="">Dr. Paul Delamater is an Assistant Professor in the Department of Geography,
+                                a Faculty Fellow at the Carolina Population Center and Sheps Center for Health
+                                Services Research, and an Associate at the Lineberger Comprehensive Cancer Center.
+                                Dr. Delamater has particular interest in research relating to the spatial components
+                                of health care access and utilization, as well as disease modeling. He employs
+                                geographic information systems (GIS) and statistical/spatial analysis to better
+                                understand population health issues. His recent research has focused on
+                                understanding childhood vaccination, herd immunity, and vaccine-preventable diseases
+                                in the United States. Learn more about his research on his <a
+                                    href="https://www.google.com/url?q=http://delamater.web.unc.edu/&sa=D&ust=1590179866181000">faculty
+                                    page</a>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 32px;">
+                    <h5>Ramya Naraharisetti</h5>
+                    <div class="row" style="">
+                        <div class="col-md-auto" style="">
+                            <img style="margin-top: 8px; height: 200px" src="./img/paul.jpg">
+                        </div>
+                        <div class="col-9">
+                            <p style="">
+                                Ramya is a doctoral student in the department of Epidemiology at the University of
+                                Michigan. She received her Masters of Science in Global Health from Harvard
+                                University and her Bachelors of Science in interdisciplinary social sciences from
+                                Michigan State University.. Her research focuses on social inequality and the spread
+                                of infectious disease both domestically and in the Global South. She utilizes
+                                spatial analyses, hierarchical modeling and mathematical models to advance our
+                                understanding of these complex processes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 32px;">
+                    <h5>Alex Cao</h5>
+                    <div class="row" style="">
+                        <div class="col-md-auto" style="">
+                            <img style="margin-top: 8px; width: 150px; height: 160px" src="./img/alex.png">
+                        </div>
+                        <div class="col-9">
+                            <p style="">
+                                Alex is a data scientist at the University of Michigan with CSCAR (Consulting for
+                                Statistics, Computing & Analytics Research). He helps researchers with their data
+                                science problems and teaches people about data science via workshops. He used to do
+                                research with surgical robots and NASA but now he makes predictive models and
+                                interactive data visualizations.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 32px;">
+                    <h5>Kelly Broen</h5>
+                    <div class="row" style="">
+                        <div class="col-md-auto" style="">
+                            <img style="margin-top: 8px; width: 150px; height: 160px" src="./img/alex.png">
+                        </div>
+                        <div class="col-9">
+                            <p style="">
+                                Kelly is a doctoral student in the department of Epidemiology at the University of
+                                Michigan. She received her Masters of Public Health from the University of Michigan in
+                                epidemiology and her Bachelors of Science in Human Health and Quantitative Sciences from
+                                Emory University. She is interested in spatial epidemiology and infectious diseases.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 32px;">
+                    <h5>Ryan Malosh</h5>
+                    <div class="row" style="">
+                        <div class="col-md-auto" style="">
+                            <img style="margin-top: 8px; height: 200px" src="./img/paul.jpg">
+                        </div>
+                        <div class="col-9">
+                            <p style="">
+                                Dr. Malosh is an Assistant Research Scientist at the University of Michigan School of
+                                Public Health. He is currently leading studies of herd immunity resulting from influenza
+                                vaccination of household contacts. Additional research interests include respiratory
+                                virus epidemiology and prevention, vaccine uptake, and social determinants of infectious
+                                disease. He is currently working on studies of COVID-19 in the household and community
+                                settings, with a particular focus on non-pharmaceutical interventions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
