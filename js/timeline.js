@@ -176,4 +176,3 @@ function insertAvgCase() {
 }
 
 makeTimeline()
-makeTimeline(weekBin=true)
