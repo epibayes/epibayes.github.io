@@ -211,10 +211,8 @@ function filterByDate(data, date) {
 }
 
 function insertDates(maxDate) {
-    introText = d3.select('#intro-text').text()
-    d3.select('#intro-text').text(`${introText} ${sliderFmt(maxDate)}.`)
-    byline = d3.select('#byline').text()
-    d3.select('#byline').text(`${byline} ${d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate))}`)
+    d3.select('#last-date').text(sliderFmt(maxDate))
+    d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))
 }
 
 // Animation Functions

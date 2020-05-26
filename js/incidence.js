@@ -37,7 +37,7 @@ function makeIncidenceChart() {
         .attr('cy', d => yInc(d.value))
         .attr('r', 4)
 
-    xAxis = d3.axisBottom(xInc).ticks(5).tickSizeOuter(0)
+    xAxis = d3.axisBottom(xInc).ticks(6).tickSizeOuter(0)
     yAxis = d3.axisRight(yInc).ticks(4)
 
     formatAxis = g => g
