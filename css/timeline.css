@@ -1,0 +1,44 @@
+#timeline, .timeline-text {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /* border: 1px solid green; */
+}
+
+.bar {
+  fill: #5CBDCA;
+}
+
+.avgLine {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.axis, #ylabel {
+  font-size: 0.35em;
+}
+
+/* Text Related Stuff */
+.milestone {
+  stroke: lightgray;
+  stroke-width: 1;
+}
+
+.milestone-text {
+  font-size: 0.35em;
+  font-weight: 300;
+}
+
+.rect {
+  fill: #ADB5BD;
+  fill-opacity: 0.3;
+}
+
+.rect-text {
+  font-size: 0.5em;
+  font-weight: 300;
+}
+
+.end {
+  text-anchor: end;
+}

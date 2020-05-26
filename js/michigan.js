@@ -1,12 +1,12 @@
 async function initDashboard(embedMap=false) {
-    const data20 = await d3.csv('weeklycum_cases_20km_with_rateper100k.csv', type)
-    const data10 = await d3.csv('weeklycum_cases_10km_with_rateper100k.csv', type)    
+    const data20 = await d3.csv('data/weeklycum_cases_20km_with_rateper100k.csv', type)
+    const data10 = await d3.csv('data/weeklycum_cases_10km_with_rateper100k.csv', type)    
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
     if (!embedMap) insertDates(maxDate)
 
-    incidenceData = await d3.csv('dailyweeklycum_cases_statewide.csv', d3.autoType)
+    incidenceData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
     incidenceData.map((d,i) => {
         d.date = dateParser(d.date)
         d.value = d.cumulative
@@ -211,10 +211,8 @@ function filterByDate(data, date) {
 }
 
 function insertDates(maxDate) {
-    introText = d3.select('#intro-text').text()
-    d3.select('#intro-text').text(`${introText} ${sliderFmt(maxDate)}.`)
-    byline = d3.select('#byline').text()
-    d3.select('#byline').text(`${byline} ${d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate))}`)
+    d3.select('#last-date').text(sliderFmt(maxDate))
+    d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))
 }
 
 // Animation Functions
