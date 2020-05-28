@@ -30,13 +30,12 @@
 }
 
 .rect {
-  fill: #ADB5BD;
-  fill-opacity: 0.3;
+  fill: #e6e9eb;
 }
 
 .rect-text {
   font-size: 0.5em;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .end {
