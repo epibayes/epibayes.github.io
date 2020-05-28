@@ -1,8 +1,10 @@
 function makeIncidenceChart() {
     // set the dimensions and margins of the graph
     let margin = { top: 20, right: 20, bottom: 30, left: 20 },
-        width = 490 - margin.left - margin.right,
-        height = 150 - margin.top - margin.bottom;
+        W = 450,
+        H = 150,
+        width = W - margin.left - margin.right,
+        height = H - margin.top - margin.bottom;
 
     // set the ranges
     xInc = d3.scaleTime()
@@ -19,6 +21,8 @@ function makeIncidenceChart() {
         .y(d => yInc(d.value));
 
     let svg = d3.select("#incidence").append("svg")
+        // .attr("viewBox", `0 0 ${W} ${H}`)
+        // .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
