@@ -4,7 +4,7 @@ async function initDashboard(embedMap=false) {
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
-    if (!embedMap) insertDates(maxDate)
+    if (!embedMap) insertDates(minDate, maxDate)
 
     incidenceData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
     incidenceData.map((d,i) => {
@@ -210,7 +210,8 @@ function filterByDate(data, date) {
     return data.filter(d => +d.date === +date)
 }
 
-function insertDates(maxDate) {
+function insertDates(minDate, maxDate) {
+    d3.select('#first-date').text(sliderFmt(minDate))
     d3.select('#last-date').text(sliderFmt(maxDate))
     d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))
 }
