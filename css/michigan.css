@@ -6,6 +6,10 @@
     height: 500px;
 }
 
+@media screen and (max-width: 624px) {
+    #website-nav {padding-left: 64px;}
+  }
+
 #header-div {
     margin-left: 24px;
     padding-top: 12px;

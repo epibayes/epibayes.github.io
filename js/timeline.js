@@ -137,7 +137,7 @@ async function makeTimeline(weekBin=false) {
     svg.append('rect').lower()
         .attr('class', 'rect')
         .attr('x', x(new Date(2020,2,24)))
-        .attr('width', x(x.domain()[1]) - x(new Date(2020,2,24)))
+        .attr('width', x(new Date(2020,5,2)) - x(new Date(2020,2,24)))
         .attr('height', height)
 
     svg.append('text')
