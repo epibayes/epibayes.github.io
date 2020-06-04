@@ -86,7 +86,7 @@ async function makeTimeline(weekBin=false) {
     // Moving average section
     let mvAvgLine = d3.line()
         .curve(d3.curveCardinal)
-        .x(d => x(d.date))
+        .x(d => x(d3.timeHour.offset(d.date,12)))
         .y(d => weekBin ? y(d.weekly) : y(d.avg7))
 
     let avgLine = svg.append('path')
