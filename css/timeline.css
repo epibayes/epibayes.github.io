@@ -4,6 +4,16 @@
   /* border: 1px solid green; */
 }
 
+#epibayes-logo {
+    height: 50px;
+    width: 52px;
+}
+
+@media screen and (max-width: 624px) {
+    #website-nav {padding-left: 64px;}
+  }
+
+
 .bar {
   fill: #5CBDCA;
 }
