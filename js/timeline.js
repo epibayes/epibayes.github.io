@@ -29,7 +29,7 @@ async function makeTimeline(weekBin=false) {
 
     // append timetable svg
     const svg = d3.select('#timeline').append("svg")
-        .attr("viewBox", `0 0 ${W} ${H}`)
+        .attr("viewBox", `-20 0 ${W} ${H}`)
         .attr("preserveAspectRatio", "xMidYMid meet")
       .append('g')
         .attr("transform", `translate(${margin.left},${margin.top})`)
