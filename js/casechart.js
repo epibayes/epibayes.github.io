@@ -8,10 +8,10 @@ function makeIncidenceChart() {
 
     // set the ranges
     xInc = d3.scaleTime()
-        .domain(d3.extent(incidenceData, d => d.date))
+        .domain(d3.extent(caseData, d => d.date))
         .range([0, width]);
     yInc = d3.scaleLinear()
-        .domain([0, d3.max(incidenceData, d => d.value)]).nice()
+        .domain([0, d3.max(caseData, d => d.value)]).nice()
         .range([height, 0]);
 
     // define the line
@@ -20,7 +20,7 @@ function makeIncidenceChart() {
         .x(d => xInc(d.date))
         .y(d => yInc(d.value));
 
-    let svg = d3.select("#incidence").append("svg")
+    let svg = d3.select("#casechart").append("svg")
         // .attr("viewBox", `0 0 ${W} ${H}`)
         // .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("width", width + margin.left + margin.right)
@@ -30,12 +30,12 @@ function makeIncidenceChart() {
 
     // Add the valueline path.
     svg.append("path")
-        .datum(incidenceData)
-        .attr("class", "daily-incidence")
+        .datum(caseData)
+        .attr("class", "daily-cases")
         .attr("d", valueline);
 
     svg.append('circle')
-        .data(Array(incidenceData[getSliderValue()]))
+        .data(Array(caseData[getSliderValue()]))
         .attr('id', 'current-circle')
         .attr('cx', d => xInc(d.date))
         .attr('cy', d => yInc(d.value))
@@ -79,7 +79,7 @@ function makeIncidenceChart() {
 }
 
 function updateIncidenceCircle(k, anim = true) {
-    let circle = d3.select('#current-circle').datum(incidenceData[k])
+    let circle = d3.select('#current-circle').datum(caseData[k])
     if (anim && k > 0) {
         circle.transition().duration(delay)
             .attr('cx', d => xInc(d.date))
@@ -94,14 +94,14 @@ function updateIncidenceChart(metric) {
     let T = 750
     const key = metric.replace('rate','')
     if (key === 'cumulative') {
-        incidenceData.map(d => { d.value = d.cumulative; return d })
+        caseData.map(d => { d.value = d.cumulative; return d })
     } else {
-        incidenceData.map(d => { d.value = d.daily; return d })
+        caseData.map(d => { d.value = d.daily; return d })
     }
-    yInc.domain([0, d3.max(incidenceData, d => d.value)]).nice()
+    yInc.domain([0, d3.max(caseData, d => d.value)]).nice()
     d3.select('.y-axis').call(yAxis).call(formatAxis)
     setYAxisLabel()
-    d3.select('.daily-incidence').transition().duration(T)
+    d3.select('.daily-cases').transition().duration(T)
         .attr('d', valueline)
     d3.select('#current-circle').transition().duration(T)
         .attr('cy', d => yInc(d.value))

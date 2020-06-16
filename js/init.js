@@ -21,12 +21,13 @@ const sliderFmt = d3.timeFormat('%B %e')
 const numFmt = d3.format(',')
 const N = 7
 const zoomThreshold = 8.5
-let minDate, maxDate, incidenceData, sliderValue;
+let minDate, maxDate, caseData, sliderValue;
 let playing = false;
 let delay = 100;
 let alpha = 0.65;
-let metrics = ['cumulative','cumulativerate','weekly','weeklyrate']
+let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
 let metric = 'cumulative';
+let status = 'CP';
 
 let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)
     .domain([1, 100000])

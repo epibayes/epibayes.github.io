@@ -29,11 +29,18 @@ function initRadio() {
     })
 }
 
-function initToggle() {
+function initToggles() {
     d3.select('#toggle-count-rate').on('click', function() { // updateToggle
         let active = d3.select(this).classed('active')
         metric = active ? metric.replace('rate','') : metric + 'rate'
         d3.select(this).text(active ? 'Show cases per 100,000 people' : 'Show case count')
+        updateHexGrid()
+        updateLegend(metric)
+    })
+    d3.select('#toggle-probable-cases').on('click', function() { // updateToggle
+        let active = d3.select(this).classed('active')
+        status = active ? 'CP' : 'C'
+        d3.select(this).text(active ? 'Show confirmed cases' : 'Show confirmed and probable cases')
         updateHexGrid()
         updateLegend(metric)
     })
@@ -53,7 +60,7 @@ function setDateRange(startDate, endDate) {
 
 function updateTotal(metric) {
     const key = metric.replace('rate','')
-    const total = incidenceData[sliderValue][key]
+    const total = caseData[sliderValue][key]
     d3.select('#total').text(numFmt(total))
 }
 
