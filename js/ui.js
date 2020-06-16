@@ -30,6 +30,7 @@ function initRadio() {
 }
 
 function initToggles() {
+    // case rate toggle
     d3.select('#toggle-count-rate').on('click', function() { // updateToggle
         let active = d3.select(this).classed('active')
         metric = active ? metric.replace('rate','') : metric + 'rate'
@@ -37,10 +38,12 @@ function initToggles() {
         updateHexGrid()
         updateLegend(metric)
     })
+    // confirmed cases only toggle
     d3.select('#toggle-probable-cases').on('click', function() { // updateToggle
         let active = d3.select(this).classed('active')
         status = active ? 'CP' : 'C'
-        d3.select(this).text(active ? 'Show confirmed cases' : 'Show confirmed and probable cases')
+        d3.select(this).text(active ? 'Show confirmed cases only' : 'Show confirmed and probable cases')
+        d3.select('#CP-total-text').text(active ? 'confirmed & probable cases' : 'confirmed cases')
         updateHexGrid()
         updateLegend(metric)
         updateTotalInfo()
