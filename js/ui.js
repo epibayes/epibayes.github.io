@@ -12,7 +12,7 @@ function initSlider() {
         .on('input', function() { // updateSlider
             sliderValue = this.value
             updateMapInfo()
-            updateIncidenceCircle(this.value, anim = false)
+            updateCaseCircle(this.value, anim = false)
         })
 }
 
@@ -25,7 +25,7 @@ function initRadio() {
         updateHexGrid()
         updateLegend(metric)
         updateTotalInfo()
-        updateIncidenceChart(metric)
+        updateCaseChart(metric)
     })
 }
 
@@ -43,6 +43,9 @@ function initToggles() {
         d3.select(this).text(active ? 'Show confirmed cases' : 'Show confirmed and probable cases')
         updateHexGrid()
         updateLegend(metric)
+        updateTotalInfo()
+        updateCaseChart(metric, CP=true)
+        updatePopup()
     })
 }
 
@@ -60,7 +63,7 @@ function setDateRange(startDate, endDate) {
 
 function updateTotal(metric) {
     const key = metric.replace('rate','')
-    const total = caseData[sliderValue][key]
+    const total = caseData.get(status)[sliderValue][key]
     d3.select('#total').text(numFmt(total))
 }
 

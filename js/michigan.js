@@ -13,7 +13,7 @@ async function initDashboard(embedMap=false) {
         d.idx = i
         return d
     })
-    caseData2 = d3.group(caseData, d => d.status)
+    caseData = d3.group(caseData, d => d.status)
 
     hexfillTemplate = { // Object to contain the fill expressions for hex grid
         'weekly': Array(2),
@@ -37,7 +37,7 @@ async function initDashboard(embedMap=false) {
     setDateRange(minDate, maxDate)
     if (!embedMap) updateTotal(metric)
     initMap()
-    if (!embedMap) makeIncidenceChart()
+    if (!embedMap) makeCaseChart()
 }
 
 // Mapbox Related Functions
@@ -233,7 +233,7 @@ function animateMap() {
                 if (sliderValue > sliderMax) return // temp fix
                 d3.select('#slider').property('value', sliderValue)
                 updateMapInfo()
-                updateIncidenceCircle(sliderValue)
+                updateCaseCircle(sliderValue)
             }, delay);
             d3.select(this).html('Stop');
             playing = true;
