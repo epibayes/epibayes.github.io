@@ -4,6 +4,7 @@ const numFmt = d3.format(',.0f')
 async function makeTimeline(weekBin=false) {
     // Get data
     daily = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
+    daily = daily.filter(d => d.status === 'CP')
     daily.map((d,i) => {
         d.date = dateParser(d.date)
         d.avg7 = i > 6 ? +d.weekly/7 : +d.weekly/(i+1)
@@ -61,7 +62,7 @@ async function makeTimeline(weekBin=false) {
         .attr("data-html", true)
         .attr("title", (d,i) => {
             txt = `${d3.timeFormat('%B %e')(d.date)}<br>Cases: ${numFmt(weekBin ? d.weekly : d.daily)}`
-            txt += weekBin ? '' : `<br>7-day avg: ${numFmt(d.avg7)}`
+            txt += weekBin ? '' : `<br>7-day Avg: ${numFmt(d.avg7)}`
             return txt
         })
 

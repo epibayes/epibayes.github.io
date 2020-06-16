@@ -1,38 +1,43 @@
 async function initDashboard(embedMap=false) {
     const data20 = await d3.csv('data/weeklycum_cases_20km_with_rateper100k.csv', type)
-    const data10 = await d3.csv('data/weeklycum_cases_10km_with_rateper100k.csv', type)    
+    const data10 = await d3.csv('data/weeklycum_cases_10km_with_rateper100k.csv', type)
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
     if (!embedMap) insertDates(minDate, maxDate)
 
-    incidenceData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
-    incidenceData.map((d,i) => {
+    caseData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
+    caseData.map((d,i) => {
         d.date = dateParser(d.date)
         d.value = d.cumulative
         d.idx = i
         return d
     })
+    caseData = d3.group(caseData, d => d.status)
 
-    hexfill = { // Object to contain the fill expressions for hex grid
+    hexfillTemplate = { // Object to contain the fill expressions for hex grid
         'weekly': Array(2),
         'cumulative': Array(2),
         'weeklyrate': Array(2),
         'cumulativerate': Array(2),
     }
+    hexfill = {
+        'CP': hexfillTemplate,
+        'C': hexfillTemplate,
+    }
     hexdata = {
-        'hex20': d3.group(data20, d => +d.date, d => d.index),
-        'hex10': d3.group(data10, d => +d.date, d => d.index),
+        'hex20': d3.group(data20, d => d.status, d => +d.date, d => d.index),
+        'hex10': d3.group(data10, d => d.status, d => +d.date, d => d.index),
     }
 
     initSlider()
     initRadio()
-    initToggle()
+    initToggles()
 
     setDateRange(minDate, maxDate)
     if (!embedMap) updateTotal(metric)
     initMap()
-    if (!embedMap) makeIncidenceChart()
+    if (!embedMap) makeCaseChart()
 }
 
 // Mapbox Related Functions
@@ -73,7 +78,7 @@ function initMap() {
             "maxzoom": zoomThreshold,
             "layout": { 'visibility': 'visible' },
             "paint": {
-                "fill-color": hexfill[metric][0],
+                "fill-color": hexfill[status][metric][0],
                 "fill-opacity": alpha,
             },
         });
@@ -85,7 +90,7 @@ function initMap() {
             "minzoom": zoomThreshold,
             "layout": { 'visibility': 'visible' },
             "paint": {
-                "fill-color": hexfill[metric][1],
+                "fill-color": hexfill[status][metric][1],
                 "fill-opacity": alpha,
             },
         });
@@ -111,7 +116,7 @@ function initMap() {
 }
 
 function updateHexLayers(metric) {
-    hexLayers.forEach((d, i) => updateHexFill(d, hexfill[metric][i]))
+    hexLayers.forEach((d,i) => updateHexFill(d, hexfill[status][metric][i]))
 }
 
 function updateHexFill(layerId, scale) {
@@ -126,7 +131,7 @@ function updateFillExpression(key, day=getDateFromSlider()) {
     const colorScale = getColorScale(key)
     const column = key
     hexLayers.forEach((h,i) => {
-        hexfill[key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
+        hexfill[status][key][i] = createFillExpression(hexdata[h].get(status).get(+day), colorScale, column)
     })
 }
 
@@ -165,7 +170,7 @@ function setPopupData(data) {
 function getMetricValues(idx) {
     const day = getDateFromSlider()
     const h = getHexLayer()
-    const array = hexdata[h].get(+day).get(idx)
+    const array = hexdata[h].get(status).get(+day).get(idx)
     let data = metrics.map((col,i) => array === undefined ? '0'
         : ( (i%2 == 0) && (d3.range(1,6).includes(array[0][col])) ) ? '≤5'
         : numFmt(array[0][col])
@@ -228,7 +233,7 @@ function animateMap() {
                 if (sliderValue > sliderMax) return // temp fix
                 d3.select('#slider').property('value', sliderValue)
                 updateMapInfo()
-                updateIncidenceCircle(sliderValue)
+                updateCaseCircle(sliderValue)
             }, delay);
             d3.select(this).html('Stop');
             playing = true;

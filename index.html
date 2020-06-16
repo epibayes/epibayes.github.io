@@ -43,7 +43,7 @@
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
     <!-- project files -->
     <link rel="stylesheet" href="css/michigan.css">
-    <link rel="stylesheet" href="css/incidence.css">
+    <link rel="stylesheet" href="css/casechart.css">
 </head>
 
 <body>
@@ -62,13 +62,17 @@
     </nav>
 
     <div class="container-fluid" style="max-width: 1500px;">
-        <div style="padding-top: 24px; " class="row">
+        <div style="padding-top: 24px;" class="row">
             <div class="col" style="padding-bottom: 12px;">
                 <div id="map"></div>
                 <div class="row">
                     <div class="col-12-sm">
                         <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button"
                             id="toggle-count-rate">Show cases per 100,000 people</button>
+                    </div>
+                    <div class="col-12-sm">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button"
+                            id="toggle-probable-cases">Show confirmed cases</button>
                     </div>
                 </div>
 
@@ -108,7 +112,7 @@
                 </div>
                 <div style="padding-top: 12px;" class="">
                     <!-- D3 line chart -->
-                    <div id="incidence"></div>
+                    <div id="casechart"></div>
                     <div class="" style="margin-top: -8px; margin-left: 12px;" id="slider-container">
                         <input class="custom-range" style="width: 464px;" id="slider" type="range" min="0" step="1">
                     </div>
@@ -225,7 +229,7 @@
     <script src="js/ui.js"></script>
     <script src="js/michigan.js"></script>
     <script src="js/legend.js"></script>
-    <script src="js/incidence.js"></script>
+    <script src="js/casechart.js"></script>
     <script>
         initDashboard()
     </script>

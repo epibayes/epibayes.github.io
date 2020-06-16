@@ -1,4 +1,4 @@
-function makeIncidenceChart() {
+function makeCaseChart() {
     // set the dimensions and margins of the graph
     let margin = { top: 20, right: 20, bottom: 30, left: 20 },
         W = 490,
@@ -7,20 +7,20 @@ function makeIncidenceChart() {
         height = H - margin.top - margin.bottom;
 
     // set the ranges
-    xInc = d3.scaleTime()
-        .domain(d3.extent(incidenceData, d => d.date))
+    x = d3.scaleTime()
+        .domain(d3.extent(caseData.get(status), d => d.date))
         .range([0, width]);
-    yInc = d3.scaleLinear()
-        .domain([0, d3.max(incidenceData, d => d.value)]).nice()
+    y = d3.scaleLinear()
+        .domain([0, d3.max(caseData.get('CP'), d => d.value)]).nice()
         .range([height, 0]);
 
     // define the line
     valueline = d3.line()
         .curve(d3.curveMonotoneX)
-        .x(d => xInc(d.date))
-        .y(d => yInc(d.value));
+        .x(d => x(d.date))
+        .y(d => y(d.value));
 
-    let svg = d3.select("#incidence").append("svg")
+    let svg = d3.select("#casechart").append("svg")
         // .attr("viewBox", `0 0 ${W} ${H}`)
         // .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("width", width + margin.left + margin.right)
@@ -30,19 +30,19 @@ function makeIncidenceChart() {
 
     // Add the valueline path.
     svg.append("path")
-        .datum(incidenceData)
-        .attr("class", "daily-incidence")
+        .datum(caseData.get(status))
+        .attr("class", "daily-cases")
         .attr("d", valueline);
 
     svg.append('circle')
-        .data(Array(incidenceData[getSliderValue()]))
+        .data(Array(caseData.get(status)[getSliderValue()]))
         .attr('id', 'current-circle')
-        .attr('cx', d => xInc(d.date))
-        .attr('cy', d => yInc(d.value))
+        .attr('cx', d => x(d.date))
+        .attr('cy', d => y(d.value))
         .attr('r', 4)
 
-    xAxis = d3.axisBottom(xInc).ticks(6).tickSizeOuter(0)
-    yAxis = d3.axisRight(yInc).ticks(4)
+    xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0)
+    yAxis = d3.axisRight(y).ticks(4)
 
     formatAxis = g => g
         .call(g => g.select(".domain").remove())
@@ -70,7 +70,7 @@ function makeIncidenceChart() {
     svg.append('text')
         .attr('id', 'yaxislabel')
         .attr('x', 34)
-        .attr('y', yInc(30000))
+        .attr('y', y(30000))
         .attr('dy', "-.35em")
         .attr('font-size', '0.7em')
         .text('cumulative cases')
@@ -78,33 +78,36 @@ function makeIncidenceChart() {
     setYAxisLabel()
 }
 
-function updateIncidenceCircle(k, anim = true) {
-    let circle = d3.select('#current-circle').datum(incidenceData[k])
+function updateCaseCircle(k, anim=true) {
+    let circle = d3.select('#current-circle').datum(caseData.get(status)[k])
     if (anim && k > 0) {
         circle.transition().duration(delay)
-            .attr('cx', d => xInc(d.date))
-            .attr('cy', d => yInc(d.value))
+            .attr('cx', d => x(d.date))
+            .attr('cy', d => y(d.value))
     } else {
-        circle.attr('cx', d => xInc(d.date))
-            .attr('cy', d => yInc(d.value))
+        circle.attr('cx', d => x(d.date))
+            .attr('cy', d => y(d.value))
     }
 }
 
-function updateIncidenceChart(metric) {
+function updateCaseChart(metric, CP=false) {
     let T = 750
-    const key = metric.replace('rate','')
-    if (key === 'cumulative') {
-        incidenceData.map(d => { d.value = d.cumulative; return d })
+    const stat = metric.replace('rate','')
+    if (stat === 'cumulative') {
+        caseData.get(status).map(d => { d.value = d.cumulative; return d })
     } else {
-        incidenceData.map(d => { d.value = d.daily; return d })
+        caseData.get(status).map(d => { d.value = d.daily; return d })
     }
-    yInc.domain([0, d3.max(incidenceData, d => d.value)]).nice()
+    let key = CP ? 'CP' : status
+    y.domain([0, d3.max(caseData.get(key), d => d.value)]).nice()
     d3.select('.y-axis').call(yAxis).call(formatAxis)
     setYAxisLabel()
-    d3.select('.daily-incidence').transition().duration(T)
+    d3.select('.daily-cases').datum(caseData.get(status))
+      .transition().duration(T)
         .attr('d', valueline)
-    d3.select('#current-circle').transition().duration(T)
-        .attr('cy', d => yInc(d.value))
+    d3.select('#current-circle').datum(caseData.get(status)[sliderValue])
+      .transition().duration(T)
+        .attr('cy', d => y(d.value))
 }
 
 function setYAxisLabel() {
@@ -114,6 +117,6 @@ function setYAxisLabel() {
 
 function updateYAxisLabel(d) {
     d3.select('#yaxislabel')
-        .attr('y', yInc(d)) 
+        .attr('y', y(d)) 
         .text(metric === 'cumulative' ? 'cumulative cases' : 'daily cases')    
 }
