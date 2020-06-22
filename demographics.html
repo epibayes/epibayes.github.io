@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 Demographics</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <link rel="stylesheet" href="css/demographics.css">
+</head>
+<body>
+<div id="age"></div>
+<div id="gender"></div>
+<div id="race"></div>
+
+<script>
+// set the dimensions and margins of the graph
+let margin = {top: 20, right: 20, bottom: 30, left: 50},
+    W = 600, H = 150,
+    width = W - margin.left - margin.right,
+    height = H - margin.top - margin.bottom;
+
+// parse the date / time
+const parseTime = d3.timeParse("%y%m%d");
+
+// set the ranges
+let x = d3.scaleTime().range([0, width]);
+let y = d3.scaleLinear().range([height, 0]);
+
+let xAxis = d3.axisBottom(x)
+    .ticks(8)
+    .tickSizeOuter(0)
+
+let yAxis = d3.axisLeft(y)
+    .ticks(4)
+    .tickSizeOuter(0)
+
+// Get the data
+async function makeAgeChart(column, color, flag) {
+    const rawdata = await d3.csv(`data/covid_${column}_breakdown_cases_6_15.csv`, d => {
+        d.date = parseTime(d.date)
+        d.cases = +d.cases
+        return d
+    })
+    let [minDate, maxDate] = d3.extent(rawdata, d => d.date)
+    // generalized construction of dataset with n series
+    data = {
+      dates: d3.timeDay.range(minDate, d3.timeDay.offset(maxDate)),
+      series: Array.from(d3.groups(rawdata, d => d[column]), d => ({'name':d[0], 'values': d[1].map(e => e.cases)}))
+    };
+    x.domain(d3.extent(data.dates));
+    y.domain([0, d3.max(rawdata, d => d.cases)]).nice();
+
+    const dates = [ [new Date(2020,2,24), new Date(2020,5,2)] ]
+    
+    let svg = d3.select(`#${column}`).append("svg")
+        .attr("viewBox", `-${margin.left} -${margin.top} ${W} ${H}`)
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .style("overflow", "visible")
+
+    // generalization for an array of date objects
+    svg.selectAll('rect')
+      .data(dates)
+      .join('rect')
+        .attr('class', 'rectangle')
+        .attr('width', d => x(d[1]) - x(d[0]))
+        .attr('height', height)
+        .attr('x', d => x(d[0]))
+
+    // define the line
+    let valueline = d3.line()
+        .defined(d => !isNaN(d))
+        .x((d,i) => x(data.dates[i]))
+        .y(d => y(d))
+
+    let path = svg.append("g")
+        .attr('fill', 'none')
+        .attr('stroke', color)
+        .attr('stroke-width', 1.5)
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+      .selectAll('path')
+      .data(data.series)
+      .join('path')
+        .style('mix-blend-mode', 'multiply')
+        .attr('d', d => valueline(d.values));
+
+    svg.append("g")
+        .attr("transform", `translate(0,${height})`)
+        .call(xAxis);
+
+    svg.append("g")
+        .attr('class', 'y-axis axis')
+        .call(yAxis);
+    svg.select('.y-axis .domain').remove()
+
+    svg.append('text')
+        .attr('transform','translate(10,4)')
+        .attr('class', 'ylabel')
+        .text('Cases')
+
+    if (flag) svg.call(hover, path);
+}
+
+// Get the data
+async function makeGenderChart(column, color, flag) {
+  const rawdata = await d3.csv(`data/covid_${column}_breakdown_cases_6_15.csv`, d => {
+      d.date = parseTime(d.date)
+      d.cases = +d.cases
+      return d
+  })
+  let [minDate, maxDate] = d3.extent(rawdata, d => d.date)
+  // generalized construction of dataset with n series
+  data = {
+    dates: d3.timeDay.range(minDate, d3.timeDay.offset(maxDate)),
+    series: Array.from(d3.groups(rawdata, d => d[column]), d => ({'name':d[0], 'values': d[1].map(e => e.cases)}))
+  };
+  x.domain(d3.extent(data.dates));
+  y.domain([0, d3.max(rawdata, d => d.cases)]).nice();
+
+  const dates = [ [new Date(2020,2,24), new Date(2020,5,2)] ]
+  
+  let svg = d3.select(`#${column}`).append("svg")
+      .attr("viewBox", `-${margin.left} -${margin.top} ${W} ${H}`)
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .style("overflow", "visible")
+
+  // generalization for an array of date objects
+  svg.selectAll('rect')
+    .data(dates)
+    .join('rect')
+      .attr('class', 'rectangle')
+      .attr('width', d => x(d[1]) - x(d[0]))
+      .attr('height', height)
+      .attr('x', d => x(d[0]))
+
+  // define the line
+  let valueline = d3.line()
+      .defined(d => !isNaN(d))
+      .x((d,i) => x(data.dates[i]))
+      .y(d => y(d))
+
+  let path = svg.append("g")
+      .attr('fill', 'none')
+      .attr('stroke', color)
+      .attr('stroke-width', 1.5)
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+    .selectAll('path')
+    .data(data.series)
+    .join('path')
+      .style('mix-blend-mode', 'multiply')
+      .attr('d', d => valueline(d.values));
+
+  svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(xAxis);
+
+  svg.append("g")
+      .attr('class', 'y-axis axis')
+      .call(yAxis);
+  svg.select('.y-axis .domain').remove()
+
+  svg.append('text')
+      .attr('transform','translate(10,4)')
+      .attr('class', 'ylabel')
+      .text('Cases')
+
+  if (flag) svg.call(hover, path);
+}
+
+// Get the data
+async function makeRaceChart(column, color, flag) {
+  const rawdata = await d3.csv(`data/covid_${column}_breakdown_cases_6_15.csv`, d => {
+      d.date = parseTime(d.date)
+      d.cases = +d.cases
+      return d
+  })
+  let [minDate, maxDate] = d3.extent(rawdata, d => d.date)
+  // generalized construction of dataset with n series
+  data = {
+    dates: d3.timeDay.range(minDate, d3.timeDay.offset(maxDate)),
+    series: Array.from(d3.groups(rawdata, d => d[column]), d => ({'name':d[0], 'values': d[1].map(e => e.cases)}))
+  };
+  x.domain(d3.extent(data.dates));
+  y.domain([0, d3.max(rawdata, d => d.cases)]).nice();
+
+  const dates = [ [new Date(2020,2,24), new Date(2020,5,2)] ]
+  
+  let svg = d3.select(`#${column}`).append("svg")
+      .attr("viewBox", `-${margin.left} -${margin.top} ${W} ${H}`)
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .style("overflow", "visible")
+
+  // generalization for an array of date objects
+  svg.selectAll('rect')
+    .data(dates)
+    .join('rect')
+      .attr('class', 'rectangle')
+      .attr('width', d => x(d[1]) - x(d[0]))
+      .attr('height', height)
+      .attr('x', d => x(d[0]))
+
+  // define the line
+  let valueline = d3.line()
+      .defined(d => !isNaN(d))
+      .x((d,i) => x(data.dates[i]))
+      .y(d => y(d))
+
+  let path = svg.append("g")
+      .attr('fill', 'none')
+      .attr('stroke', color)
+      .attr('stroke-width', 1.5)
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+    .selectAll('path')
+    .data(data.series)
+    .join('path')
+      .style('mix-blend-mode', 'multiply')
+      .attr('d', d => valueline(d.values));
+
+  svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(xAxis);
+
+  svg.append("g")
+      .attr('class', 'y-axis axis')
+      .call(yAxis);
+  svg.select('.y-axis .domain').remove()
+
+  svg.append('text')
+      .attr('transform','translate(10,4)')
+      .attr('class', 'ylabel')
+      .text('Cases')
+
+  if (flag) svg.call(hover, path);
+}
+
+function hover(svg, path) {
+    
+  svg.on("mousemove", moved)
+      .on("mouseenter", entered)
+      .on("mouseleave", left);
+
+  const dot = svg.append("g")
+      .attr("display", "none");
+
+  dot.append("circle")
+      .attr("r", 3);
+
+  dot.append("text")
+      .attr('class', 'label')
+      .attr("y", -15);
+
+  function moved() {
+      d3.event.preventDefault();
+      const mouse = d3.mouse(this);
+      const xm = x.invert(mouse[0]);
+      const ym = y.invert(mouse[1]);
+      const i1 = d3.bisectLeft(data.dates, xm, 1);
+      const i0 = i1 - 1;
+      const i = xm - data.dates[i0] > data.dates[i1] - xm ? i1 : i0;
+      const s = d3.least(data.series, d => Math.abs(d.values[i] - ym));
+      path.attr("stroke", d => d.name === s.name ? null : "#ddd").filter(d => d.name === s.name).raise();
+      dot.attr("transform", `translate(${x(data.dates[i])},${y(s.values[i])})`);
+      dot.select("text").text(s.name);
+  }
+
+  function entered() {
+      path.style("mix-blend-mode", null).attr("stroke", "#ddd");
+      dot.attr("display", null);
+  }
+
+  function left() {
+      path.style("mix-blend-mode", "multiply").attr("stroke", null);
+      dot.attr("display", "none");
+  }
+};
+
+categories = ['age','gender','race']
+makeAgeChart('age', 'purple', false)
+makeGenderChart('gender', 'green', false)
+makeRaceChart('race', 'red', true)
+
+</script>
+</body>
