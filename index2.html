@@ -94,6 +94,14 @@
                                 <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-probable-cases">Show confirmed cases only</button>
                             </div> <!--close col-->
                         </div> <!-- close row -->
+                        <div class="row builtandmaintained">
+                            <div class="col-sm-1 buildlogo">
+                                <img id="sphlogo" src="img/public health logo.png">
+                            </div>
+                            <div class="col-sm-11 buildtext">
+                                <p>Built and maintained by the University of Michigan School of Public Health. <br>Last updated: <span id="update-date"></span></p>
+                            </div>
+                        </div> <!--close built and maintained row-->
                     </div> <!--close map and buttons column-->
                     <div class="col-sm-12 col-md-6 casesovertime">
                         <div class="row">
@@ -132,11 +140,24 @@
                                         <button type="button" class="d-inline btn btn-outline-primary" id="play">Play cases over time</button>
                                     </div> <!--close line chart div-->
                                 </div> <!--close linechart row-->
-
-                                </div>
                             </div> <!--close cumulativevis-->
                         </div> <!--close row-->
-
+                        <div class="row thegoal">
+                            <div class="col-sm-12 goaltext">
+                                <p id="ourgoal">
+                                    The goal of this COVID-19 mapping project is to put COVID in its spatial and social
+                                    context, to allow better exploration and understanding of geographic patterning in
+                                    detected cases and deaths. We will also explore how the distribution of COVID-19
+                                    cases change with respect to social risk factors, such as urban/rural environment,
+                                    age and race. We have developed this interactive map for you to physically explore
+                                    the spread of COVID-19 cases around the state of Michigan through space and time,
+                                    from the first detected case on <span id="first-date"></span> until 
+                                    <span id="last-date"></span>. To see how COVID-19 cases change over time with social 
+                                    distancing policies, visit our 
+                                    <a href="/timeline.html">Timeline page</a>.
+                                </p>
+                            </div>
+                        </div> <!--close the goal row-->
                     </div> <!--close cases over time-->
                 </div> <!--close row-->
             </div> <!--close parent container-->

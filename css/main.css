@@ -45,6 +45,24 @@
     padding-top: 10px;
 }
 
+/* styling the build information items */
+.builtandmaintained{
+    padding-top: 10px;
+}
+
+#sphlogo{
+    height:52px;
+}
+
+.buildlogo, .buildtext{
+    margin: 0;
+    padding: 0;
+}
+
+.buildtext{
+    color: gray;
+}
+
 /* styling the h1 div that contains the total number of cases */
 .casesovertime{
     margin: 0;
@@ -54,12 +72,13 @@
 #total{
     line-height: 30px;
     padding-bottom: 10px;
+    margin: 0;
 }
 
 /* styling radio div elements */
 .radios{
     margin: 0;
-    padding: 10px 0;
+    padding: 25px 0;
 }
 .custom-radio{
     margin-right: 10px;
@@ -69,6 +88,13 @@
 .linechartdiv{
     margin: 0;
     padding: 0;
+}
+
+/* style the goal text paragraph */
+#ourgoal{
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
 }
 
 
@@ -81,6 +107,10 @@
     .cumulativevis{
         margin: 0;
         padding: 0;
+    }
+    .goaltext{
+        padding: 0;
+        margin: 0;
     }
     
 }
