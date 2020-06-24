@@ -1,6 +1,8 @@
 function makeCaseChart() {
+    console.log("making case chart")
     // set the dimensions and margins of the graph
-    let margin = { top: 20, right: 20, bottom: 30, left: 20 },
+    let margin = { top: 10, right: 10, bottom: 30, left: 10 },
+
         W = 490,
         H = 150,
         width = W - margin.left - margin.right,
@@ -21,10 +23,11 @@ function makeCaseChart() {
         .y(d => y(d.value));
 
     let svg = d3.select("#casechart").append("svg")
-        // .attr("viewBox", `0 0 ${W} ${H}`)
-        // .attr("preserveAspectRatio", "xMidYMid meet")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr('id', 'chartsvg')
+        .attr("viewBox", `0 0 ${W} ${H}`)
+        .attr("preserveAspectRatio", "xMidYMid meet")        
+        // .attr("width", width + margin.left + margin.right)
+        // .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 

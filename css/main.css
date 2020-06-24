@@ -1,0 +1,86 @@
+/* navigation bar styling */
+.navbar-brand{
+    margin: 0px;
+    font-weight: 400;
+    font-size: x-large;
+}
+.navbar-brand img{
+    display: inline-block;
+    height: inherit;
+}
+.navbar-toggler{
+    padding: 0px;
+}
+.navbar-nav{
+    padding-left: 10px;
+}
+
+/* row styling */
+.row{
+    width: inherit;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* map div styling */
+.mapcol{
+    padding: 0px;
+    margin: 0px;
+}
+
+.mapandbuttons{
+    margin: 0px;
+    padding: 0px;
+
+}
+
+/* button styling */
+#toggle-count-rate, #toggle-probable-cases{
+    margin: 0px !important;
+    /* padding: 0px !important; */
+}
+.mapbuttons{
+    padding: 0px;
+    margin: 0px;
+    padding-top: 10px;
+}
+
+/* styling the h1 div that contains the total number of cases */
+.casesovertime{
+    margin: 0;
+    padding: 0;
+}
+
+#total{
+    line-height: 30px;
+    padding-bottom: 10px;
+}
+
+/* styling radio div elements */
+.radios{
+    margin: 0;
+    padding: 10px 0;
+}
+.custom-radio{
+    margin-right: 10px;
+}
+
+/* style linechart div elements*/
+.linechartdiv{
+    margin: 0;
+    padding: 0;
+}
+
+
+@media (max-width: 576px){
+    .CPtotals{
+        margin:0;
+        padding: 0;
+        padding-top: 10px;
+    }
+    .cumulativevis{
+        margin: 0;
+        padding: 0;
+    }
+    
+}

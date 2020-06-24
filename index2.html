@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+    <head>
+        <head>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37324839-1"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'UA-37324839-1');
+            </script>
+            <meta charset='utf-8' />
+            <title>Michigan COVID-19 Tracker</title>
+            <link rel="icon" type="image/png" href="img/favicon.png">
+            <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        
+            <!-- Social Media Preview -->
+           
+            <!-- Twitter Section -->
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:creator" content="@caocscar" />
+            
+            <!-- Open Graph Section -->
+            <meta property="og:title" content="Michigan COVID-19 Tracker" />
+            <meta property="og:image" content="https://covidmapping.org/img/opengraph.jpg" />
+            <meta property="og:description" content="The goal of this COVID-19 mapping project is 
+            to put COVID in its spatial and social context, to allow better exploration and understanding 
+            of geographic patterning in detected cases and deaths." />
+            <meta property="og:url" content="https://covidmapping.org" />
+        
+            <!-- Mapbox GL JS -->
+            <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
+            <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
+            
+            <!-- Mapbox GL Geocoder -->
+            <script
+                src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
+            <link rel='stylesheet'
+                href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css'>
+           
+                <!-- bootstrap 4 -->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+            
+                <!-- d3 utilities -->
+            <script src="https://d3js.org/d3.v5.min.js"></script>
+            <script src="https://d3js.org/d3-array.v2.min.js"></script>
+            
+            <!-- CSS links -->
+            <link rel="stylesheet" href="css/main.css">
+            <link rel="stylesheet" href="css/michigan.css">
+            <link rel="stylesheet" href="css/casechart.css">
+        </head>
+    </head>
+    <body>
+        <!-- navigation bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- navbar brand image + title -->
+            <a class="navbar-brand align-items-center" href="/index2.html">
+                <img id="epibayes-logo" src="img/logo_transparent.png">
+                Michigan COVID-19 Mapping
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            <div class="collapse navbar-collapse" id="website-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="/team.html">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="/timeline.html">Timeline</a>
+                    </li>
+                </ul>
+            </div>
+        </nav> 
+        <!--close nav bar-->
+        
+        <!-- main content -->
+        <main>
+            <!--parent container-->
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- map and buttons column-->
+                    <div class="col-sm-12 col-md-6 mapandbuttons">
+                        <div class="row">
+                            <div class="col-sm-12 mapcol">
+                                <div id="map"> </div>
+                            </div> <!--close col-->
+                        </div> <!--close row-->
+                        <div class="row">
+                            <div class="col-sm-12 mapbuttons">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-count-rate">Show cases per 100,000 people</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-probable-cases">Show confirmed cases only</button>
+                            </div> <!--close col-->
+                        </div> <!-- close row -->
+                    </div> <!--close map and buttons column-->
+                    <div class="col-sm-12 col-md-6 casesovertime">
+                        <div class="row">
+                            <div class="col-sm-12 text-left CPtotals">
+                                <h1 id="total"></h1>
+                                <p class="d-inline" id= "CP-total-text">confirmed & probable cases</p>
+                                <p class="d-inline dayrange" id="startdate"></p>
+                                <p class="d-inline">to</p>
+                                <p class="d-inline dayrange" id="enddate"></p>
+                            </div> <!--close CP totals-->
+                        </div> <!--close row-->
+                        <div class="row">
+                            <div class="col-sm-12 cumulativevis">
+                                <div class="row radiobuttons">
+                                    <div class="col-sm-12 radios d-flex">
+                                        <!-- cumulative cases radio -->
+                                            <div class="custom-control custom-radio">
+                                                <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked>
+                                                <label class="custom-control-label" for= "casecum">Show cumulative cases</label>
+                                            </div>
+                                        <!-- cases in past week radio -->
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input metric" id="caseweek" name="attributes"
+                                            value="weekly">
+                                            <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
+                                        </div>
+                                    </div> <!--close radios-->
+
+                                </div> <!--close radiobuttons row-->
+                                <div class="row linechartrow">
+                                    <div class="col-sm-12 linechartdiv">
+                                        <div id="casechart"></div>
+                                        <div class="" id="slider-container">
+                                            <input class="custom-range" id="slider" type="range" min="0" step="1">
+                                        </div> <!--close slider container-->
+                                        <button type="button" class="d-inline btn btn-outline-primary" id="play">Play cases over time</button>
+                                    </div> <!--close line chart div-->
+                                </div> <!--close linechart row-->
+
+                                </div>
+                            </div> <!--close cumulativevis-->
+                        </div> <!--close row-->
+
+                    </div> <!--close cases over time-->
+                </div> <!--close row-->
+            </div> <!--close parent container-->
+
+        </main>
+    
+        <!-- scripts -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+        <script src="js/init.js"></script>
+        <script src="js/ui.js"></script>
+        <script src="js/michigan.js"></script>
+        <script src="js/legend.js"></script>
+        <script src="js/casechart.js"></script>
+        <script>
+            initDashboard()
+        </script>
+    </body>
+    
+</html>
