@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37324839-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-37324839-1');
+        </script>
+
+        <meta charset='utf-8' />
+        <title>Michigan COVID-19 Tracker</title>
+        <link rel="icon" type="image/png" href="img/favicon.png">
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        
+        <!-- bootstrap 4 -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        
+            <!-- d3 utilities -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-array.v2.min.js"></script>
+
+        <!-- project files -->
+        <link rel="stylesheet" href="css/timeline.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <!-- navigation bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- navbar brand image + title -->
+            <a class="navbar-brand align-items-center" href="/index2.html">
+                <img id="epibayes-logo" src="img/logo_transparent.png">
+                Michigan COVID-19 Mapping
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            <div class="collapse navbar-collapse" id="website-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="/team2.html">Team </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="/timeline2.html">Timeline <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav> 
+        <!--close nav bar-->
+        <!-- main content -->
+        <main>
+            <div class="container-fluid">
+                <div class="row timelinetitle">
+                    <div class="col-sm-12 text-center">
+                        <h2>Michigan COVID-19 Timeline</h2>
+                    </div>
+                </div> <!--close row timeline title-->
+                <div class="row timelinedescription1">
+                    <div class="col-sm-2 buffer"></div>
+                    <div class="col-sm-8 tl_1">
+                        <p>Here we present a timeline of major COVID-19 milestones, executive orders and actions taken in Michigan to reduce crowding and enforce social distancing, and how the trajectory of cases has changed since COVID-19 began to appear in Michigan. Early, aggressive action taken starting March 12th (by closing K-12 schools), through March 23rd (issuing the Michigan Stay Home, Stay Safe order) does appear to have curbed the trajectory of COVID-19 infections in the state, or ‘flattened the curve’, with infections levelling off around April 6th. However, even with 2 months of a stay-at-home order, there are still hundreds of cases per day, indicating that there are still substantial infections in the state of Michigan. When social distancing precautions begin to lift with the end of Governor Whitmer's Stay Home, Stay Safe period, vigilance will be necessary.</p>
+                    </div> <!--close tl_1-->
+                    <div class="col-sm-2 buffer"></div>
+                </div> <!--close row timeline description 1-->
+                <div class="row timelinesvg">
+                    <div class="col-sm-12">
+                        <div id="timeline"></div>
+                    </div> <!--close col sm 12-->
+                </div> <!--close row timeline svg-->
+                <div class="row relationshipbt">
+                    <div class="col-sm-2 buffer"></div>
+                    <div class="col-sm-8 relationshipinfo">
+                        <h3>What is the relationship between changing behavior and COVID-19 case rates?</h3>
+                        <p>Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data from John Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly 2,300,000 reported cases and 120,000 deaths across the country due to COVID-19.</p>
+                        
+                        <p>There are currently <a href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/therapeutic-options.html" target="_blank">no approved treatments for COVID-19</a>, and there is no vaccine. The <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html" target="_blank">CDC has guidelines on what to do if you are sick</a>, but because there are no effective treatments or ways to prevent infection, <b>the best tool we have to protect ourselves and our communities is <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/social-distancing.html" target="_blank"> social distancing.</a></b> Social distancing means keeping about 6 feet of distance from others, staying home whenever possible, and avoiding groups.</p>
+
+                        <p>However, even with aggressive social distancing policies put in place by Governor Gretchen Whitmer, cases are not disappearing altogether, and only very recently are we seeing evidence of a steady decline. Part of this is due to the fact that there is a long delay between getting <i>infected</i> with COVID-19 and being sick enough to get <i>tested</i> for COVID-19. After exposure ot COVID-19, it typically takes <a href="https://annals.org/aim/fullarticle/2762808/incubation-period-coronavirus-disease-2019-covid-19-from-publicly-reported" target="_blank">4-6 days</a> to develop symptoms, though it can take as long as <b><a href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/clinical-guidance-management-patients.html" target="_blank">14 days</a>.</b>This means that there is up to a <i>two week delay</i> between when someone comes into contact with the virus (either through a sick person or touching a contaminated surface) and when they begin to show symptoms.</p>
+
+                        <p><a href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/clinical-guidance-management-patients.html" target="_blank">80% of those infected with COVID-19 appear to have mild to moderate illness</a>, and may not seek testing at all. For those ~20% whose symptoms progress to more severe illness, it takes about 5-8 days to experience shortness of breath, 8-12 days to acute respiratory distress syndrome, and 10-12 days to be admitted to the ICU. Thus in settings where tests are administered
+                        most commonly to those who are experiencing severe symptoms and/or seeking hospital care, there could be <i>as much as a month delay</i> between exposure to COVID-19 and seeking treatment where a patient would receive a COVID-19 diagnosis. <b>This means that we can expect up to a 4 week delay between changes in social distancing behavior and changes in case and mortality rates.</b> As the state begins to reopen, recall that this delay applies not only to <i>decreasing</i> cases after social distancing measures are enacted, but also to <i>increasing</i>
+                        cases after those distancing measures are relaxed.</p>
+
+                    </div> <!--close relationshipinfo-->
+                    
+                    <div class="col-sm-2 buffer"></div>
+                </div> <!--close row relationship bt-->
+            </div> <!--close parent container-->
+        </main>
+
+        <!-- scripts -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"  crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+        <script src="js/timeline.js"></script>
+    </body>
+
+</html>
