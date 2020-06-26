@@ -1,56 +1,52 @@
 <!DOCTYPE html>
     <head>
-        <head>
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37324839-1"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag() { dataLayer.push(arguments); }
-                gtag('js', new Date());
-                gtag('config', 'UA-37324839-1');
-            </script>
-            <meta charset='utf-8' />
-            <title>Michigan COVID-19 Tracker</title>
-            <link rel="icon" type="image/png" href="img/favicon.png">
-            <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37324839-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-37324839-1');
+        </script>
+
+        <meta charset='utf-8' />
+        <title>Michigan COVID-19 Tracker</title>
+        <link rel="icon" type="image/png" href="img/favicon.png">
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    
+        <!-- Social Media Preview -->
         
-            <!-- Social Media Preview -->
-           
-            <!-- Twitter Section -->
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:creator" content="@caocscar" />
-            
-            <!-- Open Graph Section -->
-            <meta property="og:title" content="Michigan COVID-19 Tracker" />
-            <meta property="og:image" content="https://covidmapping.org/img/opengraph.jpg" />
-            <meta property="og:description" content="The goal of this COVID-19 mapping project is 
-            to put COVID in its spatial and social context, to allow better exploration and understanding 
-            of geographic patterning in detected cases and deaths." />
-            <meta property="og:url" content="https://covidmapping.org" />
+        <!-- Twitter Section -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@caocscar" />
         
-            <!-- Mapbox GL JS -->
-            <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
-            <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
-            
-            <!-- Mapbox GL Geocoder -->
-            <script
-                src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
-            <link rel='stylesheet'
-                href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css'>
-           
-                <!-- bootstrap 4 -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-                integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-            
-                <!-- d3 utilities -->
-            <script src="https://d3js.org/d3.v5.min.js"></script>
-            <script src="https://d3js.org/d3-array.v2.min.js"></script>
-            
-            <!-- CSS links -->
-            <link rel="stylesheet" href="css/main.css">
-            <link rel="stylesheet" href="css/michigan.css">
-            <link rel="stylesheet" href="css/casechart.css">
-        </head>
+        <!-- Open Graph Section -->
+        <meta property="og:title" content="Michigan COVID-19 Tracker" />
+        <meta property="og:image" content="https://covidmapping.org/img/opengraph.jpg" />
+        <meta property="og:description" content="The goal of this COVID-19 mapping project is 
+        to put COVID in its spatial and social context, to allow better exploration and understanding 
+        of geographic patterning in detected cases and deaths." />
+        <meta property="og:url" content="https://covidmapping.org" />
+    
+        <!-- Mapbox GL JS -->
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
+        
+        <!-- Mapbox GL Geocoder -->
+        <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
+        <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css'>
+        
+        <!-- bootstrap 4 -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        
+        <!-- d3 utilities -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-array.v2.min.js"></script>
+        
+        <!-- CSS links -->
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/michigan.css">
+        <link rel="stylesheet" href="css/casechart.css">
     </head>
     <body>
         <!-- navigation bar -->
@@ -160,6 +156,44 @@
                         </div> <!--close the goal row-->
                     </div> <!--close cases over time-->
                 </div> <!--close row-->
+                <div class="row covidfacts">
+                    <div class="col-sm-6 leftelements">
+                        <div class="row transmitfacts">
+                            <div class="col-sm-12 covidtransmit">
+                                <h3>How is COVID-19 transmitted?</h3>
+                                <h6>Close contact. Surfaces. Respiratory droplets.</h6>
+                                <p>COVID-19 is transmitted through respiratory droplets. Respiratory droplets, according to the WHO, refers to droplets > 5-10 μm (micrometers) in diameter. Transmission by respiratory droplets typically requires close contact between individuals. The WHO defines such contact as within about 1 meter (approximately 3 feet) of someone experiencing respiratory symptoms like coughing or sneezing. However, transmission can also occur through droplets on surfaces, and if someone touches that surface and then touches their eyes/mouth/nose, the virus can spread.
+                                </p>
+                            </div> <!--close covidtransmit-->
+                        </div> <!--close transmitfacts row-->
+                        <div class="row wherenumbers">
+                            <div class="col-sm-12 covidnumbers">
+                                <h3>Where are we getting these numbers?</h3>
+                                <p>These data come from the <a href="https://www.michigan.gov/mdhhs/">Michigan Department of Health and Human Services</a> and reflect counts of <b>confirmed</b> COVID-19 cases in Michigan including cases reported from the Michigan Department of Corrections (MDOC). As a result, this specifically reflects risk among those who are being tested in the state of Michigan. Information on testing in Michigan is available at the <a href="https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173_99225---,00.html">Michigan.gov coronavirus page</a>. However, it is important to keep in mind that the numbers on the map here reflect not the total number of COVID-19 infections, but confirmed cases who are being tested. Specific criteria are required in order to be tested, and this has changed over time. The percent positive rate is a good way to contextualize how many of the ‘true’ cases are being captured. The cumulative percent positive rate <a href="https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173_99225---,00.html"> is about 25%</a> in the state of Michigan, meaning that on average, for every case detected by a COVID-19 test, there are three negative tests. This high rate of positives indicates we are likely missing a good portion of the true extent of cases, indicating that risk estimates on this map are conservative.</p>
+                            </div> <!--close covidnumbers-->
+                        </div> <!--close row wherenumbers-->
+                    </div> <!--close left elements-->
+                    <div class="col-sm-6 rightelements">
+                        <div class="row whatcanwelearn">
+                            <div class="col-sm-12 covidlearn">
+                                <h3>What can we learn from mapping COVID-19?</h3>
+                                <h6>Importance of social distancing</h6>
+                                <p>his droplet-based transmission is why wearing masks, washing your hands carefully, and maintaining 6 feet of distance whenever possible can help to stem the spread of coronavirus. Additionally, droplet transmission indicates that individuals need to be close to one another in physical space to spread the virus. This means that someone’s risk of infection is strongly influenced by local rates of infection in their surroundings, making a map of local disease incidence potentially helpful for understanding infection risks in your area.</p>
+                                <h6>Locating risk areas</h6>
+                                <p>However, we have learned that exposure to the SARS-CoV-2 virus is not the only factor driving transmission in Michigan and other U.S. states. For example, areas with more elderly individuals may be at higher risk of having cases of severe disease and death. Places with higher rates of poverty, unstable housing, and pre-existing medical conditions have also seen increased risk.</p>
+                                <h6>Estimating infection</h6>
+                                <p>Finally, our map currently includes only <b>reported</b> cases, and necessarily represents an underestimate of the amount of infection that has and continues to occur. This is due to the fact that many cases may be fully asymptomatic, and that some individuals with mild symptoms of COVID-19 may not seek medical attention. These effects may vary in space, and these maps should be viewed with these limitations in mind.</p>
+                            </div> <!--close covidlearn-->
+                        </div> <!--close row whatcanwelearn-->
+                    </div> <!--close rightelements-->
+                </div> <!--close row covidfacts -->
+                <div class="row contactus">
+                    <div class="col-sm-12 contactinfo">
+                        <h3>Contact Us</h3>
+                        <h6>Questions? Comments? Requests? Reach out!</h6>
+                        <a href="mailto:jzelner@umich.edu">jzelner@umich.edu</a>
+                    </div> <!--close contactinfo-->
+                </div> <!--close row contactus-->
             </div> <!--close parent container-->
 
         </main>

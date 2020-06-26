@@ -1,3 +1,4 @@
+
 /* navigation bar styling */
 .navbar-brand{
     margin: 0px;
@@ -15,6 +16,7 @@
     padding-left: 10px;
 }
 
+/* index styling */
 /* row styling */
 .row{
     width: inherit;
@@ -32,6 +34,10 @@
     margin: 0px;
     padding: 0px;
 
+}
+/* adding a top padding to the container */
+.container-fluid{
+    padding-top:5px;
 }
 
 /* button styling */
@@ -97,6 +103,47 @@
     padding-top: 10px;
 }
 
+/* style covidfacts row */
+.covidfacts{
+    border-top: 1px solid #e8e8e8;
+    margin-top: 10px;
+}
+
+/* style top rows in the facts etc section */
+.transmitfacts, .whatcanwelearn{
+    padding-top: 10px;
+}
+
+/* adjust margins on cols */
+.leftelements, .rightelements, .covidtransmit, .covidnumbers, .contactinfo{
+    margin: 0;
+    padding: 0;
+}
+
+/* adding back padding on left elements */
+.leftelements{
+    padding-right: 12px;
+}
+
+/* style the h6 elements */
+h6{
+    color: gray;
+}
+
+/* adding a bottom padding to the final row in the index page */
+.contactus{
+    padding-bottom: 10px;
+}
+
+
+
+
+/* team page styling */
+/* style h4 elements */
+h4{
+    color: gray;
+
+}
 
 @media (max-width: 576px){
     .CPtotals{
@@ -104,11 +151,7 @@
         padding: 0;
         padding-top: 10px;
     }
-    .cumulativevis{
-        margin: 0;
-        padding: 0;
-    }
-    .goaltext{
+    .cumulativevis, .goaltext, .whatcanwelearn, .covidlearn{
         padding: 0;
         margin: 0;
     }
