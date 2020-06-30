@@ -59,8 +59,16 @@
 }
 
 /* styling the build information items */
-.builtandmaintained{
+/* .builtandmaintained{
     padding-top: 10px;
+} */
+
+.updated{
+    padding: 0px;
+    margin: 0px;
+    padding-top: 10px;
+    color: gray;
+    cursor: default;
 }
 
 #sphlogo{
@@ -144,7 +152,24 @@ h6{
 }
 
 
-
+/* styling footer */
+footer{
+    background-color: #f8f9fa;
+}
+.footeritems{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    font-weight: 500;
+    font-style: italic;
+}
+#sphlogo{
+    vertical-align: center;
+}
+.footerbuildmaintain{
+    vertical-align: center;
+}
 
 /* team page styling */
 /* style h4 elements */
