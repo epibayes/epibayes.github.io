@@ -28,22 +28,22 @@
     </head>
     <body>
         <!-- navigation bar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <!-- navbar brand image + title -->
             <a class="navbar-brand align-items-center" href="/index.html">
                 <img id="epibayes-logo" src="img/logo_transparent.png">
-                Michigan COVID-19 Mapping
+                <p class="navtitle d-none d-sm-inline-block text-center">Michigan COVID-19 Mapping</p>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
             <div class="collapse navbar-collapse" id="website-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-primary" href="/team.html">Team </a>
+                    <li class="nav-item text-right">
+                        <a class="nav-link text-primary" href="/team.html">Team</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-primary" href="/timeline.html">Timeline <span class="sr-only">(current)</span></a>
+                    <li class="nav-item text-right">
+                        <a class="nav-link text-primary" href="/timeline.html">Timeline</a>
                     </li>
                 </ul>
             </div>
@@ -58,20 +58,22 @@
                     </div>
                 </div> <!--close row timeline title-->
                 <div class="row timelinedescription1">
-                    <div class="col-sm-2 buffer"></div>
-                    <div class="col-sm-8 tl_1">
+                    <div class="col-sm-2 col-lg-3 buffer"></div>
+                    <div class="col-sm-8 col-lg-6 tl_1">
                         <p>Here we present a timeline of major COVID-19 milestones, executive orders and actions taken in Michigan to reduce crowding and enforce social distancing, and how the trajectory of cases has changed since COVID-19 began to appear in Michigan. Early, aggressive action taken starting March 12th (by closing K-12 schools), through March 23rd (issuing the Michigan Stay Home, Stay Safe order) does appear to have curbed the trajectory of COVID-19 infections in the state, or ‘flattened the curve’, with infections levelling off around April 6th. However, even with 2 months of a stay-at-home order, there are still hundreds of cases per day, indicating that there are still substantial infections in the state of Michigan. When social distancing precautions begin to lift with the end of Governor Whitmer's Stay Home, Stay Safe period, vigilance will be necessary.</p>
                     </div> <!--close tl_1-->
-                    <div class="col-sm-2 buffer"></div>
+                    <div class="col-sm-2 col-lg-3 buffer"></div>
                 </div> <!--close row timeline description 1-->
                 <div class="row timelinesvg">
-                    <div class="col-sm-12">
+                    <div class="col-sm-auto col-md-1 buffer"></div>
+                    <div class="col-sm-12 col-md-10">
                         <div id="timeline"></div>
                     </div> <!--close col sm 12-->
+                    <div class="col-sm-auto col-md-1 buffer"></div>
                 </div> <!--close row timeline svg-->
                 <div class="row relationshipbt">
-                    <div class="col-sm-2 buffer"></div>
-                    <div class="col-sm-8 relationshipinfo">
+                    <div class="col-sm-2 col-lg-3 buffer"></div>
+                    <div class="col-sm-8 col-lg-6 relationshipinfo">
                         <h3>What is the relationship between changing behavior and COVID-19 case rates?</h3>
                         <p>Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data from John Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly 2,300,000 reported cases and 120,000 deaths across the country due to COVID-19.</p>
                         
@@ -85,7 +87,7 @@
 
                     </div> <!--close relationshipinfo-->
                     
-                    <div class="col-sm-2 buffer"></div>
+                    <div class="col-sm-2 col-lg-3 buffer"></div>
                 </div> <!--close row relationship bt-->
             </div> <!--close parent container-->
         </main>

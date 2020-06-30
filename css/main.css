@@ -2,9 +2,16 @@
 /* navigation bar styling */
 .navbar-brand{
     margin: 0px;
+}
+
+.navtitle{
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
     font-weight: 400;
     font-size: x-large;
 }
+
 .navbar-brand img{
     display: inline-block;
     height: inherit;
@@ -57,7 +64,8 @@
 }
 
 #sphlogo{
-    height:52px;
+    /* height:52px; */
+    width:inherit;
 }
 
 .buildlogo, .buildtext{
@@ -174,6 +182,10 @@ h5{
 
 
 @media (max-width: 576px){
+    #sphlogo{
+        width:10vw;
+    }
+    
     .CPtotals{
         margin:0;
         padding: 0;
