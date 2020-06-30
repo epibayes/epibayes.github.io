@@ -1,0 +1,199 @@
+
+/* navigation bar styling */
+.navbar-brand{
+    margin: 0px;
+}
+
+.navtitle{
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    font-weight: 400;
+    font-size: x-large;
+}
+
+.navbar-brand img{
+    display: inline-block;
+    height: inherit;
+}
+.navbar-toggler{
+    padding: 0px;
+}
+.navbar-nav{
+    padding-left: 10px;
+}
+
+/* index styling */
+/* row styling */
+.row{
+    width: inherit;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* map div styling */
+.mapcol{
+    padding: 0px;
+    margin: 0px;
+}
+
+.mapandbuttons{
+    margin: 0px;
+    padding: 0px;
+
+}
+/* adding a top padding to the container */
+.container-fluid{
+    padding-top:5px;
+}
+
+/* button styling */
+#toggle-count-rate, #toggle-probable-cases{
+    margin: 0px !important;
+    /* padding: 0px !important; */
+}
+.mapbuttons{
+    padding: 0px;
+    margin: 0px;
+    padding-top: 10px;
+}
+
+/* styling the build information items */
+.builtandmaintained{
+    padding-top: 10px;
+}
+
+#sphlogo{
+    /* height:52px; */
+    width:inherit;
+}
+
+.buildlogo, .buildtext{
+    margin: 0;
+    padding: 0;
+}
+
+.buildtext{
+    color: gray;
+}
+
+/* styling the h1 div that contains the total number of cases */
+.casesovertime{
+    margin: 0;
+    padding: 0;
+}
+
+#total{
+    line-height: 30px;
+    padding-bottom: 10px;
+    margin: 0;
+}
+
+/* styling radio div elements */
+.radios{
+    margin: 0;
+    padding: 25px 0;
+}
+.custom-radio{
+    margin-right: 10px;
+}
+
+/* style linechart div elements*/
+.linechartdiv{
+    margin: 0;
+    padding: 0;
+}
+
+/* style the goal text paragraph */
+#ourgoal{
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+}
+
+/* style covidfacts row */
+.covidfacts{
+    border-top: 1px solid #e8e8e8;
+    margin-top: 10px;
+}
+
+/* style top rows in the facts etc section */
+.transmitfacts, .whatcanwelearn{
+    padding-top: 10px;
+}
+
+/* adjust margins on cols */
+.leftelements, .rightelements, .covidtransmit, .covidnumbers, .contactinfo{
+    margin: 0;
+    padding: 0;
+}
+
+/* adding back padding on left elements */
+.leftelements{
+    padding-right: 12px;
+}
+
+/* style the h6 elements */
+h6{
+    color: gray;
+}
+
+/* adding a bottom padding to the final row in the index page */
+.contactus{
+    padding-bottom: 10px;
+}
+
+
+
+
+/* team page styling */
+/* style h4 elements */
+h4{
+    color: gray;
+}
+
+/* styling h5 elements */
+h5{
+    margin: 0px;
+}
+
+/* column margin resetter */
+.photodiv, .descdiv{
+    margin: 0;
+    padding: 0;
+}
+/* adding back padding to the description div */
+.descdiv{
+    padding-left: 15px;
+}
+/* add top padding to photo div */
+.photodiv{
+    padding-top:5px;
+}
+
+/* adding buffers to each profile */
+.teammember{
+    padding: 15px 0px;
+}
+/* setting a uniform width for photos */
+.teamphoto{
+    width: 90%;
+}
+
+
+@media (max-width: 576px){
+    #sphlogo{
+        width:10vw;
+    }
+    
+    .CPtotals{
+        margin:0;
+        padding: 0;
+        padding-top: 10px;
+    }
+    .cumulativevis, .goaltext, .whatcanwelearn, .covidlearn{
+        padding: 0;
+        margin: 0;
+    }
+    
+}
