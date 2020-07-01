@@ -71,11 +71,6 @@
     cursor: default;
 }
 
-#sphlogo{
-    /* height:52px; */
-    width:inherit;
-}
-
 .buildlogo, .buildtext{
     margin: 0;
     padding: 0;
@@ -164,11 +159,22 @@ footer{
     font-weight: 500;
     font-style: italic;
 }
+.sphpic{
+    margin:0;
+    padding: 0;
+}
+
 #sphlogo{
     vertical-align: center;
+    width: 52px;
 }
 .footerbuildmaintain{
     vertical-align: center;
+}
+
+.footertext{
+    margin:0;
+    padding:0;
 }
 
 /* team page styling */
@@ -207,10 +213,10 @@ h5{
 
 
 @media (max-width: 576px){
-    #sphlogo{
-        width:10vw;
+    /* #sphlogo{
+        width:100%;
     }
-    
+     */
     .CPtotals{
         margin:0;
         padding: 0;
