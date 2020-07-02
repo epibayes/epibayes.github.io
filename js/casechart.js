@@ -2,7 +2,6 @@ function makeCaseChart() {
     console.log("making case chart")
     // set the dimensions and margins of the graph
     let margin = { top: 10, right: 10, bottom: 30, left: 10 },
-
         W = 490,
         H = 150,
         width = W - margin.left - margin.right,
@@ -26,8 +25,6 @@ function makeCaseChart() {
         .attr('id', 'chartsvg')
         .attr("viewBox", `0 0 ${W} ${H}`)
         .attr("preserveAspectRatio", "xMidYMid meet")        
-        // .attr("width", width + margin.left + margin.right)
-        // .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -96,11 +93,7 @@ function updateCaseCircle(k, anim=true) {
 function updateCaseChart(metric, CP=false) {
     let T = 750
     const stat = metric.replace('rate','')
-    if (stat === 'cumulative') {
-        caseData.get(status).map(d => { d.value = d.cumulative; return d })
-    } else {
-        caseData.get(status).map(d => { d.value = d.daily; return d })
-    }
+    caseData.get(status).map(d => { d.value = d[stat]; return d })
     let key = CP ? 'CP' : status
     y.domain([0, d3.max(caseData.get(key), d => d.value)]).nice()
     d3.select('.y-axis').call(yAxis).call(formatAxis)
@@ -121,5 +114,5 @@ function setYAxisLabel() {
 function updateYAxisLabel(d) {
     d3.select('#yaxislabel')
         .attr('y', y(d)) 
-        .text(metric === 'cumulative' ? 'cumulative cases' : 'daily cases')    
+        .text(metric === 'cumulative' ? 'cumulative cases' : 'weekly cases')    
 }
