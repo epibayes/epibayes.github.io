@@ -84,6 +84,9 @@
     margin: 0;
     padding: 0;
 }
+.btn-light{
+    background-color: lightgray;
+}
 .embedmap{
     margin: 0;
     padding: 0;

@@ -100,13 +100,7 @@
                                 </div> <!--close built and maintained row-->
                                 <div class="row embedmapbutton">
                                     <div class="col-sm-12 embedmap">
-                                        <button type="button" class="btn btn-primary" onClick="showEmbed()">Embed this Map</button>
-                                        <code class="embeddable">
-                                            &lt;iframe width="550px" height="500px"
-                                            src="https://covidmapping.org/embedmap.html?metric=weekly">
-                                            &lt;/iframe&gt;
-                                        </code>
-                                     
+                                        <button type="button" class="btn btn-light" onClick="copyEmbed()">Embed this Map</button>
                                     </div> <!--close embedmap-->
                                 </div> <!--close row embedmapbutton-->
                             </div> <!--close map and buttons column-->
@@ -242,13 +236,35 @@
         <script src="js/casechart.js"></script>
         <script>
             initDashboard()
-            function showEmbed(){
-               let theCode = document.querySelector('.embeddable');
-               if (theCode.style.display === 'block'){
-                    theCode.style.display = 'none';
-               } else {
-                   theCode.style.display = 'block';
-               }
+
+            function generateEmbedURL(){
+
+                let metricTypes = ['cumulative', 'cumulativerate', 'weekly', 'weeklyrate'];
+                let statusTypes = ['CP', 'C'];
+
+                let statusSelection = 'CP';
+                let metricSelection = "cumulative";
+                statusSelection = status;
+                metricSelection = metric;
+
+                let embeddableLink = '<iframe width="550px" height="500px" src="https://covidmapping.org/embedmap.html?status=' + statusSelection + '&metric='+ metricSelection+'> </iframe></code>'
+                
+                return embeddableLink
+
+            }
+            
+            function copyEmbed(){
+                let theCode = generateEmbedURL();
+
+                let textArea = document.createElement('textarea');
+                textArea.textContent=theCode;
+                document.body.append(textArea);
+
+                textArea.select();
+
+
+                document.execCommand('copy');
+                alert('Copied.');
             }
         </script>
     </body>
