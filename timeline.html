@@ -131,14 +131,17 @@
                          let reportedDeathsDirty = splitUS[3].split('</td>')[0];
                          reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
                          reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
-                         console.log(reportedCasesDirty, reportedDeathsDirty)
+                         
+                         let ceilingedcases=Math.round(reportedCasesDirty/100000)*100000
 
-                         let tenthousandformat = d3.format('00,.2r');
-                         let hunthousandformat = d3.format('000,.3r');
+                         let ceilingeddeaths=Math.round(reportedDeathsDirty/10000)*10000
 
-                            document.querySelector('#numberReportedCases').innerHTML = tenthousandformat(reportedCasesDirty).toLocaleString();
-                            
-                            document.querySelector('#numberReportedDeaths').innerHTML = hunthousandformat(reportedDeathsDirty).toLocaleString();
+                         let reportedCases = ceilingedcases.toLocaleString();
+                         let reportedDeaths = ceilingeddeaths.toLocaleString();
+
+                            document.querySelector('#numberReportedCases').innerHTML = reportedCases;
+
+                            document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
                      }
                  }
             });
