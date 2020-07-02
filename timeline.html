@@ -75,7 +75,7 @@
                     <div class="col-sm-2 col-lg-3 buffer"></div>
                     <div class="col-sm-8 col-lg-6 relationshipinfo">
                         <h3>What is the relationship between changing behavior and COVID-19 case rates?</h3>
-                        <p>Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data from John Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly 2,300,000 reported cases and 120,000 deaths across the country due to COVID-19.</p>
+                        <p>Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data from John Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly <span id="numberReportedCases"></span> reported cases and <span id="numberReportedDeaths"></span> deaths across the country due to COVID-19.</p>
                         
                         <p>There are currently <a href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/therapeutic-options.html" target="_blank">no approved treatments for COVID-19</a>, and there is no vaccine. The <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html" target="_blank">CDC has guidelines on what to do if you are sick</a>, but because there are no effective treatments or ways to prevent infection, <b>the best tool we have to protect ourselves and our communities is <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/social-distancing.html" target="_blank"> social distancing.</a></b> Social distancing means keeping about 6 feet of distance from others, staying home whenever possible, and avoiding groups.</p>
 
@@ -91,27 +91,62 @@
             </div> <!--close parent container-->
       </main>
       <footer class="footer">
-        <div class="container footeritems">
-            <div class="row footerstuff">
-                <div class="col-sm-1 sphpic">
+        <div class="container-fluid footeritems">
+            <div class="row sphiconrow">
+                <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
                     <img id="sphlogo" src="img/public health logo.png">
                 </div>
-                <div class="col-sm-11 d-flex align-items-center footerbuildmaintain">
+            </div> <!--close sphiconrow-->
+            <div class="row footerstuff ">
+                <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
                     <p class="footertext">Built and maintained by the <a href="https://sph.umich.edu/" target="_blank">University of Michigan School of Public Health.</a></p>
                 </div>
             </div> <!--close row footerstuff-->
         </div> <!--close the container for footer items-->
     </footer>
         <!-- scripts -->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"  crossorigin="anonymous"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"  crossorigin="anonymous"></script> -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+        <script src="https://d3js.org/d3-format.v1.min.js"></script>
+        
         <script src="js/timeline.js"></script>
+
+        <script>
+            $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
+                 scraped = data.contents;
+                 let allSplit = scraped.split('<tr>')
+                 for (each of allSplit){
+                     if (each.includes('<td>US</td>')){
+                         let usDeets = each
+                         let splitUS = usDeets.split('<td>');
+                         let reportedCasesDirty = splitUS[2].split('</td>')[0];
+                         let reportedDeathsDirty = splitUS[3].split('</td>')[0];
+                         reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
+                         reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
+                         
+                         let ceilingedcases=Math.round(reportedCasesDirty/100000)*100000
+
+                         let ceilingeddeaths=Math.round(reportedDeathsDirty/10000)*10000
+
+                         let reportedCases = ceilingedcases.toLocaleString();
+                         let reportedDeaths = ceilingeddeaths.toLocaleString();
+
+                            document.querySelector('#numberReportedCases').innerHTML = reportedCases;
+
+                            document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
+                     }
+                 }
+            });
+
+        </script>
     </body>
 
 </html>

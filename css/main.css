@@ -79,7 +79,39 @@
 .buildtext{
     color: gray;
 }
+/* style embeddable div elements */
+.embedmapbutton{
+    margin: 0;
+    padding: 0;
+}
 
+.embedmap{
+    margin: 0;
+    padding: 0;
+}
+#copyButton{
+    display: none;
+}
+
+/* styling the iframe code elements */
+.iframecode, .iframeelement{
+    margin: 0;
+    padding: 0;
+}
+#embeddable{
+    display: none;
+    border: 1px solid #e8e8e8;
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0px;
+    /* -webkit-user-select: none;
+    user-select: none; */
+}
+
+textarea{
+    width: 0;
+    height: 0;
+}
 /* styling the h1 div that contains the total number of cases */
 .casesovertime{
     margin: 0;
@@ -166,9 +198,8 @@ footer{
     background-color: #f8f9fa;
 }
 .footeritems{
-    width: 100%;
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     padding-top: 10px;
     font-weight: 500;
     font-style: italic;
@@ -176,6 +207,10 @@ footer{
 .sphpic{
     margin:0;
     padding: 0;
+}
+
+.sphiconrow{
+    padding-top: 10px;
 }
 
 #sphlogo{
