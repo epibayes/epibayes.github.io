@@ -117,14 +117,13 @@
         <script src="js/timeline.js"></script>
 
         <script>
-            $.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
+            $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
                  scraped = data.contents;
                  let allSplit = scraped.split('<tr>')
                  for (each of allSplit){
                      if (each.includes('<td>US</td>')){
                          let usDeets = each
                          let splitUS = usDeets.split('<td>');
-                         console.log(splitUS)
                             document.querySelector('#numberReportedCases').innerHTML = splitUS[2];
                             document.querySelector('#numberReportedDeaths').innerHTML = splitUS[3];
                      }
