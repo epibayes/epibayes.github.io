@@ -79,7 +79,23 @@
 .buildtext{
     color: gray;
 }
-
+/* style embeddable div elements */
+.embedmapbutton{
+    margin: 0;
+    padding: 0;
+}
+.embedmap{
+    margin: 0;
+    padding: 0;
+}
+.embeddable{
+    display: none;
+    border: 1px solid #e8e8e8;
+    padding: 5px;
+    margin: 5px 0px;
+    /* -webkit-user-select: none;
+    user-select: none; */
+}
 /* styling the h1 div that contains the total number of cases */
 .casesovertime{
     margin: 0;

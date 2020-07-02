@@ -87,22 +87,28 @@
                                         <div id="map"> </div>
                                     </div> <!--close col-->
                                 </div> <!--close row-->
-                                <div class="row">
+                                <div class="row togglemapbuttons">
                                     <div class="col-sm-12 mapbuttons">
                                         <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-count-rate">Show cases per 100,000 people</button>
                                         <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-probable-cases">Show confirmed cases only</button>
                                     </div> <!--close col-->
-                                </div> <!-- close row -->
+                                </div> <!-- close row togglemapbuttons -->
                                 <div class="row builtandmaintained">
-                                    <!-- <div class="col-sm-1 buildlogo">
-                                        <img id="sphlogo" src="img/public health logo.png">
-                                    </div>
-                                    <div class="col-sm-11 buildtext">
-                                        <p>Built and maintained by the University of Michigan School of Public Health. <br>Last updated: <span id="update-date"></span></p> -->
                                     <div class="col-sm-12 updated">
                                         <p>Last updated: <span id="update-date"></span></p>
                                     </div> <!--close updated-->
                                 </div> <!--close built and maintained row-->
+                                <div class="row embedmapbutton">
+                                    <div class="col-sm-12 embedmap">
+                                        <button type="button" class="btn btn-primary" onClick="showEmbed()">Embed this Map</button>
+                                        <code class="embeddable">
+                                            &lt;iframe width="550px" height="500px"
+                                            src="https://covidmapping.org/embedmap.html?metric=weekly">
+                                            &lt;/iframe&gt;
+                                        </code>
+                                     
+                                    </div> <!--close embedmap-->
+                                </div> <!--close row embedmapbutton-->
                             </div> <!--close map and buttons column-->
                             <div class="col-sm-12 col-md-6 casesovertime">
                                 <div class="row">
@@ -236,6 +242,14 @@
         <script src="js/casechart.js"></script>
         <script>
             initDashboard()
+            function showEmbed(){
+               let theCode = document.querySelector('.embeddable');
+               if (theCode.style.display === 'block'){
+                    theCode.style.display = 'none';
+               } else {
+                   theCode.style.display = 'block';
+               }
+            }
         </script>
     </body>
     
