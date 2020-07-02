@@ -26,6 +26,7 @@ function initRadio() {
         updateLegend(metric)
         updateTotalInfo()
         updateCaseChart(metric)
+        generateEmbedURL()
     })
 }
 
@@ -50,6 +51,7 @@ function initToggles() {
         updateCaseChart(metric, CP=true)
         updatePopup()
     })
+    generateEmbedURL()
 }
 
 function updateDateRange(metric) {
@@ -92,4 +94,5 @@ function updateHexGrid() {
 function updateTotalInfo() {
     updateTotal(metric)
     updateDateRange(metric)    
+    generateEmbedURL()
 }

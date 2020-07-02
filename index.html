@@ -89,8 +89,8 @@
                                 </div> <!--close row-->
                                 <div class="row togglemapbuttons">
                                     <div class="col-sm-12 mapbuttons">
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-count-rate" onClick='generateEmbedURL()'> Show cases per 100,000 people</button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-probable-cases" onClick='generateEmbedURL()'>Show confirmed cases only</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-count-rate"> Show cases per 100,000 people</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-probable-cases">Show confirmed cases only</button>
                                     </div> <!--close col-->
                                 </div> <!-- close row togglemapbuttons -->
                                 <div class="row builtandmaintained">
@@ -127,13 +127,13 @@
                                             <div class="col-sm-12 radios d-flex">
                                                 <!-- cumulative cases radio -->
                                                     <div class="custom-control custom-radio">
-                                                        <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked onClick='generateEmbedURL()'>
+                                                        <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked>
                                                         <label class="custom-control-label" for= "casecum">Show cumulative cases</label>
                                                     </div>
                                                 <!-- cases in past week radio -->
                                                 <div class="custom-control custom-radio">
                                                     <input type="radio" class="custom-control-input metric" id="caseweek" name="attributes"
-                                                    value="weekly"  onClick='generateEmbedURL()'>
+                                                    value="weekly">
                                                     <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
                                                 </div>
                                             </div> <!--close radios-->
@@ -215,12 +215,14 @@
             </div> <!--close row contactus-->
         </div>
         <footer class="footer">
-            <div class="container footeritems">
-                <div class="row footerstuff">
-                    <div class="col-sm-1 sphpic">
+            <div class="container-fluid footeritems">
+                <div class="row sphiconrow">
+                    <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
                         <img id="sphlogo" src="img/public health logo.png">
                     </div>
-                    <div class="col-sm-11 d-flex align-items-center footerbuildmaintain">
+                </div> <!--close sphiconrow-->
+                <div class="row footerstuff ">
+                    <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
                         <p class="footertext">Built and maintained by the <a href="https://sph.umich.edu/" target="_blank">University of Michigan School of Public Health.</a></p>
                     </div>
                 </div> <!--close row footerstuff-->
@@ -244,7 +246,7 @@
         <script src="js/casechart.js"></script>
         <script>
             initDashboard()
-            generateEmbedURL()
+            // generateEmbedURL()
 
             function toggleEmbed(){
                 let iframeDiv = document.querySelector('#embeddable');
@@ -262,27 +264,18 @@
             }
 
             function generateEmbedURL(){
-
-                let metricTypes = ['cumulative', 'cumulativerate', 'weekly', 'weeklyrate'];
-                let statusTypes = ['CP', 'C'];
-
-                let statusSelection = 'CP';
-                let metricSelection = "cumulative";
-                statusSelection = status;
-                metricSelection = metric;
-
-                let embeddableLink = '<iframe width="550px" height="500px" src="https://covidmapping.org/embedmap.html?status=' + statusSelection + '&metric='+ metricSelection+'></iframe>'
+                let embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/embedmap.html?status=${status}&metric=${metric}></iframe>`
                 
 
-                let codeArea = document.querySelector('#embeddable')
-                codeArea.textContent = embeddableLink
+                d3.select('#embeddable')
+                  .text(embeddableLink)
                 
                 return embeddableLink
 
             }
             
             function copyEmbed(){
-                let theCode = generateEmbedURL();
+                let theCode = d3.select('#embeddable').text();
 
                 let textArea = document.createElement('textarea');
                 textArea.textContent=theCode;
