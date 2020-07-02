@@ -84,15 +84,19 @@
     margin: 0;
     padding: 0;
 }
-.btn-light{
-    background-color: lightgray;
-}
+
 .embedmap{
     margin: 0;
     padding: 0;
 }
-.embeddable{
-    display: none;
+
+/* styling the iframe code elements */
+.iframecode, .iframeelement{
+    margin: 0;
+    padding: 0;
+}
+#embeddable{
+    display: block;
     border: 1px solid #e8e8e8;
     padding: 5px;
     margin: 5px 0px;

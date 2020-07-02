@@ -89,8 +89,8 @@
                                 </div> <!--close row-->
                                 <div class="row togglemapbuttons">
                                     <div class="col-sm-12 mapbuttons">
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-count-rate">Show cases per 100,000 people</button>
-                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-probable-cases">Show confirmed cases only</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-count-rate" onClick='generateEmbedURL()'> Show cases per 100,000 people</button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" id="toggle-probable-cases" onClick='generateEmbedURL()'>Show confirmed cases only</button>
                                     </div> <!--close col-->
                                 </div> <!-- close row togglemapbuttons -->
                                 <div class="row builtandmaintained">
@@ -98,11 +98,17 @@
                                         <p>Last updated: <span id="update-date"></span></p>
                                     </div> <!--close updated-->
                                 </div> <!--close built and maintained row-->
-                                <div class="row embedmapbutton">
-                                    <div class="col-sm-12 embedmap">
-                                        <button type="button" class="btn btn-light" onClick="copyEmbed()">Embed this Map</button>
-                                    </div> <!--close embedmap-->
-                                </div> <!--close row embedmapbutton-->
+                                <div class="row iframecode">
+                                    <div class="col-sm-12 iframeelement">
+                                        <code id="embeddable">
+                                        </code>
+                                        <div class="row embedmapbutton">
+                                            <div class="col-sm-12 embedmap">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" onClick="copyEmbed()">Copy to Clipboard</button>
+                                            </div> <!--close embedmap-->
+                                        </div> <!--close row embedmapbutton-->
+                                    </div> <!--close iframeelement-->
+                                </div> <!--close iframecode-->
                             </div> <!--close map and buttons column-->
                             <div class="col-sm-12 col-md-6 casesovertime">
                                 <div class="row">
@@ -120,13 +126,13 @@
                                             <div class="col-sm-12 radios d-flex">
                                                 <!-- cumulative cases radio -->
                                                     <div class="custom-control custom-radio">
-                                                        <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked>
+                                                        <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked onClick='generateEmbedURL()'>
                                                         <label class="custom-control-label" for= "casecum">Show cumulative cases</label>
                                                     </div>
                                                 <!-- cases in past week radio -->
                                                 <div class="custom-control custom-radio">
                                                     <input type="radio" class="custom-control-input metric" id="caseweek" name="attributes"
-                                                    value="weekly">
+                                                    value="weekly"  onClick='generateEmbedURL()'>
                                                     <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
                                                 </div>
                                             </div> <!--close radios-->
@@ -161,6 +167,7 @@
                                 </div> <!--close the goal row-->
                             </div> <!--close cases over time-->
                         </div> <!--close row mapandtimeline-->
+
                         <div class="row covidfacts">
                             <div class="col-sm-6 leftelements">
                                 <div class="row transmitfacts">
@@ -236,7 +243,7 @@
         <script src="js/casechart.js"></script>
         <script>
             initDashboard()
-
+            generateEmbedURL()
             function generateEmbedURL(){
 
                 let metricTypes = ['cumulative', 'cumulativerate', 'weekly', 'weeklyrate'];
@@ -247,7 +254,11 @@
                 statusSelection = status;
                 metricSelection = metric;
 
-                let embeddableLink = '<iframe width="550px" height="500px" src="https://covidmapping.org/embedmap.html?status=' + statusSelection + '&metric='+ metricSelection+'> </iframe></code>'
+                let embeddableLink = '<iframe width="550px" height="500px" src="https://covidmapping.org/embedmap.html?status=' + statusSelection + '&metric='+ metricSelection+'></iframe>'
+                
+
+                let codeArea = document.querySelector('#embeddable')
+                codeArea.textContent = embeddableLink
                 
                 return embeddableLink
 
