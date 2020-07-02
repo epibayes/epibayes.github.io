@@ -100,8 +100,8 @@
                                 </div> <!--close built and maintained row-->
                                 <div class="row embedmapbutton">
                                     <div class="col-sm-12 embedmap">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="embedToggle" onClick="toggleEmbed()">Show Embeddable Map Link</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" onClick="copyEmbed()">Copy to Clipboard</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="embedToggle" onClick="toggleEmbed()">Embed Map</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="copyButton" onClick="copyEmbed()">Copy to Clipboard</button>
                                     </div> <!--close embedmap-->
                                 </div> <!--close row embedmapbutton-->
                                 <div class="row iframecode">
@@ -250,10 +250,13 @@
                 let iframeDiv = document.querySelector('#embeddable');
                 if (iframeDiv.style.display === 'block'){
                     iframeDiv.style.display = "none";
-                    document.querySelector('#embedToggle').innerHTML = "Show Embeddable Map Link"
+                    document.querySelector('#embedToggle').innerHTML = "Embed Map"
+                    document.querySelector('#copyButton').style.display="none"
                 } else {
                     iframeDiv.style.display = "block"
-                    document.querySelector('#embedToggle').innerHTML = "Hide Embeddable Map Link"
+                    document.querySelector('#copyButton').style.display="inline-block"
+
+                    document.querySelector('#embedToggle').innerHTML = "Hide Window"
                 }
 
             }
