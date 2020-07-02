@@ -114,6 +114,9 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+        <script src="https://d3js.org/d3-format.v1.min.js"></script>
+        
         <script src="js/timeline.js"></script>
 
         <script>
@@ -124,8 +127,18 @@
                      if (each.includes('<td>US</td>')){
                          let usDeets = each
                          let splitUS = usDeets.split('<td>');
-                            document.querySelector('#numberReportedCases').innerHTML = splitUS[2];
-                            document.querySelector('#numberReportedDeaths').innerHTML = splitUS[3];
+                         let reportedCasesDirty = splitUS[2].split('</td>')[0];
+                         let reportedDeathsDirty = splitUS[3].split('</td>')[0];
+                         reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
+                         reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
+                         console.log(reportedCasesDirty, reportedDeathsDirty)
+
+                         let tenthousandformat = d3.format('00,.2r');
+                         let hunthousandformat = d3.format('000,.3r');
+
+                            document.querySelector('#numberReportedCases').innerHTML = tenthousandformat(reportedCasesDirty).toLocaleString();
+                            
+                            document.querySelector('#numberReportedDeaths').innerHTML = hunthousandformat(reportedDeathsDirty).toLocaleString();
                      }
                  }
             });
