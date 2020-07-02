@@ -96,7 +96,7 @@
     padding: 0;
 }
 #embeddable{
-    display: block;
+    display: none;
     border: 1px solid #e8e8e8;
     padding: 5px;
     margin: 5px 0px;

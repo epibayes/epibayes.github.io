@@ -98,15 +98,16 @@
                                         <p>Last updated: <span id="update-date"></span></p>
                                     </div> <!--close updated-->
                                 </div> <!--close built and maintained row-->
+                                <div class="row embedmapbutton">
+                                    <div class="col-sm-12 embedmap">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="embedToggle" onClick="toggleEmbed()">Show Embeddable Map Link</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onClick="copyEmbed()">Copy to Clipboard</button>
+                                    </div> <!--close embedmap-->
+                                </div> <!--close row embedmapbutton-->
                                 <div class="row iframecode">
                                     <div class="col-sm-12 iframeelement">
                                         <code id="embeddable">
                                         </code>
-                                        <div class="row embedmapbutton">
-                                            <div class="col-sm-12 embedmap">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary" onClick="copyEmbed()">Copy to Clipboard</button>
-                                            </div> <!--close embedmap-->
-                                        </div> <!--close row embedmapbutton-->
                                     </div> <!--close iframeelement-->
                                 </div> <!--close iframecode-->
                             </div> <!--close map and buttons column-->
@@ -244,6 +245,19 @@
         <script>
             initDashboard()
             generateEmbedURL()
+
+            function toggleEmbed(){
+                let iframeDiv = document.querySelector('#embeddable');
+                if (iframeDiv.style.display === 'block'){
+                    iframeDiv.style.display = "none";
+                    document.querySelector('#embedToggle').innerHTML = "Show Embeddable Map Link"
+                } else {
+                    iframeDiv.style.display = "block"
+                    document.querySelector('#embedToggle').innerHTML = "Hide Embeddable Map Link"
+                }
+
+            }
+
             function generateEmbedURL(){
 
                 let metricTypes = ['cumulative', 'cumulativerate', 'weekly', 'weeklyrate'];
