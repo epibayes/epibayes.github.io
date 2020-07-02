@@ -38,6 +38,7 @@ function initToggles() {
         d3.select(this).text(active ? 'Show cases per 100,000 people' : 'Show case count')
         updateHexGrid()
         updateLegend(metric)
+        generateEmbedURL()
     })
     // confirmed cases only toggle
     d3.select('#toggle-probable-cases').on('click', function() { // updateToggle
@@ -50,6 +51,7 @@ function initToggles() {
         updateTotalInfo()
         updateCaseChart(metric, CP=true)
         updatePopup()
+        generateEmbedURL()
     })
     generateEmbedURL()
 }
@@ -59,6 +61,7 @@ function updateDateRange(metric) {
     const key = metric.replace('rate','')
     startDate = key === 'cumulative' ? minDate : d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))])
     setDateRange(startDate, endDate)
+    generateEmbedURL()
 }
 
 function setDateRange(startDate, endDate) {
