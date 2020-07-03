@@ -119,6 +119,7 @@ function toggleEmbed() {
 
 function copyEmbed() {
     let theCode = d3.select('#embeddable').text();
+    d3.select('textarea').remove()
     let textArea = document.createElement('textarea');
     textArea.textContent = theCode;
     document.body.append(textArea);
