@@ -26,6 +26,7 @@ function initRadio() {
         updateLegend(metric)
         updateTotalInfo()
         updateCaseChart(metric)
+        generateEmbedURL()
     })
 }
 
@@ -37,6 +38,7 @@ function initToggles() {
         d3.select(this).text(active ? 'Show cases per 100,000 people' : 'Show case count')
         updateHexGrid()
         updateLegend(metric)
+        generateEmbedURL()
     })
     // confirmed cases only toggle
     d3.select('#toggle-probable-cases').on('click', function() { // updateToggle
@@ -49,7 +51,15 @@ function initToggles() {
         updateTotalInfo()
         updateCaseChart(metric, CP=true)
         updatePopup()
+        generateEmbedURL()
     })
+    generateEmbedURL()
+}
+
+function generateEmbedURL() {
+    const query_string = `status=${status}&metric=${metric}`
+    const embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/embedmap.html?${query_string}></iframe>`
+    d3.select('#embeddable').text(embeddableLink)
 }
 
 function updateDateRange(metric) {
@@ -92,4 +102,28 @@ function updateHexGrid() {
 function updateTotalInfo() {
     updateTotal(metric)
     updateDateRange(metric)    
+}
+
+function toggleEmbed() {
+    let iframeDiv = d3.select('#embeddable');
+    if (iframeDiv.style('display') === 'block'){
+        iframeDiv.style('display','none');
+        d3.select('#embedToggle').html('<i class="fa fa-code" aria-hidden="true"></i> Embed Map')
+        d3.select('#copyButton').style('display','none')
+    } else {
+        iframeDiv.style('display','block')
+        d3.select('#copyButton').style('display','inline-block')
+        d3.select('#embedToggle').html('Hide Window')
+    }
+}
+
+function copyEmbed() {
+    let theCode = d3.select('#embeddable').text();
+    d3.select('textarea').remove()
+    let textArea = document.createElement('textarea');
+    textArea.textContent = theCode;
+    document.body.append(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    alert('Copied.');
 }
