@@ -132,9 +132,9 @@
                          reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
                          reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
                          
-                         let ceilingedcases=Math.round(reportedCasesDirty/100000)*100000
+                         let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
 
-                         let ceilingeddeaths=Math.round(reportedDeathsDirty/10000)*10000
+                         let ceilingeddeaths=Math.ceil(reportedDeathsDirty/10000)*10000
 
                          let reportedCases = ceilingedcases.toLocaleString();
                          let reportedDeaths = ceilingeddeaths.toLocaleString();
