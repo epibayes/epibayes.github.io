@@ -23,6 +23,11 @@
   padding-left: 10px;
 }
 
+#epibayes-logo {
+  height: 50px;
+  width: 52px;
+}
+
 /* index styling */
 /* row styling */
 .row{
