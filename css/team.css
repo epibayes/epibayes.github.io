@@ -1,0 +1,9 @@
+.photo {
+  margin-top: 8px;
+  width: 160px;
+}
+
+
+@media screen and (max-width: 624px) {
+    #website-nav {padding-left: 64px;}
+  }
