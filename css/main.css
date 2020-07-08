@@ -1,4 +1,5 @@
 
+/* || Main styling || */
 /* navigation bar styling */
 .navbar-brand{
   margin: 0px;
@@ -16,19 +17,76 @@
   display: inline-block;
   height: inherit;
 }
+
 .navbar-toggler{
   padding: 0px;
 }
+
 .navbar-nav{
   padding-left: 10px;
 }
 
-/* index styling */
+#epibayes-logo {
+  height: 50px;
+  width: 52px;
+}
+
+/* styling footer */
+footer{
+  background-color: #f8f9fa;
+}
+
+.footeritems{
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-top: 10px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.sphpic{
+  margin:0;
+  padding: 0;
+}
+
+.sphiconrow{
+  padding-top: 10px;
+}
+
+#sphlogo{
+  vertical-align: center;
+  width: 52px;
+}
+
+.footerbuildmaintain{
+  vertical-align: center;
+}
+
+.footertext{
+  margin:0;
+  padding:0;
+}
+
 /* row styling */
 .row{
   width: inherit;
   padding: 0px;
   margin: 0px;
+}
+
+/* adding a top padding to the container */
+.container-fluid{
+  padding-top:5px;
+}
+
+/* || INDEX.html || */
+/* map styling */
+#map, #mapbox-legend { 
+  position: relative;
+  top: 0px;
+  /* left: 10px; */
+  width: 100%;
+  height: 500px;
 }
 
 /* map div styling */
@@ -42,26 +100,18 @@
   padding: 0px;
 
 }
-/* adding a top padding to the container */
-.container-fluid{
-  padding-top:5px;
-}
 
 /* button styling */
 #toggle-count-rate, #toggle-probable-cases{
   margin: 0px !important;
   /* padding: 0px !important; */
 }
+
 .mapbuttons{
   padding: 0px;
   margin: 0px;
   padding-top: 10px;
 }
-
-/* styling the build information items */
-/* .builtandmaintained{
-  padding-top: 10px;
-} */
 
 .updated{
   padding: 0px;
@@ -79,6 +129,7 @@
 .buildtext{
   color: gray;
 }
+
 /* style embeddable div elements */
 .embedmapbutton{
   margin: 0;
@@ -89,6 +140,7 @@
   margin: 0;
   padding: 0;
 }
+
 #copyButton{
   display: none;
 }
@@ -98,20 +150,20 @@
   margin: 0;
   padding: 0;
 }
+
 #embeddable{
   display: none;
   border: 1px solid #e8e8e8;
   width: 100%;
   padding: 5px;
   margin: 5px 0px;
-  /* -webkit-user-select: none;
-  user-select: none; */
 }
 
 textarea{
   width: 0;
   height: 0;
 }
+
 /* styling the h1 div that contains the total number of cases */
 .casesovertime{
   margin: 0;
@@ -129,6 +181,7 @@ textarea{
   margin: 0;
   padding: 25px 0;
 }
+
 .custom-radio{
   margin-right: 10px;
 }
@@ -197,40 +250,19 @@ h6{
   text-indent: 2.0em;
 }
 
-/* styling footer */
-footer{
-  background-color: #f8f9fa;
-}
-.footeritems{
-  margin: 0 !important;
-  padding: 0 !important;
-  padding-top: 10px;
-  font-weight: 500;
-  font-style: italic;
-}
-.sphpic{
-  margin:0;
-  padding: 0;
+/* styling the case chart */
+.daily-cases {
+  fill: none;
+  stroke: #00274C;
+  stroke-width: 2;
 }
 
-.sphiconrow{
-  padding-top: 10px;
+.daily {
+  stroke: #00274C;
+  stroke-width: 2;
 }
 
-#sphlogo{
-  vertical-align: center;
-  width: 52px;
-}
-.footerbuildmaintain{
-  vertical-align: center;
-}
-
-.footertext{
-  margin:0;
-  padding:0;
-}
-
-/* team page styling */
+/* || TEAM.html || */
 /* style h4 elements */
 h4{
   color: gray;
@@ -246,10 +278,12 @@ h5{
   margin: 0;
   padding: 0;
 }
+
 /* adding back padding to the description div */
 .descdiv{
   padding-left: 15px;
 }
+
 /* add top padding to photo div */
 .photodiv{
   padding-top:5px;
@@ -259,16 +293,60 @@ h5{
 .teammember{
   padding: 15px 0px;
 }
+
 /* setting a uniform width for photos */
 .teamphoto{
   width: 90%;
 }
 
+/* || TIMELINE.html || */
+/* adding margin to the timeline and text */
+#timeline, .timeline-text {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.bar {
+  fill: #5CBDCA;
+}
+
+.avgLine {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.axis, #ylabel {
+  font-size: 0.35em;
+}
+
+/* Text Related Stuff */
+.milestone {
+  stroke: lightgray;
+  stroke-width: 1;
+}
+
+.milestone-text {
+  font-size: 0.35em;
+  font-weight: 300;
+}
+
+.rect {
+  fill: #e6e9eb;
+}
+
+.rect-text {
+  font-size: 0.5em;
+  font-weight: 400;
+}
+
+.end {
+  text-anchor: end;
+}
+
+
+/* || media rules || */
 @media (max-width: 576px){
-  /* #sphlogo{
-    width:100%;
-  }
-   */
   .CPtotals{
     margin:0;
     padding: 0;
@@ -279,4 +357,8 @@ h5{
     margin: 0;
   }
   
+}
+
+@media screen and (max-width: 624px) {
+    #website-nav {padding-left: 64px;}
 }
