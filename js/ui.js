@@ -104,6 +104,7 @@ function setDateRange(startDate, endDate) {
 function updateTotal(metric, suffix = '') {
     const key = metric.replace('rate','')
     total = caseData.get(status)[sliderValue][key]
+    console.log(total)
     d3.select(`#total${suffix}`).text(numFmt(total))
 }
 
