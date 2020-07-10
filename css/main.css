@@ -536,6 +536,29 @@ h5{
   }
 }
 
+/* ||MISYMPTOMS.html|| */
+/* remove col paddings */
+.mainitems, .msmap,.gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell{
+  padding: 0px;
+  margin: 0px;
+}
+/* add padding back to left section */
+.leftsections{
+  padding-right: 10px;
+}
+/* add padding back to right section */
+.rightsections{
+  padding-left: 10px;
+}
+/* adding buffer to map */
+.misymptomsmap{
+  padding-bottom: 10px;
+}
+/* adding more padding between the text sections */
+.wherearewe{
+  padding-bottom: 15px;
+}
+
 /* || media rules || */
 @media (max-width: 576px){
   .CPtotals{
@@ -547,7 +570,9 @@ h5{
     padding: 0;
     margin: 0;
   }
-  
+  .leftsections, .rightsections{
+    padding: 0px;
+  }
 }
 
 @media screen and (max-width: 624px) {
