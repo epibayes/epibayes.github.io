@@ -22,7 +22,6 @@
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
 
     <!-- project files -->
-    <link rel="stylesheet" href="css/timeline.css">
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
@@ -143,7 +142,7 @@
                 
                 let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
 
-                let ceilingeddeaths=Math.ceil(reportedDeathsDirty/10000)*10000
+                let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
 
                 let reportedCases = ceilingedcases.toLocaleString();
                 let reportedDeaths = ceilingeddeaths.toLocaleString();
