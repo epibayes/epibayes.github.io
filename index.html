@@ -40,7 +40,10 @@
   <!-- d3 utilities -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="https://d3js.org/d3-array.v2.min.js"></script>
-  
+
+  <!-- daterangepicker -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
   <!-- CSS links -->
   <link rel="stylesheet" href="css/main.css">
 
@@ -116,25 +119,24 @@
                   <p class="d-inline dayrange" id="startdate"></p>
                   <p class="d-inline">to</p>
                   <p class="d-inline dayrange" id="enddate"></p>
+                  <button type="button" class='btn btn-link drpbutton d-inline'><i class="fa fa-calendar"></i></button>
                 </div> <!--close CP totals-->
               </div> <!--close row-->
               <div class="row">
                 <div class="col-sm-12 cumulativevis">
-                  <div class="row radiobuttons">
+                  <!-- <div class="row radiobuttons">
                     <div class="col-sm-12 radios d-flex">
-                      <!-- cumulative cases radio -->
                         <div class="custom-control custom-radio">
                           <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked>
                           <label class="custom-control-label" for= "casecum">Show cumulative cases</label>
-                        </div>
-                      <!-- cases in past week radio -->
                       <div class="custom-control custom-radio">
                         <input type="radio" class="custom-control-input metric" id="caseweek" name="attributes"
                         value="weekly">
                         <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
                       </div>
-                    </div> <!--close radios-->
-                  </div> <!--close radiobuttons row-->
+                    </div>
+                  </div>  -->
+                  <!--close radiobuttons row-->
                   <div class="row linechartrow">
                     <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
@@ -235,6 +237,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/michigan.js"></script>
@@ -242,6 +247,20 @@
   <script src="js/casechart.js"></script>
   <script>
     initDashboard()
+  </script>
+  <script>
+    $('.drpbutton').daterangepicker(
+     { 
+      startDate: moment(startDate),
+      endDate: moment(endDate)
+    }, function (startDate, endDate){
+          startDate = startDate.toDate()
+          endDate = endDate.toDate()
+          setDateRange(startDate, endDate)
+          updateTotal(metric)
+          updateCaseChart(startDate, endDate, metric)
+      }
+    );
   </script>
 </body>
 </html>

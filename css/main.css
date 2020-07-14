@@ -287,6 +287,18 @@ h6{
   font-size: 8pt !important;
 }
 
+/* daterangepicker related styles */
+.drpbutton{
+  padding: 0;
+  margin: 0;
+  vertical-align: baseline;
+}
+
+.fa-calendar{
+  color: black;
+  padding: 0px 5px;
+}
+
 /* || TEAM.html || */
 /* style h4 elements */
 h4{

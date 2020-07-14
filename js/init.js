@@ -28,6 +28,8 @@ let alpha = 0.65;
 let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
 let metric = 'cumulative';
 let status = 'CP';
+let startDate = "03/08/2020"
+let endDate = "07/14/2020"
 
 let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)
     .domain([1, 100000])

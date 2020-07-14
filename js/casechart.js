@@ -1,5 +1,4 @@
 function makeCaseChart() {
-    console.log("making case chart")
     // set the dimensions and margins of the graph
     let margin = { top: 15, right: 10, bottom: 30, left: 10 },
         W = 490,
@@ -90,12 +89,17 @@ function updateCaseCircle(k, anim=true) {
     }
 }
 
-function updateCaseChart(metric, CP=false) {
+function updateCaseChart(startDate, endDate, metric, CP=false) {
     let T = 750
     const stat = metric.replace('rate','')
     caseData.get(status).map(d => { d.value = d[stat]; return d })
     let key = CP ? 'CP' : status
+
+    // set the x domain
+    x.domain([startDate, endDate])
+
     y.domain([0, d3.max(caseData.get(key), d => d.value)]).nice()
+
     d3.select('.y-axis').call(yAxis).call(formatAxis)
     setYAxisLabel()
     d3.select('.daily-cases').datum(caseData.get(status))
@@ -110,6 +114,7 @@ function setYAxisLabel() {
     let ticks = d3.selectAll('.y-axis .tick')
     ticks.each((d,i) => { if (i === ticks.size()-1) updateYAxisLabel(d) })    
 }
+
 
 function updateYAxisLabel(d) {
     d3.select('#yaxislabel')
