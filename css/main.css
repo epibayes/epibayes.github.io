@@ -282,6 +282,11 @@ h6{
   padding-top: 5px;
 }
 
+#popup-header{
+  line-height: 8pt !important;
+  font-size: 8pt !important;
+}
+
 /* || TEAM.html || */
 /* style h4 elements */
 h4{

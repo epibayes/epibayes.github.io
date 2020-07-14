@@ -187,7 +187,7 @@ function createTableTemplate(data) {
         <tr class="headingrow">
             <th class="tabledata text-left" scope="col"></th>
             <th class="text-right" scope="col">Cases</th>
-            <th class="text-right" id="popup-header" scope="col">per 100,000 people</th>
+            <th class="text-right" id="popup-header" scope="col">per 100,000<br>people</th>
         </tr>
     </thead>
     <tbody>
