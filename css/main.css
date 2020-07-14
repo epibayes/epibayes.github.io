@@ -261,6 +261,26 @@ h6{
   stroke: #00274C;
   stroke-width: 2;
 }
+/* styling popup */
+.mapboxgl-popup-content{
+  padding: 15px 10px 10px 10px;
+}
+.popupdetails{
+  padding: 0px;
+  margin: 0px;
+}
+
+.popupdetails thead{
+  padding-top: 5px;
+}
+
+.headingrow{
+  padding-top: 10px;
+}
+
+.popupdetails thead tr th{
+  padding-top: 5px;
+}
 
 /* || TEAM.html || */
 /* style h4 elements */

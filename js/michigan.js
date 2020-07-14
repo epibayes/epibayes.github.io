@@ -182,22 +182,27 @@ function getMetricValues(idx) {
 }
 
 function createTableTemplate(data) {
-    return `<table>
-    <tr>
-      <th class="tabledata"></th>
-      <th>Cases</th>
-      <th id="popup-header">per 100,000 people</th>
-    </tr>
-    <tr>
-      <td>Cumulative</td>
-      <td class="tabledata" align="right"></td>
-      <td class="tabledata" align="right"></td>
-    </tr>
-    <tr>
-      <td>Previous Week</td>
-      <td class="tabledata" align="right"></td>
-      <td class="tabledata" align="right"></td>
-    </tr></table>`
+    return `<table class="table table-sm table-borderless popupdetails">
+    <thead>
+        <tr class="headingrow">
+            <th class="tabledata text-left" scope="col"></th>
+            <th class="text-right" scope="col">Cases</th>
+            <th class="text-right" id="popup-header" scope="col">per 100,000 people</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-left">Cumulative</td>
+            <td class="tabledata text-right"></td>
+            <td class="tabledata text-right"></td>
+        </tr>
+        <tr>
+            <td class="text-left">Previous Week</td>
+            <td class="tabledata text-right"></td>
+            <td class="tabledata text-right"></td>
+        </tr>
+    </tbody>
+    </table>`
 }
 
 // Data Wrangling Related Functions
