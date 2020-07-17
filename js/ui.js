@@ -12,7 +12,7 @@ function initSlider() {
         .on('input', function() { // updateSlider
             sliderValue = this.value
             updateMapInfo()
-            updateCaseCircle(this.value, anim = false)
+            if (datatype === 'cases') updateCaseCircle(this.value, anim = false)
         })
 }
 
@@ -70,8 +70,14 @@ function setDateRange(startDate, endDate) {
 }
 
 function updateTotal(metric) {
+    let total;
     const key = metric.replace('rate','')
-    const total = caseData.get(status)[sliderValue][key]
+    if (datatype === 'cases') {
+        total = caseData.get(status)[sliderValue][key]
+    } else {
+        const day = getDateFromSlider()
+        total = responseData[key].get(status).get(+day)
+    }
     d3.select('#total').text(numFmt(total))
 }
 

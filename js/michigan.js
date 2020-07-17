@@ -1,18 +1,25 @@
 async function initDashboard(embedMap=false) {
-    const data20 = await d3.csv('data/weeklycum_cases_20km_with_rateper100k.csv', type)
-    const data10 = await d3.csv('data/weeklycum_cases_10km_with_rateper100k.csv', type)
+    const data20 = await d3.csv(`data/weeklycum_${datatype}_20km_with_rateper100k.csv`, type)
+    const data10 = await d3.csv(`data/weeklycum_${datatype}_10km_with_rateper100k.csv`, type)
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
 
-    caseData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
-    caseData.map((d,i) => {
-        d.date = dateParser(d.date)
-        d.value = d.cumulative
-        d.idx = i
-        return d
-    })
-    caseData = d3.group(caseData, d => d.status)
+    if (datatype == 'cases') {
+        caseData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
+        caseData.map((d,i) => {
+            d.date = dateParser(d.date)
+            d.value = d.cumulative
+            d.idx = i
+            return d
+        })
+        caseData = d3.group(caseData, d => d.status)
+    } else {
+        responseData = {
+            'weekly': d3.rollup(data20, v => d3.sum(v, d => d.weekly), d => d.status, d => +d.date),
+            'cumulative': d3.rollup(data20, v => d3.sum(v, d => d.cumulative), d => d.status, d => +d.date),
+        }
+    }
 
     hexfillTemplate = { // Object to contain the fill expressions for hex grid
         'weekly': Array(2),
@@ -189,7 +196,7 @@ function createTableTemplate(data) {
     <thead>
         <tr class="headingrow">
             <th class="tabledata text-left" scope="col"></th>
-            <th class="text-right" scope="col">Cases</th>
+            <th class="text-right" scope="col">${datatype === 'cases' ? 'Cases' : 'Responses'}</th>
             <th class="text-right" id="popup-header" scope="col">per 100,000<br>people</th>
         </tr>
     </thead>
@@ -241,7 +248,7 @@ function animateMap() {
                 if (sliderValue > sliderMax) return // temp fix
                 d3.select('#slider').property('value', sliderValue)
                 updateMapInfo()
-                updateCaseCircle(sliderValue)
+                if (datatype === 'cases') updateCaseCircle(sliderValue)
             }, delay);
             d3.select(this).html('Stop');
             playing = true;
