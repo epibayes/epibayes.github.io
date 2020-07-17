@@ -538,7 +538,7 @@ h5{
 
 /* ||MISYMPTOMS.html|| */
 /* remove col paddings */
-.mainitems, .msmap,.gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell{
+.mainitems, .msmap, .msslider, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12{
   padding: 0px;
   margin: 0px;
 }
@@ -554,9 +554,20 @@ h5{
 .misymptomsmap{
   padding-bottom: 10px;
 }
+/* adding padding to map and buttons */
+.mimapcontrols{
+  padding: 10px 0px;
+}
+
 /* adding more padding between the text sections */
 .wherearewe{
   padding-bottom: 15px;
+}
+
+/* styling the slider radios*/
+.miradios{
+  padding: 0px;
+  padding-bottom: 10px;
 }
 
 /* || media rules || */
