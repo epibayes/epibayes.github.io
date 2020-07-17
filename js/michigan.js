@@ -5,21 +5,17 @@ async function initDashboard(embedMap=false) {
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
 
-    if (datatype == 'cases') {
-        caseData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
-        caseData.map((d,i) => {
-            d.date = dateParser(d.date)
-            d.value = d.cumulative
-            d.idx = i
-            return d
-        })
-        caseData = d3.group(caseData, d => d.status)
-    } else {
-        responseData = {
-            'weekly': d3.rollup(data20, v => d3.sum(v, d => d.weekly), d => d.status, d => +d.date),
-            'cumulative': d3.rollup(data20, v => d3.sum(v, d => d.cumulative), d => d.status, d => +d.date),
+    caseData = await d3.csv(`data/dailyweeklycum_${datatype}_statewide.csv`, d3.autoType)
+    caseData.map((d,i) => {
+        d.date = dateParser(d.date)
+        d.value = d.cumulative
+        d.idx = i
+        if (datatype === 'symptoms') {
+            d.status = d.status === 'All' ? 'C' : 'CP'
         }
-    }
+        return d
+    })
+    caseData = d3.group(caseData, d => d.status)
 
     hexfillTemplate = { // Object to contain the fill expressions for hex grid
         'weekly': Array(2),
@@ -153,7 +149,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
-    return colorScales[metric]
+    return datatype === 'cases' ? colorScales[metric] : colorScalesS[metric]
 }
 
 function createPopup(e) {
@@ -197,7 +193,7 @@ function createTableTemplate(data) {
         <tr class="headingrow">
             <th class="tabledata text-left" scope="col"></th>
             <th class="text-right" scope="col">${datatype === 'cases' ? 'Cases' : 'Responses'}</th>
-            <th class="text-right" id="popup-header" scope="col">per 100,000<br>people</th>
+            <th class="text-right" id="popup-header" scope="col">${datatype === 'cases' ? 'per 100,000<br>people' : 'proportion'}</th>
         </tr>
     </thead>
     <tbody>
@@ -223,6 +219,9 @@ function type(d) {
     d.cumulative = +d.cumulative
     d.weeklyrate = +d.weeklyrate || 0
     d.cumulativerate = +d.cumulativerate
+    if (datatype === 'symptoms') {
+        d.status = d.status === 'All' ? 'C' : 'CP'
+    }
     return d
 }
 
@@ -248,13 +247,13 @@ function animateMap() {
                 if (sliderValue > sliderMax) return // temp fix
                 d3.select('#slider').property('value', sliderValue)
                 updateMapInfo()
-                if (datatype === 'cases') updateCaseCircle(sliderValue)
+                updateCaseCircle(sliderValue)
             }, delay);
             d3.select(this).html('Stop');
             playing = true;
         } else {
             clearInterval(timer);
-            d3.select(this).html('Play cases over time');
+            d3.select(this).html('Play responses over time');
             playing = false;
         }
     });
