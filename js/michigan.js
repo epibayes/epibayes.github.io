@@ -149,7 +149,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
-    return datatype === 'cases' ? colorScales[metric] : colorScalesS[metric]
+    return colorScales[datatype][metric]
 }
 
 function createPopup(e) {
