@@ -16,14 +16,12 @@ function initSlider() {
         })
 }
 
-function initDropdown() {
-    // time period dropdown button
-    d3.selectAll('#period a').on('click', function() { // updateRadio
+function initRadio() {
+    // time period radio button
+    d3.selectAll('.time-period a').on('click', function() { // updateRadio
         const timePeriod = d3.select(this).attr("value")
         if (metric.includes(timePeriod)) return;
-        const rateRadio = datatype === 'cases' ? d3.select('#select-case-rate').property('checked')
-            : d3.select('#response-proportion').property('checked') ? true 
-            : false
+        const rateRadio = d3.select('#radio-case-rate').property('checked')
         metric = rateRadio ? timePeriod + 'rate' : timePeriod
         updateHexGrid()
         updateLegend(metric)
@@ -45,39 +43,23 @@ function initDropdown() {
         }
 
     })
-}
-
-function initRadio() {
     // case count rate radio button
-    if (datatype === 'cases') {
-        d3.selectAll('.count-rate').on('click', function() { // updateRadio
-            const timePeriod = metric.replace('rate','')
-            const caseRadio = this.value
-            metric = timePeriod + caseRadio
-            updateHexGrid()
-            updateLegend(metric)
-            generateEmbedURL()
-        })
-    }
-    // confirmed probable cases radio button OR mi symptoms radio buttons
+    d3.selectAll('.count-rate').on('click', function() { // updateRadio
+        const timePeriod = metric.replace('rate','')
+        const caseRadio = this.value
+        metric = timePeriod + caseRadio
+        updateHexGrid()
+        updateLegend(metric)
+        generateEmbedURL()
+    })
+    // confirmed probable cases radio button
     d3.selectAll('.case-type').on('click', function() { // updateRadio
-        if (this.value === 'rate') {
-            metric = metric + 'rate'
-            status = 'C'
-        } else {
-            metric = metric.replace('rate','')
-            status = this.value
-        }
+        status = this.value
+        d3.select('#CP-total-text').text(status === 'CP' ? 'confirmed & probable cases' : 'confirmed cases')
         updateHexGrid()
         updateLegend(metric)
         updateTotalInfo()
-        if (datatype === 'symptoms') {
-            updateCaseChart(metric, CP=false)
-            d3.select('#CP-total-text').text(status === 'CP' ? 'total MI Symptoms Responses' : 'COVID-like Responses')
-        } else {
-            updateCaseChart(metric, CP=true)
-            d3.select('#CP-total-text').text(status === 'CP' ? 'confirmed & probable cases' : 'confirmed cases')
-        }
+        updateCaseChart(metric, CP=true)
         updatePopup()
         generateEmbedURL()
     })
@@ -101,11 +83,10 @@ function setDateRange(startDate, endDate) {
     d3.select('#enddate').text(sliderFmt(endDate))
 }
 
-function updateTotal(metric, suffix = '') {
+function updateTotal(metric) {
     const key = metric.replace('rate','')
-    total = caseData.get(status)[sliderValue][key]
-    console.log(total)
-    d3.select(`#total${suffix}`).text(numFmt(total))
+    const total = caseData.get(status)[sliderValue][key]
+    d3.select('#total').text(numFmt(total))
 }
 
 function getDateFromSlider() {
