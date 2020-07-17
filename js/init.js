@@ -29,16 +29,16 @@ let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
 let metric = 'cumulative';
 let status = 'CP';
 
-let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)
+let colorCaseCum = d3.scaleSequentialLog(d3.interpolateBlues)
     .domain([1, 100000])
     .clamp(true)
-let colorCaseWeek = d3.scaleSequentialLog(d3.interpolateYlGnBu)
+let colorCaseWeek = d3.scaleSequentialLog(d3.interpolatePurples)
     .domain([1, 1000])
     .clamp(true)
-let colorCaseCumRate = d3.scaleSequential(d3.interpolateYlOrRd)
+let colorCaseCumRate = d3.scaleSequential(d3.interpolateBlues)
     .domain([0, 1000])
     .clamp(true)
-let colorCaseWeekRate = d3.scaleSequential(d3.interpolateYlGnBu)
+let colorCaseWeekRate = d3.scaleSequential(d3.interpolatePurples)
     .domain([0, 400])
     .clamp(true)    
 let colorScales = {

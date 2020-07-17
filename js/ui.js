@@ -73,7 +73,7 @@ function updateTotal(metric) {
     let total;
     const key = metric.replace('rate','')
     if (datatype === 'cases') {
-        total = caseData.get(status)[sliderValue][key]
+        total = (status)[sliderValue][key]
     } else {
         const day = getDateFromSlider()
         total = responseData[key].get(status).get(+day)
