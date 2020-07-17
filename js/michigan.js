@@ -193,7 +193,7 @@ function createTableTemplate(data) {
         <tr class="headingrow">
             <th class="tabledata text-left" scope="col"></th>
             <th class="text-right" scope="col">${datatype === 'cases' ? 'Cases' : 'Responses'}</th>
-            <th class="text-right" id="popup-header" scope="col">${datatype === 'cases' ? 'per 100,000<br>people' : 'covid-like<br>proportion'}</th>
+            <th class="text-right" id="popup-header" scope="col">${datatype === 'cases' ? 'per 100,000<br>people' : 'COVID-like<br>proportion'}</th>
         </tr>
     </thead>
     <tbody>

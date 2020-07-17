@@ -89,6 +89,12 @@ footer{
   height: 500px;
 }
 
+.mapboxgl-popup{
+  max-width: 350px !important;
+  /* width: 500px !important; */
+}
+
+
 /* map div styling */
 .mapcol{
   padding: 0px;
