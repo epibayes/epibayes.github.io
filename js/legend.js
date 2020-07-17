@@ -2,10 +2,18 @@
 const w = 20
 const h = 120
 let tickValues = {
-    'cumulative': [10, 100, 1000],
-    'weekly': [10, 100],
-    'cumulativerate': [0.25, 0.5, 0.75],
-    'weeklyrate': [0.25, 0.5, 0.75],
+    'cases': {
+        'cumulative': [10, 100, 1000, 10000],
+        'weekly': [10, 100],
+        'cumulativerate': [200, 400, 600, 800],
+        'weeklyrate': [100, 200, 300],
+    },
+    'symptoms': {
+        'cumulative': [10, 100, 1000],
+        'weekly': [10, 100],
+        'cumulativerate': [0.2, 0.4, 0.6, 0.8],
+        'weeklyrate': [0.2, 0.4, 0.6, 0.8],
+    },
 }
 
 // Legend Related Functions
@@ -58,11 +66,11 @@ function addLegend() {
     legendYAxisLog = d3.axisRight(legendScaleLog)
         .ticks(3, ',')
         .tickSize(0)
-        .tickValues(tickValues[metric])
+        .tickValues(getTickValues())
     legendYAxis = d3.axisRight(legendScale)
-        .ticks(3, datatype === 'cases' ? 'd' : '.2f')
+        .ticks(3, datatype === 'cases' ? 'd' : '.1f')
         .tickSize(0)
-        .tickValues(tickValues[metric])
+        .tickValues(getTickValues())
     let yAxis = metric.includes('rate') ? legendYAxis : legendYAxisLog
 
     legendAxis = legend.append('g')
@@ -71,6 +79,10 @@ function addLegend() {
         .call(yAxis)
 
     legend.select('path.domain').remove()
+}
+
+function getTickValues() {
+    return tickValues[datatype][metric]
 }
 
 function getLinearGradientData(colorScale) {
