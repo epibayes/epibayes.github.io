@@ -80,14 +80,50 @@
       <div class="row parentrow">
         <div class="d-none d-sm-none d-md-block col-lg-1 buffer"></div>
         <div class="col-sm-12 col-lg-10 mainitems">
-          <div class="row misymptomsmap">
-            <div class="col-sm-12 msmap">
-              <div id="misymptomsmap">
-                <!-- placeholder map below -->
-                <div id="map"> </div>
-              </div>
+          <div class="row misymptomsmapslider">
+            <div class="col-sm-6 msmap">
+              <div class="row maprow">
+                <div class="col-sm-12">
+                  <div id="misymptomsmap"></div>
+
+                  <!-- placeholder map below -->
+                  <div id="map"></div>
+
+                </div> <!--close col 12-->
+              </div> <!--close maprow-->
+              <div class="row mimapcontrols">
+                <div class="col-sm-12">
+                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-count-rate"> Show cases per 100,000 people</button>
+                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-probable-cases">Show confirmed cases only</button>
+                </div> <!--close col-->
+              </div> <!--close row mimapcontrols-->
             </div> <!--close msmap-->
-          </div> <!--close row misymptomsmap-->
+            <div class="col-sm-6 msslider">
+              <div class="row sliderradios">
+                <div class="col-sm-12 d-flex justify-content-between miradios">
+                  <div class="custom-control custom-radio">
+                    <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked>
+                    <label class="custom-control-label" for= "casecum">Show cumulative cases</label>
+                  </div>
+                  <!-- cases in past week radio -->
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input metric" id="caseweek" name="attributes"
+                    value="weekly">
+                    <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
+                  </div>
+                </div>
+              </div> <!--close row sliderradios-->
+              <div class="row linechartrow">
+                <div class="col-sm-12 linechartdiv">
+                  <div id="casechart"></div>
+                  <div class="" id="slider-container">
+                    <input class="custom-range" id="slider" type="range" min="0" step="1">
+                  </div> <!--close slider container-->
+                  <button type="button" class="d-inline btn btn-outline-primary" id="play">Play cases over time</button>
+                </div> <!--close line chart div-->
+              </div> <!--close linechart row-->
+            </div> <!--close msslider-->
+          </div> <!--close row misymptomsmapslider-->
           <div class="row abouttext">
             <div class="col-sm-12 allabout">
               <div class="row wherearewe">
