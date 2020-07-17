@@ -538,7 +538,7 @@ h5{
 
 /* ||MISYMPTOMS.html|| */
 /* remove col paddings */
-.mainitems, .msmap, .msslider, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12{
+.mainitems, .msmap, .msslider, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12{
   padding: 0px;
   margin: 0px;
 }
