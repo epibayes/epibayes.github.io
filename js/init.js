@@ -1,18 +1,18 @@
 // initialize variables
-const countyTileset = 'counties_v17a-3qtxmg'
+const countyTileset = 'mi_counties'
 const countyTilesetSrc = {
     type: 'vector',
-    url: 'mapbox://caoa.1wm38rfu',
+    url: 'mapbox://epibayes.ckcqn77d00igv2an5hvegcds2-307nw',
 }
-const hex20Tileset = 'hexagons_20km_polygons-1hrgjz'
+const hex20Tileset = 'hexagons_20km_polygons'
 const hex20TilesetSrc = {
     type: 'vector',
-    url: 'mapbox://caoa.cyt5711y',
+    url: 'mapbox://epibayes.ckcqmt8ey0paa2bt69m7pyfdn-6k0du',
 }
-const hex10Tileset = 'hexagons_10km_polygons-aw4rnj'
+const hex10Tileset = 'hexagons_10km_polygons'
 const hex10TilesetSrc = {
     type: 'vector',
-    url: 'mapbox://caoa.1k14v3f6',
+    url: 'mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk',
 }
 
 const hexLayers = ['hex20','hex10']

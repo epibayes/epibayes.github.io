@@ -44,7 +44,7 @@ async function initDashboard(embedMap=false) {
 function initMap() {
     metrics.forEach(metric => updateFillExpression(metric, maxDate))
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2FvYSIsImEiOiJjazkxc2QyMTcwMHp4M2ZubnByeWwycjYwIn0.HMO_9ZdIJxTIXLl_zqyuHw';
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXBpYmF5ZXMiLCJhIjoiY2tiaml0b3JpMHBuNzJ1bXk3MzdsbWs1aCJ9.YlxrUIBkuWk-VuYDDeMjBQ';
     map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v10',
