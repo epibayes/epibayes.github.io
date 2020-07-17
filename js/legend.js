@@ -2,10 +2,10 @@
 const w = 20
 const h = 120
 let tickValues = {
-    'cumulative': [10, 100, 1000, 10000],
+    'cumulative': [10, 100, 1000],
     'weekly': [10, 100],
-    'cumulativerate': [200, 400, 600, 800],
-    'weeklyrate': [100, 200, 300],
+    'cumulativerate': [0.25, 0.5, 0.75],
+    'weeklyrate': [0.25, 0.5, 0.75],
 }
 
 // Legend Related Functions
@@ -60,7 +60,7 @@ function addLegend() {
         .tickSize(0)
         .tickValues(tickValues[metric])
     legendYAxis = d3.axisRight(legendScale)
-        .ticks(3, 'd')
+        .ticks(3, datatype === 'cases' ? 'd' : '.2f')
         .tickSize(0)
         .tickValues(tickValues[metric])
     let yAxis = metric.includes('rate') ? legendYAxis : legendYAxisLog

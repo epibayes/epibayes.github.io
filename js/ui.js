@@ -12,7 +12,7 @@ function initSlider() {
         .on('input', function() { // updateSlider
             sliderValue = this.value
             updateMapInfo()
-            if (datatype === 'cases') updateCaseCircle(this.value, anim = false)
+            updateCaseCircle(this.value, anim = false)
         })
 }
 
@@ -45,7 +45,11 @@ function initRadio() {
         updateHexGrid()
         updateLegend(metric)
         updateTotalInfo()
-        updateCaseChart(metric, CP=true)
+        if (datatype === 'cases') {
+            updateCaseChart(metric, CP=true)
+        } else {
+            updateCaseChart(metric, CP=false)
+        }
         updatePopup()
         generateEmbedURL()
     })
@@ -70,14 +74,8 @@ function setDateRange(startDate, endDate) {
 }
 
 function updateTotal(metric) {
-    let total;
     const key = metric.replace('rate','')
-    if (datatype === 'cases') {
-        total = (status)[sliderValue][key]
-    } else {
-        const day = getDateFromSlider()
-        total = responseData[key].get(status).get(+day)
-    }
+    total = caseData.get(status)[sliderValue][key]
     d3.select('#total').text(numFmt(total))
 }
 
