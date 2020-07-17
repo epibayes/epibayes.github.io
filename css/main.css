@@ -542,6 +542,12 @@ h5{
   padding: 0px;
   margin: 0px;
 }
+/* add top border to abouttext section */
+.abouttext{
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #e8e8e8;
+}
 /* add padding back to left section */
 .leftsections{
   padding-right: 10px;
