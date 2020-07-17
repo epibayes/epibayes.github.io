@@ -1,4 +1,3 @@
-
 // D3 Legend Variables
 const w = 20
 const h = 120
