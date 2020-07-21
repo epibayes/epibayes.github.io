@@ -6,7 +6,7 @@ let config = {
     alignment: 'left',
     title: 'Understanding your COVID Risk: Epidemiology by Nina',
     subtitle: 'A map and calculations-supported visual story',
-    byline: 'Storymap by Stephanie Choi and Alex Cao \n Storyboard by Nina Masters and Paul Delamater',
+    byline: 'Storymap by Stephanie Choi and Alex Cao \n Storyboard by Nina Masters and Paul Delamater \n \nMost disease maps present risk with demarcated residential boundaries: calculating risk within zip codes, towns, cities, or counties - although individuals in reality may not only come into contact with their residential neighbors within whatever such boundary is chosen. A more realistic way to understand risk is to consider where people may interact with each other outside of their immediate neighborhood - such as when visiting a grocery store, hardware store, pharmacy, etc. Even when communities are locked down and movement is restricted (such as under a stay-at-home order), necessary errands such as grocery shopping and picking up prescriptions allow for non-residential contacts, making a more inclusive risk map a necessity.',
     footer: '<a href="#navbar">Jump to top</a> <br><br>Icons by FontAwesome',
     chapters: [
         {
