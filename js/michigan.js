@@ -53,7 +53,7 @@ function initMap() {
     mapboxgl.accessToken = 'pk.eyJ1IjoiZXBpYmF5ZXMiLCJhIjoiY2tiaml0b3JpMHBuNzJ1bXk3MzdsbWs1aCJ9.YlxrUIBkuWk-VuYDDeMjBQ';
     map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/light-v10',
+        style: datatype === 'symptoms' ? 'mapbox://styles/epibayes/ckcxh5jqw0v6z1isxnybsc0le' : 'mapbox://styles/mapbox/light-v10',
         center: [-86.04, 44.65],
         zoom: 5.48,
         maxBounds: [[-100, 36], [-75, 52]],
