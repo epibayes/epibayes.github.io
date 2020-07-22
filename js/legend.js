@@ -43,6 +43,12 @@ function addLegend() {
         .attr('height', h)
         .style('fill', 'url(#linear-gradient)')
 
+    legend.append('text')
+        .attr('class', 'legend-label')
+        .attr('x', w+5)
+        .attr('dy', '0.35em')
+        .text('Cases')
+
     legendScaleLog = d3.scaleLog()
         .domain(colorScale.domain())
         .range([h, 0])
@@ -91,6 +97,8 @@ function updateLegend(metric) {
         yAxis = legendYAxisLog
     }
     yAxis.tickValues(tickValues[metric])
+    legend.select('.legend-label')
+        .text(metric.includes('rate') ? 'Cases per 100K' : 'Cases')
     legendAxis.call(yAxis)
     legend.select('path.domain').remove()
 }

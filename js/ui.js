@@ -35,7 +35,7 @@ function initToggles() {
     d3.select('#toggle-count-rate').on('click', function() { // updateToggle
         let active = d3.select(this).classed('active')
         metric = active ? metric.replace('rate','') : metric + 'rate'
-        d3.select(this).text(active ? 'Show cases per 100,000 people' : 'Show case count')
+        d3.select(this).text(active ? 'Showing case count' : 'Showing cases per 100,000 people')
         updateHexGrid()
         updateLegend(metric)
         generateEmbedURL()
@@ -44,7 +44,7 @@ function initToggles() {
     d3.select('#toggle-probable-cases').on('click', function() { // updateToggle
         let active = d3.select(this).classed('active')
         status = active ? 'CP' : 'C'
-        d3.select(this).text(active ? 'Show confirmed cases only' : 'Show confirmed and probable cases')
+        d3.select(this).text(active ? 'Showing confirmed and probable cases' : 'Showing confirmed cases only')
         d3.select('#CP-total-text').text(active ? 'confirmed & probable cases' : 'confirmed cases')
         updateHexGrid()
         updateLegend(metric)
