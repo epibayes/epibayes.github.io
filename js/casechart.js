@@ -112,7 +112,8 @@ function setYAxisLabel() {
 }
 
 function updateYAxisLabel(d) {
+    const stat = metric.replace('rate','')
     d3.select('#yaxislabel')
         .attr('y', y(d)) 
-        .text(metric === 'cumulative' ? 'cumulative responses' : 'weekly responses')    
+        .text(stat === 'cumulative' ? 'cumulative responses' : 'weekly responses')    
 }
