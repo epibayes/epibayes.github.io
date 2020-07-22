@@ -107,11 +107,12 @@ footer{
   /* padding: 0px !important; */
 }
 
-.mapbuttons{
+/* delete this */
+/* .mapbuttons{
   padding: 0px;
   margin: 0px;
   padding-top: 10px;
-}
+} */
 
 .updated{
   padding: 0px;
@@ -128,6 +129,27 @@ footer{
 
 .buildtext{
   color: gray;
+}
+
+/* style radios under map */
+.mapradios{
+  padding: 0;
+  margin: 0;
+}
+
+.form-check-input{
+  vertical-align: center;
+}
+
+.form-check-label{
+  padding: 0px 5px;
+  padding-right: 10px;
+}
+
+.radioset{
+  padding: 0;
+  margin: 0;
+  padding: 10px 0px;
 }
 
 /* style embeddable div elements */

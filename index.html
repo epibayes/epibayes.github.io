@@ -85,12 +85,40 @@
                   <div id="map"> </div>
                 </div> <!--close col-->
               </div> <!--close row-->
-              <div class="row togglemapbuttons">
+              <!-- <div class="row togglemapbuttons">
                 <div class="col-sm-12 mapbuttons">
                   <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-count-rate"> Showing case count</button>
                   <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-probable-cases">Showing confirmed and probable cases</button>
-                </div> <!--close col-->
-              </div> <!-- close row togglemapbuttons -->
+                </div> 
+              </div> -->
+              <div class="row togglemapradios">
+                <div class="col-sm-12 mapradios">
+                  <div class="row radioset">
+                    <div class="col-sm-12">
+                      <div class="form-check form-check-inline set1">
+                        <input class="form-check-input" type="radio" name="casecounts" id="toggle-count-rate" value="casecount" checked>
+                        <label class="form-check-label" for="toggle-count-rate">Case Count</label>
+                      </div>
+                      <div class="form-check form-check-inline set1">
+                        <input class="form-check-input" type="radio" name="casecounts" id="toggle-cases-per" value="casesper">
+                        <label class="form-check-label" for="toggle-cases-per">Cases per 100,000 People</label>
+                      </div>
+                    </div> <!--close col-->
+                  </div> <!--close row radioset casecount-->
+                  <div class="row radioset">
+                    <div class="col-sm-12">
+                      <div class="form-check form-check-inline set2">
+                        <input class="form-check-input" type="radio" name="probablecases" id="toggle-probable-cases" value="probablecases" checked>
+                        <label class="form-check-label" for="toggle-probable-cases">Confirmed & Probable Cases</label>
+                      </div>
+                      <div class="form-check form-check-inline set2">
+                        <input class="form-check-input" type="radio" name="probablecases" id="toggle-confirmed-only" value="confirmedonly">
+                        <label class="form-check-label" for="toggle-confirmed-only">Confirmed Cases Only</label> 
+                      </div> 
+                    </div>
+                  </div> <!--close row radioset probablecases-->
+                </div> <!--close col 12-->
+              </div> <!--close togglemapradios-->
               <div class="row builtandmaintained">
                 <div class="col-sm-12 updated">
                   <p>Last updated: <span id="update-date"></span></p>
