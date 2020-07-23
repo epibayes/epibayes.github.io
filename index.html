@@ -96,24 +96,24 @@
                   <div class="row radioset">
                     <div class="col-sm-12">
                       <div class="form-check form-check-inline set1">
-                        <input class="form-check-input" type="radio" name="casecounts" id="toggle-count-rate" value="casecount" checked>
-                        <label class="form-check-label" for="toggle-count-rate">Case Count</label>
+                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-count" value="" checked>
+                        <label class="form-check-label" for="radio-case-count">Case Count</label>
                       </div>
                       <div class="form-check form-check-inline set1">
-                        <input class="form-check-input" type="radio" name="casecounts" id="toggle-cases-per" value="casesper">
-                        <label class="form-check-label" for="toggle-cases-per">Cases per 100,000 People</label>
+                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-rate" value="rate">
+                        <label class="form-check-label" for="radio-case-rate">Cases per 100,000 People</label>
                       </div>
                     </div> <!--close col-->
                   </div> <!--close row radioset casecount-->
                   <div class="row radioset">
                     <div class="col-sm-12">
                       <div class="form-check form-check-inline set2">
-                        <input class="form-check-input" type="radio" name="probablecases" id="toggle-probable-cases" value="probablecases" checked>
-                        <label class="form-check-label" for="toggle-probable-cases">Confirmed & Probable Cases</label>
+                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-CP" value="CP" checked>
+                        <label class="form-check-label" for="radio-CP">Confirmed & Probable Cases</label>
                       </div>
                       <div class="form-check form-check-inline set2">
-                        <input class="form-check-input" type="radio" name="probablecases" id="toggle-confirmed-only" value="confirmedonly">
-                        <label class="form-check-label" for="toggle-confirmed-only">Confirmed Cases Only</label> 
+                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-C" value="C">
+                        <label class="form-check-label" for="radio-C">Confirmed Cases Only</label> 
                       </div> 
                     </div>
                   </div> <!--close row radioset probablecases-->
@@ -152,12 +152,12 @@
                     <div class="col-sm-12 radios d-flex">
                       <!-- cumulative cases radio -->
                         <div class="custom-control custom-radio">
-                          <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked>
+                          <input class="custom-control-input time-period" type="radio" id="casecum" name="attributes" value="cumulative" checked>
                           <label class="custom-control-label" for= "casecum">Show cumulative cases</label>
                         </div>
                       <!-- cases in past week radio -->
                       <div class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input metric" id="caseweek" name="attributes"
+                        <input type="radio" class="custom-control-input time-period" id="caseweek" name="attributes"
                         value="weekly">
                         <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
                       </div>

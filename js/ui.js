@@ -17,35 +17,31 @@ function initSlider() {
 }
 
 function initRadio() {
-    // change choropleth fill based on radio button
-    d3.selectAll('.metric').on('change', function() { // updateRadio
-        metric = this.value
-        let active = d3.select('#toggle-count-rate').classed('active')
-        metric = active ? metric + 'rate' : metric
+    // time period radio button
+    d3.selectAll('.time-period').on('change', function() { // updateRadio
+        const timePeriod = this.value
+        const rateRadio = d3.select('#radio-case-rate').property('checked')
+        metric = rateRadio ? timePeriod + 'rate' : timePeriod
         updateHexGrid()
         updateLegend(metric)
         updateTotalInfo()
         updateCaseChart(metric)
         generateEmbedURL()
     })
-}
-
-function initToggles() {
-    // case rate toggle
-    d3.select('#toggle-count-rate').on('click', function() { // updateToggle
-        let active = d3.select(this).classed('active')
-        metric = active ? metric.replace('rate','') : metric + 'rate'
-        d3.select(this).text(active ? 'Showing case count' : 'Showing cases per 100,000 people')
+    // case count rate radio button
+    d3.selectAll('.count-rate').on('click', function() { // updateRadio
+        const timeRadio = d3.select('#casecum').property('checked')
+        const timePeriod = timeRadio ? 'cumulative' : 'weekly'
+        const caseRadio = this.value
+        metric = timePeriod + caseRadio
         updateHexGrid()
         updateLegend(metric)
         generateEmbedURL()
     })
-    // confirmed cases only toggle
-    d3.select('#toggle-probable-cases').on('click', function() { // updateToggle
-        let active = d3.select(this).classed('active')
-        status = active ? 'CP' : 'C'
-        d3.select(this).text(active ? 'Showing confirmed and probable cases' : 'Showing confirmed cases only')
-        d3.select('#CP-total-text').text(active ? 'confirmed & probable cases' : 'confirmed cases')
+    // confirmed probable cases radio button
+    d3.selectAll('.case-type').on('click', function() { // updateRadio
+        status = this.value
+        d3.select('#CP-total-text').text(status === 'CP' ? 'confirmed & probable cases' : 'confirmed cases')
         updateHexGrid()
         updateLegend(metric)
         updateTotalInfo()
@@ -53,7 +49,6 @@ function initToggles() {
         updatePopup()
         generateEmbedURL()
     })
-    generateEmbedURL()
 }
 
 function generateEmbedURL() {
