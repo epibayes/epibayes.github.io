@@ -198,14 +198,27 @@ textarea{
   margin: 0;
 }
 
+/* DELETE */
 /* styling radio div elements */
-.radios{
+/* .radios{
   margin: 0;
   padding: 25px 0;
+} */
+
+/* .custom-radio{
+  margin-right: 10px;
+} */
+
+/* style the dropdown button for linechart */
+.dropdowns{
+  margin: 0;
+  padding: 0;
+  padding: 10px 0px;
 }
 
-.custom-radio{
-  margin-right: 10px;
+.dropdowns .col-sm-12{
+  padding: 0;
+  margin: 0;
 }
 
 /* style linechart div elements*/
