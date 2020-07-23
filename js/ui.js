@@ -18,8 +18,9 @@ function initSlider() {
 
 function initRadio() {
     // time period radio button
-    d3.selectAll('.time-period').on('change', function() { // updateRadio
-        const timePeriod = this.value
+    d3.selectAll('.time-period a').on('click', function() { // updateRadio
+        const timePeriod = d3.select(this).attr("value")
+        if (metric.includes(timePeriod)) return;
         const rateRadio = d3.select('#radio-case-rate').property('checked')
         metric = rateRadio ? timePeriod + 'rate' : timePeriod
         updateHexGrid()
@@ -30,8 +31,7 @@ function initRadio() {
     })
     // case count rate radio button
     d3.selectAll('.count-rate').on('click', function() { // updateRadio
-        const timeRadio = d3.select('#casecum').property('checked')
-        const timePeriod = timeRadio ? 'cumulative' : 'weekly'
+        const timePeriod = metric.replace('rate','')
         const caseRadio = this.value
         metric = timePeriod + caseRadio
         updateHexGrid()
