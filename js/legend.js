@@ -53,8 +53,8 @@ function addLegend() {
 
     legend.append('text')
         .attr('class', 'legend-label')
-        .attr('x', w+5)
-        .attr('dy', '0.35em')
+        .attr('x', '-0.5em')
+        .attr('dy', '-0.8em')
         .text('Cases')
 
     legendScaleLog = d3.scaleLog()
