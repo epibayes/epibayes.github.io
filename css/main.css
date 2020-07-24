@@ -667,12 +667,26 @@ h5{
 #response-total, #response-covid, #response-proportion{
   display: none;
 }
-
-/* styling the slider radios*/
-.miradios{
-  padding: 0px;
-  padding-bottom: 10px;
+.gettingnumbers{
+  padding: 0px 5px;
 }
+/* styling the wherearewe items */
+.whereheading{
+  font-size: 16pt;
+}
+.wherep{
+  font-size: 11pt;
+  margin: 0;
+  padding: 0;
+}
+.whereli{
+  font-size: 10pt;
+}
+
+/* add bg color to  radios*/
+/* .mirads{
+  background-color: #e1edf6;
+} */
 
 /* removing padding to the miCPtotals div */
 .miCPtotals{
