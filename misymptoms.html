@@ -81,14 +81,14 @@
         <div class="d-none d-sm-none d-md-block col-lg-1 buffer"></div>
         <div class="col-sm-12 col-lg-10 mainitems">
           <div class="row misymptomsmapslider">
-            <div class="col-sm-6 msmap">
+            <div class="col-sm-6 msmap d-flex align-items-start flex-column">
               <div class="row maprow">
                 <div class="col-sm-12 mapcol">
                   <div id="map"></div>
                 </div> <!--close col 12-->
               </div> <!--close maprow-->
               <div class="row radioset">
-                <div class="col-sm-12 radiocol">
+                <div class="col-sm-12 radiocol mirads">
                   <div class="form-check form-check-inline set1">
                     <input class="form-check-input case-total" type="radio" name="covidresponse" id="radio-totalmisym" value="total">
                     <label class="form-check-label" for="radio-total-misym">Total MI Symptoms Responses</label>
@@ -103,8 +103,33 @@
                   </div> 
                 </div>
               </div> <!--close row radioset-->
+              <div class="row decoration flex-grow-1">
+                <div class="col-sm-12"></div>
+              </div>
             </div> <!--close msmap-->
             <div class="col-sm-6 msslider">
+              <div class="row wherearewe">
+                <div class="col-sm-12 gettingnumbers">
+                  <h3 class="whereheading">Where are we getting these numbers?</h3>
+                  <p class="aboutdescription wherep">
+                    These data come from <a href="https://misymptomapp.state.mi.us/" target="_blank">MI Symptoms Web Application</a> and reflect the number of total users completing well checks with the app and the proportion of users reporting COVID-19-like illnesses across the state of Michigan. A COVID-like illness is defined as:
+                  </p>
+                  <ul>
+                    <li class="whereli">
+                      fever and cough or
+                    </li>
+                    <li class="whereli">
+                      shortness of breath or
+                    </li>
+                    <li class="whereli">
+                      difficulty breathing.
+                    </li>
+                  </ul>
+                  <p class="aboutdescription wherep">
+                    The MI Symptoms Web Application is an online tool where users can enter information daily to help identify symptoms that might be caused by the virus that causes COVID-19 and to make decisions about when to seek appropriate medical care. 
+                  </p>
+                </div> <!--close col-->
+              </div> <!--close row wherearewe-->
               <div class="row">
                 <div class="col-sm-12 text-left miCPtotals">
                   <h1 id="total"></h1>
@@ -140,28 +165,6 @@
           </div> <!--close row misymptomsmapslider-->
           <div class="row abouttext">
             <div class="col-sm-12 allabout">
-              <div class="row wherearewe">
-                <div class="col-sm-12 gettingnumbers">
-                  <h3>Where are we getting these numbers?</h3>
-                  <p class="aboutdescription">
-                    These data come from <a href="https://misymptomapp.state.mi.us/" target="_blank">MI Symptoms Web Application</a> and reflect the number of total users completing well checks with the app and the proportion of users reporting COVID-19-like illnesses across the state of Michigan. A COVID-like illness is defined as:
-                  </p>
-                  <ul>
-                    <li>
-                      fever and cough or
-                    </li>
-                    <li>
-                      shortness of breath or
-                    </li>
-                    <li>
-                      difficulty breathing.
-                    </li>
-                  </ul>
-                  <p class="aboutdescription">
-                    The MI Symptoms Web Application is an online tool where users can enter information daily to help identify symptoms that might be caused by the virus that causes COVID-19 and to make decisions about when to seek appropriate medical care. 
-                  </p>
-                </div> <!--close col-->
-              </div> <!--close row wherearewe-->
               <div class="row organizesections">
                 <div class="col-sm-6 leftsections">
                   <div class="row whatthese">
