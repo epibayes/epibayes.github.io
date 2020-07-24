@@ -91,16 +91,10 @@
                   <div id="map"> </div>
                 </div> <!--close col-->
               </div> <!--close row-->
-              <!-- <div class="row togglemapbuttons">
-                <div class="col-sm-12 mapbuttons">
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-count-rate"> Showing case count</button>
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-probable-cases">Showing confirmed and probable cases</button>
-                </div> 
-              </div> -->
               <div class="row togglemapradios">
                 <div class="col-sm-12 mapradios">
                   <div class="row radioset">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 radiocol">
                       <div class="form-check form-check-inline set1">
                         <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-count" value="" checked>
                         <label class="form-check-label" for="radio-case-count">Case Count</label>
@@ -112,7 +106,7 @@
                     </div> <!--close col-->
                   </div> <!--close row radioset casecount-->
                   <div class="row radioset">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 radiocol">
                       <div class="form-check form-check-inline set2">
                         <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-CP" value="CP" checked>
                         <label class="form-check-label" for="radio-CP">Confirmed & Probable Cases</label>
@@ -167,19 +161,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="row radiobuttons">
-                    <div class="col-sm-12 radios d-flex">
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input time-period" type="radio" id="casecum" name="attributes" value="cumulative" checked>
-                          <label class="custom-control-label" for= "casecum">Show cumulative cases</label>
-                        </div>
-                      <div class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input time-period" id="caseweek" name="attributes"
-                        value="weekly">
-                        <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
-                      </div>
-                    </div>
-                  </div> -->
                   <div class="row linechartrow">
                     <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
