@@ -143,6 +143,11 @@ footer{
   margin: 0;
 }
 
+.radiocol{
+  margin: 0;
+  padding: 0;
+}
+
 .form-check-input{
   vertical-align: center;
 }
@@ -172,6 +177,7 @@ footer{
 #copyButton{
   display: none;
 }
+
 
 /* styling the iframe code elements */
 .iframecode, .iframeelement{

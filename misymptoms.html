@@ -83,20 +83,22 @@
           <div class="row misymptomsmapslider">
             <div class="col-sm-6 msmap">
               <div class="row maprow">
-                <div class="col-sm-12">
-                  <div id="misymptomsmap"></div>
-
-                  <!-- placeholder map below -->
+                <div class="col-sm-12 mapcol">
                   <div id="map"></div>
-
                 </div> <!--close col 12-->
               </div> <!--close maprow-->
-              <div class="row mimapcontrols">
-                <div class="col-sm-12">
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-count-rate">Showing response count</button>
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-probable-cases">Showing COVID-like illness responses</button>
-                </div> <!--close col-->
-              </div> <!--close row mimapcontrols-->
+              <div class="row radioset">
+                <div class="col-sm-12 radiocol">
+                  <div class="form-check form-check-inline set2">
+                    <input class="form-check-input case-type" type="radio" name="covidtotal" id="radio-C" value="C" checked>
+                    <label class="form-check-label" for="radio-CP">COVID-like responses</label>
+                  </div>
+                  <div class="form-check form-check-inline set2">
+                    <input class="form-check-input case-type" type="radio" name="covidtotal" id="radio-CP" value="CP">
+                    <label class="form-check-label" for="radio-C">proportion of COVID-like responses</label> 
+                  </div> 
+                </div>
+              </div> <!--close row radioset-->
             </div> <!--close msmap-->
             <div class="col-sm-6 msslider">
               <div class="row">
@@ -108,20 +110,19 @@
                   <p class="d-inline dayrange" id="enddate"></p>
                 </div> <!--close CP totals-->
               </div> <!--close row-->
-              <div class="row sliderradios">
-                <div class="col-sm-12 d-flex justify-content-start miradios">
-                  <div class="custom-control custom-radio">
-                    <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked>
-                    <label class="custom-control-label" for= "casecum">Show cumulative responses</label>
-                  </div>
-                  <!-- cases in past week radio -->
-                  <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input metric" id="caseweek" name="attributes"
-                    value="weekly">
-                    <label class="custom-control-label" for="caseweek">Show responses in the past week</label>
-                  </div>
-                </div>
-              </div> <!--close row sliderradios-->
+              <div class="row dropdowns">
+                <div class="col-sm-12 dropdowncol">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Select a time frame
+                    </button>
+                    <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" value="cumulative">Cumulative Cases</a>
+                      <a class="dropdown-item" value="weekly">Cases in the Past Week</a>
+                    </div> <!--close dropdown menu-->
+                  </div> <!--close dropdown-->
+                </div> <!--close dropdowncol-->
+              </div> <!--close row dropdowns-->
               <div class="row linechartrow">
                 <div class="col-sm-12 linechartdiv">
                   <div id="casechart"></div>
