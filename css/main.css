@@ -404,6 +404,137 @@ h5{
   text-anchor: end;
 }
 
+/* || STORYMAP.html || */
+#storymappage h1{
+  font-size: 24pt;
+}
+#storymappage h2{
+  font-size: 20pt;
+}
+#storymappage h3{
+  font-size: 16pt;
+}
+#storymappage .light p{
+  font-size: 12pt;
+}
+.scrollybody {
+  margin:0; 
+  padding:0; 
+  font-family: sans-serif;
+}
+#storymappage .scrollylink a, a:hover, a:visited {
+  color: #0071bc;
+}
+#scrollymap {
+  top:0; 
+  height: 100vh;
+  width:100vw;
+  position: fixed;
+  z-index: -5;
+}
+#scrollyheader {
+  margin: 3vh auto;
+  width: 90vw;
+  padding: 2vh;
+  text-align: center;
+}
+#scrollyfooter {
+  width: 100%;
+  min-height: 5vh;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  text-align: center;
+  line-height: 25px;
+  font-size: 13px;
+}
+#scrollyfeatures {
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  z-index: 100;
+}
+.scrollycentered {
+  width: 50vw;
+  margin: 0 auto;
+}
+.scrollylefty {
+  width: 33vw;
+  margin-left: 5vw;
+}
+.scrollyrighty {
+  width: 33vw;
+  margin-left: 62vw;
+}
+.light {
+  color: #444;
+  background-color: #fafafa;
+}
+.scrollydark {
+  color: #fafafa;
+  background-color: #444;
+}
+.step {
+  margin-bottom: 50vh;
+  /* margin-bottom: 10vh; */
+  opacity: 0.25;
+  border: 1px solid lightgray;
+}
+.step.active {
+  opacity: 0.9;
+}
+
+.step div {
+  padding:  25px 50px;
+  line-height: 25px;
+  font-size: 13px;
+}
+
+.step img {
+  width: 100%;
+}
+
+.scrollymodal{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0,0,0,0.4);
+  border: 1px solid lightgray;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+.scrollymodalheader{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: red;
+}
+.scrollyclose{
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+.scrollymodalcontents{
+  background-color:white;
+  margin: 5px;
+}
+.scrollymodalcontents p{
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+@media (max-width: 750px) {
+  #scrollyfeatures {
+      width: 90vw;
+      margin: 0 auto;
+  }
+}
 
 /* || media rules || */
 @media (max-width: 576px){
