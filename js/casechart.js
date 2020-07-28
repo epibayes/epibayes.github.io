@@ -12,7 +12,7 @@ function makeCaseChart() {
         .domain(d3.extent(caseData.get(status), d => d.date))
         .range([0, width]);
     y = d3.scaleLinear()
-        .domain([0, d3.max(caseData.get('CP'), d => d.value)]).nice()
+        .domain([0, d3.max(caseData.get(status), d => d.value)]).nice()
         .range([height, 0]);
 
     // define the line
