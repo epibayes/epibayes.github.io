@@ -4,7 +4,6 @@ async function initDashboard(embedMap=false) {
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
-    if (!embedMap) insertDates(minDate, maxDate)
 
     caseData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
     caseData.map((d,i) => {
@@ -32,12 +31,16 @@ async function initDashboard(embedMap=false) {
 
     initSlider()
     initRadio()
-    initToggles()
+    generateEmbedURL()
 
-    setDateRange(minDate, maxDate)
-    if (!embedMap) updateTotal(metric)
     initMap()
-    if (!embedMap) makeCaseChart()
+    setDateRange(minDate, maxDate)
+
+    if (!embedMap) {
+        insertDates(minDate, maxDate)
+        updateTotal(metric)
+        makeCaseChart()
+    }
 }
 
 // Mapbox Related Functions
