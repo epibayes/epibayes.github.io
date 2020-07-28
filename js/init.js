@@ -27,7 +27,6 @@ let delay = 100;
 let alpha = 0.65;
 let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
 let metric = 'cumulative';
-let status = 'CP';
 
 let colorScales = {
     'cases' : {

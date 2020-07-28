@@ -67,6 +67,9 @@
           <a class="nav-link text-primary" href="/timeline.html">Timeline</a>
         </li>
         <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/storymap.html">Your COVID Risk</a>
+        </li>
+        <li class="nav-item text-right">
           <a class="nav-link text-primary" href="/misymptoms.html">MI Symptoms</a>
         </li>
       </ul>
@@ -90,16 +93,16 @@
               <div class="row radioset">
                 <div class="col-sm-12 radiocol mirads">
                   <div class="form-check form-check-inline set1">
-                    <input class="form-check-input case-total" type="radio" name="covidresponse" id="radio-totalmisym" value="total">
-                    <label class="form-check-label" for="radio-total-misym">Total MI Symptoms Responses</label>
+                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-total" value="CP">
+                    <label class="form-check-label" for="response-total">MI Symptoms Responses</label>
                   </div>
                   <div class="form-check form-check-inline set1">
-                    <input class="form-check-input case-total" type="radio" name="covidresponse" id="radio-covidresp" value="covidresp" checked>
-                    <label class="form-check-label" for="radio-covidresp">COVID-like Illness Responses</label> 
+                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-covid" value="C" checked>
+                    <label class="form-check-label" for="response-covid">COVID-like Illness Responses</label>
                   </div> 
                   <div class="form-check form-check-inline set1">
-                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="radio-CP" value="CP">
-                    <label class="form-check-label" for="radio-C">Proportion of COVID-like Responses</label> 
+                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-proportion" value="rate">
+                    <label class="form-check-label" for="response-proportion">Proportion of COVID-like Responses</label>
                   </div> 
                 </div>
               </div> <!--close row radioset-->
@@ -110,9 +113,10 @@
             <div class="col-sm-6 msslider">
               <div class="row wherearewe">
                 <div class="col-sm-12 gettingnumbers">
-                  <h3 class="whereheading">Where are we getting these numbers?</h3>
+                  <h3 class="whereheading">MI Symptoms</h3>
                   <p class="aboutdescription wherep">
-                    These data come from <a href="https://misymptomapp.state.mi.us/" target="_blank">MI Symptoms Web Application</a> and reflect the number of total users completing well checks with the app and the proportion of users reporting COVID-19-like illnesses across the state of Michigan. A COVID-like illness is defined as:
+                    The <a href="https://misymptomapp.state.mi.us/" target="_blank">MI Symptoms web app</a> is an online tool where users can enter information daily to help identify symptoms that might be caused by the virus that causes COVID-19 and to make decisions about when to seek appropriate medical care.<br><br>
+                    These data reflect the number of total users completing well checks with the app and the proportion of users reporting COVID-19-like illnesses. A COVID-like illness is defined as:
                   </p>
                   <ul>
                     <li class="whereli">
@@ -125,9 +129,6 @@
                       difficulty breathing.
                     </li>
                   </ul>
-                  <p class="aboutdescription wherep">
-                    The MI Symptoms Web Application is an online tool where users can enter information daily to help identify symptoms that might be caused by the virus that causes COVID-19 and to make decisions about when to seek appropriate medical care. 
-                  </p>
                 </div> <!--close col-->
               </div> <!--close row wherearewe-->
               <div class="row">

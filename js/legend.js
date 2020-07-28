@@ -55,7 +55,7 @@ function addLegend() {
         .attr('class', 'legend-label')
         .attr('x', w+5)
         .attr('dy', '0.35em')
-        .text('Cases')
+        .text(updateLegendLabel())
 
     legendScaleLog = d3.scaleLog()
         .domain(colorScale.domain())
@@ -68,7 +68,7 @@ function addLegend() {
         .tickSize(0)
         .tickValues(getTickValues())
     legendYAxis = d3.axisRight(legendScale)
-        .ticks(3, datatype === 'cases' ? 'd' : '.1f')
+        .ticks(3, datatype === 'symptoms' ? '.1f' : 'd')
         .tickSize(0)
         .tickValues(getTickValues())
     let yAxis = metric.includes('rate') ? legendYAxis : legendYAxisLog
@@ -108,11 +108,19 @@ function updateLegend(metric) {
         legendScaleLog.domain(colorScale.domain())
         yAxis = legendYAxisLog
     }
-    yAxis.tickValues(tickValues[metric])
+    yAxis.tickValues(getTickValues())
     legend.select('.legend-label')
-        .text(metric.includes('rate') ? 'Cases per 100K' : 'Cases')
+        .text(updateLegendLabel())
     legendAxis.call(yAxis)
     legend.select('path.domain').remove()
+}
+
+function updateLegendLabel() {
+    if (datatype === 'symptoms') {
+        return metric.includes('rate') || status === 'C' ? 'COVID Responses' : 'Responses'
+    } else {
+        return metric.includes('rate') ? 'Cases per 100K' : 'Cases'
+    }
 }
 
 function LegendText(d, i, arr) {
