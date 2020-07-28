@@ -162,6 +162,15 @@ footer{
 
 }
 
+/* switch styling */
+.switches{
+padding: 10px 0px;
+}
+.switchcol{
+  padding: 0;
+  vertical-align: center;
+}
+
 /* style embeddable div elements */
 .embedmapbutton{
   margin: 0;
