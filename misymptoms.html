@@ -84,32 +84,6 @@
         <div class="d-none d-sm-none d-md-block col-lg-1 buffer"></div>
         <div class="col-sm-12 col-lg-10 mainitems">
           <div class="row misymptomsmapslider">
-            <div class="col-sm-6 msmap d-flex align-items-start flex-column">
-              <div class="row maprow">
-                <div class="col-sm-12 mapcol">
-                  <div id="map"></div>
-                </div> <!--close col 12-->
-              </div> <!--close maprow-->
-              <div class="row radioset">
-                <div class="col-sm-12 radiocol mirads">
-                  <div class="form-check form-check-inline set1">
-                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-total" value="CP">
-                    <label class="form-check-label" for="response-total">MI Symptoms Responses</label>
-                  </div>
-                  <div class="form-check form-check-inline set1">
-                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-covid" value="C" checked>
-                    <label class="form-check-label" for="response-covid">COVID-like Illness Responses</label>
-                  </div> 
-                  <div class="form-check form-check-inline set1">
-                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-proportion" value="rate">
-                    <label class="form-check-label" for="response-proportion">Proportion of COVID-like Responses</label>
-                  </div> 
-                </div>
-              </div> <!--close row radioset-->
-              <div class="row decoration flex-grow-1">
-                <div class="col-sm-12"></div>
-              </div>
-            </div> <!--close msmap-->
             <div class="col-sm-6 msslider">
               <div class="row wherearewe">
                 <div class="col-sm-12 gettingnumbers">
@@ -132,27 +106,30 @@
                 </div> <!--close col-->
               </div> <!--close row wherearewe-->
               <div class="row">
-                <div class="col-sm-12 text-left miCPtotals">
-                  <h1 id="total"></h1>
+                <div class="col-sm-7 text-left miCPtotals">
+                  <h1 id="total" class=""></h1>
                   <p class="d-inline" id= "CP-total-text">COVID-like illness responses</p>
                   <p class="d-inline dayrange" id="startdate"></p>
                   <p class="d-inline">to</p>
                   <p class="d-inline dayrange" id="enddate"></p>
                 </div> <!--close CP totals-->
+                <div class= "col-sm-5 d-flex align-items-center">
+                  <div class="row">
+                    <div class="col-sm-12 dropdowncol">
+                      <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Select a time frame
+                        </button>
+                        <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" value="cumulative">Cumulative Cases</a>
+                          <a class="dropdown-item" value="weekly">Responses in the Past Week</a>
+                        </div> <!--close dropdown menu-->
+                      </div> <!--close dropdown-->
+                    </div> <!--close dropdowncol-->
+                  </div> <!--close row dropdowns-->
+                </div>
               </div> <!--close row-->
-              <div class="row dropdowns">
-                <div class="col-sm-12 dropdowncol">
-                  <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Select a time frame
-                    </button>
-                    <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" value="cumulative">Cumulative Cases</a>
-                      <a class="dropdown-item" value="weekly">Cases in the Past Week</a>
-                    </div> <!--close dropdown menu-->
-                  </div> <!--close dropdown-->
-                </div> <!--close dropdowncol-->
-              </div> <!--close row dropdowns-->
+              
               <div class="row linechartrow">
                 <div class="col-sm-12 linechartdiv">
                   <div id="casechart"></div>
@@ -163,6 +140,29 @@
                 </div> <!--close line chart div-->
               </div> <!--close linechart row-->
             </div> <!--close msslider-->
+            <div class="col-sm-6 msmap d-flex align-items-start flex-column">
+              <div class="row maprow">
+                <div class="col-sm-12 mapcol">
+                  <div id="map"></div>
+                </div> <!--close col 12-->
+              </div> <!--close maprow-->
+              <div class="row radioset">
+                <div class="col-sm-12 radiocol mirads">
+                  <div class="form-check set1">
+                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-total" value="CP">
+                    <label class="form-check-label" for="response-total">MI Symptoms Responses</label>
+                  </div>
+                  <div class="form-check set1">
+                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-covid" value="C" checked>
+                    <label class="form-check-label" for="response-covid">COVID-like Illness Responses</label>
+                  </div> 
+                  <div class="form-check set1">
+                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-proportion" value="rate">
+                    <label class="form-check-label" for="response-proportion">Proportion of COVID-like Responses</label>
+                  </div> 
+                </div>
+              </div> <!--close row radioset-->
+            </div> <!--close msmap-->
           </div> <!--close row misymptomsmapslider-->
           <div class="row abouttext">
             <div class="col-sm-12 allabout">

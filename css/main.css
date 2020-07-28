@@ -1,3 +1,7 @@
+/* general HTML styling */
+html{
+  scroll-behavior:smooth
+}
 
 /* || Main styling || */
 /* navigation bar styling */
@@ -76,7 +80,7 @@ footer{
 
 /* adding a top padding to the container */
 .container-fluid{
-  padding-top:5px;
+  padding-top:10px;
 }
 
 /* || INDEX.html || */
@@ -559,14 +563,16 @@ h5{
 .misymptomsmap{
   padding-bottom: 10px;
 }
+
+/* removing left padding from msslider */
+.msslider{
+  padding-left: 0;
+}
 /* adding padding to map and buttons */
 .mimapcontrols{
   padding: 10px 0px;
 }
-/* decoration div styling */
-.decoration{
-  background-color: #f0f6fb;
-}
+
 /* adding padding to wherearewe row */
 .wherearewe{
   padding: 5px 0px;
