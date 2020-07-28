@@ -31,6 +31,8 @@ async function initDashboard(embedMap=false) {
 
     initSlider()
     initRadio()
+    status = datatype === 'symptoms' ? 'C' : 'CP'
+    initDropdown()
     generateEmbedURL()
 
     initMap()
@@ -223,6 +225,10 @@ function type(d) {
     d.weeklyrate_c = d.weekly_c * poprate
     d.cumulativerate_c = d.cumulative_c * poprate
     return d
+}
+
+function convertStatus(status) {
+    return status === 'All' ? 'CP' : 'C'
 }
 
 function filterByDate(data, date) {
