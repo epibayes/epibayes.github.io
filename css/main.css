@@ -565,7 +565,8 @@ h5{
 }
 /* styling the map for the misymptoms page */
 .misymptomspage #map{
-  height: 510px;
+  /* height: 525px; */
+  height: 100%;
 }
 /* removing left padding from msslider */
 .msslider{
@@ -575,7 +576,6 @@ h5{
 .mimapcontrols{
   padding: 10px 0px;
 }
-
 /* remove padding for dropdown col */
 .midrop{
   padding: 0;
