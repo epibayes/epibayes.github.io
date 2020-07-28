@@ -121,6 +121,9 @@ function initMap() {
         addLegend()
         animateMap()
     });
+    map.on('load', function () {
+        map.resize();
+    });
 }
 
 function updateHexLayers(metric) {
