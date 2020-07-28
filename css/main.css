@@ -164,11 +164,39 @@ footer{
 
 /* switch styling */
 .switches{
-padding: 10px 0px;
+  padding: 10px 0px;
+}
+.labeltext{
+  margin: 0;
+  padding: 0;
+}
+.rightlabel{
+  padding-left: 10px;
+}
+.leftlabel{
+  padding-right: 10px;
 }
 .switchcol{
   padding: 0;
   vertical-align: center;
+}
+.custom-control-input{
+  margin: 0;
+  padding: 0;
+  width: 0;
+  height: 0;
+}
+.custom-switch{
+  padding-left: 2.75rem;
+}
+
+.custom-control-label{
+  left: 0;
+  right: 0;
+}
+.custom-control-label::before, .custom-control-label::after{
+  left: 0;
+  right: 0;
 }
 
 /* style embeddable div elements */
