@@ -563,7 +563,10 @@ h5{
 .misymptomsmap{
   padding-bottom: 10px;
 }
-
+/* styling the map for the misymptoms page */
+.misymptomspage #map{
+  height: 510px;
+}
 /* removing left padding from msslider */
 .msslider{
   padding-left: 0;
@@ -573,6 +576,13 @@ h5{
   padding: 10px 0px;
 }
 
+/* remove padding for dropdown col */
+.midrop{
+  padding: 0;
+}
+.misymptomspage .dropdowncol{
+  padding: 0;
+}
 /* adding padding to wherearewe row */
 .wherearewe{
   padding: 5px 0px;
