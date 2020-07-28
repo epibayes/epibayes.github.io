@@ -11,7 +11,7 @@ async function initDashboard(embedMap=false) {
         d.value = d.cumulative
         d.idx = i
         if (datatype === 'symptoms') {
-            d.status = d.status === 'All' ? 'C' : 'CP'
+            d.status = convertStatus(d.status)
         }
         return d
     })
@@ -34,6 +34,8 @@ async function initDashboard(embedMap=false) {
 
     initSlider()
     initRadio()
+    status = datatype === 'symptoms' ? 'C' : 'CP'
+    initDropdown()
     generateEmbedURL()
 
     initMap()
@@ -220,9 +222,13 @@ function type(d) {
     d.weeklyrate = +d.weeklyrate || 0
     d.cumulativerate = +d.cumulativerate
     if (datatype === 'symptoms') {
-        d.status = d.status === 'All' ? 'C' : 'CP'
+        d.status = convertStatus(d.status)
     }
     return d
+}
+
+function convertStatus(status) {
+    return status === 'All' ? 'CP' : 'C'
 }
 
 function filterByDate(data, date) {
