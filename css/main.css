@@ -178,6 +178,10 @@ footer{
   padding: 6px;
 }
 
+.switchlabel.active{
+  background-color: #00448E !important;
+}
+
 #select-case-rate, #select-case-count, #select-CP, #select-C {
   display: none;
 }
