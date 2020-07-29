@@ -1,16 +1,18 @@
 async function initDashboard(embedMap=false) {
-    const data20 = await d3.csv('data/weeklycum_cases_20km_with_rateper100k.csv', type)
-    const data10 = await d3.csv('data/weeklycum_cases_10km_with_rateper100k.csv', type)
+    const data20 = await d3.csv(`data/weeklycum_${datatype}_20km_with_rateper100k.csv`, type)
+    const data10 = await d3.csv(`data/weeklycum_${datatype}_10km_with_rateper100k.csv`, type)
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
-    if (!embedMap) insertDates(minDate, maxDate)
 
-    caseData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
+    caseData = await d3.csv(`data/dailyweeklycum_${datatype}_statewide.csv`, d3.autoType)
     caseData.map((d,i) => {
         d.date = dateParser(d.date)
         d.value = d.cumulative
         d.idx = i
+        if (datatype === 'symptoms') {
+            d.status = convertStatus(d.status)
+        }
         return d
     })
     caseData = d3.group(caseData, d => d.status)
@@ -32,22 +34,28 @@ async function initDashboard(embedMap=false) {
 
     initSlider()
     initRadio()
-    initToggles()
+    status = datatype === 'symptoms' ? 'C' : 'CP'
+    initDropdown()
+    generateEmbedURL()
 
-    setDateRange(minDate, maxDate)
-    if (!embedMap) updateTotal(metric)
     initMap()
-    if (!embedMap) makeCaseChart()
+    setDateRange(minDate, maxDate)
+
+    if (!embedMap) {
+        insertDates(minDate, maxDate)
+        updateTotal(metric)
+        makeCaseChart()
+    }
 }
 
 // Mapbox Related Functions
 function initMap() {
     metrics.forEach(metric => updateFillExpression(metric, maxDate))
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2FvYSIsImEiOiJjazkxc2QyMTcwMHp4M2ZubnByeWwycjYwIn0.HMO_9ZdIJxTIXLl_zqyuHw';
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXBpYmF5ZXMiLCJhIjoiY2tiaml0b3JpMHBuNzJ1bXk3MzdsbWs1aCJ9.YlxrUIBkuWk-VuYDDeMjBQ';
     map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/light-v10',
+        style: datatype === 'symptoms' ? 'mapbox://styles/epibayes/ckcxh5jqw0v6z1isxnybsc0le' : 'mapbox://styles/mapbox/light-v10',
         center: [-86.04, 44.65],
         zoom: 5.48,
         maxBounds: [[-100, 36], [-75, 52]],
@@ -113,6 +121,9 @@ function initMap() {
         addLegend()
         animateMap()
     });
+    map.on('load', function () {
+        map.resize();
+    });
 }
 
 function updateHexLayers(metric) {
@@ -143,7 +154,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
-    return colorScales[metric]
+    return colorScales[datatype][metric]
 }
 
 function createPopup(e) {
@@ -186,8 +197,8 @@ function createTableTemplate(data) {
     <thead>
         <tr class="headingrow">
             <th class="tabledata text-left" scope="col"></th>
-            <th class="text-right" scope="col">Cases</th>
-            <th class="text-right" id="popup-header" scope="col">per 100,000<br>people</th>
+            <th class="text-right" scope="col">${datatype === 'cases' ? 'Cases' : 'Responses'}</th>
+            <th class="text-right" id="popup-header" scope="col">${datatype === 'cases' ? 'per 100,000<br>people' : 'COVID-like<br>proportion'}</th>
         </tr>
     </thead>
     <tbody>
@@ -213,7 +224,14 @@ function type(d) {
     d.cumulative = +d.cumulative
     d.weeklyrate = +d.weeklyrate || 0
     d.cumulativerate = +d.cumulativerate
+    if (datatype === 'symptoms') {
+        d.status = convertStatus(d.status)
+    }
     return d
+}
+
+function convertStatus(status) {
+    return status === 'All' ? 'CP' : 'C'
 }
 
 function filterByDate(data, date) {
@@ -244,7 +262,7 @@ function animateMap() {
             playing = true;
         } else {
             clearInterval(timer);
-            d3.select(this).html('Play cases over time');
+            d3.select(this).html('Play responses over time');
             playing = false;
         }
     });

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37324839-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-37324839-1');
+  </script>
+  <meta charset='utf-8' />
+  <title>Michigan COVID-19 Tracker</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <!-- Social Media Preview -->
+  <!-- Twitter Section -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@caocscar" />
+  
+  <!-- Open Graph Section -->
+  <meta property="og:title" content="Michigan COVID-19 Tracker" />
+  <meta property="og:image" content="https://covidmapping.org/img/opengraph.jpg" />
+  <meta property="og:description" content="The goal of this COVID-19 mapping project is 
+  to put COVID in its spatial and social context, to allow better exploration and understanding 
+  of geographic patterning in detected cases and deaths." />
+  <meta property="og:url" content="https://covidmapping.org" />
+
+  <!-- Mapbox GL JS -->
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
+  
+  <!-- Mapbox GL Geocoder -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css'>
+  
+  <!-- bootstrap 4 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
+  <!-- d3 utilities -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://d3js.org/d3-array.v2.min.js"></script>
+  
+  <!-- CSS links -->
+  <link rel="stylesheet" href="css/main.css">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body class="misymptomspage">
+  <!-- navigation bar -->
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <!-- navbar brand image + title -->
+    <a class="navbar-brand align-items-center" href="/index.html">
+      <img id="epibayes-logo" src="img/logo_transparent.png">
+      <p class="navtitle d-none d-sm-inline-block text-center">Michigan COVID-19 Mapping</p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="website-nav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/team.html">Team</a>
+        </li>
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/timeline.html">Timeline</a>
+        </li>
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/storymap.html">Your COVID Risk</a>
+        </li>
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/misymptoms.html">MI Symptoms</a>
+        </li>
+      </ul>
+    </div>
+  </nav> 
+  <!--close nav bar-->
+  <!-- main content -->
+  <main>
+    <!--parent container-->
+    <div class="container-fluid">
+      <div class="row parentrow">
+        <div class="d-none d-sm-none d-md-block col-lg-1 buffer"></div>
+        <div class="col-sm-12 col-lg-10 mainitems">
+          <div class="row misymptomsmapslider">
+            <div class="col-sm-6 msslider">
+              <div class="row wherearewe">
+                <div class="col-sm-12 gettingnumbers">
+                  <h3 class="whereheading">MI Symptoms</h3>
+                  <p class="aboutdescription wherep">
+                    The <a href="https://misymptomapp.state.mi.us/" target="_blank">MI Symptoms web app</a> is an online tool where users can enter information daily to help identify symptoms that might be caused by the virus that causes COVID-19 and to make decisions about when to seek appropriate medical care.<br><br>
+                    These data reflect the number of total users completing well checks with the app and the proportion of users reporting COVID-19-like illnesses. A COVID-like illness is defined as:
+                  </p>
+                  <ul>
+                    <li class="whereli">
+                      fever and cough or
+                    </li>
+                    <li class="whereli">
+                      shortness of breath or
+                    </li>
+                    <li class="whereli">
+                      difficulty breathing.
+                    </li>
+                  </ul>
+                </div> <!--close col-->
+              </div> <!--close row wherearewe-->
+              <div class="row">
+                <div class="col-sm-12 text-left miCPtotals">
+                  <h1 id="total" class="d-inline"></h1>
+                  <p class="d-inline" id= "CP-total-text">COVID-like illness responses</p>
+                  <p class="d-inline dayrange" id="startdate"></p>
+                  <p class="d-inline">to</p>
+                  <p class="d-inline dayrange" id="enddate"></p>
+                </div> <!--close CP totals-->
+              </div> <!--close row-->
+              <div class="row dropdowns">
+                <div class="col-sm-12 dropdowncol">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Select a time frame
+                    </button>
+                    <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" value="cumulative">Cumulative Responses</a>
+                      <a class="dropdown-item" value="weekly">Responses in the Past Week</a>
+                    </div> <!--close dropdown menu-->
+                  </div> <!--close dropdown-->
+                </div> <!--close dropdowncol-->
+              </div> <!--close row dropdowns-->
+              <div class="row linechartrow">
+                <div class="col-sm-12 linechartdiv">
+                  <div id="casechart"></div>
+                  <div class="" id="slider-container">
+                    <input class="custom-range" id="slider" type="range" min="0" step="1">
+                  </div> <!--close slider container-->
+                  <button type="button" class="d-inline btn btn-outline-primary" id="play">Play responses over time</button>
+                </div> <!--close line chart div-->
+              </div> <!--close linechart row-->
+            </div> <!--close msslider-->
+            <div class="col-sm-6 msmap d-flex align-items-start flex-column">
+              <div class="row maprow flex-grow-1">
+                <div class="col-sm-12 mapcol">
+                  <div id="map"></div>
+                </div> <!--close col 12-->
+              </div> <!--close maprow-->
+              <!-- <div class="row radioset">
+                <div class="col-sm-12 radiocol mirads">
+                  <div class="form-check set1">
+                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-total" value="CP">
+                    <label class="form-check-label" for="response-total">MI Symptoms Responses</label>
+                  </div>
+                  <div class="form-check set1">
+                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-covid" value="C" checked>
+                    <label class="form-check-label" for="response-covid">COVID-like Illness Responses</label>
+                  </div> 
+                  <div class="form-check set1">
+                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-proportion" value="rate">
+                    <label class="form-check-label" for="response-proportion">Proportion of COVID-like Responses</label>
+                  </div> 
+                </div>
+              </div> -->
+              <div class="row switches">
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                  <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                    <label class="btn btn-primary active switchlabel" for="response-total">
+                      <input type="radio" name="covidresponse" class="case-type" id="response-total" autocomplete="off" value="CP">MI Symptoms Responses
+                    </label>
+                    <label class="btn btn-primary switchlabel" for="response-covid">
+                      <input type="radio" name="covidresponse" class="case-type"  id="response-covid" autocomplete="off" value="C" checked>COVID-like Illness Responses
+                    </label>
+                    <label class="btn btn-primary switchlabel" for="response-proportion">
+                      <input type="radio" name="covidresponse" class="case-type"  id="response-proportion" autocomplete="off" value="rate">Proportion of COVID-like Responses
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div> <!--close msmap-->
+          </div> <!--close row misymptomsmapslider-->
+          <div class="row abouttext">
+            <div class="col-sm-12 allabout">
+              <div class="row organizesections">
+                <div class="col-sm-6 leftsections">
+                  <div class="row whatthese">
+                    <div class="col-sm-12 numberstell">
+                      <h3>What these numbers can tell us</h3>
+                      <p class="aboutdescription">
+                        The type of symptom reporting captured by the MI Symptoms Web App is called “syndromic surveillance”. In this case the syndrome is COVID-19-like illness. The Centers for Disease Control and Prevention (CDC) and the Michigan Department of Health and Human Services  use this type of syndromic surveillance for <a href="https://www.cdc.gov/flu/weekly/overview.htm" target="_blank">Influenza-like illnesses (ILI)</a> as an early warning system for influenza activity. Similar surveillance is used to track <a href="https://www.cdc.gov/coronavirus/2019-ncov/covid-data/covidview/index.html" target="_blank">COVID-19-like illness</a> nationally.
+                      </p>   
+                      <p class="aboutdescription">
+                          We know that diagnostic testing for coronavirus cases will not capture all illnesses, especially since some people will have very mild symptoms and not get tested. <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(20)31304-0/fulltext" target="_blank">In some places it has been estimated</a> that only about 10% of the true number of cases are being captured by diagnostic testing. But people with mild symptoms can still spread the disease to others.
+                      </p>
+                      <p class="aboutdescription">
+                        It is important to understand the number of people reporting symptoms consistent with COVID-19-like illness so that we can:
+                      </p>
+                      <ul>
+                        <li>
+                          Have an early warning system for increased COVID-19 activity
+                        </li>
+                        <li>
+                          Recognize trends in mild COVID-19-like illnesses for different regions across the state
+                        </li>
+                        <li>
+                          Better understand the full extent of community spread of COVID-19
+                        </li>
+                      </ul>
+                    </div> <!--close col-->
+                  </div> <!--close row whatthese-->
+                </div> <!--close leftsections-->
+                <div class="col-sm-6 rightsections">
+                  <div class="row numbersdont">
+                    <div class="col-sm-12 numbersdonttell">
+                      <h3>What these numbers don't tell us</h3>
+                      <p class="aboutdescription">
+                        These numbers are not laboratory confirmed cases of COVID-19. Other respiratory viruses can cause symptoms similar to those caused by COVID-19, especially when symptoms are mild.
+                      </p>
+                      <p class="aboutdescription">
+                        These numbers also only represent users of MI Symptoms Web App. There are a number of reasons why users of this app may not reflect the overall population in the state of Michigan or in specific regions of the state. For example, some employers are using the MI Symptoms app to track illnesses among their employees, and so users may be more likely to be employed than the general public.
+                      </p>
+                      <p class="aboutdescription">
+                        For more information about the data collected by the MI Symptoms Web App and how users privacy is protected visit <a href="https://misymptomapp.state.mi.us/faq" target="_blank">https://misymptomapp.state.mi.us/faq.</a>  
+                      </p>
+                    </div> <!--close col-->
+                  </div> <!--close row numbersdont-->
+                </div> <!--close rightsections-->
+              </div> <!--close organizesections-->
+            </div> <!--close allabout-->
+          </div> <!--close row abouttext-->
+        </div> <!--close mainitems-->
+        <div class="d-none d-sm-none d-md-block col-lg-1 buffer"></div>
+      </div> <!--close row parentrow-->
+    </div> <!--close parent container-->
+  </main>
+  <footer class="footer">
+    <div class="container-fluid footeritems">
+      <div class="row sphiconrow">
+        <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
+          <img id="sphlogo" src="img/public health logo.png">
+        </div>
+      </div> <!--close sphiconrow-->
+      <div class="row footerstuff ">
+        <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
+          <p class="footertext">
+            Built and maintained by the <a href="https://sph.umich.edu/" target="_blank">University of Michigan School of Public Health.</a>
+          </p>
+        </div>
+      </div> <!--close row footerstuff-->
+    </div> <!--close the container for footer items-->
+  </footer>
+  <!-- scripts -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="js/init.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/michigan.js"></script>
+  <script src="js/legend.js"></script>
+  <script src="js/casechart.js"></script>
+  <script>
+    const datatype = 'symptoms'
+    initDashboard()
+  </script>
+</body>
+</html>

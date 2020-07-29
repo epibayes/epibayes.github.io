@@ -1,3 +1,7 @@
+/* general HTML styling */
+html{
+  scroll-behavior:smooth
+}
 
 /* || Main styling || */
 /* navigation bar styling */
@@ -76,7 +80,7 @@ footer{
 
 /* adding a top padding to the container */
 .container-fluid{
-  padding-top:5px;
+  padding-top:10px;
 }
 
 /* || INDEX.html || */
@@ -88,6 +92,12 @@ footer{
   width: 100%;
   height: 500px;
 }
+
+.mapboxgl-popup{
+  max-width: 350px !important;
+  /* width: 500px !important; */
+}
+
 
 /* map div styling */
 .mapcol{
@@ -107,12 +117,6 @@ footer{
   /* padding: 0px !important; */
 }
 
-.mapbuttons{
-  padding: 0px;
-  margin: 0px;
-  padding-top: 10px;
-}
-
 .updated{
   padding: 0px;
   margin: 0px;
@@ -130,6 +134,66 @@ footer{
   color: gray;
 }
 
+/* style radios under map */
+.mapradios{
+  padding: 0;
+  margin: 0;
+}
+
+.radiocol{
+  margin: 0;
+  padding: 0;
+  
+}
+
+.form-check-input{
+  vertical-align: center;
+}
+
+.form-check-label{
+  padding: 0px 5px;
+  padding-right: 10px;
+}
+
+.radioset{
+  padding: 0;
+  margin: 0;
+  padding: 10px 0px;
+
+}
+
+/* switch styling */
+.switches{
+  padding: 10px 0px;
+}
+
+.switchcol{
+  padding: 0;
+  vertical-align: center;
+}
+.switchlabel{
+  font-size: 10pt;
+  margin: 0;
+  padding: 0;
+  padding: 6px;
+  background-color:white;
+  color: gray;
+  border-color: gray;
+}
+
+.switchlabel:hover, .switchlabel:active, .switchlabel:focus{
+  background-color: gray !important;
+  border-color: gray !important;
+}
+
+.switchlabel.active{
+  background-color: #002F63 !important;
+}
+
+#select-case-rate, #select-case-count, #select-CP, #select-C {
+  display: none;
+}
+
 /* style embeddable div elements */
 .embedmapbutton{
   margin: 0;
@@ -144,6 +208,7 @@ footer{
 #copyButton{
   display: none;
 }
+
 
 /* styling the iframe code elements */
 .iframecode, .iframeelement{
@@ -176,14 +241,16 @@ textarea{
   margin: 0;
 }
 
-/* styling radio div elements */
-.radios{
+/* style the dropdown button for linechart */
+.dropdowns{
   margin: 0;
-  padding: 25px 0;
+  padding: 0;
+  padding: 10px 0px;
 }
 
-.custom-radio{
-  margin-right: 10px;
+.dropdowns .col-sm-12{
+  padding: 0;
+  margin: 0;
 }
 
 /* style linechart div elements*/
@@ -251,16 +318,19 @@ h6{
 }
 
 /* styling the case chart */
-.daily-cases {
+.daily-cases, .daily-symptoms {
   fill: none;
-  stroke: #00274C;
   stroke-width: 2;
 }
 
-.daily {
-  stroke: #00274C;
-  stroke-width: 2;
+.daily-symptoms {
+  stroke: #08519C;
 }
+
+.daily-cases {
+  stroke: #00274C;
+}
+
 /* styling popup */
 .mapboxgl-popup-content{
   padding: 15px 10px 10px 10px;
@@ -381,6 +451,212 @@ h5{
   text-anchor: end;
 }
 
+/* || STORYMAP.html || */
+#storymappage h1{
+  font-size: 24pt;
+}
+#storymappage h2{
+  font-size: 20pt;
+}
+#storymappage h3{
+  font-size: 16pt;
+}
+#storymappage .light p{
+  font-size: 12pt;
+}
+.scrollybody {
+  margin:0; 
+  padding:0; 
+  font-family: sans-serif;
+}
+#storymappage .scrollylink a, a:hover, a:visited {
+  color: #0071bc;
+}
+#scrollymap {
+  top:0; 
+  height: 100vh;
+  width:100vw;
+  position: fixed;
+  z-index: -5;
+}
+#scrollyheader {
+  margin: 3vh auto;
+  width: 90vw;
+  padding: 2vh;
+  text-align: center;
+}
+#scrollyfooter {
+  width: 100%;
+  min-height: 5vh;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  text-align: center;
+  line-height: 25px;
+  font-size: 13px;
+}
+#scrollyfeatures {
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  z-index: 100;
+}
+.scrollycentered {
+  width: 50vw;
+  margin: 0 auto;
+}
+.scrollylefty {
+  width: 33vw;
+  margin-left: 5vw;
+}
+.scrollyrighty {
+  width: 33vw;
+  margin-left: 62vw;
+}
+.light {
+  color: #444;
+  background-color: #fafafa;
+}
+.scrollydark {
+  color: #fafafa;
+  background-color: #444;
+}
+.step {
+  margin-bottom: 50vh;
+  /* margin-bottom: 10vh; */
+  opacity: 0.25;
+  border: 1px solid lightgray;
+}
+.step.active {
+  opacity: 0.9;
+}
+
+.step div {
+  padding:  25px 50px;
+  line-height: 25px;
+  font-size: 13px;
+}
+
+.step img {
+  width: 100%;
+}
+
+.scrollymodal{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0,0,0,0.4);
+  border: 1px solid lightgray;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+.scrollymodalheader{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: red;
+}
+.scrollyclose{
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+.scrollymodalcontents{
+  background-color:white;
+  margin: 5px;
+}
+.scrollymodalcontents p{
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+@media (max-width: 750px) {
+  #scrollyfeatures {
+      width: 90vw;
+      margin: 0 auto;
+  }
+}
+
+/* ||MISYMPTOMS.html|| */
+/* remove col paddings */
+.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12{
+  padding: 0px;
+  margin: 0px;
+}
+/* add top border to abouttext section */
+.abouttext{
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #e8e8e8;
+}
+/* add padding back to left section */
+.leftsections{
+  padding-right: 10px;
+}
+/* add padding back to right section */
+.rightsections{
+  padding-left: 10px;
+}
+/* adding buffer to map */
+.misymptomsmap{
+  padding-bottom: 10px;
+}
+/* styling the map for the misymptoms page */
+.misymptomspage #map{
+  /* height: 525px; */
+  height: 100%;
+}
+/* removing left padding from msslider */
+.msslider{
+  padding-left: 0;
+}
+/* adding padding to map and buttons */
+.mimapcontrols{
+  padding: 10px 0px;
+}
+/* remove padding for dropdown col */
+.midrop{
+  padding: 0;
+}
+.misymptomspage .dropdowncol{
+  padding: 0;
+}
+/* adding padding to wherearewe row */
+.wherearewe{
+  padding: 5px 0px;
+  background-color: #f0f6fb;
+  margin-bottom: 10px;
+}
+.gettingnumbers{
+  padding: 0px 5px;
+}
+/* styling the wherearewe items */
+.whereheading{
+  font-size: 16pt;
+}
+.wherep{
+  font-size: 11pt;
+  margin: 0;
+  padding: 0;
+}
+.whereli{
+  font-size: 10pt;
+}
+
+/* removing padding to the miCPtotals div */
+.miCPtotals{
+  padding: 0;
+}
+/* tri-state radio button */
+#response-total, #response-covid, #response-proportion{
+  display: none;
+}
 
 /* || media rules || */
 @media (max-width: 576px){
@@ -389,11 +665,13 @@ h5{
     padding: 0;
     padding-top: 10px;
   }
-  .cumulativevis, .goaltext, .whatcanwelearn, .covidlearn{
+  .cumulativevis, .goaltext, .whatcanwelearn, .covidlearn, .msslider{
     padding: 0;
     margin: 0;
   }
-  
+  .leftsections, .rightsections{
+    padding: 0px;
+  }
 }
 
 @media screen and (max-width: 624px) {

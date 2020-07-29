@@ -69,6 +69,12 @@
         <li class="nav-item text-right">
           <a class="nav-link text-primary" href="/timeline.html">Timeline</a>
         </li>
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/storymap.html">Your COVID Risk</a>
+        </li>
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/misymptoms.html">MI Symptoms</a>
+        </li>
       </ul>
     </div>
   </nav> 
@@ -88,12 +94,58 @@
                   <div id="map"> </div>
                 </div> <!--close col-->
               </div> <!--close row-->
-              <div class="row togglemapbuttons">
-                <div class="col-sm-12 mapbuttons">
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-count-rate"> Show cases per 100,000 people</button>
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-probable-cases">Show confirmed cases only</button>
-                </div> <!--close col-->
-              </div> <!-- close row togglemapbuttons -->
+              <div class="row togglemapradios">
+                <div class="col-sm-12 mapradios">
+                  <!-- <div class="row radioset">
+                    <div class="col-sm-12 radiocol">
+                      <div class="form-check form-check-inline set1">
+                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-count" value="" checked>
+                        <label class="form-check-label" for="radio-case-count">Case Count</label>
+                      </div>
+                      <div class="form-check form-check-inline set1">
+                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-rate" value="rate">
+                        <label class="form-check-label" for="radio-case-rate">Cases per 100,000 People</label>
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="row switches">
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                      <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                        <label class="btn btn-primary active switchlabel" for="select-case-count">
+                          <input type="radio" name="ratecount" id="select-case-count" class="count-rate ctrate" autocomplete="off" value="" checked> Case Count
+                        </label>
+                        <label class="btn btn-primary switchlabel" for="select-case-rate">
+                          <input type="radio" name="ratecount" id="select-case-rate" class="count-rate ctrate"  autocomplete="off" value="rate"> Cases per 100,000 People
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="row radioset">
+                    <div class="col-sm-12 radiocol">
+                      <div class="form-check form-check-inline set2">
+                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-CP" value="CP" checked>
+                        <label class="form-check-label" for="radio-CP">Confirmed & Probable Cases</label>
+                      </div>
+                      <div class="form-check form-check-inline set2">
+                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-C" value="C">
+                        <label class="form-check-label" for="radio-C">Confirmed Cases Only</label> 
+                      </div> 
+                    </div>
+                  </div> -->
+                  <div class="row switches">
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                      <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                        <label class="btn btn-primary active switchlabel" for="select-CP">
+                          <input type="radio" name="probconfirmed" id="select-CP" class="case-type" autocomplete="off" value="CP" checked>Confirmed & Probable Cases
+                        </label>
+                        <label class="btn btn-primary switchlabel" for="select-C">
+                          <input type="radio" name="probconfirmed" id="select-C" class="case-type"  autocomplete="off" value="C">Confirmed Cases Only
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div> <!--close col 12-->
+              </div> <!--close togglemapradios-->
               <div class="row builtandmaintained">
                 <div class="col-sm-12 updated">
                   <p>Last updated: <span id="update-date"></span></p>
@@ -137,6 +189,19 @@
                     </div>
                   </div>  -->
                   <!--close radiobuttons row-->
+                  <div class="row dropdowns">
+                    <div class="col-sm-12">
+                      <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Select a time frame
+                        </button>
+                        <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" value="cumulative">Cumulative Cases</a>
+                          <a class="dropdown-item" value="weekly">Cases in the Past Week</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div class="row linechartrow">
                     <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
@@ -246,9 +311,11 @@
   <script src="js/legend.js"></script>
   <script src="js/casechart.js"></script>
   <script>
+    const datatype = 'cases'
     initDashboard()
   </script>
   <script>
+<<<<<<< HEAD
     $('.drpbutton').daterangepicker(
      { 
       startDate: moment(startDate),
@@ -261,6 +328,9 @@
           updateCaseChart(startDate, endDate, metric)
       }
     );
+=======
+
+>>>>>>> threeradios
   </script>
 </body>
 </html>
