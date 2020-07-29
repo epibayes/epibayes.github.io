@@ -190,6 +190,10 @@ footer{
   background-color: #002F63 !important;
 }
 
+.switchlabel.active{
+  background-color: #00448E !important;
+}
+
 #select-case-rate, #select-case-count, #select-CP, #select-C {
   display: none;
 }
