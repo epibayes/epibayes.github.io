@@ -166,37 +166,20 @@ footer{
 .switches{
   padding: 10px 0px;
 }
-.labeltext{
-  margin: 0;
-  padding: 0;
-}
-.rightlabel{
-  padding-left: 10px;
-}
-.leftlabel{
-  padding-right: 10px;
-}
+
 .switchcol{
   padding: 0;
   vertical-align: center;
 }
-.custom-control-input{
+.switchlabel{
+  font-size: 10pt;
   margin: 0;
   padding: 0;
-  width: 0;
-  height: 0;
-}
-.custom-switch{
-  padding-left: 2.75rem;
+  padding: 6px;
 }
 
-.custom-control-label{
-  left: 0;
-  right: 0;
-}
-.custom-control-label::before, .custom-control-label::after{
-  left: 0;
-  right: 0;
+#select-case-rate, #select-case-count, #select-CP, #select-C {
+  display: none;
 }
 
 /* style embeddable div elements */
@@ -642,14 +625,13 @@ h5{
   font-size: 10pt;
 }
 
-/* add bg color to  radios*/
-/* .mirads{
-  background-color: #e1edf6;
-} */
-
 /* removing padding to the miCPtotals div */
 .miCPtotals{
   padding: 0;
+}
+/* tri-state radio button */
+#response-total, #response-covid, #response-proportion{
+  display: none;
 }
 
 /* || media rules || */

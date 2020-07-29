@@ -106,17 +106,15 @@
                     </div>
                   </div> -->
                   <div class="row switches">
-                    <div class="col-sm-12 switchcol d-flex align-items-center justify-content-center">
-                      <p class="leftlabel labeltext">
-                        Case Count
-                      </p>
-                      <div class="custom-control custom-switch">
-                          <input type="checkbox" class="custom-control-input" id="switch-case-count">
-                          <label class="custom-control-label" for="switch-case-count"></label> 
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                      <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                        <label class="btn btn-primary active switchlabel" for="select-case-count">
+                          <input type="radio" name="ratecount" id="select-case-count" class="count-rate ctrate" autocomplete="off" value="" checked> Case Count
+                        </label>
+                        <label class="btn btn-primary switchlabel" for="select-case-rate">
+                          <input type="radio" name="ratecount" id="select-case-rate" class="count-rate ctrate"  autocomplete="off" value="rate"> Cases per 100,000 People
+                        </label>
                       </div>
-                      <p class="rightlabel labeltext">
-                        Cases per 100,000 People
-                      </p>
                     </div>
                   </div>
                   <!-- <div class="row radioset">
@@ -130,20 +128,17 @@
                         <label class="form-check-label" for="radio-C">Confirmed Cases Only</label> 
                       </div> 
                     </div>
-
                   </div> -->
                   <div class="row switches">
-                    <div class="col-sm-12 switchcol d-flex align-items-center justify-content-center">
-                      <p class="leftlabel labeltext">
-                        Confirmed & Probable Cases
-                      </p>
-                      <div class="custom-control custom-switch">
-                          <input type="checkbox" class="custom-control-input" id="switch-CP">
-                          <label class="custom-control-label text-center" for="switch-CP"></label> 
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                      <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                        <label class="btn btn-primary active switchlabel" for="select-CP">
+                          <input type="radio" name="probconfirmed" id="select-CP" class="case-type" autocomplete="off" value="CP" checked>Confirmed & Probable Cases
+                        </label>
+                        <label class="btn btn-primary switchlabel" for="select-C">
+                          <input type="radio" name="probconfirmed" id="select-C" class="case-type"  autocomplete="off" value="C">Confirmed Cases Only
+                        </label>
                       </div>
-                      <p class="rightlabel labeltext">
-                        Confirmed Cases Only
-                      </p>
                     </div>
                   </div>
                 </div> <!--close col 12-->
@@ -298,6 +293,9 @@
   <script>
     const datatype = 'cases'
     initDashboard()
+  </script>
+  <script>
+
   </script>
 </body>
 </html>
