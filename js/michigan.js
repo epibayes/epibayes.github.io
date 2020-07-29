@@ -43,7 +43,7 @@ async function initDashboard(embedMap=false) {
 
     if (!embedMap) {
         insertDates(minDate, maxDate)
-        updateTotal(metric)
+        updateTotalCustomDate(minDate, sliderValue)
         makeCaseChart()
     }
 }

@@ -252,7 +252,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="js/init.js"></script>
@@ -265,17 +264,21 @@
     initDashboard()
   </script>
   <script>
-    $('.drpbutton').daterangepicker(
-     { 
-      startDate: moment(startDate),
-      endDate: moment(endDate)
-    }, function (startDate, endDate){
-          startDate = startDate.toDate()
-          endDate = endDate.toDate()
-          setDateRange(startDate, endDate)
-          updateTotal(metric)
-          updateCaseChart(startDate, endDate, metric)
-      }
+    $('.drpbutton').daterangepicker({ 
+            opens: 'left',
+            minDate: new Date(2020,2,8),
+            startDate: new Date(2020,2,8),
+            endDate: new Date(2020,6,26),
+            maxDate: new Date(2020,6,26),
+        }, function (startDate, endDate) {
+              startDate = startDate.toDate()
+              endDate = endDate.toDate()
+              setDateRange(startDate, endDate)
+              updateTotalCustomDate(startDate, endDate)
+              const sliderValue = Math.round(dateSlider.invert(endDate))
+              d3.select('#slider').property('value', sliderValue)
+              updateCaseCircle(sliderValue)
+        }
     );
 
   </script>

@@ -27,7 +27,7 @@ function initDropdown() {
         metric = rateRadio ? timePeriod + 'rate' : timePeriod
         updateHexGrid()
         updateLegend(metric)
-        updateTotalInfo()
+        updateTotalInfoCustom()
         updateCaseChart(metric)
         generateEmbedURL()
     })
@@ -56,7 +56,7 @@ function initRadio() {
         }
         updateHexGrid()
         updateLegend(metric)
-        updateTotalInfo()
+        updateTotalInfoCustom()
         if (datatype === 'symptoms') {
             updateCaseChart(metric, CP=false)
             d3.select('#CP-total-text').text(status === 'CP' ? 'MI Symptoms responses' : 'COVID-like illness responses')
@@ -75,7 +75,7 @@ function generateEmbedURL() {
     d3.select('#embeddable').text(embeddableLink)
 }
 
-function updateDateRange(metric) {
+function updateDateRange() {
     const endDate = getDateFromSlider()
     const key = metric.replace('rate','')
     startDate = key === 'cumulative' ? minDate : d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))])
@@ -87,11 +87,19 @@ function setDateRange(startDate, endDate) {
     d3.select('#enddate').text(sliderFmt(endDate))
 }
 
-function updateTotal(metric, suffix = '') {
-    const key = metric.replace('rate','')
-    total = caseData.get(status)[sliderValue][key]
-    d3.select(`#total${suffix}`).text(numFmt(total))
+// function updateTotal() {
+//     const key = metric.replace('rate','')
+//     const total = caseData.get(status)[sliderValue][key]
+//     d3.select('#total').text(numFmt(total))
+// }
+
+function updateTotalCustomDate(startDate, idx1) {
+    const idx0 = Math.round(dateSlider.invert(startDate))
+    const array = caseData.get(status).slice(idx0, parseInt(idx1)+1)
+    const total = d3.sum(array, d => d.daily)
+    d3.select('#total').text(numFmt(total))
 }
+
 
 function getDateFromSlider() {
     return d3.timeDay(dateSlider(sliderValue))
@@ -104,7 +112,7 @@ function getSliderValue() {
 function updateMapInfo() {
     updateHexGrid()
     updatePopup()
-    updateTotalInfo()
+    updateTotalInfoCustom()
 }
 
 function updateHexGrid() {
@@ -113,8 +121,13 @@ function updateHexGrid() {
 }
 
 function updateTotalInfo() {
-    updateTotal(metric)
-    updateDateRange(metric)    
+    updateTotal()
+    updateDateRange()    
+}
+
+function updateTotalInfoCustom() {
+    updateTotalCustomDate(x.domain()[0], sliderValue)
+    updateDateRange()
 }
 
 function toggleEmbed() {
