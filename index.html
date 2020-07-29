@@ -96,18 +96,6 @@
               </div> <!--close row-->
               <div class="row togglemapradios">
                 <div class="col-sm-12 mapradios">
-                  <!-- <div class="row radioset">
-                    <div class="col-sm-12 radiocol">
-                      <div class="form-check form-check-inline set1">
-                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-count" value="" checked>
-                        <label class="form-check-label" for="radio-case-count">Case Count</label>
-                      </div>
-                      <div class="form-check form-check-inline set1">
-                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-rate" value="rate">
-                        <label class="form-check-label" for="radio-case-rate">Cases per 100,000 People</label>
-                      </div>
-                    </div>
-                  </div> -->
                   <div class="row switches">
                     <div class="col-sm-12 d-flex align-items-center justify-content-center">
                       <div class="btn-group switchgroup" data-toggle="buttons" role="group">
@@ -120,18 +108,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="row radioset">
-                    <div class="col-sm-12 radiocol">
-                      <div class="form-check form-check-inline set2">
-                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-CP" value="CP" checked>
-                        <label class="form-check-label" for="radio-CP">Confirmed & Probable Cases</label>
-                      </div>
-                      <div class="form-check form-check-inline set2">
-                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-C" value="C">
-                        <label class="form-check-label" for="radio-C">Confirmed Cases Only</label> 
-                      </div> 
-                    </div>
-                  </div> -->
                   <div class="row switches">
                     <div class="col-sm-12 d-flex align-items-center justify-content-center">
                       <div class="btn-group switchgroup" data-toggle="buttons" role="group">
@@ -176,32 +152,6 @@
               </div> <!--close row-->
               <div class="row">
                 <div class="col-sm-12 cumulativevis">
-                  <!-- <div class="row radiobuttons">
-                    <div class="col-sm-12 radios d-flex">
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input metric" type="radio" id="casecum" name="attributes" value="cumulative" checked>
-                          <label class="custom-control-label" for= "casecum">Show cumulative cases</label>
-                      <div class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input metric" id="caseweek" name="attributes"
-                        value="weekly">
-                        <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
-                      </div>
-                    </div>
-                  </div>  -->
-                  <!--close radiobuttons row-->
-                  <div class="row dropdowns">
-                    <div class="col-sm-12">
-                      <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Select a time frame
-                        </button>
-                        <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" value="cumulative">Cumulative Cases</a>
-                          <a class="dropdown-item" value="weekly">Cases in the Past Week</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div class="row linechartrow">
                     <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
@@ -315,7 +265,6 @@
     initDashboard()
   </script>
   <script>
-<<<<<<< HEAD
     $('.drpbutton').daterangepicker(
      { 
       startDate: moment(startDate),
@@ -328,9 +277,7 @@
           updateCaseChart(startDate, endDate, metric)
       }
     );
-=======
 
->>>>>>> threeradios
   </script>
 </body>
 </html>
