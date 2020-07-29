@@ -176,11 +176,13 @@ footer{
   margin: 0;
   padding: 0;
   padding: 6px;
-  background-color: white;
-  color: #0275d8;
+  background-color:#C0C0C0;
+  border-color: #C0C0C0;
 }
-.switchlabel:hover{
-  background-color: #0275d8;
+
+.switchlabel:hover, .switchlabel:active, .switchlabel:focus{
+  background-color: gray !important;
+  border-color: gray !important;
 }
 
 .switchlabel.active{
