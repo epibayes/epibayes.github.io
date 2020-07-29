@@ -21,7 +21,7 @@ function initDropdown() {
     d3.selectAll('#period a').on('click', function() { // updateRadio
         const timePeriod = d3.select(this).attr("value")
         if (metric.includes(timePeriod)) return;
-        const rateRadio = datatype === 'cases' ? d3.select('#radio-case-rate').property('checked')
+        const rateRadio = datatype === 'cases' ? d3.select('#select-case-rate').property('checked')
             : d3.select('#response-proportion').property('checked') ? true 
             : false
         metric = rateRadio ? timePeriod + 'rate' : timePeriod
