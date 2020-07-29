@@ -692,6 +692,10 @@ h5{
 .miCPtotals{
   padding: 0;
 }
+/* tri-state radio button */
+#response-total, #response-covid, #response-proportion{
+  display: none;
+}
 
 /* || media rules || */
 @media (max-width: 576px){
