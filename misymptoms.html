@@ -143,7 +143,7 @@
                   <div id="map"></div>
                 </div> <!--close col 12-->
               </div> <!--close maprow-->
-              <div class="row radioset">
+              <!-- <div class="row radioset">
                 <div class="col-sm-12 radiocol mirads">
                   <div class="form-check set1">
                     <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-total" value="CP">
@@ -158,7 +158,22 @@
                     <label class="form-check-label" for="response-proportion">Proportion of COVID-like Responses</label>
                   </div> 
                 </div>
-              </div> <!--close row radioset-->
+              </div> -->
+              <div class="row switches">
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                  <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                    <label class="btn btn-primary active switchlabel" for="response-total">
+                      <input type="radio" name="covidresponse" class="case-type" id="response-total" autocomplete="off" value="CP">MI Symptoms Responses
+                    </label>
+                    <label class="btn btn-primary switchlabel" for="response-covid">
+                      <input type="radio" name="covidresponse" class="case-type"  id="response-covid" autocomplete="off" value="C" checked>COVID-like Illness Responses
+                    </label>
+                    <label class="btn btn-primary switchlabel" for="response-proportion">
+                      <input type="radio" name="covidresponse" class="case-type"  id="response-proportion" autocomplete="off" value="rate">Proportion of COVID-like Responses
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div> <!--close msmap-->
           </div> <!--close row misymptomsmapslider-->
           <div class="row abouttext">
