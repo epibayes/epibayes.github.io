@@ -17,10 +17,10 @@ function makeCaseChart2() {
 
     // set the dimensions and margins of the graph
     const H = 200, W = 490;
-    margin = {top: 15, right: 10, bottom: 80, left: 0}
+    margin = {top: 15, right: 15, bottom: 80, left: 15}
     width = W - margin.left - margin.right
     height = H - margin.top - margin.bottom
-    margin2 = {top: H-50, right: 10, bottom: 30, left: 0}
+    margin2 = {top: H-50, right: margin.right, bottom: 30, left: margin.left}
     height2 = H - margin2.top - margin2.bottom
 
     // append timetable svg
@@ -147,7 +147,7 @@ function makeCaseChart2() {
         .attr("class", "brush")
         .call(brush)
         .call(brush.move, [x(beginDate), x(maxDate)]) // initialize brush selection
-    xBrush.selectAll('.handle, .overlay').remove()
+    //xBrush.selectAll('.handle, .overlay').remove()
 };
 
 // updates timetable graph
