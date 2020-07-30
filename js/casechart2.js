@@ -142,12 +142,12 @@ function makeCaseChart2() {
         .call(xAxis2);
 
     // add the context brush
-    const beginDate = d3.timeDay.offset(maxDate, -N)
+    const beginDate = d3.timeDay.offset(maxDate, -N+1)
     xBrush = context.append("g")
         .attr("class", "brush")
         .call(brush)
         .call(brush.move, [x(beginDate), x(maxDate)]) // initialize brush selection
-    //  xBrush.selectAll('.handle, .overlay').remove()
+    xBrush.selectAll('.handle, .overlay').remove()
 };
 
 // updates timetable graph
