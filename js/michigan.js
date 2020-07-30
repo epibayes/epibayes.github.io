@@ -245,25 +245,34 @@ function insertDates(minDate, maxDate) {
 }
 
 // Animation Functions
+// function animateMap() {
+//     let timer;
+//     d3.select('#play').on('click', function () {
+//         sliderValue = parseInt(d3.select('#slider').property('value'))
+//         let sliderMax = parseInt(d3.select('#slider').property('max'))
+//         if (!playing) {
+//             timer = setInterval(function () {
+//                 sliderValue = sliderValue > sliderMax ? 0 : sliderValue+1
+//                 if (sliderValue > sliderMax) return // temp fix
+//                 d3.select('#slider').property('value', sliderValue)
+//                 updateMapInfo()
+//                 updateCaseCircle(sliderValue)
+//             }, delay);
+//             d3.select(this).html('Stop');
+//             playing = true;
+//         } else {
+//             clearInterval(timer);
+//             d3.select(this).html('Play responses over time');
+//             playing = false;
+//         }
+//     });
+// }
+
 function animateMap() {
-    let timer;
+    count = 0
     d3.select('#play').on('click', function () {
-        sliderValue = parseInt(d3.select('#slider').property('value'))
-        let sliderMax = parseInt(d3.select('#slider').property('max'))
-        if (!playing) {
-            timer = setInterval(function () {
-                sliderValue = sliderValue > sliderMax ? 0 : sliderValue+1
-                if (sliderValue > sliderMax) return // temp fix
-                d3.select('#slider').property('value', sliderValue)
-                updateMapInfo()
-                updateCaseCircle(sliderValue)
-            }, delay);
-            d3.select(this).html('Stop');
-            playing = true;
-        } else {
-            clearInterval(timer);
-            d3.select(this).html('Play responses over time');
-            playing = false;
-        }
+        updateCaseChart2(updateAxis=true, rescale=true)
+        count += 1
     });
 }
+    

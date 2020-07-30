@@ -151,13 +151,23 @@ function makeCaseChart2() {
 };
 
 // updates timetable graph
-function updateCaseChart2(updateAxis=true) {
-    N = numDays()
-    const chartData = movingSum(caseData.get(status), N)
+function updateCaseChart2(updateAxis=true, rescale=false) {
+    let idx0, idx1, data;
+    if (rescale) {
+        idx0 = Math.round(date2idx(x.domain()[0]))
+        idx1 = Math.round(date2idx(x.domain()[1]))
+    }
+    data = caseData.get(status)
+    N = numDays()    
+    const chartData = movingSum(data, N)
     // axis transition
     if (updateAxis) {
-        y2.domain([0, d3.max(chartData, d => d.total)]).nice()
-        y.domain(y2.domain());
+        if (rescale) {            
+            y.domain([0, d3.max(chartData.slice(idx0,idx1+1), d => d.total)]).nice()
+        } else {
+            y2.domain([0, d3.max(chartData, d => d.total)]).nice()
+            y.domain(y2.domain());
+        }
         d3.select('.y-axis')
             .call(yAxis)
             .call(formatAxis)
