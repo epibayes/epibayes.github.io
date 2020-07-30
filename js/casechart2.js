@@ -147,42 +147,42 @@ function makeCaseChart2() {
         .attr("class", "brush")
         .call(brush)
         .call(brush.move, [x(beginDate), x(maxDate)]) // initialize brush selection
-    //xBrush.selectAll('.handle, .overlay').remove()
+    xBrush.selectAll('.handle, .overlay').remove()
 };
 
 // updates timetable graph
-function updateCaseChart2(updateAxis=true, rescale=false) {
-    let idx0, idx1, data;
-    if (rescale) {
-        idx0 = Math.round(date2idx(x.domain()[0]))
-        idx1 = Math.round(date2idx(x.domain()[1]))
-    }
-    data = caseData.get(status)
+function updateCaseChart2(updateAxis=true, rescale=true) {
     N = numDays()    
-    const chartData = movingSum(data, N)
+    const chartData = movingSum(caseData.get(status), N)
     // axis transition
-    if (updateAxis) {
-        if (rescale) {            
-            y.domain(d3.extent(chartData.slice(idx0,idx1+1), d => d.total)).nice()
-        } else {
-            y2.domain([0, d3.max(chartData, d => d.total)]).nice()
-            y.domain(y2.domain());
-        }
-        d3.select('.y-axis')
-            .call(yAxis)
-            .call(formatAxis)
-        setYAxisLabel()
-    }
+    if (updateAxis) updateYAxis(chartData, rescale)
     // line transition
     const easeFunc = d3.easeQuad;
     const T = 750;
     avgLine1.datum(chartData)
-        .transition().ease(easeFunc).duration(T)
+        // .transition().ease(easeFunc).duration(T)
         .attr("d", movingAvg1)
     avgLine2.datum(chartData)
-        .transition().ease(easeFunc).duration(T)
+        // .transition().ease(easeFunc).duration(T)
         .attr("d", movingAvg2)
 };
+
+function updateYAxis(chartData, rescale) {
+    if (rescale) {       
+        const idx0 = Math.round(date2idx(x.domain()[0]))
+        const idx1 = Math.round(date2idx(x.domain()[1]))     
+        y.domain(d3.extent(chartData.slice(idx0,idx1+1), d => d.total)).nice()
+    } else {
+        y2.domain([0, d3.max(chartData, d => d.total)]).nice()
+        const idx0 = Math.round(date2idx(x.domain()[0]))
+        const idx1 = Math.round(date2idx(x.domain()[1]))     
+        y.domain(d3.extent(chartData.slice(idx0,idx1+1), d => d.total)).nice()
+    }
+    d3.select('.y-axis')
+        .call(yAxis)
+        .call(formatAxis)
+    setYAxisLabel()
+}
 
 // brush function
 function brushed() {
@@ -211,6 +211,8 @@ function brushended() {
         .call(brush.move, dayRange.map(x2));
     updateMapInfo()
     updateDateRangePicker(dayRange);
+    const chartData = movingSum(caseData.get(status), N)
+    updateYAxis(chartData, true)
 };
 
 function chooseCustomDate(beginDate, endDate) {
@@ -262,7 +264,7 @@ function addDateRangePicker() {
             }
         }, function(start, end) {
             chooseCustomDate(start.toDate(), d3.timeDay(end.toDate()) ) // move time to beginning of day instead of the end
-            updateCaseChart2()
+            updateCaseChart2(updateAxis=true, rescale=false)
         });
     })
 }

@@ -48,10 +48,10 @@ function initRadio() {
         updateLegend(metric)
         updateTotalInfo()
         if (datatype === 'symptoms') {
-            updateCaseChart2(updateAxis=false)
+            updateCaseChart2(updateAxis=false, rescale=true)
             d3.select('#CP-total-text').text(status === 'CP' ? 'MI Symptoms responses' : 'COVID-like illness responses')
         } else {
-            updateCaseChart2(updateAxis=false)
+            updateCaseChart2(updateAxis=false, rescale=true)
             d3.select('#CP-total-text').text(status === 'CP' ? 'confirmed & probable cases' : 'confirmed cases')
         }
         updatePopup()
