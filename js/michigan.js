@@ -43,8 +43,8 @@ async function initDashboard(embedMap=false) {
 
     if (!embedMap) {
         insertDates(minDate, maxDate)
-        updateTotalCustomDate(d3.timeDay.offset(maxDate, -14), maxDate)
         makeCaseChart2()
+        updateTotal(d3.timeDay.offset(maxDate, -N), maxDate)
     }
 }
 
@@ -126,7 +126,7 @@ function initMap() {
     });
 }
 
-function updateHexLayers(metric) {
+function updateHexLayers() {
     hexLayers.forEach((d,i) => updateHexFill(d, hexfill[status][metric][i]))
 }
 
@@ -138,7 +138,7 @@ function getHexLayer() {
     return map.getZoom() < zoomThreshold ? 'hex20' : 'hex10'
 }
 
-function updateFillExpression(key, day=x.domain()[1]) {
+function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1]) ) {
     const colorScale = getColorScale(key)
     const column = key
     hexLayers.forEach((h,i) => {
@@ -179,7 +179,7 @@ function setPopupData(data) {
 }
 
 function getMetricValues(idx) {
-    const day = getDateFromSlider()
+    const day = d3.timeDay(x.domain()[1])
     const h = getHexLayer()
     const array = hexdata[h].get(status).get(+day).get(idx)
     let data = metrics.map((col,i) => array === undefined ? '0'

@@ -17,7 +17,7 @@ function initDropdown() {
         metric = rateRadio ? timePeriod + 'rate' : timePeriod
         updateHexGrid()
         updateLegend(metric)
-        updateTotalInfoCustom()
+        updateTotalInfo()
         updateCaseChart()
         generateEmbedURL()
     })
@@ -46,12 +46,12 @@ function initRadio() {
         }
         updateHexGrid()
         updateLegend(metric)
-        updateTotalInfoCustom()
+        updateTotalInfo()
         if (datatype === 'symptoms') {
-            updateCaseChart2(CP=false)
+            updateCaseChart2(updateAxis=false)
             d3.select('#CP-total-text').text(status === 'CP' ? 'MI Symptoms responses' : 'COVID-like illness responses')
         } else {
-            updateCaseChart2(CP=false)
+            updateCaseChart2(updateAxis=false)
             d3.select('#CP-total-text').text(status === 'CP' ? 'confirmed & probable cases' : 'confirmed cases')
         }
         updatePopup()
@@ -74,7 +74,7 @@ function setDateRange(startDate, endDate) {
     d3.select('#enddate').text(sliderFmt(endDate))
 }
 
-function updateTotalCustomDate(startDate, endDate) {
+function updateTotal(startDate, endDate) {
     const idx0 = Math.round(date2idx(startDate))
     const idx1 = Math.round(date2idx(endDate))
     const subset = caseData.get(status).slice(idx0, idx1+1)
@@ -85,21 +85,16 @@ function updateTotalCustomDate(startDate, endDate) {
 function updateMapInfo() {
     updateHexGrid()
     updatePopup()
-    updateTotalInfoCustom()
+    updateTotalInfo()
 }
 
 function updateHexGrid() {
-    updateFillExpression(metric)
-    updateHexLayers(metric)    
+    updateFillExpression()
+    updateHexLayers()    
 }
 
-function updateTotalInfo() {
-    updateTotal()
-    updateDateRange()    
-}
-
-function updateTotalInfoCustom(startDate=x.domain()[0], endDate=x.domain()[1]) {
-    updateTotalCustomDate(startDate, endDate)
+function updateTotalInfo(startDate=x.domain()[0], endDate=x.domain()[1]) {
+    updateTotal(startDate, endDate)
     updateDateRange(startDate, endDate)
 }
 

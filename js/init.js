@@ -20,15 +20,14 @@ const dateParser = d3.timeParse('%y%m%d')
 const sliderFmt = d3.timeFormat('%B %e')
 const numFmt = d3.format(',')
 const zoomThreshold = 8.5
-let minDate, maxDate, caseData, sliderValue;
+let minDate, maxDate, caseData;
+let N = 14;
 let playing = false;
 let delay = 100;
 let alpha = 0.65;
 let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
 let metric = 'cumulative';
 let status = 'CP';
-let startDate = "03/08/2020"
-let endDate = "07/14/2020"
 
 let colorScales = {
     'cases' : {

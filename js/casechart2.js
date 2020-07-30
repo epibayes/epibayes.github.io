@@ -1,6 +1,5 @@
 function makeCaseChart2() {
 
-    N = 14
     const chartData = movingSum(caseData.get(status), N)
 
     let formatHour = d3.timeFormat("%I %p"),
@@ -147,10 +146,11 @@ function makeCaseChart2() {
 };
 
 // updates timetable graph
-function updateCaseChart2(CP=false) {
+function updateCaseChart2(updateAxis=true) {
+    N = numDays()
     const chartData = movingSum(caseData.get(status), N)
     // axis transition
-    if (CP) {
+    if (updateAxis) {
         y2.domain([0, d3.max(chartData, d => d.total)]).nice()
         y.domain(y2.domain());
         d3.select('.y-axis')
@@ -177,7 +177,7 @@ function brushed() {
         .attr("d", movingAvg1);
     focus.select(".x-axis")
         .call(xAxis)
-    updateTotalInfoCustom(x.domain()[0], x.domain()[1])
+    updateTotalInfo()
 };
 
 // brush snapping function
@@ -194,6 +194,7 @@ function brushended() {
     // dayRange[1] = d3.timeSecond.offset(dayRange[1],-1)
     xBrush.transition()
         .call(brush.move, dayRange.map(x2));
+    updateMapInfo()
     //  updateDateRangePicker(dayRange);
     //  updateAll();
 };
