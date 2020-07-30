@@ -2,13 +2,12 @@ function makeCaseChart2() {
 
     const chartData = movingSum(caseData.get(status), N)
 
+    // Define date label formats
     let formatHour = d3.timeFormat("%I %p"),
-        formatDay = d3.timeFormat("%a %d"),
+        formatDay = d3.timeFormat("%a %e"),
         formatWeek = d3.timeFormat("%b %e"),
         formatMonth = d3.timeFormat("%b"),
         formatYear = d3.timeFormat("%Y");
-
-    // Define filter conditions
     function multiDateFormat(date) {
         return (d3.timeDay(date) < date ? formatHour
             : d3.timeMonth(date) < date ? (d3.timeWeek(date) < date ? formatDay : formatWeek)
@@ -17,12 +16,11 @@ function makeCaseChart2() {
     }
 
     // set the dimensions and margins of the graph
-    const H = 200
-    const W = 490
-    margin = {top: 15, right: 10, bottom: 80, left: 10}
+    const H = 210, W = 490;
+    margin = {top: 30, right: 10, bottom: 80, left: 0}
     width = W - margin.left - margin.right
     height = H - margin.top - margin.bottom
-    margin2 = {top: H-50, right: 10, bottom: 30, left: 10}
+    margin2 = {top: H-50, right: 10, bottom: 30, left: 0}
     height2 = H - margin2.top - margin2.bottom
 
     // append timetable svg
@@ -32,15 +30,30 @@ function makeCaseChart2() {
         .attr("preserveAspectRatio", "xMidYMid meet")
 
     // set the ranges
-    x = d3.scaleTime().range([0, width])
-    y = d3.scaleLinear().range([height, 0])
-    x2 = d3.scaleTime().range([0, width])
-    y2 = d3.scaleLinear().range([height2, 0])
+    x2 = d3.scaleTime()
+        .domain([minDate, maxDate])
+        .range([0, width])
+    y2 = d3.scaleLinear()
+        .domain([0, d3.max(chartData, d => d.total)]).nice()
+        .range([height2, 0])
+    x = d3.scaleTime()
+        .domain(x2.domain())
+        .range(x2.range())
+    y = d3.scaleLinear()
+        .domain(y2.domain())
+        .range([height, 0])
 
-    // sets ticks for timetable graph
-    xAxis = d3.axisBottom(x).ticks(4).tickFormat(multiDateFormat).tickSizeOuter(0)
-    yAxis = d3.axisRight(y).ticks(4)
-    xAxis2 = d3.axisBottom(x2).ticks(4).tickFormat(multiDateFormat).tickSizeOuter(0)
+    // sets ticks for time series chart
+    xAxis = d3.axisBottom(x)
+        .ticks(4)
+        .tickFormat(multiDateFormat)
+        .tickSizeOuter(0)
+    yAxis = d3.axisRight(y)
+        .ticks(4)
+    xAxis2 = d3.axisBottom(x2)
+        .ticks(4)
+        .tickFormat(multiDateFormat)
+        .tickSizeOuter(0)
 
     formatAxis = g => g
         .call(g => g.select(".domain").remove())
@@ -84,16 +97,9 @@ function makeCaseChart2() {
     focus.append("defs").append("clipPath")
         .attr("id", "clip")
       .append("rect")
-        .attr("x", 30)
-        .attr("width", width-30)
+        .attr("x", 0)
+        .attr("width", width-0)
         .attr("height", height)
-
-    // scale the range of the data
-    endDate = maxDate
-    x2.domain([minDate, endDate])
-    y2.domain([0, d3.max(chartData, d => d.total)]).nice()
-    x.domain(x2.domain());
-    y.domain(y2.domain());
 
     // add the focus moving avg line path
     avgLine1 = focus.append("path")
@@ -136,12 +142,11 @@ function makeCaseChart2() {
         .call(xAxis2);
 
     // add the context brush
-    const beginDate = d3.timeDay.offset(endDate, -N)
+    const beginDate = d3.timeDay.offset(maxDate, -N)
     xBrush = context.append("g")
         .attr("class", "brush")
         .call(brush)
-        .call(brush.move, [x(beginDate), x(endDate)]) // initialize brush selection
-
+        .call(brush.move, [x(beginDate), x(maxDate)]) // initialize brush selection
     //  xBrush.selectAll('.handle, .overlay').remove()
 };
 
@@ -195,28 +200,15 @@ function brushended() {
     xBrush.transition()
         .call(brush.move, dayRange.map(x2));
     updateMapInfo()
-    //  updateDateRangePicker(dayRange);
-    //  updateAll();
-};
-
-function changeDate(T) {
-    beginDate = d3.timeDay.round(d3.timeDay.offset(lastDatewData, -1*T))
-    xBrush.call(brush.move, [x2(beginDate), x2(lastDatewData)])
-    //  updateDateRangePicker();
-    //  updateAll();
+    updateDateRangePicker(dayRange);
 };
 
 function chooseCustomDate(beginDate, endDate) {
     xBrush.call(brush.move, [x2(beginDate), x2(endDate)])
-    //  updateAll();    
 }
 
 function numDays() {
     return d3.timeDay.count(x.domain()[0],x.domain()[1]) + 1
-}
-
-function getStartDate() {
-    return new Date(2020,2,8);      
 }
 
 // calculates simple moving sum over N days
@@ -244,20 +236,29 @@ function updateYAxisLabel(d) {
         .text(`cases over last ${N} days`)    
 }
 
+function addDateRangePicker() {
+    $(function() {
+        $('.drpbutton').daterangepicker({ 
+            opens: 'left',
+            minDate: new Date(2020,2,8),
+            startDate: new Date(2020,2,8),
+            endDate: new Date(2020,6,26),
+            maxDate: new Date(2020,6,26),
+            ranges: {
+                '7 Day Period': [new Date(2020,6,20), new Date(2020,6,26)],
+                '14 Day Period': [new Date(2020,6,13), new Date(2020,6,26)],
+                '30 Day Period': [new Date(2020,5,27), new Date(2020,6,26)],
+                'Cumulative': [new Date(2020,2,8), new Date(2020,6,26)],
+            }
+        }, function(start, end) {
+            chooseCustomDate(start.toDate(), d3.timeDay(end.toDate()) ) // move time to beginning of day instead of the end
+            updateCaseChart2()
+        });
+    })
+}
 
-// function addDateRangePicker() {
-//   $(function() {
-//       $('#customdaterange').daterangepicker({
-//           opens: 'left',
-//           minDate: new Date(2018,0,1),
-//           startDate: x.domain()[0],
-//           endDate: x.domain()[1],
-//       }, (startDate, endDate) => chooseCustomDate(startDate.toDate(), endDate.toDate()) );
-//   })
-// }
-
-// function updateDateRangePicker(dayRange=x.domain()) {
-//   const [startDate, endDate] = dayRange;
-//   $('#customdaterange').data('daterangepicker').setStartDate(startDate);
-//   $('#customdaterange').data('daterangepicker').setEndDate(endDate);
-// }
+function updateDateRangePicker(dayRange) {
+    const [startDate, endDate] = dayRange;
+    $('.drpbutton').data('daterangepicker').setStartDate(startDate);
+    $('.drpbutton').data('daterangepicker').setEndDate(endDate);
+}
