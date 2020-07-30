@@ -33,7 +33,7 @@
   <!-- Mapbox GL Geocoder -->
   <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
   <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css'>
-  
+
   <!-- bootstrap 4 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   
@@ -158,6 +158,11 @@
               </div> <!--close drprow-->
               <div class="row">
                 <div class="col-sm-12 cumulativevis">
+                  <div class="row infoicon">
+                    <div class="col-sm-12 infocol d-flex align-items-end justify-content-end">
+                      <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="right" title="Adjust your view by moving the gray box."><i class="fa fa-info-circle d-inline" ></i></button>
+                    </div>
+                  </div>
                   <div class="row linechartrow">
                     <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
@@ -266,6 +271,11 @@
     const datatype = 'cases'
     initDashboard()
     addDateRangePicker()
+  </script>
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })    
   </script>
 </body>
 </html>
