@@ -43,8 +43,8 @@ async function initDashboard(embedMap=false) {
 
     if (!embedMap) {
         insertDates(minDate, maxDate)
-        updateTotalCustomDate(minDate, sliderValue)
-        makeCaseChart()
+        updateTotalCustomDate(d3.timeDay.offset(maxDate, -14), maxDate)
+        makeCaseChart2()
     }
 }
 
@@ -138,7 +138,7 @@ function getHexLayer() {
     return map.getZoom() < zoomThreshold ? 'hex20' : 'hex10'
 }
 
-function updateFillExpression(key, day=getDateFromSlider()) {
+function updateFillExpression(key, day=x.domain()[1]) {
     const colorScale = getColorScale(key)
     const column = key
     hexLayers.forEach((h,i) => {

@@ -19,7 +19,6 @@ const hexLayers = ['hex20','hex10']
 const dateParser = d3.timeParse('%y%m%d')
 const sliderFmt = d3.timeFormat('%B %e')
 const numFmt = d3.format(',')
-const N = 7
 const zoomThreshold = 8.5
 let minDate, maxDate, caseData, sliderValue;
 let playing = false;

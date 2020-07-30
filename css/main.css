@@ -421,6 +421,7 @@ h5{
   fill: none;
   stroke: #000;
   stroke-width: 1.5px;
+  clip-path: url(#clip) !important; /* clip line with rectangle */
 }
 
 .axis, #ylabel {

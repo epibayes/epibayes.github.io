@@ -155,9 +155,6 @@
                   <div class="row linechartrow">
                     <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
-                      <div class="" id="slider-container">
-                        <input class="custom-range" id="slider" type="range" min="0" step="1">
-                      </div> <!--close slider container-->
                       <button type="button" class="d-inline btn btn-outline-primary" id="play">Play cases over time</button>
                     </div> <!--close line chart div-->
                   </div> <!--close linechart row-->
@@ -258,7 +255,7 @@
   <script src="js/ui.js"></script>
   <script src="js/michigan.js"></script>
   <script src="js/legend.js"></script>
-  <script src="js/casechart.js"></script>
+  <script src="js/casechart2.js"></script>
   <script>
     const datatype = 'cases'
     initDashboard()
@@ -273,11 +270,9 @@
         }, function (startDate, endDate) {
               startDate = startDate.toDate()
               endDate = endDate.toDate()
-              setDateRange(startDate, endDate)
-              updateTotalCustomDate(startDate, endDate)
-              const sliderValue = Math.round(dateSlider.invert(endDate))
-              d3.select('#slider').property('value', sliderValue)
-              updateCaseCircle(sliderValue)
+              chooseCustomDate(startDate, endDate)
+              N = numDays()
+              updateCaseChart2()
         }
     );
 

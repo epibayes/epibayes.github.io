@@ -4,7 +4,7 @@ function makeCaseChart() {
         W = 490,
         H = 150,
         width = W - margin.left - margin.right,
-        height = H - margin.top - margin.bottom;
+        height = H - margin.top - margin.bottom,
 
     // set the ranges
     x = d3.scaleTime()
@@ -41,7 +41,7 @@ function makeCaseChart() {
         .attr('r', 4)
         .attr('fill', datatype === 'symptoms' ? '#08519C' : '#00274C')
 
-    xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0)
+    xAxis = d3.axisBottom(x).ticks(4).tickSizeOuter(0)
     yAxis = d3.axisRight(y).ticks(4)
 
     formatAxis = g => g
@@ -76,6 +76,13 @@ function makeCaseChart() {
         .text('cumulative responses')
     
     setYAxisLabel()
+
+    // clipping rectangle
+    focus.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("width", width)
+        .attr("height", height)
 }
 
 function updateCaseCircle(k, anim=true) {
