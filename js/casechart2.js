@@ -163,7 +163,7 @@ function updateCaseChart2(updateAxis=true, rescale=false) {
     // axis transition
     if (updateAxis) {
         if (rescale) {            
-            y.domain([0, d3.max(chartData.slice(idx0,idx1+1), d => d.total)]).nice()
+            y.domain(d3.extent(chartData.slice(idx0,idx1+1), d => d.total)).nice()
         } else {
             y2.domain([0, d3.max(chartData, d => d.total)]).nice()
             y.domain(y2.domain());
