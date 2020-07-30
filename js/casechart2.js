@@ -16,8 +16,8 @@ function makeCaseChart2() {
     }
 
     // set the dimensions and margins of the graph
-    const H = 210, W = 490;
-    margin = {top: 30, right: 10, bottom: 80, left: 0}
+    const H = 200, W = 490;
+    margin = {top: 15, right: 10, bottom: 80, left: 0}
     width = W - margin.left - margin.right
     height = H - margin.top - margin.bottom
     margin2 = {top: H-50, right: 10, bottom: 30, left: 0}
