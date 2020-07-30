@@ -127,6 +127,11 @@
                   </div> <!--close dropdown-->
                 </div> <!--close dropdowncol-->
               </div> <!--close row dropdowns-->
+              <div class="row infoicon">
+                <div class="col-sm-12 infocol d-flex align-items-end justify-content-end">
+                  <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="left" title="Adjust your view by moving the gray box."><i class="fa fa-info-circle d-inline" ></i></button>
+                </div>
+              </div>
               <div class="row linechartrow">
                 <div class="col-sm-12 linechartdiv">
                   <div id="casechart"></div>
@@ -261,9 +266,15 @@
   <script src="js/michigan.js"></script>
   <script src="js/legend.js"></script>
   <script src="js/casechart.js"></script>
+  <script src="js/casechart2.js"></script>
   <script>
     const datatype = 'symptoms'
     initDashboard()
   </script>
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })    
+  </script>  
 </body>
 </html>
