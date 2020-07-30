@@ -155,7 +155,7 @@
                   <div class="row linechartrow">
                     <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
-                      <button type="button" class="d-inline btn btn-outline-primary" id="play">Play cases over time</button>
+                      <!-- <button type="button" class="d-inline btn btn-outline-primary" id="play">Play cases over time</button> -->
                     </div> <!--close line chart div-->
                   </div> <!--close linechart row-->
                 </div> <!--close cumulativevis-->
@@ -262,19 +262,21 @@
   </script>
   <script>
     $('.drpbutton').daterangepicker({ 
-            opens: 'left',
-            minDate: new Date(2020,2,8),
-            startDate: new Date(2020,2,8),
-            endDate: new Date(2020,6,26),
-            maxDate: new Date(2020,6,26),
-        }, function (startDate, endDate) {
-              startDate = startDate.toDate()
-              endDate = endDate.toDate()
-              chooseCustomDate(startDate, endDate)
-              N = numDays()
-              updateCaseChart2()
+        opens: 'left',
+        minDate: new Date(2020,2,8),
+        startDate: new Date(2020,2,8),
+        endDate: new Date(2020,6,26),
+        maxDate: new Date(2020,6,26),
+        ranges: {
+            '7 Day Period': [new Date(2020,6,20), new Date(2020,6,26)],
+            '14 Day Period': [new Date(2020,6,13), new Date(2020,6,26)],
+            '30 Day Period': [new Date(2020,5,27), new Date(2020,6,26)],
+            'Cumulative': [new Date(2020,2,8), new Date(2020,6,26)],
         }
-    );
+    }, function(start, end) {
+        chooseCustomDate(start.toDate(), d3.timeDay(end.toDate()) ) // move time to beginning of day instead of the end
+        updateCaseChart2()
+    });
 
   </script>
 </body>
