@@ -160,14 +160,16 @@
               <div class="row">
                 <div class="col-sm-12 cumulativevis">
                   <div class="row linechartrow">
-                    <div class="col-sm-11 linechartdiv">
+                    <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
                       <!-- <button type="button" class="d-inline btn btn-outline-primary" id="play">Rescale Y-Axis</button> -->
                     </div> <!--close line chart div-->
-                    <div class="col-sm-1 iconcol d-flex align-items-end justify-content-start">
+                  </div> <!--close linechart row-->
+                  <div class="row iconrow">
+                    <div class="col-sm-12 d-flex align-items-start justify-content-end iconcol">
                       <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="top" title="Adjust your view by moving the gray box."><i class="fa fa-info-circle d-inline" ></i></button>
                     </div>
-                  </div> <!--close linechart row-->
+                  </div>
                 </div> <!--close cumulativevis-->
               </div> <!--close row-->
               <div class="row thegoal">
@@ -271,9 +273,7 @@
     initDashboard()
   </script>
   <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })    
+    $('[data-toggle="tooltip"]').tooltip()
   </script>
 </body>
 </html>

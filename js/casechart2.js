@@ -103,9 +103,8 @@ function makeCaseChart2() {
       .data(chartData)
       .join('circle')
         .attr('class', 'pts')
-        .attr('data-toggle', 'tooltip')
-        .attr('title', 'alex')
-        .attr('r', 3)
+        .attr('r', 4)
+        .attr('cursor', 'pointer')
 
     // add the focus x-axis
     focus.append("g")
@@ -151,6 +150,7 @@ function makeCaseChart2() {
     updateYAxis(rescale=true)
     updateLines()
     addDateRangePicker()
+    addTooltip()
 
     // clipping rectangle
     focus.append("defs").append("clipPath")
@@ -284,5 +284,15 @@ function addDateRangePicker() {
             chooseCustomDate(start.toDate(), d3.timeDay(end.toDate()) ) // move time to beginning of day instead of the end
             updateCaseChart2(updateAxis=true, rescale=false)
         });
+    })
+}
+
+function addTooltip(){
+    console.log('i was called')
+    $(function(){
+        $('.pts').tooltip({
+            'data-placement': 'top',
+            'data-toggle': 'tooltip',
+        })
     })
 }

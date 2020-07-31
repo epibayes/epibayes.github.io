@@ -173,13 +173,18 @@ footer{
 }
 /* styling info buttons */
 .infobutton{
+  width: 16px;
   padding: 0;
   margin: 0;
-  padding-bottom: 15px;
+}
+.iconrow{
+  padding: 0;
+  margin-top: -10px;
 }
 
 .iconcol{
   padding: 0;
+  margin-top: -10px;
 }
 
 /* switch styling */
