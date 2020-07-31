@@ -181,7 +181,7 @@ function updateLines() {
     focus.selectAll('.pts')
       .data(chartData)
       .join('circle')
-        .attr('title', d => `${numFmt(d.total)} cases ${getDateRange(d)}`)
+        .attr('title', d => `${numFmt(d.total)} cases`+ '<br>' + `${getDateRange(d)}`)
         .attr('cx', d => x(d.date))
         .attr('cy', d => y(d.total))
 }
@@ -296,8 +296,13 @@ function addDateRangePicker() {
 function addTooltip(){
     $(function(){
         $('.pts').tooltip({
+            'html': true,
             'data-placement': 'top',
             'data-toggle': 'tooltip',
+            'trigger': 'click',
+            'animated': 'fade',
+        }).on('mouseout', function(){
+            $(this).tooltip('hide')
         })
     })
 }
