@@ -149,13 +149,26 @@
                   <p class="d-inline dayrange" id="enddate"></p>
                 </div> <!--close CP totals-->
               </div> <!--close row-->
-              <div class="row drprow">
+              <!-- <div class="row drprow">
                 <div class="col-sm-12 drpcol">
                   <p class="d-inline drpdesc drpbutton">
                     Select Time Window:</p>
                   <button type="button" class='btn btn-link drpbutton d-inline'><i class="fa fa-calendar"></i></button>
-                </div> <!--close drpcol-->
-              </div> <!--close drprow-->
+                </div>
+              </div> -->
+              <div class="row dropdowns">
+                <div class="col-sm-12 drpdwncol">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Select a time frame
+                    </button>
+                    <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" value="cumulative">Cumulative Cases</a>
+                      <a class="dropdown-item" value="weekly">Cases in the Past Week</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-sm-12 cumulativevis">
                   <div class="row linechartrow">

@@ -111,6 +111,7 @@ footer{
 
 }
 
+
 /* style daterangepick stuff */
 .drprow{
   padding: 10px 0px;
@@ -268,14 +269,7 @@ textarea{
 
 /* style the dropdown button for linechart */
 .dropdowns{
-  margin: 0;
-  padding: 0;
   padding: 10px 0px;
-}
-
-.dropdowns .col-sm-12{
-  padding: 0;
-  margin: 0;
 }
 
 /* style linechart div elements*/
@@ -693,12 +687,15 @@ h5{
     padding: 0;
     padding-top: 10px;
   }
-  .cumulativevis, .goaltext, .whatcanwelearn, .covidlearn, .msslider, .drpcol, .CPtotals{
+  .cumulativevis, .goaltext, .whatcanwelearn, .covidlearn, .msslider, .drpcol, .CPtotals, .drpdwncol{
     padding: 0;
     margin: 0;
   }
   .leftsections, .rightsections{
     padding: 0px;
+  }
+  #total{
+    padding-top: 10px;
   }
 }
 
