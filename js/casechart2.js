@@ -152,7 +152,6 @@ function makeCaseChart2() {
     updateYAxis()
     updateLines()
     addDateRangePicker()
-    addTooltip()
 
     // clipping rectangle
     focus.append("defs").append("clipPath")
@@ -176,6 +175,7 @@ function updateCaseChart2(updateAxis=true, rescale=true) {
 function updateLines() {
     // const easeFunc = d3.easeQuad;
     // const T = 750;
+    addTooltip()
     avgLine1.datum(chartData).attr("d", movingAvg1)
     avgLine2.datum(chartData).attr("d", movingAvg2)
     focus.selectAll('.pts')
@@ -184,6 +184,7 @@ function updateLines() {
         .attr('title', d => `${numFmt(d.total)} cases`+ '<br>' + `${getDateRange(d)}`)
         .attr('cx', d => x(d.date))
         .attr('cy', d => y(d.total))
+
 }
 
 function getDateRange(d) {
@@ -295,6 +296,7 @@ function addDateRangePicker() {
 
 function addTooltip(){
     $(function(){
+        $('.pts').tooltip('dispose')
         $('.pts').tooltip({
             'html': true,
             'data-placement': 'top',
