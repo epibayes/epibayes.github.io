@@ -137,20 +137,23 @@
                   <button type="button" class='btn btn-link drpbutton d-inline'><i class="fa fa-calendar"></i></button>
                 </div> <!--close drpcol-->
               </div> <!--close drprow-->
-              <div class="row infoicon">
-                <div class="col-sm-12 infocol d-flex align-items-end justify-content-end">
-                  <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="left" title="Adjust your view by moving the gray box."><i class="fa fa-info-circle d-inline" ></i></button>
-                </div>
-              </div>
+
               <div class="row linechartrow">
-                <div class="col-sm-12 linechartdiv">
+                <div class="col-sm-11 linechartdiv">
                   <div id="casechart"></div>
+                </div> <!--close line chart div-->
+                <div class="col-sm-1 d-flex flex-column align-self-end justify-content-end iconcol">
+                  <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="top" title="Adjust your view by moving the gray box."><i class="fa fa-info-circle d-inline" ></i></button>
+                </div>
+              </div> <!--close linechart row-->
+              <div class="row sliderrow">
+                <div class="col-sm-11 slidercol">
                   <div class="" id="slider-container">
                     <input class="custom-range" id="slider" type="range" min="0" step="1">
                   </div> <!--close slider container-->
                   <button type="button" class="d-inline btn btn-outline-primary" id="play">Play responses over time</button>
-                </div> <!--close line chart div-->
-              </div> <!--close linechart row-->
+                </div>
+              </div>
             </div> <!--close msslider-->
             <div class="col-sm-6 msmap d-flex align-items-start flex-column">
               <div class="row maprow flex-grow-1">
@@ -158,22 +161,6 @@
                   <div id="map"></div>
                 </div> <!--close col 12-->
               </div> <!--close maprow-->
-              <!-- <div class="row radioset">
-                <div class="col-sm-12 radiocol mirads">
-                  <div class="form-check set1">
-                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-total" value="CP">
-                    <label class="form-check-label" for="response-total">MI Symptoms Responses</label>
-                  </div>
-                  <div class="form-check set1">
-                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-covid" value="C" checked>
-                    <label class="form-check-label" for="response-covid">COVID-like Illness Responses</label>
-                  </div> 
-                  <div class="form-check set1">
-                    <input class="form-check-input case-type" type="radio" name="covidresponse" id="response-proportion" value="rate">
-                    <label class="form-check-label" for="response-proportion">Proportion of COVID-like Responses</label>
-                  </div> 
-                </div>
-              </div> -->
               <div class="row switches">
                 <div class="col-sm-12 d-flex align-items-center justify-content-center">
                   <div class="btn-group switchgroup" data-toggle="buttons" role="group">

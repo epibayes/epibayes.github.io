@@ -175,6 +175,11 @@ footer{
 .infobutton{
   padding: 0;
   margin: 0;
+  padding-bottom: 15px;
+}
+
+.iconcol{
+  padding: 0;
 }
 
 /* switch styling */
@@ -602,7 +607,7 @@ h5{
 
 /* ||MISYMPTOMS.html|| */
 /* remove col paddings */
-.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12, .midrpcol{
+.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12, .midrpcol, .slidercol{
   padding: 0px;
   margin: 0px;
 }
@@ -624,6 +629,7 @@ h5{
 .misymptomsmap{
   padding-bottom: 10px;
 }
+
 /* styling the map for the misymptoms page */
 .misymptomspage #map{
   /* height: 525px; */
