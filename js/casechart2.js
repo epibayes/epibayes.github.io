@@ -8,6 +8,7 @@ function makeCaseChart2() {
         formatWeek = d3.timeFormat("%b %e"),
         formatMonth = d3.timeFormat("%b"),
         formatYear = d3.timeFormat("%Y");
+
     function multiDateFormat(date) {
         return (d3.timeDay(date) < date ? formatHour
             : d3.timeMonth(date) < date ? (d3.timeWeek(date) < date ? formatDay : formatWeek)
@@ -148,7 +149,7 @@ function makeCaseChart2() {
         .call(brush.move, [x2(beginDate), x2(maxDate)]) // initialize brush selection
     xBrush.selectAll('.handle, .overlay').remove()
 
-    updateYAxis(rescale=true)
+    updateYAxis()
     updateLines()
     addDateRangePicker()
     addTooltip()
@@ -180,9 +181,13 @@ function updateLines() {
     focus.selectAll('.pts')
       .data(chartData)
       .join('circle')
-        .attr('title', d => `${numFmt(d.total)} cases ${tooltipFmt(d3.timeDay.offset(d.date,-N+1))} to ${tooltipFmt(d.date)}`)
+        .attr('title', d => `${numFmt(d.total)} cases ${getDateRange(d)}`)
         .attr('cx', d => x(d.date))
         .attr('cy', d => y(d.total))
+}
+
+function getDateRange(d) {
+    return `${tooltipFmt(d3.max([d3.timeDay.offset(d.date,-N+1), minDate]))} to ${tooltipFmt(d.date)}`
 }
 
 function newChartData() {

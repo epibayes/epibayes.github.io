@@ -44,7 +44,6 @@ async function initDashboard(embedMap=false) {
     if (!embedMap) {
         insertDates(minDate, maxDate)
         makeCaseChart2()
-        updateTotal(d3.timeDay.offset(maxDate, -N), maxDate)
     }
 }
 
