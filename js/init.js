@@ -17,7 +17,8 @@ const hex10TilesetSrc = {
 
 const hexLayers = ['hex20','hex10']
 const dateParser = d3.timeParse('%y%m%d')
-const sliderFmt = d3.timeFormat('%B %e')
+const daterangeFmt = d3.timeFormat('%B %e')
+const tooltipFmt = d3.timeFormat('%b %e')
 const numFmt = d3.format(',')
 const zoomThreshold = 8.5
 let minDate, maxDate, caseData;

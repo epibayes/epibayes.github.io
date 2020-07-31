@@ -70,8 +70,8 @@ function updateDateRange(startDate, endDate) {
 }
 
 function setDateRange(startDate, endDate) {
-    d3.select('#startdate').text(sliderFmt(startDate))
-    d3.select('#enddate').text(sliderFmt(endDate))
+    d3.select('#startdate').text(daterangeFmt(startDate))
+    d3.select('#enddate').text(daterangeFmt(endDate))
 }
 
 function updateTotal(startDate, endDate) {

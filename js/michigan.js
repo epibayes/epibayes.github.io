@@ -188,7 +188,7 @@ function getMetricValues(idx) {
     )
     // assigns ≤ to rate values where appropriate
     data.forEach((d,i) => { if ((d.includes('≤')) && (i%2 == 0)) data[i+1] = `≤${data[i+1]}` })
-    data.splice(0, 0, sliderFmt(day))
+    data.splice(0, 0, daterangeFmt(day))
     return data
 }
 
@@ -239,8 +239,8 @@ function filterByDate(data, date) {
 }
 
 function insertDates(minDate, maxDate) {
-    d3.select('#first-date').text(sliderFmt(minDate))
-    d3.select('#last-date').text(sliderFmt(maxDate))
+    d3.select('#first-date').text(daterangeFmt(minDate))
+    d3.select('#last-date').text(daterangeFmt(maxDate))
     d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))
 }
 

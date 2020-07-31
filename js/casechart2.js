@@ -103,7 +103,8 @@ function makeCaseChart2() {
       .data(chartData)
       .join('circle')
         .attr('class', 'pts')
-        .attr('r', 4)
+        .attr('r', 8)
+        .attr('opacity', 0)
         .attr('cursor', 'pointer')
 
     // add the focus x-axis
@@ -124,7 +125,7 @@ function makeCaseChart2() {
         .attr('y', y(20000))
         .attr('dy', "-.35em")
         .attr('font-size', '0.7em')
-        .text(`cases over last ${N} days`)
+        .text(`cases in prior ${N} days`)
 
     // add the context moving avg line path
     avgLine2 = context.append("path")
@@ -179,7 +180,7 @@ function updateLines() {
     focus.selectAll('.pts')
       .data(chartData)
       .join('circle')
-        .attr('title', d => y(d.total))
+        .attr('title', d => `${numFmt(d.total)} cases ${tooltipFmt(d3.timeDay.offset(d.date,-N+1))} to ${tooltipFmt(d.date)}`)
         .attr('cx', d => x(d.date))
         .attr('cy', d => y(d.total))
 }
@@ -288,7 +289,6 @@ function addDateRangePicker() {
 }
 
 function addTooltip(){
-    console.log('i was called')
     $(function(){
         $('.pts').tooltip({
             'data-placement': 'top',
