@@ -1,4 +1,4 @@
-async function initDashboard(embedMap=false) {
+async function initDashboard() {
     const data20 = await d3.csv(`data/weeklycum_${datatype}_20km_with_rateper100k.csv`, type)
     const data10 = await d3.csv(`data/weeklycum_${datatype}_10km_with_rateper100k.csv`, type)
     const dateExtent = d3.extent(data20, d => d.date)
@@ -178,7 +178,7 @@ function setPopupData(data) {
 }
 
 function getMetricValues(idx) {
-    const day = d3.timeDay(x.domain()[1])
+    const day = embedMap ? maxDate : d3.timeDay(x.domain()[1])
     const h = getHexLayer()
     const array = hexdata[h].get(status).get(+day).get(idx)
     let data = metrics.map((col,i) => array === undefined ? '0'
