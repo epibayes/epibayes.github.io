@@ -119,7 +119,7 @@ function initMap() {
             map.on('mouseleave', layerId, () => map.getCanvas().style.cursor = '');
         })
         addLegend()
-        animateMap()
+        // animateMap()
     });
     map.on('load', function () {
         map.resize();
@@ -267,12 +267,4 @@ function insertDates(minDate, maxDate) {
 //         }
 //     });
 // }
-
-function animateMap() {
-    count = 0
-    d3.select('#play').on('click', function () {
-        updateCaseChart2(updateAxis=true, rescale=true)
-        count += 1
-    });
-}
     

@@ -75,7 +75,7 @@ function makeCaseChart() {
         .attr('font-size', '0.7em')
         .text('cumulative responses')
     
-    setYAxisLabel()
+    setYAxisTicks()
 
     // clipping rectangle
     focus.append("defs").append("clipPath")
@@ -109,7 +109,7 @@ function updateCaseChart(startDate, endDate, metric, CP=false) {
     y.domain([0, d3.max(caseData.get(key), d => d.value)]).nice()
 
     d3.select('.y-axis').call(yAxis).call(formatAxis)
-    setYAxisLabel()
+    setYAxisTicks()
     d3.select(`.daily-${datatype}`).datum(caseData.get(status))
       .transition().duration(T)
         .attr('d', valueline)
@@ -118,13 +118,13 @@ function updateCaseChart(startDate, endDate, metric, CP=false) {
         .attr('cy', d => y(d.value))
 }
 
-function setYAxisLabel() {
+function setYAxisTicks() {
     let ticks = d3.selectAll('.y-axis .tick')
-    ticks.each((d,i) => { if (i === ticks.size()-1) updateYAxisLabel(d) })    
+    ticks.each((d,i) => { if (i === ticks.size()-1) setYAxisLabel(d) })    
 }
 
 
-function updateYAxisLabel(d) {
+function setYAxisLabel(d) {
     const stat = metric.replace('rate','')
     d3.select('#yaxislabel')
         .attr('y', y(d)) 

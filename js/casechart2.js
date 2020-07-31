@@ -1,6 +1,6 @@
 function makeCaseChart2() {
 
-    const chartData = movingSum(caseData.get(status), N)
+    chartData = newChartData()
 
     // Define date label formats
     let formatHour = d3.timeFormat("%I %p"),
@@ -126,7 +126,6 @@ function makeCaseChart2() {
         .attr('dy', "-.35em")
         .attr('font-size', '0.7em')
         .text(`cases over last ${N} days`)
-    setYAxisLabel()
 
     // add the context moving avg line path
     avgLine2 = context.append("path")
@@ -148,40 +147,57 @@ function makeCaseChart2() {
         .call(brush)
         .call(brush.move, [x(beginDate), x(maxDate)]) // initialize brush selection
     xBrush.selectAll('.handle, .overlay').remove()
+
+    updateYAxis(rescale=true)
+    updateLines()
+    addDateRangePicker()
 };
 
 // updates timetable graph
 function updateCaseChart2(updateAxis=true, rescale=true) {
-    N = numDays()    
-    const chartData = movingSum(caseData.get(status), N)
-    // axis transition
-    if (updateAxis) updateYAxis(chartData, rescale)
-    // line transition
-    const easeFunc = d3.easeQuad;
-    const T = 750;
-    avgLine1.datum(chartData)
-        // .transition().ease(easeFunc).duration(T)
-        .attr("d", movingAvg1)
-    avgLine2.datum(chartData)
-        // .transition().ease(easeFunc).duration(T)
-        .attr("d", movingAvg2)
+    // calculate new dataset
+    N = numDays()
+    chartData = newChartData()
+
+    if (updateAxis) updateYAxis(rescale)
+    updateLines()
 };
 
-function updateYAxis(chartData, rescale) {
-    if (rescale) {       
-        const idx0 = Math.round(date2idx(x.domain()[0]))
-        const idx1 = Math.round(date2idx(x.domain()[1]))     
-        y.domain(d3.extent(chartData.slice(idx0,idx1+1), d => d.total)).nice()
-    } else {
-        y2.domain([0, d3.max(chartData, d => d.total)]).nice()
-        const idx0 = Math.round(date2idx(x.domain()[0]))
-        const idx1 = Math.round(date2idx(x.domain()[1]))     
-        y.domain(d3.extent(chartData.slice(idx0,idx1+1), d => d.total)).nice()
-    }
+function updateLines() {
+    // const easeFunc = d3.easeQuad;
+    // const T = 750;
+    avgLine1.datum(chartData).attr("d", movingAvg1)
+    avgLine2.datum(chartData).attr("d", movingAvg2)
+}
+
+function newChartData() {
+    return movingSum(caseData.get(status), N)
+}
+
+function updateYAxis(rescale) {
+    setYDomain(rescale)
     d3.select('.y-axis')
         .call(yAxis)
         .call(formatAxis)
-    setYAxisLabel()
+    setYAxisTicks()
+}
+
+function setYDomain(rescale) {
+    const idx0 = Math.round(date2idx(x.domain()[0]))
+    const idx1 = Math.round(date2idx(x.domain()[1]))     
+    y.domain(d3.extent(chartData.slice(idx0,idx1+1), d => d.total)).nice()
+    if (!rescale) y2.domain([0, d3.max(chartData, d => d.total)]).nice()
+}
+
+function setYAxisTicks() {
+    let ticks = d3.selectAll('.y-axis .tick')
+    ticks.each((d,i) => { if (i === ticks.size()-1) setYAxisLabel(d) })    
+}
+
+function setYAxisLabel(d) {
+    d3.select('#yaxislabel')
+        .attr('y', y(d)) 
+        .text(`cases over last ${N} days`)    
 }
 
 // brush function
@@ -206,13 +222,10 @@ function brushended() {
         dayRange[0] = d3.timeDay.floor(dateRange[0]);
         dayRange[1] = d3.timeDay.offset(dayRange[0],1);
     }
-    // dayRange[1] = d3.timeSecond.offset(dayRange[1],-1)
     xBrush.transition()
         .call(brush.move, dayRange.map(x2));
     updateMapInfo()
-    updateDateRangePicker(dayRange);
-    const chartData = movingSum(caseData.get(status), N)
-    updateYAxis(chartData, true)
+    updateYAxis(true)
 };
 
 function chooseCustomDate(beginDate, endDate) {
@@ -237,40 +250,23 @@ function movingSum(data, N) {
     });
 };
 
-function setYAxisLabel() {
-    let ticks = d3.selectAll('.y-axis .tick')
-    ticks.each((d,i) => { if (i === ticks.size()-1) updateYAxisLabel(d) })    
-}
-
-function updateYAxisLabel(d) {
-    d3.select('#yaxislabel')
-        .attr('y', y(d)) 
-        .text(`cases over last ${N} days`)    
-}
-
 function addDateRangePicker() {
     $(function() {
         $('.drpbutton').daterangepicker({ 
             opens: 'left',
-            minDate: new Date(2020,2,8),
-            startDate: new Date(2020,2,8),
-            endDate: new Date(2020,6,26),
-            maxDate: new Date(2020,6,26),
+            minDate: minDate,
+            maxDate: maxDate,
+            startDate: x.domain()[0],
+            endDate: x.domain()[1],
             ranges: {
-                '7 Day Period': [new Date(2020,6,20), new Date(2020,6,26)],
-                '14 Day Period': [new Date(2020,6,13), new Date(2020,6,26)],
-                '30 Day Period': [new Date(2020,5,27), new Date(2020,6,26)],
-                'Cumulative': [new Date(2020,2,8), new Date(2020,6,26)],
+                '7 Day Period': [d3.timeDay.offset(maxDate,-6), maxDate],
+                '14 Day Period': [d3.timeDay.offset(maxDate,-13), maxDate],
+                '30 Day Period': [d3.timeDay.offset(maxDate,-29), maxDate],
+                'Cumulative': [minDate, maxDate],
             }
         }, function(start, end) {
             chooseCustomDate(start.toDate(), d3.timeDay(end.toDate()) ) // move time to beginning of day instead of the end
             updateCaseChart2(updateAxis=true, rescale=false)
         });
     })
-}
-
-function updateDateRangePicker(dayRange) {
-    const [startDate, endDate] = dayRange;
-    $('.drpbutton').data('daterangepicker').setStartDate(startDate);
-    $('.drpbutton').data('daterangepicker').setEndDate(endDate);
 }
