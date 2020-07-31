@@ -93,19 +93,19 @@ function makeCaseChart2() {
         .attr("class", "context")
         .attr("transform", `translate(${margin2.left},${margin2.top})`);
 
-    // clipping rectangle
-    focus.append("defs").append("clipPath")
-        .attr("id", "clip")
-      .append("rect")
-        .attr("x", 0)
-        .attr("width", width-0)
-        .attr("height", height)
-
     // add the focus moving avg line path
     avgLine1 = focus.append("path")
         .datum(chartData)
         .attr("class", "avgLine")
         .attr("d", movingAvg1)
+
+    circles = focus.selectAll('pts')
+      .data(chartData)
+      .join('circle')
+        .attr('class', 'pts')
+        .attr('data-toggle', 'tooltip')
+        .attr('title', 'alex')
+        .attr('r', 3)
 
     // add the focus x-axis
     focus.append("g")
@@ -145,12 +145,20 @@ function makeCaseChart2() {
     xBrush = context.append("g")
         .attr("class", "brush")
         .call(brush)
-        .call(brush.move, [x(beginDate), x(maxDate)]) // initialize brush selection
+        .call(brush.move, [x2(beginDate), x2(maxDate)]) // initialize brush selection
     xBrush.selectAll('.handle, .overlay').remove()
 
     updateYAxis(rescale=true)
     updateLines()
     addDateRangePicker()
+
+    // clipping rectangle
+    focus.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("x", 0)
+        .attr("width", width-0)
+        .attr("height", height)
 };
 
 // updates timetable graph
@@ -168,6 +176,10 @@ function updateLines() {
     // const T = 750;
     avgLine1.datum(chartData).attr("d", movingAvg1)
     avgLine2.datum(chartData).attr("d", movingAvg2)
+    focus.selectAll('.pts')
+        .attr('title', d => y(d.total))
+        .attr('cx', d => x(d.date))
+        .attr('cy', d => y(d.total))
 }
 
 function newChartData() {
@@ -222,10 +234,12 @@ function brushended() {
         dayRange[0] = d3.timeDay.floor(dateRange[0]);
         dayRange[1] = d3.timeDay.offset(dayRange[0],1);
     }
+    x.domain(dayRange)
     xBrush.transition()
         .call(brush.move, dayRange.map(x2));
     updateMapInfo()
     updateYAxis(true)
+    updateLines()
 };
 
 function chooseCustomDate(beginDate, endDate) {
