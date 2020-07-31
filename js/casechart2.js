@@ -126,7 +126,6 @@ function makeCaseChart2() {
         .attr('y', y(20000))
         .attr('dy', "-.35em")
         .attr('font-size', '0.7em')
-        .text(`cases in prior ${N} days`)
 
     // add the context moving avg line path
     avgLine2 = context.append("path")
@@ -181,7 +180,7 @@ function updateLines() {
     focus.selectAll('.pts')
       .data(chartData)
       .join('circle')
-        .attr('title', d => `${numFmt(d.total)} cases`+ '<br>' + `${getDateRange(d)}`)
+        .attr('title', d => `${numFmt(d.total)} cases<br>${getDateRange(d)}`)
         .attr('cx', d => x(d.date))
         .attr('cy', d => y(d.total))
 
