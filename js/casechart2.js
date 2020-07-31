@@ -177,6 +177,8 @@ function updateLines() {
     avgLine1.datum(chartData).attr("d", movingAvg1)
     avgLine2.datum(chartData).attr("d", movingAvg2)
     focus.selectAll('.pts')
+      .data(chartData)
+      .join('circle')
         .attr('title', d => y(d.total))
         .attr('cx', d => x(d.date))
         .attr('cy', d => y(d.total))
@@ -270,8 +272,8 @@ function addDateRangePicker() {
             opens: 'left',
             minDate: minDate,
             maxDate: maxDate,
-            startDate: x.domain()[0],
-            endDate: x.domain()[1],
+            // startDate: x.domain()[0],
+            // endDate: x.domain()[1],
             ranges: {
                 '7 Day Period': [d3.timeDay.offset(maxDate,-6), maxDate],
                 '14 Day Period': [d3.timeDay.offset(maxDate,-13), maxDate],
