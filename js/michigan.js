@@ -32,7 +32,7 @@ async function initDashboard() {
         'hex10': d3.group(data10, d => d.status, d => +d.date, d => d.index),
     }
 
-    initSlider()
+    initTimeScale()
     initRadio()
     status = datatype === 'symptoms' ? 'C' : 'CP'
     initDropdown()

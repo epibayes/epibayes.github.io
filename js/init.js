@@ -22,7 +22,6 @@ const tooltipFmt = d3.timeFormat('%b %e')
 const numFmt = d3.format(',')
 const zoomThreshold = 8.5
 let minDate, maxDate, caseData;
-let N = 14;
 let playing = false;
 let delay = 100;
 let alpha = 0.65;
