@@ -14,6 +14,10 @@
     <title>Michigan COVID-19 Tracker</title>
     <link rel="icon" type="image/png" href="img/favicon.png">
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <!-- bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
     <!-- Mapbox GL JS -->
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
@@ -25,10 +29,49 @@
     <!-- d3 utilities -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    
     <style>
         #map{
             width: inherit;
             height: 500px;
+        }
+        #mapbox-legend{ 
+            position: relative;
+            top: 0px;
+            width: 100%;
+            height: 500px;
+        }
+        g.legend{
+            position: relative !important;
+            z-index:1000000000 !important;
+            display: block;
+        }
+        .mapboxgl-popup{
+            width: 226px !important;
+        }
+        .mapboxgl-popup-content{
+            padding: 15px 10px 10px 10px;
+        }
+
+        .popupdetails thead{
+            padding-top: 5px;
+        }
+
+        .headingrow{
+            padding-top: 10px;
+        }
+
+        .popupdetails thead tr th{
+            padding-top: 5px;
+        }
+
+        #popup-header{
+            line-height: 8pt !important;
+            font-size: 8pt !important;
+        }
+        .table, .table-sm, .table-borderless{
+            margin: 0 !important;
+            padding: 0 !important;
         }
     </style>
 </head>

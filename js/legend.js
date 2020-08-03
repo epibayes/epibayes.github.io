@@ -4,7 +4,7 @@ const h = 120
 let tickValues = {
     'cumulative': [10, 100, 1000, 10000],
     'weekly': [10, 100],
-    'cumulativerate': [200, 400, 600, 800],
+    'cumulativerate': [500, 1000, 1500],
     'weeklyrate': [100, 200, 300],
 }
 
