@@ -25,7 +25,7 @@ function initDropdown() {
         let ccase = d3.select('#ccase');
         let wcase = d3.select('#wcase');
 
-        if (metric === 'weekly'){
+        if (timePeriod === 'weekly'){
             dbutton.html(wcase.text()) 
             ccase.classed('active', false)
             wcase.classed('active', true)
