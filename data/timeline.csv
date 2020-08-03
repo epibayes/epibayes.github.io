@@ -1,26 +1,26 @@
-date,y2,anchor,annotation,description,
-3/11/2020,200,,MI Gov discourages non-essential travel,Governor Whitmer urges people to avoid non-essential travel and gatherings of >100 people,
-3/11/2020,100,,COVID-19 declared global pandemic,WHO declares COVID-19 to be a global pandemic,
-3/12/2020,400,,MI Gov closes K-12 schools 3/16 - 4/5,Governor Whitmer closes K-12 schools from March 16 - April 5,
-3/13/2020,600,,MI Gov bans gatherings >250,Governor Whitmer bans gatherings > 250 people,
-3/16/2020,800,,MI Gov bans dine-in eating,"Governor Whitmer bans dine-in service at bars and restaurants, and gyms, movie theaters, and recreational venues closed.",
-3/17/2020,1000,,MI Gov bans gatherings > 50,Governor Whitmer bans gatherings > 50 people,
-3/18/2020,1200,,1st COVID-19 death in MI,First confirmed COVID-19 death in Wayne County,
-3/23/2020,1450,,MI Gov issues stay-at-home order through 4/13,"Governor Whitmer issues stay-at-home order barring non-essential in-person business, activities, and events through April 13",
-4/1/2020,1700,,MI Gov issues disaster declaration,"Governor Whitmer issues state disaster declaration, and asks lawmakers to extend emergency declaration for 70 days",
-4/2/2020,1900,,MI Gov closes K-12 schools indefinitely,Governor Whitmer orders K-12 schools closed for the rest of the school year,
-4/6/2020,2100,,MI Gov urges all to wear masks in public,Governor Whitmer urges residents to wear face masks in public,
-4/9/2020,2100,,Stay-at-home extended to 4/30,Governor Whitmer extends state's stay-at-home order until April 30,
-4/24/2020,1950,,Stay-at-home extended to 5/15,Governor Whitmer extends state's stay-at-home order until May 15 with some restrictions on outdoor activities lifted,
-4/30/2020,1800,,MI Gov allows some low-risk work to resume 5/7,"Governor Whitmer, as part of MI Safe Start Plan, will allow for some types of work with very low infection risk, such as construction, real-estate, and traditionally outdoor work to resume May 7",
-5/7/2020,1650,,Stay-at-home extended to 5/28,"Governor Whitmer extends stay-at-home order through May 28, but allows provisions for some manufacturing to resume on May 11",
-5/7/2020,1550,,Manufacturing to resume 5/11,"Governor Whitmer extends stay-at-home order through May 28, but allows provisions for some manufacturing to resume on May 11",
-5/18/2020,1350,,MI Gov plans to reopen U.P. 5/22,"Governor Whitmer unveils plan to partially reopen business in the Upper Peninsula and 17 counties in the Northern Lower Peninsula starting May 22, reopening non-essential retail stores and restaurants for in-person dining (with a maximum of 50% capacity).",
-5/19/2020,1200,,"Dam breach, 10,000 ppl evacuated","Heavy rains cause dam failure at the Edenville and Sanford Dams, forcing approximately 10,000 people to be evacuated from Midland, the village of Sanford, Edenville, Tittabawassee Township, Thomas Township, Saginaw Township, and the Dow Chemical plant.",
-5/21/2020,1050,,MI Gov allows gatherings of ≤10,"Governor Whitmer signs executive order allowing gatherings of 10 people (or fewer), as long as participants practice social distancing behaviors. Additionally, starting May 29, non-essential health care services (medical, dental, and veterinary) can resume. Starting May 26, retail stores and auto dealerships can open for appointment only with a maximum capacity of 10 people at a time",
-5/22/2020,900,, Stay-at-home extended to 6/12,"Governor Whitmer extends stay-at-home order through June 12, and state of emergency through June 19, mandating that venues like theaters, gyms and casinos remain closed",
-6/1/2020,750,,MI Gov ends stay-at-home order,"Governor Whitmer ends the state's Stay Home, Stay Safe order, effective immediately, indicating the state has moved into Phase 4 of Michigan's Safe Start recovery plan, including permitting outdoor gatherings of up to 100 people, office work, and reopening of outdoor parks and recreation facilities.",
-6/8/2020,600,,Restaurants begin reopening,"Governor Whitmer allows restaurants to reopen to in-person service, as long as they follow safe COVID-19 protocols.",
-6/15/2020,450,,Personal care services resume,"Personal care services including hair salons, nail salons, massage businesses resume operations",
-7/10/2020,1000,,MI Gov institutes mask mandate,"Governor Whitmer requires the use of face coverings in crowded outdoor spaces, reiterates that individuals must wear masks when in indoor public spaces, and requires businesses to refuse entry or service to people who refuse to wear a face covering, with limited exceptions",
-7/29/2020,1150,,MI Gov mandates remote work if possible,"Starting July 31, 2020, statewide indoor gatherings will be limited to 10 people and certain bars will be closed for indoor service across the state (newly applicable to Northern lower Michigan and the Upper Peninsula). Remote work, which previously looked to be strongly encouraged is now being required if an employee can perform their duties remotely",
+date,y2,anchor,annotation,description
+3/11/2020,200,end,MI Gov discourages non-essential travel,Governor Whitmer urges people to avoid non-essential travel and gatherings of >100 people
+3/11/2020,100,end,COVID-19 declared global pandemic,WHO declares COVID-19 to be a global pandemic
+3/12/2020,400,end,MI Gov closes K-12 schools 3/16 - 4/5,Governor Whitmer closes K-12 schools from March 16 - April 5
+3/13/2020,600,end,MI Gov bans gatherings >250,Governor Whitmer bans gatherings > 250 people
+3/16/2020,800,end,MI Gov bans dine-in eating,"Governor Whitmer bans dine-in service at bars and restaurants, and gyms, movie theaters, and recreational venues closed."
+3/17/2020,1000,end,MI Gov bans gatherings > 50,Governor Whitmer bans gatherings > 50 people
+3/18/2020,1200,end,1st COVID-19 death in MI,First confirmed COVID-19 death in Wayne County
+3/23/2020,1450,end,MI Gov issues stay-at-home order through 4/13,"Governor Whitmer issues stay-at-home order barring non-essential in-person business, activities, and events through April 13"
+4/1/2020,1700,end,MI Gov issues disaster declaration,"Governor Whitmer issues state disaster declaration, and asks lawmakers to extend emergency declaration for 70 days"
+4/2/2020,1900,end,MI Gov closes K-12 schools indefinitely,Governor Whitmer orders K-12 schools closed for the rest of the school year
+4/6/2020,2100,end,MI Gov urges all to wear masks in public,Governor Whitmer urges residents to wear face masks in public
+4/9/2020,2100,start,Stay-at-home extended to 4/30,Governor Whitmer extends state's stay-at-home order until April 30
+4/24/2020,1950,start,Stay-at-home extended to 5/15,Governor Whitmer extends state's stay-at-home order until May 15 with some restrictions on outdoor activities lifted
+4/30/2020,1800,start,MI Gov allows some low-risk work to resume 5/7,"Governor Whitmer, as part of MI Safe Start Plan, will allow for some types of work with very low infection risk, such as construction, real-estate, and traditionally outdoor work to resume May 7"
+5/7/2020,1650,start,Stay-at-home extended to 5/28,"Governor Whitmer extends stay-at-home order through May 28, but allows provisions for some manufacturing to resume on May 11"
+5/7/2020,1550,start,Manufacturing to resume 5/11,"Governor Whitmer extends stay-at-home order through May 28, but allows provisions for some manufacturing to resume on May 11"
+5/18/2020,1350,start,MI Gov plans to reopen U.P. 5/22,"Governor Whitmer unveils plan to partially reopen business in the Upper Peninsula and 17 counties in the Northern Lower Peninsula starting May 22, reopening non-essential retail stores and restaurants for in-person dining (with a maximum of 50% capacity)."
+5/19/2020,1200,start,"Dam breach, 10,000 ppl evacuated","Heavy rains cause dam failure at the Edenville and Sanford Dams, forcing approximately 10,000 people to be evacuated from Midland, the village of Sanford, Edenville, Tittabawassee Township, Thomas Township, Saginaw Township, and the Dow Chemical plant."
+5/21/2020,1050,start,MI Gov allows gatherings of ≤10,"Governor Whitmer signs executive order allowing gatherings of 10 people (or fewer), as long as participants practice social distancing behaviors. Additionally, starting May 29, non-essential health care services (medical, dental, and veterinary) can resume. Starting May 26, retail stores and auto dealerships can open for appointment only with a maximum capacity of 10 people at a time"
+5/22/2020,900,start, Stay-at-home extended to 6/12,"Governor Whitmer extends stay-at-home order through June 12, and state of emergency through June 19, mandating that venues like theaters, gyms and casinos remain closed"
+6/1/2020,750,start,MI Gov ends stay-at-home order,"Governor Whitmer ends the state's Stay Home, Stay Safe order, effective immediately, indicating the state has moved into Phase 4 of Michigan's Safe Start recovery plan, including permitting outdoor gatherings of up to 100 people, office work, and reopening of outdoor parks and recreation facilities."
+6/8/2020,600,start,Restaurants begin reopening,"Governor Whitmer allows restaurants to reopen to in-person service, as long as they follow safe COVID-19 protocols."
+6/15/2020,450,start,Personal care services resume,"Personal care services including hair salons, nail salons, massage businesses resume operations"
+7/10/2020,1000,start,MI Gov institutes mask mandate,"Governor Whitmer requires the use of face coverings in crowded outdoor spaces, reiterates that individuals must wear masks when in indoor public spaces, and requires businesses to refuse entry or service to people who refuse to wear a face covering, with limited exceptions"
+7/29/2020,1150,start,MI Gov mandates remote work if possible,"Starting July 31, 2020, statewide indoor gatherings will be limited to 10 people and certain bars will be closed for indoor service across the state (newly applicable to Northern lower Michigan and the Upper Peninsula). Remote work, which previously looked to be strongly encouraged is now being required if an employee can perform their duties remotely"
