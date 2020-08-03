@@ -271,6 +271,9 @@ textarea{
 .dropdowns{
   padding: 10px 0px;
 }
+.dropdown-item{
+  cursor: pointer;
+}
 
 /* style linechart div elements*/
 .linechartdiv{

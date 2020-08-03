@@ -160,11 +160,11 @@
                 <div class="col-sm-12 drpdwncol d-flex align-items-center justify-content-start">
                   <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Select Incidence Period
+                      Cumulative Cases
                     </button>
                     <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" value="cumulative">Cumulative Cases</a>
-                      <a class="dropdown-item" value="weekly">Cases in the Past Week</a>
+                      <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
+                      <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
                     </div>
                   </div>
                   <button type="button" class='btn btn-primary drpbutton d-inline'><i class="fa fa-calendar"></i></button>
@@ -288,6 +288,22 @@
   </script>
   <script>
     $('[data-toggle="tooltip"]').tooltip()
+  </script>
+  <script>
+    let dbutton = document.querySelector("#dropdownMenuButton")
+    let ccase = document.querySelector('#ccase')
+    let wcase = document.querySelector('#wcase')
+    $('#period').on('click', '.dropdown-item', function(){
+      if (metric === 'weekly'){
+        dbutton.innerHTML = 'Cases in the Past Week'
+        wcase.classList.add('active')
+        ccase.classList.remove('active')
+      } else {
+        dbutton.innerHTML = 'Cumulative Cases'
+        ccase.classList.add('active')
+        wcase.classList.remove('active')
+      }
+    })
   </script>
 </body>
 </html>
