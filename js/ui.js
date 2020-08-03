@@ -21,6 +21,19 @@ function initDropdown() {
         updateTotalInfo()
         updateCaseChart2()
         generateEmbedURL()
+        let dbutton = d3.select('#dropdownMenuButton');
+        let ccase = d3.select('#ccase');
+        let wcase = d3.select('#wcase');
+
+        if (metric === 'weekly'){
+            dbutton.html(wcase.text()) 
+            ccase.classed('active', false)
+            wcase.classed('active', true)
+        } else {
+            dbutton.html(ccase.text())
+            ccase.classed('active', true)
+            wcase.classed('active', false)
+        }
     })
 }
 

@@ -277,21 +277,6 @@
   <script>
     $('[data-toggle="tooltip"]').tooltip()
   </script>  
-  <script>
-    let dbutton = document.querySelector("#dropdownMenuButton")
-    let ccase = document.querySelector('#ccase')
-    let wcase = document.querySelector('#wcase')
-    $('#period').on('click', '.dropdown-item', function(){
-      if (metric === 'weekly'){
-        dbutton.innerHTML = 'Responses in the Past Week'
-        wcase.classList.add('active')
-        ccase.classList.remove('active')
-      } else {
-        dbutton.innerHTML = 'Cumulative Responses'
-        ccase.classList.add('active')
-        wcase.classList.remove('active')
-      }
-    })
-  </script>  
+
 </body>
 </html>
