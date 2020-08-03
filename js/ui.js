@@ -28,6 +28,20 @@ function initRadio() {
         updateTotalInfo()
         updateCaseChart(metric)
         generateEmbedURL()
+        let dbutton = d3.select('#dropdownMenuButton');
+        let ccase = d3.select('#ccase');
+        let wcase = d3.select('#wcase');
+
+        if (timePeriod === 'weekly'){
+            dbutton.html(wcase.text()) 
+            ccase.classed('active', false)
+            wcase.classed('active', true)
+        } else {
+            dbutton.html(ccase.text())
+            ccase.classed('active', true)
+            wcase.classed('active', false)
+        }
+
     })
     // case count rate radio button
     d3.selectAll('.count-rate').on('click', function() { // updateRadio
