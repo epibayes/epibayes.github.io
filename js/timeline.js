@@ -24,12 +24,12 @@ async function makeTimeline(weekBin=false) {
     const H = 200;
     const W = 600;
 
-    const margin = {top: 0, right: 80, bottom: 40, left: 80};
+    const margin = {top: 0, right: 80, bottom: 80, left: 80};
     const width = W - margin.left - margin.right;
     const height = H - margin.top - margin.bottom;
 
     // Set the height and margins for the focus view (this goes under the context view)
-    const margin2 = {top: H-20, right: margin.right, bottom: 0, left: margin.left}
+    const margin2 = {top: H-50, right: margin.right, bottom: 30, left: margin.left}
     const height2 = H - margin2.top - margin2.bottom
 
     // append timetable svg
@@ -68,9 +68,15 @@ async function makeTimeline(weekBin=false) {
             .tickSize(3)
         xAxis2 = d3.axisBottom(x2).ticks(6).tickSizeOuter(0)
         yAxis2 = d3.axisRight(y2)
-            .ticks(5)
-            .tickValues(weekBin ? ticks.map(d => d*5) : ticks)
-            .tickSize(2)
+            .ticks(0)
+            .tickValues(0)
+            .tickSize(0)
+
+    // add brush
+    brush = d3.brushX()
+        .extent([[0, 0], [width, height2]])
+        .on("brush", brushed)
+        .on("end", brushended) // add brush snapping
 
     context.append("g")
       .selectAll(".bar")
@@ -106,6 +112,39 @@ async function makeTimeline(weekBin=false) {
         .attr('x', width+2)
         .attr('y', 5)
         .text(weekBin ? 'Weekly Cases' : 'Daily Cases')
+    
+    // focus additions
+    // add the focus x-axis and y-axis
+    timelinefocus.append('g')
+        .attr('class', 'x-axis axis')
+        .attr('transform', `translate(0,${height2})`)
+        .call(xAxis2)
+
+    timelinefocus.append('g')
+        .attr('class', 'y-axis axis')
+        .attr('transform', `translate(${width},0)`)
+        .call(yAxis2) 
+
+    timelinefocus.select('.y-axis .domain').remove()
+    
+    timelinefocus.append('g')
+    .selectAll(".bar")
+      .data(weekBin ? weekly : daily)
+      .join("rect")
+        .attr('class', 'bar')
+        .attr('x', d => x2(weekBin ? d3.timeHour.offset(d3.timeDay.offset(d.date,-6),3) : d3.timeHour.offset(d.date)))
+        .attr('y', d => y2(weekBin ? d.weekly : d.daily))
+        .attr('width', weekBin ? x(583200*1000)-x(0) : x(79200*1000)-x(0))
+        .attr('height', d => height2 - y2(weekBin ? d.weekly : d.daily))
+
+    
+    // clipping rectangle
+    timelinefocus.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("x", 0)
+        .attr("width", width)
+        .attr("height", height2)
 
     // Moving average section
     // for the context
@@ -183,50 +222,8 @@ async function makeTimeline(weekBin=false) {
         .attr('y', 10)
         .text('Stay Home, Stay Safe period')
 
-    // focus additions
-    // add the focus x-axis and y-axis
-    timelinefocus.append('g')
-        .attr('class', 'x-axis axis')
-        .attr('transform', `translate(0,${height2})`)
-        .call(xAxis2)
-
-    timelinefocus.append('g')
-        .attr('class', 'y-axis axis')
-        .attr('transform', `translate(${width},0)`)
-        .call(yAxis2) 
-
-    timelinefocus.select('.y-axis .domain').remove()
+   
     
-    timelinefocus.append('g')
-    .selectAll(".bar")
-      .data(weekBin ? weekly : daily)
-      .join("rect")
-        .attr('class', 'bar')
-        .attr('x', d => x2(weekBin ? d3.timeHour.offset(d3.timeDay.offset(d.date,-6),3) : d3.timeHour.offset(d.date)))
-        .attr('y', d => y2(weekBin ? d.weekly : d.daily))
-        .attr('width', weekBin ? x(583200*1000)-x(0) : x(79200*1000)-x(0))
-        .attr('height', d => height2 - y2(weekBin ? d.weekly : d.daily))
-
-    timelinefocus.append('text')
-        .attr('id', 'yaxislabel')
-        .attr('x', 37)
-        .attr('y', y(20000))
-        .attr('dy', "-.35em")
-        .attr('font-size', '0.7em')
-    
-    // clipping rectangle
-    timelinefocus.append("defs").append("clipPath")
-        .attr("id", "clip")
-      .append("rect")
-        .attr("x", 0)
-        .attr("width", width)
-        .attr("height", height2)
-    
-        // add brush
-    brush = d3.brushX()
-        .extent([[0, 0], [width, height2]])
-        .on("brush", brushed)
-        .on("end", brushended) // add brush snapping
 
     // Add bootstrap tooltip
     $(function() {
