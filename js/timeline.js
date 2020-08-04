@@ -37,12 +37,12 @@ async function makeTimeline(weekBin=false) {
         .attr("viewBox", `-20 0 ${W} ${H}`)
         .attr("preserveAspectRatio", "xMidYMid meet")
     
-    // set context 
-    context = svg.append('g')
+    // set focus
+    focus = svg.append('g')
         .attr("transform", `translate(${margin.left},${margin.top})`)
     
-    // set focus
-    timelinefocus = svg.append('g')
+    // set context
+    context = svg.append('g')
         .attr('transform', `translate(${margin2.left}, ${margin2.top})`)
 
     //set ranges
@@ -78,7 +78,7 @@ async function makeTimeline(weekBin=false) {
         .on("brush", brushed)
         .on("end", brushended) // add brush snapping
 
-    context.append("g")
+    focus.append("g")
       .selectAll(".bar")
       .data(weekBin ? weekly : daily)
       .join("rect")
@@ -95,39 +95,39 @@ async function makeTimeline(weekBin=false) {
             return txt
         })
 
-    context.append('g')
+    focus.append('g')
         .attr('class', 'x-axis axis')
         .attr('transform', `translate(0,${height})`)
         .call(xAxis)
 
-    context.append('g')
+    focus.append('g')
         .attr('class', 'y-axis axis')
         .attr('transform', `translate(${width},0)`)
         .call(yAxis) 
 
-    context.select('.y-axis .domain').remove()
+    focus.select('.y-axis .domain').remove()
 
-    context.append('text')
+    focus.append('text')
         .attr('id', 'ylabel')
         .attr('x', width+2)
         .attr('y', 5)
         .text(weekBin ? 'Weekly Cases' : 'Daily Cases')
     
-    // focus additions
-    // add the focus x-axis and y-axis
-    timelinefocus.append('g')
+    // context additions
+    // add the context x-axis and y-axis
+    context.append('g')
         .attr('class', 'x-axis axis')
         .attr('transform', `translate(0,${height2})`)
         .call(xAxis2)
 
-    timelinefocus.append('g')
+    context.append('g')
         .attr('class', 'y-axis axis')
         .attr('transform', `translate(${width},0)`)
         .call(yAxis2) 
 
-    timelinefocus.select('.y-axis .domain').remove()
+    context.select('.y-axis .domain').remove()
     
-    timelinefocus.append('g')
+    context.append('g')
     .selectAll(".bar")
       .data(weekBin ? weekly : daily)
       .join("rect")
@@ -139,7 +139,7 @@ async function makeTimeline(weekBin=false) {
 
     
     // clipping rectangle
-    timelinefocus.append("defs").append("clipPath")
+    context.append("defs").append("clipPath")
         .attr("id", "clip")
       .append("rect")
         .attr("x", 0)
@@ -147,30 +147,30 @@ async function makeTimeline(weekBin=false) {
         .attr("height", height2)
 
     // Moving average section
-    // for the context
+    // for the focus
     let mvAvgLine = d3.line()
         .curve(d3.curveCardinal)
         .x(d => x(d3.timeHour.offset(d.date,12)))
         .y(d => weekBin ? y(d.weekly) : y(d.avg7))
 
-    let avgLine = context.append('path')
+    let avgLine = focus.append('path')
         .datum(daily)
         .attr('class', 'avgLine')
         .attr('d', mvAvgLine)
     
-    // for the focus
+    // for the context
     let mvAvgLine2 = d3.line()
         .curve(d3.curveCardinal)
         .x(d => x2(d3.timeHour.offset(d.date,12)))
         .y(d => weekBin ? y2(d.weekly) : y2(d.avg7))
     
-    let avgLine2 = timelinefocus.append('path')
+    let avgLine2 = context.append('path')
         .datum(daily)
         .attr('class', 'avgLine')
         .attr('d', mvAvgLine2)
 
     // Annotation section
-    context.selectAll('.milestone')
+    focus.selectAll('.milestone')
       .data(annotations)
       .join('line').lower()
         .attr('class', 'milestone')
@@ -182,7 +182,7 @@ async function makeTimeline(weekBin=false) {
             return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
         })
 
-    context.selectAll('.milestone-text')
+    focus.selectAll('.milestone-text')
       .data(annotations)
       .join('text')
         .style('text-anchor', d => d.anchor )
@@ -195,14 +195,14 @@ async function makeTimeline(weekBin=false) {
         .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
 
     const x0 = x(maxDate)-80, y0 = 10;
-    context.append('line')
+    focus.append('line')
         .attr('class', 'avgLine')
         .attr('x1', x0)
         .attr('x2', x0+20)
         .attr('y1', y0)
         .attr('y2', y0)
 
-    context.append('text')
+    focus.append('text')
         .attr('class', 'milestone-text')
         .attr('x', x0+25)
         .attr('y', y0)
@@ -210,25 +210,53 @@ async function makeTimeline(weekBin=false) {
         .text('7-day average')
         .style('font-size', '0.5em')
 
-    context.append('rect').lower()
+    focus.append('rect').lower()
         .attr('class', 'rect')
         .attr('x', x(new Date(2020,2,24)))
         .attr('width', x(new Date(2020,5,2)) - x(new Date(2020,2,24)))
         .attr('height', height)
 
-    context.append('text')
+    focus.append('text')
         .attr('class', 'rect-text')
         .attr('x', x(new Date(2020,2,26)))
         .attr('y', 10)
         .text('Stay Home, Stay Safe period')
-
-   
     
+    // add the context brush
+    const beginDate = minDate
+    xBrush = context.append("g")
+        .attr("class", "brush")
+        .call(brush)
+        .call(brush.move, [x2(beginDate), x2(maxDate)]) // initialize brush selection
+    xBrush.selectAll('.overlay').remove()
 
     // Add bootstrap tooltip
     $(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
+    // brush function
+    function brushed() {
+        const selection = d3.event.selection || x2.range(); // default brush selection
+        x.domain(selection.map(x2.invert, x2)); // new focus x-domain
+        context.selectAll(".avgLine")
+            .attr("d", mvAvgLine2);
+        context.select(".x-axis")
+            .call(xAxis2)
+
+    };
+
+    // brush snapping function
+    function brushended() {
+        if (!d3.event.sourceEvent) return; // Only transition after input.
+        if (!d3.event.selection) brushed(); // Empty selection returns default brush
+        const dateRange = d3.event.selection.map(x2.invert);
+        let dayRange = dateRange.map(d3.timeDay.round);
+        x.domain(dayRange)
+        xBrush.transition()
+            .call(brush.move, dayRange.map(x2));
+
+    };
 }
 
 function insertDuration() {
@@ -240,28 +268,5 @@ function insertAvgCase() {
     let value = Math.round(daily[daily.length-1]['weekly']/7/50)*50
     d3.select('#avg-case').text(value)
 }
-
-// brush function
-function brushed() {
-    const selection = d3.event.selection || x2.range(); // default brush selection
-    x.domain(selection.map(x2.invert, x2)); // new focus x-domain
-    focus.selectAll(".avgLine")
-        .attr("d", mvAvgLine2);
-    focus.select(".x-axis")
-        .call(xAxis2)
-
-};
-
-// brush snapping function
-function brushended() {
-    if (!d3.event.sourceEvent) return; // Only transition after input.
-    if (!d3.event.selection) brushed(); // Empty selection returns default brush
-    const dateRange = d3.event.selection.map(x2.invert);
-    let dayRange = dateRange.map(d3.timeDay.round);
-    x.domain(dayRange)
-    xBrush.transition()
-        .call(brush.move, dayRange.map(x2));
-
-};
 
 makeTimeline(weekBin=false)
