@@ -29,7 +29,7 @@ async function makeTimeline(weekBin=false) {
     const height = H - margin.top - margin.bottom;
 
     // Set the height and margins for the focus view (this goes under the context view)
-    const margin2 = {top: H-50, right: margin.right, bottom: 30, left: margin.left}
+    const margin2 = {top: H-60, right: margin.right, bottom: 40, left: margin.left}
     const height2 = H - margin2.top - margin2.bottom
 
     // append timetable svg
@@ -78,6 +78,7 @@ async function makeTimeline(weekBin=false) {
         .on("brush", brushed)
         .on("end", brushended) // add brush snapping
 
+    // adding to focus
     focus.append("g")
       .selectAll(".bar")
       .data(weekBin ? weekly : daily)
@@ -195,6 +196,7 @@ async function makeTimeline(weekBin=false) {
         .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
 
     const x0 = x(maxDate)-80, y0 = 10;
+
     focus.append('line')
         .attr('class', 'avgLine')
         .attr('x1', x0)
@@ -243,7 +245,6 @@ async function makeTimeline(weekBin=false) {
             .attr("d", mvAvgLine2);
         context.select(".x-axis")
             .call(xAxis2)
-
     };
 
     // brush snapping function
@@ -255,7 +256,8 @@ async function makeTimeline(weekBin=false) {
         x.domain(dayRange)
         xBrush.transition()
             .call(brush.move, dayRange.map(x2));
-
+        
+        //do this when the brush snaps
     };
 }
 
