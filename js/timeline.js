@@ -24,11 +24,12 @@ async function makeTimeline(weekBin=false) {
     const H = 200;
     const W = 600;
 
+    // Set the height and margins for the focus view
     const margin = {top: 0, right: 80, bottom: 80, left: 80};
     const width = W - margin.left - margin.right;
     const height = H - margin.top - margin.bottom;
 
-    // Set the height and margins for the focus view (this goes under the context view)
+    // Set the height and margins for the context view (this goes below the focus view)
     const margin2 = {top: H-60, right: margin.right, bottom: 40, left: margin.left}
     const height2 = H - margin2.top - margin2.bottom
 
@@ -40,10 +41,12 @@ async function makeTimeline(weekBin=false) {
     // set focus
     focus = svg.append('g')
         .attr("transform", `translate(${margin.left},${margin.top})`)
+        .attr('class', 'focussvg')
     
     // set context
     context = svg.append('g')
         .attr('transform', `translate(${margin2.left}, ${margin2.top})`)
+        .attr('class', 'contextsvg')
 
     //set ranges
     let x = d3.scaleTime()
@@ -212,6 +215,8 @@ async function makeTimeline(weekBin=false) {
         .text('7-day average')
         .style('font-size', '0.5em')
 
+    //this rectangle shows from when to when the stay home stay safe period was in place 
+    //add it to focus
     focus.append('rect').lower()
         .attr('class', 'rect')
         .attr('x', x(new Date(2020,2,24)))
@@ -224,6 +229,13 @@ async function makeTimeline(weekBin=false) {
         .attr('y', 10)
         .text('Stay Home, Stay Safe period')
     
+    //add it to context
+    context.append('rect').lower()
+        .attr('class', 'rect')
+        .attr('x', x(new Date(2020,2,24)))
+        .attr('width', x(new Date(2020,5,2)) - x(new Date(2020,2,24)))
+        .attr('height', height2) 
+
     // add the context brush
     const beginDate = minDate
     xBrush = context.append("g")
