@@ -1,7 +1,7 @@
 const dateParser = d3.timeParse('%y%m%d')
 const numFmt = d3.format(',.0f')
 
-async function makeTimeline(weekBin=false) {
+async function makeTimeline() {
     // Get data
     daily = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
     daily = daily.filter(d => d.status === 'CP')
@@ -11,7 +11,6 @@ async function makeTimeline(weekBin=false) {
         return d
     })
     insertDuration()
-    weekly = daily.filter((d,i) => i%7 === 6)
 
     let [minDate, maxDate] = d3.extent(daily, d => d.date)
     annotations = await d3.csv('data/timeline.csv', d => {
@@ -46,10 +45,10 @@ async function makeTimeline(weekBin=false) {
         .domain([d3.min(daily, d => d.date), d3.timeDay.offset(d3.max(daily, d=> d.date))])
         .range([0, width])
     y = d3.scaleLinear()
-        .domain([0, weekBin ? 13000 : 2500])
+        .domain([0, 2500])
         .range([height, 0])
     y2 = d3.scaleLinear()
-        .domain([0, weekBin ? 13000 : 2500])
+        .domain([0, 2500])
         .range([height2, 0])
     
     //set ticks
@@ -57,7 +56,7 @@ async function makeTimeline(weekBin=false) {
         xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0),
         yAxis = d3.axisRight(y)
             .ticks(5)
-            .tickValues(weekBin ? ticks.map(d => d*5) : ticks)
+            .tickValues(ticks)
             .tickSize(3)
         xAxis2 = d3.axisBottom(x2).ticks(6).tickSizeOuter(0)
         yAxis2 = d3.axisRight(y2)
@@ -100,7 +99,7 @@ async function makeTimeline(weekBin=false) {
         .attr('id', 'ylabel')
         .attr('x', width+2)
         .attr('y', 5)
-        .text(weekBin ? 'Weekly Cases' : 'Daily Cases')
+        .text('Daily Cases')
     
 
     // adding axes and labels to context
@@ -159,8 +158,31 @@ async function makeTimeline(weekBin=false) {
     })
 
     addBars()
-    addAverageLines()
+    
+    // create the data for moving average lines
+    mvAvgLine = d3.line()
+        .curve(d3.curveCardinal)
+        .x(d => x(d3.timeHour.offset(d.date,12)))
+        .y(d => y(d.avg7))
+
+    mvAvgLine2 = d3.line()
+        .curve(d3.curveCardinal)
+        .x(d => x2(d3.timeHour.offset(d.date,12)))
+        .y(d => y2(d.avg7))
+
+    // moving average paths based on the data created above
+    avgLine = focus.append('path')
+        .datum(daily)
+        .attr('class', 'avgLine')
+        .attr('d', mvAvgLine)
+    
+    avgLine2 = context.append('path')
+        .datum(daily)
+        .attr('class', 'avgLine')
+        .attr('d', mvAvgLine2)
+
     addMilestoneText(minDate, maxDate)
+
 
 }
 
@@ -175,13 +197,13 @@ function insertAvgCase() {
 }
 
 // brush function
-function brushed() {
+function brushed(mvAvgLine2) {
     const selection = d3.event.selection || x2.range(); // default brush selection
     x.domain(selection.map(x2.invert, x2)); // new focus x-domain
-    // context.selectAll(".avgLine")
-    //     .attr("d", mvAvgLine2);
-    // context.select(".x-axis")
-    //     .call(xAxis2)
+    context.selectAll(".avgLine")
+        .attr("d", mvAvgLine2);
+    context.select(".x-axis")
+        .call(xAxis2)
 };
 
 // brush snapping function
@@ -231,54 +253,32 @@ function addBars(){
 
     // focus is the top chart
     focus.selectAll(".bar")
-    .data(weekBin ? weekly : daily)
+    .data(daily)
     .join("rect")
       .attr('class', 'bar')
-      .attr('x', d => x(weekBin ? d3.timeHour.offset(d3.timeDay.offset(d.date,-6),3) : d3.timeHour.offset(d.date)))
-      .attr('y', d => y(weekBin ? d.weekly : d.daily))
-      .attr('width', weekBin ? x(583200*1000)-x(0) : x(79200*1000)-x(0))
-      .attr('height', d => height - y(weekBin ? d.weekly : d.daily))
+      .attr('x', d => x( d3.timeHour.offset(d.date)))
+      .attr('y', d => y(d.daily))
+      .attr('width', x(79200*1000)-x(0))
+      .attr('height', d => height - y(d.daily))
       .attr("data-toggle", "tooltip")
       .attr("data-html", true)
       .attr("title", (d,i) => {
-          txt = `${d3.timeFormat('%B %e')(d.date)}<br>Cases: ${numFmt(weekBin ? d.weekly : d.daily)}`
-          txt += weekBin ? '' : `<br>7-day Avg: ${numFmt(d.avg7)}`
+          txt = `${d3.timeFormat('%B %e')(d.date)}<br>Cases: ${numFmt(d.daily)}`
+          txt += `<br>7-day Avg: ${numFmt(d.avg7)}`
           return txt
       })
 
     //context is the bottom chart  
     context.selectAll(".bar")
-      .data(weekBin ? weekly : daily)
+      .data(daily)
       .join("rect")
         .attr('class', 'bar')
-        .attr('x', d => x2(weekBin ? d3.timeHour.offset(d3.timeDay.offset(d.date,-6),3) : d3.timeHour.offset(d.date)))
-        .attr('y', d => y2(weekBin ? d.weekly : d.daily))
-        .attr('width', weekBin ? x(583200*1000)-x(0) : x(79200*1000)-x(0))
-        .attr('height', d => height2 - y2(weekBin ? d.weekly : d.daily))
+        .attr('x', d => x2(d3.timeHour.offset(d.date)))
+        .attr('y', d => y2(d.daily))
+        .attr('width', x(79200*1000)-x(0))
+        .attr('height', d => height2 - y2(d.daily))
 }
-function addAverageLines(){
-    // create the data for moving average lines
-    mvAvgLine = d3.line()
-        .curve(d3.curveCardinal)
-        .x(d => x(d3.timeHour.offset(d.date,12)))
-        .y(d => weekBin ? y(d.weekly) : y(d.avg7))
 
-    mvAvgLine2 = d3.line()
-        .curve(d3.curveCardinal)
-        .x(d => x2(d3.timeHour.offset(d.date,12)))
-        .y(d => weekBin ? y2(d.weekly) : y2(d.avg7))
-
-    // moving average paths based on the data created above
-    avgLine = focus.append('path')
-        .datum(daily)
-        .attr('class', 'avgLine')
-        .attr('d', mvAvgLine)
-    
-    avgLine2 = context.append('path')
-        .datum(daily)
-        .attr('class', 'avgLine')
-        .attr('d', mvAvgLine2)
-}
 function addMilestoneText(minDate, maxDate){
     // milestone text only needs to be added to the top chart (focus)
     focus.selectAll('.milestone')
@@ -289,7 +289,7 @@ function addMilestoneText(minDate, maxDate){
         .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
         .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
         .attr('y2', d => {
-            col = weekBin ? 'y3' : 'y2'
+            col = 'y2'
             return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
         })
 
@@ -299,7 +299,7 @@ function addMilestoneText(minDate, maxDate){
         .style('text-anchor', d => d.anchor )
         .attr('class', 'milestone-text')
         .attr('x', d => x(d3.timeHour.offset(d.date,12)))
-        .attr('y', d => weekBin ? y(d.y3) - 3 :y(d.y2) - 3)
+        .attr('y', d => y(d.y2) - 3)
         .text(d => d.annotation)
         .attr("data-toggle", "tooltip")
         .attr("data-html", true)
@@ -330,10 +330,10 @@ function updateBars(){
     .data(daily)
     .join("rect")
       .attr('class', 'bar')
-      .attr('x', d => x(weekBin ? d3.timeHour.offset(d3.timeDay.offset(d.date,-6),3) : d3.timeHour.offset(d.date)))
+      .attr('x', d => x(d3.timeHour.offset(d.date)))
       .attr('y', d => y(d.daily))
-      .attr('width', weekBin ? x(583200*1000)-x(0) : x(79200*1000)-x(0))
-      .attr('height', d => height - y(weekBin ? d.weekly : d.daily))
+      .attr('width', x(79200*1000)-x(0))
+      .attr('height', d => height - y(d.daily))
     console.log("daily is", daily)
 }
 
@@ -341,22 +341,7 @@ function updateAvLine() {
     console.log("update av line")
     // avgLine.datum(daily).attr("d", mvAvgLine)
     // avgLine2.datum(daily).attr("d", mvAvgLine2)
-    // focus.selectAll(".bar")
-    // .data(weekBin ? weekly : daily)
-    // .join("rect")
-    //   .attr('class', 'bar')
-    //   .attr('x', d => x(weekBin ? d3.timeHour.offset(d3.timeDay.offset(d.date,-6),3) : d3.timeHour.offset(d.date)))
-    //   .attr('y', d => y(weekBin ? d.weekly : d.daily))
-    //   .attr('width', weekBin ? x(583200*1000)-x(0) : x(79200*1000)-x(0))
-    //   .attr('height', d => height - y(weekBin ? d.weekly : d.daily))
-    //   .attr("data-toggle", "tooltip")
-    //   .attr("data-html", true)
-    //   .attr("title", (d,i) => {
-    //       txt = `${d3.timeFormat('%B %e')(d.date)}<br>Cases: ${numFmt(weekBin ? d.weekly : d.daily)}`
-    //       txt += weekBin ? '' : `<br>7-day Avg: ${numFmt(d.avg7)}`
-    //       return txt
-    //   })
 }
 
 
-makeTimeline(weekBin=false)
+makeTimeline()
