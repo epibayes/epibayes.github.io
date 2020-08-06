@@ -64,13 +64,6 @@ async function makeTimeline() {
             .tickValues(0)
             .tickSize(0)
 
-    // add brush
-    brush = d3.brushX()
-        .extent([[0, 0], [width, height2]])
-        .on("brush", brushed)
-        .on("end", brushended) // add brush snapping
-
-
     // create focus (top chart)
     focus = svg.append('g')
         .attr("transform", `translate(${margin.left},${margin.top})`)
@@ -136,13 +129,6 @@ async function makeTimeline() {
         .attr('width', x(new Date(2020,5,2)) - x(new Date(2020,2,24)))
         .attr('height', height2) 
 
-    // add the context brush
-    const beginDate = minDate
-    xBrush = context.append("g")
-        .attr("class", "brush")
-        .call(brush)
-        .call(brush.move, [x2(beginDate), x2(maxDate)]) // initialize brush selection
-    xBrush.selectAll('.overlay').remove()
 
     // clipping rectangle
     focus.append("defs").append("clipPath")
@@ -180,9 +166,57 @@ async function makeTimeline() {
         .datum(daily)
         .attr('class', 'avgLine')
         .attr('d', mvAvgLine2)
+    
+    // add brush
+    brush = d3.brushX()
+        .extent([[0, 0], [width, height2]])
+        .on("brush", brushed)
+        .on("end", brushended) // add brush snapping
+
+    // add the context brush
+    const beginDate = minDate
+    xBrush = context.append("g")
+        .attr("class", "brush")
+        .call(brush)
+        .call(brush.move, [x2(beginDate), x2(maxDate)]) // initialize brush selection
+    xBrush.selectAll('.overlay').remove()
 
     addMilestoneText(minDate, maxDate)
+    initTimeScale(minDate, maxDate)
 
+    // brush function
+    function brushed() {
+        const selection = d3.event.selection || x2.range(); // default brush selection
+        x.domain(selection.map(x2.invert, x2)); // new focus x-domain
+        context.selectAll(".avgLine")
+            .attr("d", mvAvgLine2);
+        context.select(".x-axis")
+            .call(xAxis2)
+    };
+
+    // brush snapping function
+    function brushended() {
+        if (!d3.event.sourceEvent) return; // Only transition after input.
+        if (!d3.event.selection) brushed(); // Empty selection returns default brush
+        const dateRange = d3.event.selection.map(x2.invert);
+        let dayRange = dateRange.map(d3.timeDay.round);
+        x.domain(dayRange)
+        xBrush.transition()
+            .call(brush.move, dayRange.map(x2));
+        
+        //do this when the brush snaps
+        // make some content updates
+
+        updateBars(); //update the bars that show up
+
+        updateAvLine(); //update the average line
+
+        updateMilestoneText(minDate, maxDate);
+        updateSHSS();
+        updateXAxis(); //update the months that show up
+
+        
+    };
 
 }
 
@@ -196,61 +230,19 @@ function insertAvgCase() {
     d3.select('#avg-case').text(value)
 }
 
-// brush function
-function brushed(mvAvgLine2) {
-    const selection = d3.event.selection || x2.range(); // default brush selection
-    x.domain(selection.map(x2.invert, x2)); // new focus x-domain
-    context.selectAll(".avgLine")
-        .attr("d", mvAvgLine2);
-    context.select(".x-axis")
-        .call(xAxis2)
-};
+function initTimeScale(minDate, maxDate) {
+    const days = d3.timeDay.count(minDate, maxDate)
+    date2idx = d3.scaleLinear()
+        .domain([minDate, maxDate])
+        .range([0, days])
+}
 
-// brush snapping function
-function brushended() {
-    if (!d3.event.sourceEvent) return; // Only transition after input.
-    if (!d3.event.selection) brushed(); // Empty selection returns default brush
-    const dateRange = d3.event.selection.map(x2.invert);
-    let dayRange = dateRange.map(d3.timeDay.round);
-    x.domain(dayRange)
-    xBrush.transition()
-        .call(brush.move, dayRange.map(x2));
-    
-    //do this when the brush snaps
-    // make some content updates
-    updateXAxis() //update the months that show up
-    updateBars() //update the bars that show up
-    updateAvLine() //update the average line
-    
-};
-function updateXAxis(rescale = true){
-    setXDomain(rescale)
+function updateXAxis(){
     d3.select('.x-axis')
         .call(xAxis)
-    // setXTicks()
 }
-
-function setXDomain(rescale){
-    const idx0 = Math.round(x.domain()[0])
-    const idx1 = Math.round(x.domain()[1])
-    console.log("idx0 and idx1 are", idx0, idx1)
-    // x.domain(d3.extent(daily.slice(idx0, idx1+1), d => d.total)).nice()
-    // x2.domain([0, d3.max(daily, d => d.total)]).nice()
-}
-// function setXTicks() {
-//     let ticks = d3.selectAll('.x-axis .tick')
-//     ticks.each((d,i) => { if (i === ticks.size()-1) setXAxisLabel(d) })    
-// }
-
-// function setXAxisLabel(d) {
-//     d3.select('#xaxislabel')
-//         .attr('x', x(d)) 
-//         .text(d)    
-// }
 
 function addBars(){
-    console.log("add the bars")
-
     // focus is the top chart
     focus.selectAll(".bar")
     .data(daily)
@@ -308,24 +300,76 @@ function addMilestoneText(minDate, maxDate){
     const x0 = x(maxDate)-80, y0 = 10;
 
     focus.append('line')
-        .attr('class', 'avgLine')
-        .attr('x1', x0)
-        .attr('x2', x0+20)
+        .attr('class', 'avgLine sevendayavline')
+        .attr('x1', 360)
+        .attr('x2', 380)
         .attr('y1', y0)
         .attr('y2', y0)
 
     focus.append('text')
-        .attr('class', 'milestone-text')
-        .attr('x', x0+25)
+        .attr('class', 'sevenday')
+        .attr('x', 385)
         .attr('y', y0)
         .attr('dy', '0.35em')
         .text('7-day average')
         .style('font-size', '0.5em')
 
 }
+function updateMilestoneText(minDate, maxDate){
+    // delete what was there before
+    focus.selectAll('.milestone-text').remove()
+    focus.selectAll('.milestone line').remove()
 
+    // remake them
+    focus.selectAll('.milestone')
+    .data(annotations)
+    .join('line').lower()
+      .attr('class', 'milestone')
+      .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
+      .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
+      .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
+      .attr('y2', d => {
+          col = 'y2'
+          return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
+      })
+
+    focus.selectAll('.milestone-text')
+    .data(annotations)
+    .join('text')
+      .style('text-anchor', d => d.anchor )
+      .attr('class', 'milestone-text')
+      .attr('x', d => x(d3.timeHour.offset(d.date,12)))
+      .attr('y', d => y(d.y2) - 3)
+      .text(d => d.annotation)
+      .attr("data-toggle", "tooltip")
+      .attr("data-html", true)
+      .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
+
+  const x0 = x(maxDate)-80, y0 = 10;
+
+      $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+}
+function updateSHSS(){
+    focus.selectAll('.rect').remove()
+    focus.selectAll('.rect-text').remove()
+
+    focus.append('rect').lower()
+    .attr('class', 'rect')
+    .attr('x', x(new Date(2020,2,24)))
+    .attr('width', x(new Date(2020,5,2)) - x(new Date(2020,2,24)))
+    .attr('height', height)
+
+    focus.append('text')
+        .attr('class', 'rect-text')
+        .attr('x', x(new Date(2020,2,26)))
+        .attr('y', 10)
+        .text('Stay Home, Stay Safe period')
+}
 function updateBars(){
     // console.log("the bars will update")
+    focus.selectAll('.bar').remove()
     focus.selectAll(".bar")
     .data(daily)
     .join("rect")
@@ -334,13 +378,25 @@ function updateBars(){
       .attr('y', d => y(d.daily))
       .attr('width', x(79200*1000)-x(0))
       .attr('height', d => height - y(d.daily))
-    console.log("daily is", daily)
+      .attr("data-toggle", "tooltip")
+      .attr("data-html", true)
+      .attr("title", (d,i) => {
+          txt = `${d3.timeFormat('%B %e')(d.date)}<br>Cases: ${numFmt(d.daily)}`
+          txt += `<br>7-day Avg: ${numFmt(d.avg7)}`
+          return txt
+      })
+    // console.log("daily is", daily)
 }
 
 function updateAvLine() {
     console.log("update av line")
-    // avgLine.datum(daily).attr("d", mvAvgLine)
-    // avgLine2.datum(daily).attr("d", mvAvgLine2)
+
+    focus.selectAll('path').remove()
+
+    focus.append('path')
+        .datum(daily)
+        .attr('class', 'avgLine')
+        .attr('d', mvAvgLine)
 }
 
 
