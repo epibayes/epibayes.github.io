@@ -109,7 +109,7 @@ async function makeTimeline() {
         .call(yAxis2) 
 
     context.select('.y-axis .domain').remove()
-    
+    addMilestoneText(minDate, maxDate)
     //this rectangle shows from when to when the stay home stay safe period was in place 
     //add it to focus
     focus.append('rect').lower()
@@ -160,14 +160,13 @@ async function makeTimeline() {
         .on("end", brushended) // add brush snapping
 
     // add the context brush
-    console.log('min and max dates', minDate, maxDate)
     xBrush = context.append("g")
         .attr("class", "brush")
         .call(brush)
         .call(brush.move, [x2(minDate), x2(maxDate)]) // initialize brush selection
     xBrush.selectAll('.overlay').remove()
 
-    addMilestoneText(minDate, maxDate)
+
     
     // clipping rectangle
     focus.append('defs').append("clipPath")
@@ -296,6 +295,7 @@ function addMilestoneText(minDate, maxDate){
             col = 'y2'
             return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
         })
+        
 
     focus.selectAll('.milestone-text')
       .data(annotations)
@@ -355,13 +355,12 @@ function updateMilestoneText(minDate, maxDate){
       .text(d => d.annotation)
       .attr("data-toggle", "tooltip")
       .attr("data-html", true)
-      .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
-
-  const x0 = x(maxDate)-80, y0 = 10;
+      .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)  
 
       $(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
 }
 function updateSHSS(){
     focus.selectAll('.rect').remove()
@@ -374,7 +373,7 @@ function updateSHSS(){
     .attr('height', height)
 
     focus.append('text')
-        .attr('class', 'rect-text')
+        .attr('class', 'rect-text .shss')
         .attr('x', x(new Date(2020,2,26)))
         .attr('y', 10)
         .text('Stay Home, Stay Safe period')

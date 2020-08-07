@@ -394,7 +394,7 @@ h5{
   font-size: 0.35em;
   line-height: 1.5em !important;
   font-weight: 300;
-  clip-path: url(#clip);
+  /* clip-path: url(#clip); */
 }
 
 .rect {
@@ -405,6 +405,7 @@ h5{
 .rect-text {
   font-size: 0.5em;
   font-weight: 400;
+  clip-path: url(#clip);
 }
 
 .end {
