@@ -42,7 +42,7 @@ async function makeTimeline() {
         .domain([d3.min(daily, d => d.date), d3.timeDay.offset(d3.max(daily, d=> d.date))])
         .range([0, width])
     x2 = d3.scaleTime()
-        .domain([d3.min(daily, d => d.date), d3.timeDay.offset(d3.max(daily, d=> d.date))])
+        .domain([d3.min(daily, d => d.date),d3.max(daily, d=> d.date)])
         .range([0, width])
     // y = d3.scaleLinear()
     //     .domain([0, d3.max(daily, d => d.daily)])
@@ -51,7 +51,7 @@ async function makeTimeline() {
         .domain([0, 2500])
         .range([height, 0])
     y2 = d3.scaleLinear()
-        .domain([0, 2500])
+        .domain([0, d3.max(daily, d => d.daily)])
         .range([height2, 0])
     
     //set ticks
@@ -272,8 +272,15 @@ function addBars(){
         .attr('class', 'bar')
         .attr('x', d => x2(d3.timeHour.offset(d.date)))
         .attr('y', d => y2(d.daily))
+        // .attr('y', function(d){
+        //     console.log("d is", d)
+        //     console.log("d daily is", d.daily)
+        //     y2(d.daily)
+        //     console.log("y2 passed d daily is", y2(d.daily))
+        // })
         .attr('width', x(79200*1000)-x(0))
         .attr('height', d => height2 - y2(d.daily))
+    
 }
 
 function addMilestoneText(minDate, maxDate){

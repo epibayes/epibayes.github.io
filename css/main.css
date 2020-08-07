@@ -392,6 +392,7 @@ h5{
 
 .milestone-text {
   font-size: 0.35em;
+  line-height: 1.5em !important;
   font-weight: 300;
   clip-path: url(#clip);
 }
@@ -408,6 +409,10 @@ h5{
 
 .end {
   text-anchor: end;
+}
+
+.selection{
+  stroke : none;
 }
 
 /* || STORYMAP.html || */
