@@ -368,12 +368,15 @@ h5{
 
 .bar {
   fill: #5CBDCA;
+  clip-path: url(#clip);
 }
 
 .avgLine {
   fill: none;
   stroke: #000;
   stroke-width: 1.5px;
+  /*clip line with rectangle */
+  clip-path: url(#clip);
 }
 
 .axis, #ylabel {
@@ -384,15 +387,18 @@ h5{
 .milestone {
   stroke: lightgray;
   stroke-width: 1;
+  clip-path: url(#clip);
 }
 
 .milestone-text {
   font-size: 0.35em;
   font-weight: 300;
+  clip-path: url(#clip);
 }
 
 .rect {
   fill: #e6e9eb;
+  clip-path: url(#clip);
 }
 
 .rect-text {

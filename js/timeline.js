@@ -44,6 +44,9 @@ async function makeTimeline() {
     x2 = d3.scaleTime()
         .domain([d3.min(daily, d => d.date), d3.timeDay.offset(d3.max(daily, d=> d.date))])
         .range([0, width])
+    // y = d3.scaleLinear()
+    //     .domain([0, d3.max(daily, d => d.daily)])
+    //     .range([height, 0])
     y = d3.scaleLinear()
         .domain([0, 2500])
         .range([height, 0])
@@ -86,14 +89,13 @@ async function makeTimeline() {
         .attr('transform', `translate(${width},0)`)
         .call(yAxis) 
 
-    focus.select('.y-axis .domain').remove()
-
     focus.append('text')
         .attr('id', 'ylabel')
         .attr('x', width+2)
         .attr('y', 5)
         .text('Daily Cases')
     
+    focus.select('.y-axis .domain').remove()
 
     // adding axes and labels to context
     context.append('g')
@@ -121,22 +123,6 @@ async function makeTimeline() {
         .attr('x', x(new Date(2020,2,26)))
         .attr('y', 10)
         .text('Stay Home, Stay Safe period')
-    
-    //add the stay home stay safe rectangle to context too
-    context.append('rect').lower()
-        .attr('class', 'rect')
-        .attr('x', x(new Date(2020,2,24)))
-        .attr('width', x(new Date(2020,5,2)) - x(new Date(2020,2,24)))
-        .attr('height', height2) 
-
-
-    // clipping rectangle
-    focus.append("defs").append("clipPath")
-        .attr("id", "clip")
-      .append("rect")
-        .attr("x", 0)
-        .attr("width", width-0)
-        .attr("height", height2)
 
     // Add bootstrap tooltip
     $(function() {
@@ -174,15 +160,22 @@ async function makeTimeline() {
         .on("end", brushended) // add brush snapping
 
     // add the context brush
-    const beginDate = minDate
+    console.log('min and max dates', minDate, maxDate)
     xBrush = context.append("g")
         .attr("class", "brush")
         .call(brush)
-        .call(brush.move, [x2(beginDate), x2(maxDate)]) // initialize brush selection
+        .call(brush.move, [x2(minDate), x2(maxDate)]) // initialize brush selection
     xBrush.selectAll('.overlay').remove()
 
     addMilestoneText(minDate, maxDate)
-    initTimeScale(minDate, maxDate)
+    
+    // clipping rectangle
+    focus.append('defs').append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("x", 0)
+        .attr("width", width-0)
+        .attr("height", height)
 
     // brush function
     function brushed() {
@@ -192,6 +185,18 @@ async function makeTimeline() {
             .attr("d", mvAvgLine2);
         context.select(".x-axis")
             .call(xAxis2)
+    
+        // make some content updates
+
+        updateBars(); //update the bars that show up
+
+        updateAvLine(); //update the average line
+
+        updateMilestoneText(minDate, maxDate);
+        updateSHSS();
+        updateXAxis(); //update the months that show up
+        // updateYAxis(); //update the Y axis to fit with the bars that show up on the graph
+
     };
 
     // brush snapping function
@@ -214,10 +219,10 @@ async function makeTimeline() {
         updateMilestoneText(minDate, maxDate);
         updateSHSS();
         updateXAxis(); //update the months that show up
+        // updateYAxis(); //update the Y axis to fit with the bars that show up on the graph
 
         
     };
-
 }
 
 function insertDuration() {
@@ -230,16 +235,16 @@ function insertAvgCase() {
     d3.select('#avg-case').text(value)
 }
 
-function initTimeScale(minDate, maxDate) {
-    const days = d3.timeDay.count(minDate, maxDate)
-    date2idx = d3.scaleLinear()
-        .domain([minDate, maxDate])
-        .range([0, days])
-}
-
 function updateXAxis(){
     d3.select('.x-axis')
         .call(xAxis)
+}
+
+function updateYAxis(){
+    d3.select('.y-axis')
+        .call(yAxis)
+    focus.select('.y-axis .domain').remove()
+
 }
 
 function addBars(){
@@ -385,11 +390,10 @@ function updateBars(){
           txt += `<br>7-day Avg: ${numFmt(d.avg7)}`
           return txt
       })
-    // console.log("daily is", daily)
 }
 
 function updateAvLine() {
-    console.log("update av line")
+    // console.log("update av line")
 
     focus.selectAll('path').remove()
 
