@@ -1,6 +1,10 @@
 async function initDashboard(embedMap=false) {
-    const data20 = await d3.csv('data/weeklycum_cases_20km_with_rateper100k.csv', type)
-    const data10 = await d3.csv('data/weeklycum_cases_10km_with_rateper100k.csv', type)
+    const popdata = await d3.csv('data/hex_pop.csv', d3.autoType)
+    hexpop = d3.group(popdata, d => d.hex)
+    km = 20
+    const data20 = await d3.csv('data/weeklycum_cases_20km.csv', type)
+    km = 10
+    const data10 = await d3.csv('data/weeklycum_cases_10km.csv', type)
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
@@ -14,19 +18,15 @@ async function initDashboard(embedMap=false) {
     })
     caseData = d3.group(caseData, d => d.status)
 
-    hexfillTemplate = { // Object to contain the fill expressions for hex grid
-        'weekly': Array(2),
-        'cumulative': Array(2),
-        'weeklyrate': Array(2),
-        'cumulativerate': Array(2),
-    }
+    hexfillTemplate = {} // Object to contain the fill expressions for hex grid
+    metrics.forEach(metric => hexfillTemplate[metric] = Array(2))
     hexfill = {
         'CP': hexfillTemplate,
         'C': hexfillTemplate,
     }
     hexdata = {
-        'hex20': d3.group(data20, d => d.status, d => +d.date, d => d.index),
-        'hex10': d3.group(data10, d => d.status, d => +d.date, d => d.index),
+        'hex20': d3.group(data20, d => +d.date, d => d.index),
+        'hex10': d3.group(data10, d => +d.date, d => d.index),
     }
 
     initSlider()
@@ -132,9 +132,9 @@ function getHexLayer() {
 
 function updateFillExpression(key, day=getDateFromSlider()) {
     const colorScale = getColorScale(key)
-    const column = key
+    const column = `${key}_${status.toLowerCase()}`
     hexLayers.forEach((h,i) => {
-        hexfill[status][key][i] = createFillExpression(hexdata[h].get(status).get(+day), colorScale, column)
+        hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
 
@@ -173,8 +173,9 @@ function setPopupData(data) {
 function getMetricValues(idx) {
     const day = getDateFromSlider()
     const h = getHexLayer()
-    const array = hexdata[h].get(status).get(+day).get(idx)
-    let data = metrics.map((col,i) => array === undefined ? '0'
+    const array = hexdata[h].get(+day).get(idx)
+    metricsStatus = metrics.map(metric => `${metric}_${status.toLowerCase()}`)
+    let data = metricsStatus.map((col,i) => array === undefined ? '0'
         : ( (i%2 == 0) && (d3.range(1,6).includes(array[0][col])) ) ? '≤5'
         : numFmt(array[0][col])
     )
@@ -210,12 +211,17 @@ function createTableTemplate(data) {
 
 // Data Wrangling Related Functions
 function type(d) {
+    const poprate = 100000 / hexpop.get(km)[d.index-1]['POP'] 
     d.index = +d.index
     d.date = dateParser(d.date)
-    d.weekly = +d.weekly || 0
-    d.cumulative = +d.cumulative
-    d.weeklyrate = +d.weeklyrate || 0
-    d.cumulativerate = +d.cumulativerate
+    d.weekly_cp = +d.weekly_cp || 0
+    d.cumulative_cp = +d.cumulative_cp
+    d.weeklyrate_cp = d.weekly_cp * poprate
+    d.cumulativerate_cp = d.cumulative_cp * poprate
+    d.weekly_c = +d.weekly_c || 0
+    d.cumulative_c = +d.cumulative_c
+    d.weeklyrate_c = d.weekly_c * poprate
+    d.cumulativerate_c = d.cumulative_c * poprate
     return d
 }
 
