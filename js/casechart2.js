@@ -147,7 +147,6 @@ function makeCaseChart2() {
         .attr("class", "brush")
         .call(brush)
         .call(brush.move, [x2(beginDate), x2(maxDate)]) // initialize brush selection
-    xBrush.selectAll('.overlay').remove()
 
     updateYAxis()
     updateLines()
@@ -218,7 +217,7 @@ function setYAxisLabel(d) {
 }
 
 // brush function
-function brushed() {
+function brushed(updateYAx=false) {
     const selection = d3.event.selection || x2.range(); // default brush selection
     x.domain(selection.map(x2.invert, x2)); // new focus x-domain
     focus.selectAll(".avgLine")
@@ -226,12 +225,16 @@ function brushed() {
     focus.select(".x-axis")
         .call(xAxis)
     updateTotalInfo()
+    if (updateYAx) {
+        updateYAxis()
+        updateLines()
+    }
 };
 
 // brush snapping function
 function brushended() {
     if (!d3.event.sourceEvent) return; // Only transition after input.
-    if (!d3.event.selection) brushed(); // Empty selection returns default brush
+    if (!d3.event.selection) brushed(updateYAx=true); // Empty selection returns default brush
     const dateRange = d3.event.selection.map(x2.invert);
     let dayRange = dateRange.map(d3.timeDay.round);
     // If empty when rounded, use floor & ceil instead.
@@ -275,6 +278,7 @@ function addDateRangePicker() {
                 'View Last 7 Days': [d3.timeDay.offset(maxDate,-6), maxDate],
                 'View Last 14 Days': [d3.timeDay.offset(maxDate,-13), maxDate],
                 'View Last 30 Days': [d3.timeDay.offset(maxDate,-29), maxDate],
+                'View Entire Period': [minDate, maxDate],
             }
         }, function(start, end) {
             chooseCustomDate(start.toDate(), d3.timeDay(end.toDate()) ) // move time to beginning of day instead of the end
