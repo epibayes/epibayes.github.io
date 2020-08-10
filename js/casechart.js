@@ -12,7 +12,7 @@ function makeCaseChart() {
         .domain(d3.extent(caseData.get(status), d => d.date))
         .range([0, width]);
     y = d3.scaleLinear()
-        .domain([0, d3.max(caseData.get(status), d => d.value)]).nice()
+        .domain([0, d3.max(caseData.get('CP'), d => d.value)]).nice()
         .range([height, 0]);
 
     // define the line
@@ -31,7 +31,7 @@ function makeCaseChart() {
     // Add the valueline path.
     svg.append("path")
         .datum(caseData.get(status))
-        .attr("class", `daily-${datatype}`)
+        .attr("class", "daily-cases")
         .attr("d", valueline);
 
     svg.append('circle')
@@ -40,7 +40,6 @@ function makeCaseChart() {
         .attr('cx', d => x(d.date))
         .attr('cy', d => y(d.value))
         .attr('r', 4)
-        .attr('fill', datatype === 'symptoms' ? '#08519C' : '#00274C')
 
     xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0)
     yAxis = d3.axisRight(y).ticks(4)
@@ -70,11 +69,11 @@ function makeCaseChart() {
 
     svg.append('text')
         .attr('id', 'yaxislabel')
-        .attr('x', 37)
+        .attr('x', 34)
         .attr('y', y(30000))
         .attr('dy', "-.35em")
         .attr('font-size', '0.7em')
-        .text('cumulative responses')
+        .text('cumulative cases')
     
     setYAxisLabel()
 }
@@ -99,7 +98,7 @@ function updateCaseChart(metric, CP=false) {
     y.domain([0, d3.max(caseData.get(key), d => d.value)]).nice()
     d3.select('.y-axis').call(yAxis).call(formatAxis)
     setYAxisLabel()
-    d3.select(`.daily-${datatype}`).datum(caseData.get(status))
+    d3.select('.daily-cases').datum(caseData.get(status))
       .transition().duration(T)
         .attr('d', valueline)
     d3.select('#current-circle').datum(caseData.get(status)[sliderValue])
@@ -113,8 +112,7 @@ function setYAxisLabel() {
 }
 
 function updateYAxisLabel(d) {
-    const stat = metric.replace('rate','')
     d3.select('#yaxislabel')
         .attr('y', y(d)) 
-        .text(stat === 'cumulative' ? 'cumulative responses' : 'weekly responses')    
+        .text(metric === 'cumulative' ? 'cumulative cases' : 'weekly cases')    
 }

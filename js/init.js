@@ -27,18 +27,23 @@ let delay = 100;
 let alpha = 0.65;
 let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
 let metric = 'cumulative';
+let status = 'CP';
 
+let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)
+    .domain([1, 100000])
+    .clamp(true)
+let colorCaseWeek = d3.scaleSequentialLog(d3.interpolateYlGnBu)
+    .domain([1, 1000])
+    .clamp(true)
+let colorCaseCumRate = d3.scaleSequential(d3.interpolateYlOrRd)
+    .domain([0, 2000])
+    .clamp(true)
+let colorCaseWeekRate = d3.scaleSequential(d3.interpolateYlGnBu)
+    .domain([0, 400])
+    .clamp(true)    
 let colorScales = {
-    'cases' : {
-        'cumulative': d3.scaleSequentialLog(d3.interpolateYlOrRd).domain([1, 100000]).clamp(true),
-        'cumulativerate': d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 1000]).clamp(true),
-        'weekly': d3.scaleSequentialLog(d3.interpolateYlGnBu).domain([1, 1000]).clamp(true),
-        'weeklyrate': d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 400]).clamp(true),
-    },
-    'symptoms': {
-        'cumulative': d3.scaleSequentialLog(d3.interpolateBlues).domain([1, 10000]).clamp(true),
-        'cumulativerate': d3.scaleSequential(d3.interpolateBlues).domain([0, 1]).clamp(true),
-        'weekly': d3.scaleSequentialLog(d3.interpolatePurples).domain([1, 1000]).clamp(true),
-        'weeklyrate': d3.scaleSequential(d3.interpolatePurples).domain([0, 1]).clamp(true),
-    },
+    'cumulative': colorCaseCum,
+    'weekly': colorCaseWeek,
+    'cumulativerate': colorCaseCumRate,
+    'weeklyrate': colorCaseWeekRate,
 }

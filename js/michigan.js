@@ -9,14 +9,11 @@ async function initDashboard(embedMap=false) {
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
 
-    caseData = await d3.csv(`data/dailyweeklycum_${datatype}_statewide.csv`, d3.autoType)
+    caseData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
     caseData.map((d,i) => {
         d.date = dateParser(d.date)
         d.value = d.cumulative
         d.idx = i
-        if (datatype === 'symptoms') {
-            d.status = convertStatus(d.status)
-        }
         return d
     })
     caseData = d3.group(caseData, d => d.status)
@@ -34,8 +31,6 @@ async function initDashboard(embedMap=false) {
 
     initSlider()
     initRadio()
-    status = datatype === 'symptoms' ? 'C' : 'CP'
-    initDropdown()
     generateEmbedURL()
 
     initMap()
@@ -55,7 +50,7 @@ function initMap() {
     mapboxgl.accessToken = 'pk.eyJ1IjoiZXBpYmF5ZXMiLCJhIjoiY2tiaml0b3JpMHBuNzJ1bXk3MzdsbWs1aCJ9.YlxrUIBkuWk-VuYDDeMjBQ';
     map = new mapboxgl.Map({
         container: 'map',
-        style: datatype === 'symptoms' ? 'mapbox://styles/epibayes/ckcxh5jqw0v6z1isxnybsc0le' : 'mapbox://styles/mapbox/light-v10',
+        style: 'mapbox://styles/mapbox/light-v10',
         center: [-86.04, 44.65],
         zoom: 5.48,
         maxBounds: [[-100, 36], [-75, 52]],
@@ -121,9 +116,6 @@ function initMap() {
         addLegend()
         animateMap()
     });
-    map.on('load', function () {
-        map.resize();
-    });
 }
 
 function updateHexLayers(metric) {
@@ -142,6 +134,9 @@ function updateFillExpression(key, day=getDateFromSlider()) {
     const colorScale = getColorScale(key)
     const column = `${key}_${status.toLowerCase()}`
     hexLayers.forEach((h,i) => {
+        console.log("hexfill", hexfill)
+        console.log("status", status)
+        console.log("key", key)
         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
@@ -154,7 +149,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
-    return colorScales[datatype][metric]
+    return colorScales[metric]
 }
 
 function createPopup(e) {
@@ -198,8 +193,8 @@ function createTableTemplate(data) {
     <thead>
         <tr class="headingrow">
             <th class="tabledata text-left" scope="col"></th>
-            <th class="text-right" scope="col">${datatype === 'cases' ? 'Cases' : 'Responses'}</th>
-            <th class="text-right" id="popup-header" scope="col">${datatype === 'cases' ? 'per 100,000<br>people' : 'COVID-like<br>proportion'}</th>
+            <th class="text-right" scope="col">Cases</th>
+            <th class="text-right" id="popup-header" scope="col">per 100,000<br>people</th>
         </tr>
     </thead>
     <tbody>
@@ -233,10 +228,6 @@ function type(d) {
     return d
 }
 
-function convertStatus(status) {
-    return status === 'All' ? 'CP' : 'C'
-}
-
 function filterByDate(data, date) {
     return data.filter(d => +d.date === +date)
 }
@@ -265,7 +256,7 @@ function animateMap() {
             playing = true;
         } else {
             clearInterval(timer);
-            d3.select(this).html('Play responses over time');
+            d3.select(this).html('Play cases over time');
             playing = false;
         }
     });
