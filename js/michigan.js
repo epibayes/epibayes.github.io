@@ -149,6 +149,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
+    console.log("the metric at getColorscale", metric)
     return colorScales[metric]
 }
 

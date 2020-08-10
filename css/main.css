@@ -231,6 +231,7 @@ footer{
 textarea{
   width: 0;
   height: 0;
+  display: none !important;
 }
 
 /* styling the h1 div that contains the total number of cases */
@@ -577,7 +578,7 @@ h5{
 
 /* ||MISYMPTOMS.html|| */
 /* remove col paddings */
-.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12{
+.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .theappis,.mimapcontrols .col-sm-12{
   padding: 0px;
   margin: 0px;
 }
@@ -623,8 +624,7 @@ h5{
 }
 /* styling the map for the misymptoms page */
 .misymptomspage #map{
-  /* height: 525px; */
-  height: 100%;
+  height: 500px;
 }
 /* removing left padding from msslider */
 .msslider{
@@ -662,7 +662,12 @@ h5{
 .whereli{
   font-size: 10pt;
 }
-
+.aboutmisym{
+  padding: 5px !important;
+}
+.themisym{
+  padding-bottom: 20px;
+}
 /* removing padding to the miCPtotals div */
 .miCPtotals{
   padding: 0;
@@ -673,32 +678,6 @@ h5{
 }
 .gettingnumbers{
   padding: 0px 5px;
-}
-/* styling the wherearewe items */
-.whereheading{
-  font-size: 16pt;
-}
-.wherep{
-  font-size: 11pt;
-  margin: 0;
-  padding: 0;
-}
-.whereli{
-  font-size: 10pt;
-}
-
-/* add bg color to  radios*/
-/* .mirads{
-  background-color: #e1edf6;
-} */
-
-/* removing padding to the miCPtotals div */
-.miCPtotals{
-  padding: 0;
-}
-/* tri-state radio button */
-#response-total, #response-covid, #response-proportion{
-  display: none;
 }
 
 /* || media rules || */
@@ -714,6 +693,9 @@ h5{
   }
   .leftsections, .rightsections{
     padding: 0px;
+  }
+  .themisym{
+    padding: 10px 0px;
   }
 }
 
