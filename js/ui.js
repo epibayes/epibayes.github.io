@@ -71,7 +71,13 @@ function initRadio() {
         updateHexGrid()
         updateLegend(metric)
         updateTotalInfo()
-        updateCaseChart(metric, CP=true)
+        if (datatype === 'symptoms') {
+            updateCaseChart(metric, CP=false)
+            d3.select('#CP-total-text').text(status === 'CP' ? 'total MI Symptoms Responses' : 'COVID-like Responses')
+        } else {
+            updateCaseChart(metric, CP=true)
+            d3.select('#CP-total-text').text(status === 'CP' ? 'confirmed & probable cases' : 'confirmed cases')
+        }
         updatePopup()
         generateEmbedURL()
     })
@@ -97,8 +103,8 @@ function setDateRange(startDate, endDate) {
 
 function updateTotal(metric, suffix = '') {
     const key = metric.replace('rate','')
-    const total = caseData.get(status)[sliderValue][key]
-    d3.select('#total').text(numFmt(total))
+    total = caseData.get(status)[sliderValue][key]
+    d3.select(`#total${suffix}`).text(numFmt(total))
 }
 
 function getDateFromSlider() {

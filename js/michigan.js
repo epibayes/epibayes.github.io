@@ -9,11 +9,14 @@ async function initDashboard(embedMap=false) {
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
 
-    caseData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
+    caseData = await d3.csv(`data/dailyweeklycum_${datatype}_statewide.csv`, d3.autoType)
     caseData.map((d,i) => {
         d.date = dateParser(d.date)
         d.value = d.cumulative
         d.idx = i
+        if (datatype === 'symptoms') {
+            d.status = convertStatus(d.status)
+        }
         return d
     })
     caseData = d3.group(caseData, d => d.status)
@@ -151,7 +154,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
-    return colorScales[metric]
+    return colorScales[datatype][metric]
 }
 
 function createPopup(e) {
@@ -195,8 +198,8 @@ function createTableTemplate(data) {
     <thead>
         <tr class="headingrow">
             <th class="tabledata text-left" scope="col"></th>
-            <th class="text-right" scope="col">Cases</th>
-            <th class="text-right" id="popup-header" scope="col">per 100,000<br>people</th>
+            <th class="text-right" scope="col">${datatype === 'cases' ? 'Cases' : 'Responses'}</th>
+            <th class="text-right" id="popup-header" scope="col">${datatype === 'cases' ? 'per 100,000<br>people' : 'COVID-like<br>proportion'}</th>
         </tr>
     </thead>
     <tbody>
@@ -262,7 +265,7 @@ function animateMap() {
             playing = true;
         } else {
             clearInterval(timer);
-            d3.select(this).html('Play cases over time');
+            d3.select(this).html('Play responses over time');
             playing = false;
         }
     });

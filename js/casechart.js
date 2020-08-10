@@ -70,11 +70,11 @@ function makeCaseChart() {
 
     svg.append('text')
         .attr('id', 'yaxislabel')
-        .attr('x', 34)
+        .attr('x', 37)
         .attr('y', y(30000))
         .attr('dy', "-.35em")
         .attr('font-size', '0.7em')
-        .text('cumulative cases')
+        .text('cumulative responses')
     
     setYAxisLabel()
 }
@@ -116,5 +116,5 @@ function updateYAxisLabel(d) {
     const stat = metric.replace('rate','')
     d3.select('#yaxislabel')
         .attr('y', y(d)) 
-        .text(metric === 'cumulative' ? 'cumulative cases' : 'weekly cases')    
+        .text(stat === 'cumulative' ? 'cumulative responses' : 'weekly responses')    
 }
