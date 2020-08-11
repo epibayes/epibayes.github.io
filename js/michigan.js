@@ -134,9 +134,6 @@ function updateFillExpression(key, day=getDateFromSlider()) {
     const colorScale = getColorScale(key)
     const column = `${key}_${status.toLowerCase()}`
     hexLayers.forEach((h,i) => {
-        console.log("hexfill", hexfill)
-        console.log("status", status)
-        console.log("key", key)
         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
@@ -149,7 +146,6 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
-    console.log("the metric at getColorscale", metric)
     return colorScales[metric]
 }
 

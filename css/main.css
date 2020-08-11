@@ -662,6 +662,9 @@ h5{
 .whereli{
   font-size: 10pt;
 }
+.misymphead{
+  padding: 0px 5px;
+}
 .aboutmisym{
   padding: 5px !important;
 }
