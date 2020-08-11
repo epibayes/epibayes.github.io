@@ -90,22 +90,58 @@
             <div class="col-sm-6 msslider">
               <div class="row wherearewe">
                 <div class="col-sm-12 gettingnumbers">
-                  <h3 class="whereheading">MI Symptoms</h3>
+                  <h3 class="whereheading">Where are we getting these numbers?</h3>
                   <p class="aboutdescription wherep">
-                    The <a href="https://misymptomapp.state.mi.us/" target="_blank">MI Symptoms web app</a> is an online tool where users can enter information daily to help identify symptoms that might be caused by the virus that causes COVID-19 and to make decisions about when to seek appropriate medical care.<br><br>
-                    These data reflect the number of total users completing well checks with the app and the proportion of users reporting COVID-19-like illnesses. A COVID-like illness is defined as:
+                    These data come from <a href="https://misymptomapp.state.mi.us/" target="_blank">MI Symptoms Web Application</a> and reflect the number of total users completing well checks with the app and the proportion of users reporting <b>COVID-19-like symptoms</b> across the state of Michigan. We combine responses over a 10-20 km area in order to place users on the map, based on their home address. Combining responses this way means that individual responses cannot be identified. COVID-like symptoms are determined based on definitions developed by the <a href="https://www.cste.org/" target="_blank">Council of State and Territorial Epidemiologists (CSTE):</a>
                   </p>
-                  <ul>
-                    <li class="whereli">
-                      fever and cough or
-                    </li>
-                    <li class="whereli">
-                      shortness of breath or
-                    </li>
-                    <li class="whereli">
-                      difficulty breathing.
-                    </li>
-                  </ul>
+                  <div class="row twolists">
+                    <div class="col-sm-5 covidlist d-flex justify-content-center">
+                      <ul class="covidul">
+                        <h5 class="listheading">One of:</h5>
+                        <li class="whereli">
+                          fever and cough or
+                        </li>
+                        <li class="whereli">
+                          shortness of breath or
+                        </li>
+                        <li class="whereli">
+                          difficulty breathing.
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-2 covidlist text-center d-flex align-items-center justify-content-center">
+                      <p>
+                        <b>OR</b>
+                      </p>
+                    </div>
+                    <div class="col-sm-5 covidlist d-flex justify-content-center">
+                      <ul class="covidul">
+                        <h5 class="listheading">Two of:</h5>
+                        <li class="whereli">
+                          Muscle Aches
+                        </li>
+                        <li class="whereli">
+                          Chills
+                        </li>
+                        <li class="whereli">
+                          Sore Throat
+                        </li>
+                        <li class="whereli">
+                          Headache
+                        </li>
+                        <li class="whereli">
+                          Runny Nose
+                        </li>
+                        <li class="whereli">
+                          Vomiting or Diarrhea
+                        </li>
+                        <li class="whereli">
+                          Loss of Taste or Smell
+                        </li>
+                      </ul>
+                    </div>
+                  </div> <!--close twolists-->
+
                 </div> <!--close col-->
               </div> <!--close row wherearewe-->
               <div class="row">
@@ -158,6 +194,14 @@
               </div>
             </div> <!--close msslider-->
             <div class="col-sm-6 msmap d-flex align-items-start flex-column">
+              <div class="row themisym">
+                <div class="col-sm-12 theappis wherearewe">
+                  <h3 class="whereheading misymphead">MI Symptoms</h3>
+                  <p class="wherep aboutmisym">
+                    The <b>MI Symptoms Web Application</b> is an online tool where users can enter information daily to help identify symptoms that might be caused by the virus that causes COVID-19 and to make decisions about when to seek appropriate medical care. 
+                  </p>
+                </div>
+              </div>
               <div class="row maprow flex-grow-1">
                 <div class="col-sm-12 mapcol">
                   <div id="map"></div>
@@ -188,23 +232,23 @@
                     <div class="col-sm-12 numberstell">
                       <h3>What these numbers can tell us</h3>
                       <p class="aboutdescription">
-                        The type of symptom reporting captured by the MI Symptoms Web App is called “syndromic surveillance”. In this case the syndrome is COVID-19-like illness. The Centers for Disease Control and Prevention (CDC) and the Michigan Department of Health and Human Services  use this type of syndromic surveillance for <a href="https://www.cdc.gov/flu/weekly/overview.htm" target="_blank">Influenza-like illnesses (ILI)</a> as an early warning system for influenza activity. Similar surveillance is used to track <a href="https://www.cdc.gov/coronavirus/2019-ncov/covid-data/covidview/index.html" target="_blank">COVID-19-like illness</a> nationally.
-                      </p>   
-                      <p class="aboutdescription">
-                          We know that diagnostic testing for coronavirus cases will not capture all illnesses, especially since some people will have very mild symptoms and not get tested. <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(20)31304-0/fulltext" target="_blank">In some places it has been estimated</a> that only about 10% of the true number of cases are being captured by diagnostic testing. But people with mild symptoms can still spread the disease to others.
+                        The MI Symptoms Web Application is a symptom survey to be taken daily by Michigan residents and employees, for early detection of illnesses with COVID-like symptoms. This symptom survey may also help us better understand what influences the spread of the virus. We combine reports of COVID-like symptoms from MI Symptoms across the state into small geographic regions, so that we can see overall changes in an area over time.
                       </p>
                       <p class="aboutdescription">
-                        It is important to understand the number of people reporting symptoms consistent with COVID-19-like illness so that we can:
+                        We know that diagnostic testing for coronavirus cases will not capture all illnesses, especially since some people will have very mild symptoms and not get tested. <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(20)31304-0/fulltext" target="_blank">In some places it has been estimated</a> that only about 10% of the true number of cases are being captured by diagnostic testing. But people with mild symptoms can still spread the disease to others. 
+                      </p>
+                      <p class="aboutdescription">
+                        It is important to understand the number of people reporting symptoms consistent with COVID-19 so that we can:
                       </p>
                       <ul>
                         <li>
-                          Have an early warning system for increased COVID-19 activity
+                          Have an early warning system for increased COVID-19 activity;
                         </li>
                         <li>
-                          Recognize trends in mild COVID-19-like illnesses for different regions across the state
+                          Recognize trends in mild COVID-19-like illnesses for different regions across the state;
                         </li>
                         <li>
-                          Better understand the full extent of community spread of COVID-19
+                          and Better understand the full extent of community spread of COVID-19.
                         </li>
                       </ul>
                     </div> <!--close col-->
@@ -221,10 +265,14 @@
                         These numbers also only represent users of MI Symptoms Web App. There are a number of reasons why users of this app may not reflect the overall population in the state of Michigan or in specific regions of the state. For example, some employers are using the MI Symptoms app to track illnesses among their employees, and so users may be more likely to be employed than the general public.
                       </p>
                       <p class="aboutdescription">
+                        We also combine symptom reports over a 10-20 km area so that individual reports are not able to be identified, particularly in places with small numbers of reports.
+                      </p>
+                      <p class="aboutdescription">
                         For more information about the data collected by the MI Symptoms Web App and how users privacy is protected visit <a href="https://misymptomapp.state.mi.us/faq" target="_blank">https://misymptomapp.state.mi.us/faq.</a>  
                       </p>
                     </div> <!--close col-->
                   </div> <!--close row numbersdont-->
+
                 </div> <!--close rightsections-->
               </div> <!--close organizesections-->
             </div> <!--close allabout-->

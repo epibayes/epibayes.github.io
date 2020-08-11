@@ -626,6 +626,28 @@ h5{
 .rightsections{
   padding-left: 10px;
 }
+
+/* add padding to top of covidlists + style */
+.twolists{
+  padding-top: 10px;
+  background-color: #F9FBFD;
+}
+/* remove col paddings from covid list */
+.covidlist{
+  padding: 0;
+  margin: 0;
+}
+
+/* making left paddings smaller on ULs */
+.covidul{
+  padding-left: 30px;
+}
+/* style headings for lists */
+.listheading{
+  font-size: 12pt;
+  padding-bottom: 5px;
+}
+
 /* adding buffer to map */
 .misymptomsmap{
   padding-bottom: 10px;
@@ -672,6 +694,15 @@ h5{
 .whereli{
   font-size: 10pt;
 }
+.misymphead{
+  padding: 0px 5px;
+}
+.aboutmisym{
+  padding: 5px !important;
+}
+/* .themisym{
+  padding-bottom: 20px;
+} */
 
 /* removing padding to the miCPtotals div */
 .miCPtotals{
