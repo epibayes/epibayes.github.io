@@ -219,7 +219,7 @@ function setYAxisLabel(d) {
 // brush function
 function brushed(updateYAx=false) {
     const selection = d3.event.selection || x2.range(); // default brush selection
-    x.domain(selection.map(x2.invert, x2)); // new focus x-domain
+    x.domain(selection.map(x2.invert)); // new focus x-domain
     focus.selectAll(".avgLine")
         .attr("d", movingAvg1);
     focus.select(".x-axis")
@@ -234,7 +234,10 @@ function brushed(updateYAx=false) {
 // brush snapping function
 function brushended() {
     if (!d3.event.sourceEvent) return; // Only transition after input.
-    if (!d3.event.selection) brushed(updateYAx=true); // Empty selection returns default brush
+    if (!d3.event.selection) { // Empty selection returns default brush
+        brushed(updateYAx=true); 
+        return
+    }
     const dateRange = d3.event.selection.map(x2.invert);
     let dayRange = dateRange.map(d3.timeDay.round);
     // If empty when rounded, use floor & ceil instead.
