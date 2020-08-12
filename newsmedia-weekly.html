@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     
     <style>
-        #ccpng{
+        #cwpng{
             width: 550px;
             height: 500px;
         }
@@ -28,7 +28,7 @@
 <body>
 
     <div id="map">
-      <img id="cppng" src="img/cp.png">
+      <img id="cwpng" src="img/cw.png">
     </div>
 
 </body>
@@ -36,14 +36,8 @@
 integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 crossorigin="anonymous"></script>
 <script>
-    $("#cppng").on("click", function(){
-            const url = new URL(window.location.href)
-            const urlParams = new Map(url.searchParams.entries())
-            if (urlParams.get('metric')) {
-                metric = urlParams.get('metric')
-                status = urlParams.get('status')
-            }
-            const query_string = `status=${status}&metric=${metric}`
-            window.location.href = "/embedmap.html"    })
+    $("#cwpng").on("click", function(){
+            window.location.href = "/embedmap.html?status=CP&metric=weekly"
+    })
 </script>
 </html>

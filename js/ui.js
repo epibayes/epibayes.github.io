@@ -70,10 +70,10 @@ function generateEmbedURL() {
     console.log(metric)
     if (metric.includes("weekly")){
         console.log("includes weekly")
-        embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/newsmedia-weekly.html?${query_string}"></iframe>`
+        embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/newsmedia-weekly.html"></iframe>`
 
     } else {
-        embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/newsmedia-cumulative.html?${query_string}"></iframe>`
+        embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/newsmedia-cumulative.html"></iframe>`
     }
     d3.select('#embeddable').text(embeddableLink)
 }
