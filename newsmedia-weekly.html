@@ -37,6 +37,12 @@ integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ
 crossorigin="anonymous"></script>
 <script>
     $("#cppng").on("click", function(){
+            const url = new URL(window.location.href)
+            const urlParams = new Map(url.searchParams.entries())
+            if (urlParams.get('metric')) {
+                metric = urlParams.get('metric')
+                status = urlParams.get('status')
+            }
             const query_string = `status=${status}&metric=${metric}`
             window.location.href = `embedmap.html?${query_string}`
     })
