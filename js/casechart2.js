@@ -187,7 +187,7 @@ function getDateRange(d) {
 }
 
 function newChartData() {
-    return movingSum(caseData.get(status), N)
+    return movingSum(caseData.get(convertStatus(status)), N)
 }
 
 function updateYAxis(rescale=true) {
