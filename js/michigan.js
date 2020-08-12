@@ -2,14 +2,17 @@ async function initDashboard(embedMap=false) {
     const popdata = await d3.csv('data/hex_pop.csv', d3.autoType)
     hexpop = d3.group(popdata, d => d.hex)
     km = 20
-    const data20 = await d3.csv('data/weeklycum_cases_20km.csv', type)
+    const weeklycum_cases_20km = 'https://gist.githubusercontent.com/choisteph/1ee6eac84d6c9c1c4cea22bd046c1113/raw'
+    const data20 = await d3.csv(weeklycum_cases_20km, type)
     km = 10
-    const data10 = await d3.csv('data/weeklycum_cases_10km.csv', type)
+    const weeklycum_cases_10km = 'https://gist.githubusercontent.com/choisteph/9a7d7e541969c00b252526b8b5cd3b13/raw'
+    const data10 = await d3.csv(weeklycum_cases_10km, type)
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
 
-    caseData = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
+    const dailyweeklycum_cases_statewide = 'https://gist.githubusercontent.com/choisteph/494b84d649a51bfb764e4792567ccb0f/raw'
+    caseData = await d3.csv(dailyweeklycum_cases_statewide, d3.autoType)
     caseData.map((d,i) => {
         d.date = dateParser(d.date)
         d.value = d.cumulative
