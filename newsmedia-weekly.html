@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37324839-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-37324839-1');
+    </script>
+
+    <meta charset='utf-8' />
+    <title>Michigan COVID-19 Tracker</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    
+    <!-- bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <style>
+        #ccpng{
+            width: inherit;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map">
+      <img id="cppng" src="img/cp.png">
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+crossorigin="anonymous"></script>
+<script>
+    $("#cppng").on("click", function(){
+            metric = 'weekly'
+            status = "CP"
+            const query_string = `status=${status}&metric=${metric}`
+            window.location.href = `embedmap.html?${query_string}`
+    })
+</script>
+</html>
