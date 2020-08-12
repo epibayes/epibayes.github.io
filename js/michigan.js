@@ -2,16 +2,16 @@ async function initDashboard(embedMap=false) {
     const popdata = await d3.csv('data/hex_pop.csv', d3.autoType)
     hexpop = d3.group(popdata, d => d.hex)
     km = 20
-    const weeklycum_cases_20km = 'https://gist.githubusercontent.com/choisteph/1ee6eac84d6c9c1c4cea22bd046c1113/raw/3b3f2edb3f6c725f7a96f5db5442f62437ff129e/weeklycum_cases_20km.csv'
+    const weeklycum_cases_20km = 'https://gist.githubusercontent.com/choisteph/1ee6eac84d6c9c1c4cea22bd046c1113/raw'
     const data20 = await d3.csv(weeklycum_cases_20km, type)
     km = 10
-    const weeklycum_cases_10km = 'https://gist.githubusercontent.com/choisteph/9a7d7e541969c00b252526b8b5cd3b13/raw/2b7daf98ff75183af0fa4c3070889e15a95d69a8/weeklycum_cases_10km.csv'
+    const weeklycum_cases_10km = 'https://gist.githubusercontent.com/choisteph/9a7d7e541969c00b252526b8b5cd3b13/raw'
     const data10 = await d3.csv(weeklycum_cases_10km, type)
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
 
-    const dailyweeklycum_cases_statewide = 'https://gist.githubusercontent.com/choisteph/494b84d649a51bfb764e4792567ccb0f/raw/a7c75dea94f90a7f19f6ce1df7507d296a1c9fc5/dailyweeklycum_cases_statewide.csv'
+    const dailyweeklycum_cases_statewide = 'https://gist.githubusercontent.com/choisteph/494b84d649a51bfb764e4792567ccb0f/raw'
     caseData = await d3.csv(dailyweeklycum_cases_statewide, d3.autoType)
     caseData.map((d,i) => {
         d.date = dateParser(d.date)
