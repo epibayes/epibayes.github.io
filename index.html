@@ -53,7 +53,7 @@
     <!-- navbar brand image + title -->
     <a class="navbar-brand align-items-center" href="/index.html">
       <img id="epibayes-logo" src="img/logo_transparent.png">
-      <p class="navtitle d-none d-sm-inline-block text-center">Michigan COVID-19 Mapping</p>
+      <p class="navtitle d-none d-sm-inline-block text-center" title="Michigan COVID-19 Mapping Home">Michigan COVID-19 Mapping</p>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -61,13 +61,13 @@
     <div class="collapse navbar-collapse" id="website-nav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item text-right">
-          <a class="nav-link text-primary" href="/team.html">Team</a>
+          <a class="nav-link text-primary" href="/team.html" title="About Us">Team</a>
         </li>
         <li class="nav-item text-right">
-          <a class="nav-link text-primary" href="/timeline.html">Timeline</a>
+            <a class="nav-link text-primary" href="/timeline.html" title="A timeline of major COVID milestones in Michigan">MI COVID Timeline</a>
         </li>
         <li class="nav-item text-right">
-          <a class="nav-link text-primary" href="/storymap.html">Your COVID Risk</a>
+            <a class="nav-link text-primary" href="/storymap.html" title="Understand different possible sources of COVID exposure">Your COVID Risk</a>
         </li>
       </ul>
     </div>
@@ -97,7 +97,7 @@
               <div class="row togglemapradios">
                 <div class="col-sm-12 mapradios">
                   <div class="row radioset">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 radcol">
                       <div class="form-check form-check-inline set1">
                         <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-count" value="" checked>
                         <label class="form-check-label" for="radio-case-count">Case Count</label>
@@ -109,7 +109,7 @@
                     </div> <!--close col-->
                   </div> <!--close row radioset casecount-->
                   <div class="row radioset">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 radcol">
                       <div class="form-check form-check-inline set2">
                         <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-CP" value="CP" checked>
                         <label class="form-check-label" for="radio-CP">Confirmed & Probable Cases</label>
