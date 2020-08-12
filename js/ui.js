@@ -67,9 +67,7 @@ function initRadio() {
 
 function generateEmbedURL() {
     const query_string = `status=${status}&metric=${metric}`
-    console.log(metric)
     if (metric.includes("weekly")){
-        console.log("includes weekly")
         embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/newsmedia-weekly.html"></iframe>`
 
     } else {
