@@ -67,7 +67,14 @@ function initRadio() {
 
 function generateEmbedURL() {
     const query_string = `status=${status}&metric=${metric}`
-    const embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/embedmap.html?${query_string}"></iframe>`
+    console.log(metric)
+    if (metric.includes("weekly")){
+        console.log("includes weekly")
+        embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/newsmedia-weekly.html?${query_string}"></iframe>`
+
+    } else {
+        embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/newsmedia-cumulative.html?${query_string}"></iframe>`
+    }
     d3.select('#embeddable').text(embeddableLink)
 }
 
