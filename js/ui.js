@@ -44,7 +44,7 @@ function initRadio(embedmap = false) {
 
     })
     if (embedmap){
-        d3.selectAll('.time-period a').on('click', function() { // updateRadio
+        d3.selectAll('.period').on('click', function() { // updateRadio
             const timePeriod = d3.select(this).attr("value")
             if (metric.includes(timePeriod)) return;
             metric =  timePeriod

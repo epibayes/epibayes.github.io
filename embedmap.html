@@ -86,13 +86,27 @@
                 </div>
                 <div class="row ddowns">
                     <div class="col-sm-12 ddowncol d-flex align-items-center justify-content-center">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Cumulative Cases
-                            </button>
-                        <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
-                            <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
-                        </div>
+                        <div class="row radioset">
+                            <div class="col-sm-12">
+                              <div class="form-check form-check-inline periodradio">
+                                <input class="form-check-input period" type="radio" name="period" id="ccase" value="cumulative" checked>
+                                <label class="form-check-label" for="ccase">Cumulative Cases</label>
+                              </div>
+                              <div class="form-check form-check-inline periodradio">
+                                <input class="form-check-input period" type="radio" name="period" id="wcase" value="weekly">
+                                <label class="form-check-label" for="weekly">Cases in the Past Week</label>
+                              </div>
+                            </div> <!--close col-->
+                          </div> <!--close row radioset casecount-->
+                        <!-- <div class="btn-group dropup">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Cumulative Cases
+                                </button>
+                            <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
+                                <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
