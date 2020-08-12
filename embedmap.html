@@ -73,16 +73,45 @@
             margin: 0 !important;
             padding: 0 !important;
         }
+        .dropdowns{
+            margin: 0;
+            padding: 0;
+            padding: 10px 0px;
+        }
     </style>
 </head>
 <body>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
+                        <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div id="map"></div>
+
+
 
     <script src="js/init.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/michigan.js"></script>
     <script src="js/legend.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
     <script>
       const url = new URL(window.location.href)
       const urlParams = new Map(url.searchParams.entries())
