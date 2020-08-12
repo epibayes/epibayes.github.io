@@ -34,7 +34,8 @@ async function initDashboard(embedMap=false) {
     }
 
     initSlider()
-    initRadio()
+    
+    initRadio(true)
     generateEmbedURL()
 
     initMap()
@@ -51,6 +52,7 @@ async function initDashboard(embedMap=false) {
         })
         caseData = d3.group(caseData, d => d.status)
         
+        initRadio(false)
         insertDates(minDate, maxDate)
         updateTotal(metric)
         makeCaseChart()
