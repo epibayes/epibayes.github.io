@@ -137,6 +137,11 @@ footer{
   margin: 0;
 }
 
+.radcol{
+  padding: 0;
+  margin: 0;
+}
+
 .form-check-input{
   vertical-align: center;
 }
