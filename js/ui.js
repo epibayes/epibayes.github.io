@@ -89,7 +89,7 @@ function initRadio(embedmap = false) {
 
 function generateEmbedURL() {
     const query_string = `status=${status}&metric=${metric}`
-    const embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/embedmap.html?${query_string}"></iframe>`
+    const embeddableLink = `<iframe width="550px" height="640px" src="https://covidmapping.org/embedmap.html?${query_string}"></iframe>`
     d3.select('#embeddable').text(embeddableLink)
 }
 
