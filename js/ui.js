@@ -27,19 +27,6 @@ function initRadio(embedmap = false) {
             console.log("metric is timePeriod and that is", metric)
             updateHexGrid()
             updateLegend(metric)
-            let dbutton = d3.select('#dropdownMenuButton');
-            let ccase = d3.select('#ccase');
-            let wcase = d3.select('#wcase');
-    
-            if (timePeriod === 'weekly'){
-                dbutton.html(wcase.text()) 
-                ccase.classed('active', false)
-                wcase.classed('active', true)
-            } else {
-                dbutton.html(ccase.text())
-                ccase.classed('active', true)
-                wcase.classed('active', false)
-            }
         })
     } else {
         d3.selectAll('.time-period a').on('click', function() { // updateRadio
