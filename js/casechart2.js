@@ -278,10 +278,10 @@ function addDateRangePicker() {
             minDate: minDate,
             maxDate: maxDate,
             ranges: {
+                'View Entire Period': [minDate, maxDate],
                 'View Last 7 Days': [d3.timeDay.offset(maxDate,-6), maxDate],
                 'View Last 14 Days': [d3.timeDay.offset(maxDate,-13), maxDate],
                 'View Last 30 Days': [d3.timeDay.offset(maxDate,-29), maxDate],
-                'View Entire Period': [minDate, maxDate],
             }
         }, function(start, end) {
             chooseCustomDate(start.toDate(), d3.timeDay(end.toDate()) ) // move time to beginning of day instead of the end
