@@ -153,7 +153,11 @@ function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1]) ) {
 function createFillExpression(data, colorScale, column) {
     let expression = ['match', ['get', 'index']];
     data.forEach((d, idx) => expression.push(idx, colorScale(d[0][column])));
-    expression.push(colorScale(0)) // unknown case
+    if ( (datatype == 'symptoms') && (metric.includes('rate')) ) {
+        expression.push('#aaa') // gray out low responses for misymptoms
+    } else {
+        expression.push(colorScale(0)) // unknown case
+    }        
     return expression
 }
 
@@ -224,7 +228,8 @@ function createTableTemplate(data) {
 
 // Data Wrangling Related Functions
 function type(d) {
-    const poprate = 100000 / hexpop.get(km)[d.index-1]['POP'] 
+    const poprate = 100000 / hexpop.get(km)[d.index-1]['POP']
+    const threshold = 20
     d.index = +d.index
     d.date = dateParser(d.date)
     if (datatype === 'symptoms') {
@@ -232,8 +237,8 @@ function type(d) {
         d.cumulative_all = +d.cumulative_all
         d.weekly_atrisk = +d.weekly_atrisk || 0
         d.cumulative_atrisk = +d.cumulative_atrisk
-        d.weeklyrate_all = +d.weekly_atrisk / d.weekly_all
-        d.cumulativerate_all = +d.cumulative_atrisk / d.cumulative_all
+        d.weeklyrate_all = d.weekly_all >= threshold ? +d.weekly_atrisk / d.weekly_all : null 
+        d.cumulativerate_all = d.cumulative_all >= threshold ? +d.cumulative_atrisk / d.cumulative_all : null
         d.weeklyrate_atrisk = d.weeklyrate_all
         d.cumulativerate_atrisk = d.cumulativerate_all
     } else {
