@@ -16,7 +16,7 @@ function initSlider() {
         })
 }
 
-function initRadio() {
+function initRadio(embedmap = false) {
     // time period radio button
     d3.selectAll('.time-period a').on('click', function() { // updateRadio
         const timePeriod = d3.select(this).attr("value")
@@ -43,6 +43,28 @@ function initRadio() {
         }
 
     })
+    if (embedmap){
+        d3.selectAll('.period').on('click', function() { // updateRadio
+            const timePeriod = d3.select(this).attr("value")
+            if (metric.includes(timePeriod)) return;
+            metric =  timePeriod
+            updateHexGrid()
+            updateLegend(metric)
+            let dbutton = d3.select('#dropdownMenuButton');
+            let ccase = d3.select('#ccase');
+            let wcase = d3.select('#wcase');
+    
+            if (timePeriod === 'weekly'){
+                dbutton.html(wcase.text()) 
+                ccase.classed('active', false)
+                wcase.classed('active', true)
+            } else {
+                dbutton.html(ccase.text())
+                ccase.classed('active', true)
+                wcase.classed('active', false)
+            }
+        })
+    }
     // case count rate radio button
     d3.selectAll('.count-rate').on('click', function() { // updateRadio
         const timePeriod = metric.replace('rate','')
@@ -67,7 +89,7 @@ function initRadio() {
 
 function generateEmbedURL() {
     const query_string = `status=${status}&metric=${metric}`
-    const embeddableLink = `<iframe width="550px" height="500px" src="https://covidmapping.org/embedmap.html?${query_string}"></iframe>`
+    const embeddableLink = `<iframe width="550px" height="550px" src="https://covidmapping.org/embedmap.html?${query_string}"></iframe>`
     d3.select('#embeddable').text(embeddableLink)
 }
 

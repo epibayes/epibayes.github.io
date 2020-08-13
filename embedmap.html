@@ -31,21 +31,18 @@
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
     
     <style>
-        #map{
-            width: inherit;
-            height: 500px;
+        #map, #mapbox-legend { 
+        position: relative;
+        top: 0px;
+        /* left: 10px; */
+        width: 100%;
+        height: 500px;
         }
-        #mapbox-legend{ 
-            position: relative;
-            top: 0px;
-            width: 100%;
-            height: 500px;
+
+        #mapbox-legend{
+            z-index: 100000;
         }
-        g.legend{
-            position: relative !important;
-            z-index:1000000000 !important;
-            display: block;
-        }
+
         .mapboxgl-popup{
             width: 226px !important;
         }
@@ -73,16 +70,68 @@
             margin: 0 !important;
             padding: 0 !important;
         }
+        /* .ddowns{
+            padding: 10px 0px;
+        } */
+        .form-check-label{
+            padding: 0px 5px;
+            padding-right: 10px;
+        }
+        .periodradio{
+            padding-right: 10px;
+        }
     </style>
 </head>
 <body>
-
-    <div id="map"></div>
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row maprow">
+                    <div class="col-sm-12 mapcol">
+                        <div id="map"></div>
+                    </div>
+                </div>
+                <div class="row ddowns">
+                    <div class="col-sm-12 ddowncol d-flex align-items-center justify-content-center">
+                        <div class="row radioset">
+                            <div class="col-sm-12">
+                              <div class="form-check form-check-inline periodradio">
+                                <input class="form-check-input period" type="radio" name="period" id="ccase" value="cumulative" checked>
+                                <label class="form-check-label" for="ccase">Cumulative Cases</label>
+                              </div>
+                              <div class="form-check form-check-inline periodradio">
+                                <input class="form-check-input period" type="radio" name="period" id="wcase" value="weekly">
+                                <label class="form-check-label" for="weekly">Cases in the Past Week</label>
+                              </div>
+                            </div> <!--close col-->
+                          </div> <!--close row radioset casecount-->
+                        <!-- <div class="btn-group dropup">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Cumulative Cases
+                                </button>
+                            <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
+                                <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="js/init.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/michigan.js"></script>
     <script src="js/legend.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
     <script>
       const url = new URL(window.location.href)
       const urlParams = new Map(url.searchParams.entries())
