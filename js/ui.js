@@ -87,8 +87,8 @@ function initRadio(embedmap = false) {
     })
 }
 
-function generateEmbedURL() {
-    const query_string = `status=${status}&metric=${metric}`
+function generateEmbedURL() {    
+    const query_string = `metric=${metric.replace('rate','')}`
     const embeddableLink = `<iframe width="550px" height="550px" src="https://covidmapping.org/embedmap.html?${query_string}"></iframe>`
     d3.select('#embeddable').text(embeddableLink)
 }
