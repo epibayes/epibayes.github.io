@@ -137,6 +137,7 @@
       const urlParams = new Map(url.searchParams.entries())
       if (urlParams.get('metric')) {
           metric = urlParams.get('metric')
+          console.log("the metric as parsed from the url:", metric)
           d3.select(`#${metric}`).property('checked', true)
       }
       initDashboard(embedMap=true)

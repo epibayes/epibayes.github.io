@@ -16,38 +16,15 @@ function initSlider() {
         })
 }
 
-function initRadio(embedmap = false) {
+function initRadio(embedmap = false) {   
     // time period radio button
-    d3.selectAll('.time-period a').on('click', function() { // updateRadio
-        const timePeriod = d3.select(this).attr("value")
-        if (metric.includes(timePeriod)) return;
-        const rateRadio = d3.select('#radio-case-rate').property('checked')
-        metric = rateRadio ? timePeriod + 'rate' : timePeriod
-        updateHexGrid()
-        updateLegend(metric)
-        updateTotalInfo()
-        updateCaseChart(metric)
-        generateEmbedURL()
-        let dbutton = d3.select('#dropdownMenuButton');
-        let ccase = d3.select('#ccase');
-        let wcase = d3.select('#wcase');
-
-        if (timePeriod === 'weekly'){
-            dbutton.html(wcase.text()) 
-            ccase.classed('active', false)
-            wcase.classed('active', true)
-        } else {
-            dbutton.html(ccase.text())
-            ccase.classed('active', true)
-            wcase.classed('active', false)
-        }
-
-    })
     if (embedmap){
+        console.log("i'm an embedded map")
         d3.selectAll('.period').on('click', function() { // updateRadio
             const timePeriod = d3.select(this).attr("value")
             if (metric.includes(timePeriod)) return;
             metric =  timePeriod
+            console.log("metric is timePeriod and that is", metric)
             updateHexGrid()
             updateLegend(metric)
             let dbutton = d3.select('#dropdownMenuButton');
@@ -64,7 +41,35 @@ function initRadio(embedmap = false) {
                 wcase.classed('active', false)
             }
         })
+    } else {
+        d3.selectAll('.time-period a').on('click', function() { // updateRadio
+            const timePeriod = d3.select(this).attr("value")
+            if (metric.includes(timePeriod)) return;
+            const rateRadio = d3.select('#radio-case-rate').property('checked')
+            metric = rateRadio ? timePeriod + 'rate' : timePeriod
+            updateHexGrid()
+            updateLegend(metric)
+            updateTotalInfo()
+            updateCaseChart(metric)
+            generateEmbedURL()
+            let dbutton = d3.select('#dropdownMenuButton');
+            let ccase = d3.select('#ccase');
+            let wcase = d3.select('#wcase');
+    
+            if (timePeriod === 'weekly'){
+                dbutton.html(wcase.text()) 
+                ccase.classed('active', false)
+                wcase.classed('active', true)
+            } else {
+                dbutton.html(ccase.text())
+                ccase.classed('active', true)
+                wcase.classed('active', false)
+            }
+    
+        })
+
     }
+    
     // case count rate radio button
     d3.selectAll('.count-rate').on('click', function() { // updateRadio
         const timePeriod = metric.replace('rate','')
