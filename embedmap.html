@@ -105,6 +105,7 @@
                               </div>
                             </div> <!--close col-->
                           </div> <!--close row radioset casecount-->
+                          
                         <!-- <div class="btn-group dropup">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Cumulative Cases
@@ -136,12 +137,9 @@
       const url = new URL(window.location.href)
       const urlParams = new Map(url.searchParams.entries())
       console.log("url params", urlParams)
-      if (urlParams.get('metric')) {
-          console.log("metric is in the parameters")
-          metric = urlParams.get('metric')
-          console.log("the metric as parsed from the url:", metric)
-          d3.select(`#${metric}`).property('checked', true)
-      }
+      metric = urlParams.get('metric')
+      console.log("the metric as parsed from the url:", metric)
+      d3.select(`#${metric.replace('rate','')}`).property('checked', true)
       initDashboard(embedMap=true)
     </script>
 
