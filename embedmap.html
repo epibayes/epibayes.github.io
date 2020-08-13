@@ -29,58 +29,9 @@
     <!-- d3 utilities -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
-    
-    <style>
-        #map, #mapbox-legend { 
-        position: relative;
-        top: 0px;
-        /* left: 10px; */
-        width: 100%;
-        height: 500px;
-        }
 
-        #mapbox-legend{
-            z-index: 100000;
-        }
-
-        .mapboxgl-popup{
-            width: 226px !important;
-        }
-        .mapboxgl-popup-content{
-            padding: 15px 10px 10px 10px;
-        }
-
-        .popupdetails thead{
-            padding-top: 5px;
-        }
-
-        .headingrow{
-            padding-top: 10px;
-        }
-
-        .popupdetails thead tr th{
-            padding-top: 5px;
-        }
-
-        #popup-header{
-            line-height: 8pt !important;
-            font-size: 8pt !important;
-        }
-        .table, .table-sm, .table-borderless{
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        /* .ddowns{
-            padding: 10px 0px;
-        } */
-        .form-check-label{
-            padding: 0px 5px;
-            padding-right: 10px;
-        }
-        .periodradio{
-            padding-right: 10px;
-        }
-    </style>
+    <!-- CSS links -->
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -92,9 +43,9 @@
                     </div>
                 </div>
                 <div class="row ddowns">
-                    <div class="col-sm-12 ddowncol d-flex align-items-center justify-content-center">
+                    <div class="col-sm-12 ddowncol">
                         <div class="row radioset">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 ddowncol d-flex align-items-center justify-content-center">
                               <div class="form-check form-check-inline periodradio">
                                 <input class="form-check-input period" type="radio" name="period" id="cumulative" value="cumulative">
                                 <label class="form-check-label" for="ccase">Cumulative Cases</label>
@@ -105,21 +56,12 @@
                               </div>
                             </div> <!--close col-->
                           </div> <!--close row radioset casecount-->
-                          
-                        <!-- <div class="btn-group dropup">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Cumulative Cases
-                                </button>
-                            <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
-                                <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="js/init.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/michigan.js"></script>

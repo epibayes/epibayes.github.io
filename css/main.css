@@ -541,6 +541,16 @@ h5{
   }
 }
 
+/* || EMBEDMAP.html || */
+.periodradio{
+  padding-right: 10px;
+}
+
+.ddowncol{
+  padding: 0;
+  margin: 0;
+}
+
 /* || media rules || */
 @media (max-width: 576px){
   .CPtotals{
