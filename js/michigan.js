@@ -14,7 +14,7 @@ async function initDashboard() {
         d.date = dateParser(d.date)
         d.value = d.cumulative
         d.idx = i
-        if (datatype === 'symptoms') d.status = d.status.toLowerCase()
+        d.status = d.status.toLowerCase()
         return d
     })
     caseData = d3.group(caseData, d => d.status)
