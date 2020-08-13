@@ -135,7 +135,9 @@
     <script>
       const url = new URL(window.location.href)
       const urlParams = new Map(url.searchParams.entries())
+      console.log("url params", urlParams)
       if (urlParams.get('metric')) {
+          console.log("metric is in the parameters")
           metric = urlParams.get('metric')
           console.log("the metric as parsed from the url:", metric)
           d3.select(`#${metric}`).property('checked', true)
