@@ -9,7 +9,7 @@ let tickValues = {
 }
 
 // Legend Related Functions
-function addLegend() {
+function addLegend(embedmap = false) {
     // Setup our svg layer that we can manipulate with d3
     let container = map.getCanvasContainer()
     let svg = d3.select(container).append("svg")
@@ -71,6 +71,9 @@ function addLegend() {
         .call(yAxis)
 
     legend.select('path.domain').remove()
+    if (embedmap){
+        updateLegend(metric)
+    }
 }
 
 function getLinearGradientData(colorScale) {
@@ -82,7 +85,6 @@ function convert2rgba(rgb) {
 }
 
 function updateLegend(metric) {
-    console.log("metric in update legend is", metric)
     let yAxis;
     let colorScale = getColorScale()
     linearGradient.selectAll("stop")
@@ -91,7 +93,6 @@ function updateLegend(metric) {
         .attr("offset", d => d.offset)
         .attr("stop-color", d => d.color);
     if (metric.includes('rate')) {
-        console.log("the metric includes rate")
         legendScale.domain(colorScale.domain())
         yAxis = legendYAxis
     } else {

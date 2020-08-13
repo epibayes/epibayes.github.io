@@ -78,10 +78,10 @@
     <script>
       const url = new URL(window.location.href)
       const urlParams = new Map(url.searchParams.entries())
-      console.log("url params", urlParams)
-      metric = urlParams['metric']
-      console.log("the metric as parsed from the url:", metric)
-      d3.select(`#${metric.replace('rate','')}`).property('checked', true)
+			if (urlParams.get('metric')) {
+					metric = urlParams.get('metric')
+          d3.select(`#${metric.replace('rate','')}`).property('checked', true)
+      }
       initDashboard(embedMap=true)
     </script>
 

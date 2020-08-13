@@ -19,7 +19,6 @@ function initSlider() {
 function initRadio(embedmap = false) {   
     // time period radio button
     if (embedmap){
-        console.log("i'm an embedded map")
         d3.selectAll('.period').on('click', function() { // updateRadio
             const timePeriod = d3.select(this).attr("value")
             if (metric.includes(timePeriod)) return;

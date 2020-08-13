@@ -38,7 +38,7 @@ async function initDashboard(embedMap=false) {
     initRadio(true)
     generateEmbedURL()
 
-    initMap()
+
     setDateRange(minDate, maxDate)
 
     if (!embedMap) {
@@ -53,14 +53,18 @@ async function initDashboard(embedMap=false) {
         caseData = d3.group(caseData, d => d.status)
         
         initRadio(false)
+        initMap(false)
         insertDates(minDate, maxDate)
         updateTotal(metric)
         makeCaseChart()
+    } 
+    if (embedMap) {
+        initMap(true)
     }
 }
 
 // Mapbox Related Functions
-function initMap() {
+function initMap(embedmap = false) {
     metrics.forEach(metric => updateFillExpression(metric, maxDate))
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZXBpYmF5ZXMiLCJhIjoiY2tiaml0b3JpMHBuNzJ1bXk3MzdsbWs1aCJ9.YlxrUIBkuWk-VuYDDeMjBQ';
@@ -129,9 +133,12 @@ function initMap() {
             map.on('mouseenter', layerId, () => map.getCanvas().style.cursor = 'pointer');
             map.on('mouseleave', layerId, () => map.getCanvas().style.cursor = '');
         })
-        addLegend()
+        addLegend(false)
         animateMap()
     });
+    if (embedmap){
+        addLegend(true);
+    }
 }
 
 function updateHexLayers(metric) {
