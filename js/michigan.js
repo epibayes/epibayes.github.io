@@ -2,14 +2,14 @@ async function initDashboard() {
     const popdata = await d3.csv('data/hex_pop.csv', d3.autoType)
     hexpop = d3.group(popdata, d => d.hex)
     km = 20
-    const data20 = await d3.csv(`data/weeklycum_${datatype}_20km.csv`, type)
+    const data20 = await d3.csv(datafiles[datatype]['weeklycum_20km'], type)
     km = 10
-    const data10 = await d3.csv(`data/weeklycum_${datatype}_10km.csv`, type)
+    const data10 = await d3.csv(datafiles[datatype]['weeklycum_10km'], type)
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
-
-    caseData = await d3.csv(`data/dailyweeklycum_${datatype}_statewide.csv`, d3.autoType)
+  
+    caseData = await d3.csv(datafiles[datatype]['dailyweeklycum_statewide'], d3.autoType)
     caseData.map((d,i) => {
         d.date = dateParser(d.date)
         d.value = d.cumulative
@@ -28,8 +28,8 @@ async function initDashboard() {
         }
     } else {
         hexfill = {
-            'CP': hexfillTemplate,
-            'C': hexfillTemplate,
+            'cp': hexfillTemplate,
+            'c': hexfillTemplate,
         }
     }
     hexdata = {
@@ -39,7 +39,7 @@ async function initDashboard() {
 
     initTimeScale()
     initRadio()
-    status = datatype === 'symptoms' ? 'atrisk' : 'CP'
+    status = datatype === 'symptoms' ? 'atrisk' : 'cp'
     initDropdown()
     generateEmbedURL()
 
@@ -249,13 +249,13 @@ function type(d) {
     return d
 }
 
-function convertStatus(status) {
-    if (datatype === 'symptoms') {
-        return status === 'CP' ? 'all' : 'atrisk'
-    } else {
-        return status
-    }
-}
+// function convertStatus(status) {
+//     if (datatype === 'symptoms') {
+//         return status === 'cp' ? 'all' : 'atrisk'
+//     } else {
+//         return status
+//     }
+// }
 
 function filterByDate(data, date) {
     return data.filter(d => +d.date === +date)

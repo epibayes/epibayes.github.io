@@ -97,11 +97,11 @@ function updateCaseCircle(k, anim=true) {
     }
 }
 
-function updateCaseChart(startDate, endDate, metric, CP=false) {
+function updateCaseChart(startDate, endDate, metric, cp=false) {
     let T = 750
     const stat = metric.replace('rate','')
     caseData.get(status).map(d => { d.value = d[stat]; return d })
-    let key = CP ? 'CP' : status
+    let key = cp ? 'cp' : status
 
     // set the x domain
     x.domain([startDate, endDate])

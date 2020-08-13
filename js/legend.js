@@ -117,7 +117,7 @@ function updateLegend(metric) {
 
 function updateLegendLabel() {
     if (datatype === 'symptoms') {
-        return metric.includes('rate') || convertStatus(status) === 'atrisk' ? 'COVID Responses' : 'Responses'
+        return metric.includes('rate') || status === 'atrisk' ? 'COVID Responses' : 'Responses'
     } else {
         return metric.includes('rate') ? 'Cases per 100K' : 'Cases'
     }
