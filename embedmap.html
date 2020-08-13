@@ -96,11 +96,11 @@
                         <div class="row radioset">
                             <div class="col-sm-12">
                               <div class="form-check form-check-inline periodradio">
-                                <input class="form-check-input period" type="radio" name="period" id="ccase" value="cumulative" checked>
+                                <input class="form-check-input period" type="radio" name="period" id="cumulative" value="cumulative">
                                 <label class="form-check-label" for="ccase">Cumulative Cases</label>
                               </div>
                               <div class="form-check form-check-inline periodradio">
-                                <input class="form-check-input period" type="radio" name="period" id="wcase" value="weekly">
+                                <input class="form-check-input period" type="radio" name="period" id="weekly" value="weekly">
                                 <label class="form-check-label" for="weekly">Cases in the Past Week</label>
                               </div>
                             </div> <!--close col-->
@@ -137,6 +137,7 @@
       const urlParams = new Map(url.searchParams.entries())
       if (urlParams.get('metric')) {
           metric = urlParams.get('metric')
+          d3.select(`#${metric}`).property('checked', true)
       }
       initDashboard(embedMap=true)
     </script>
