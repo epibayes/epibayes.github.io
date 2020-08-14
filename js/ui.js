@@ -23,7 +23,7 @@ function initRadio(embedmap = false) {
             const timePeriod = d3.select(this).attr("value")
             if (metric.includes(timePeriod)) return;
             metric =  timePeriod
-            console.log("metric is timePeriod and that is", metric)
+            // console.log("metric is timePeriod and that is", metric)
             updateHexGrid()
             updateLegend(metric)
         })

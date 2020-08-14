@@ -48,7 +48,7 @@
                             <div class="col-sm-12 ddowncol d-flex align-items-center justify-content-center">
                               <div class="form-check form-check-inline periodradio">
                                 <input class="form-check-input period" type="radio" name="period" id="cumulative" value="cumulative">
-                                <label class="form-check-label" for="ccase">Cumulative Cases</label>
+                                <label class="form-check-label" for="cumulative">Cumulative Cases</label>
                               </div>
                               <div class="form-check form-check-inline periodradio">
                                 <input class="form-check-input period" type="radio" name="period" id="weekly" value="weekly">
@@ -79,8 +79,16 @@
       const url = new URL(window.location.href)
       const urlParams = new Map(url.searchParams.entries())
 			if (urlParams.get('metric')) {
-					metric = urlParams.get('metric')
-          d3.select(`#${metric.replace('rate','')}`).property('checked', true)
+          metric = urlParams.get('metric')
+          if (metric.includes("rate")){
+            d3.select("#cumulative")
+              .attr("id", "cumulativerate")
+              .attr("value", "cumulativerate")
+            d3.select("#weekly")
+              .attr("id", "weeklyrate")
+              .attr("value", "weeklyrate")
+          }
+          d3.select(`#${metric}`).property('checked', true)
       }
       initDashboard(embedMap=true)
     </script>
