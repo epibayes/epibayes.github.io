@@ -9,7 +9,7 @@ let tickValues = {
 }
 
 // Legend Related Functions
-function addLegend(embedmap = false) {
+function addLegend() {
     // Setup our svg layer that we can manipulate with d3
     let container = map.getCanvasContainer()
     let svg = d3.select(container).append("svg")
@@ -47,7 +47,7 @@ function addLegend(embedmap = false) {
         .attr('class', 'legend-label')
         .attr('x', w+5)
         .attr('dy', '0.35em')
-        .text('Cases')
+        .text(metric.includes('rate') ? 'Cases per 100K' : 'Cases')
 
     legendScaleLog = d3.scaleLog()
         .domain(colorScale.domain())
@@ -71,9 +71,6 @@ function addLegend(embedmap = false) {
         .call(yAxis)
 
     legend.select('path.domain').remove()
-    // if (embedmap){
-    //     updateLegend(metric)
-    // }
 }
 
 function getLinearGradientData(colorScale) {
