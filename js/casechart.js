@@ -1,5 +1,5 @@
 function makeCaseChart() {
-    console.log("making case chart")
+    // console.log("making case chart")
     // set the dimensions and margins of the graph
     let margin = { top: 15, right: 10, bottom: 30, left: 10 },
         W = 490,

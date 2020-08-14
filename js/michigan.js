@@ -36,7 +36,6 @@ async function initDashboard(embedMap=false) {
     initSlider()
     initRadio(true)
     generateEmbedURL()
-    console.log("metric before initmap is called in dashboard creation:", metric)
     initMap()
 
     setDateRange(minDate, maxDate)
@@ -62,7 +61,6 @@ async function initDashboard(embedMap=false) {
 
 // Mapbox Related Functions
 function initMap() {
-    console.log("metric in initmap:", metric)
     metrics.forEach(metric => updateFillExpression(metric, maxDate))
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZXBpYmF5ZXMiLCJhIjoiY2tiaml0b3JpMHBuNzJ1bXk3MzdsbWs1aCJ9.YlxrUIBkuWk-VuYDDeMjBQ';

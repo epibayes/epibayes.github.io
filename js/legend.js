@@ -10,7 +10,6 @@ let tickValues = {
 
 // Legend Related Functions
 function addLegend() {
-    console.log("the metric when adding the legend:", metric)
     // Setup our svg layer that we can manipulate with d3
     let container = map.getCanvasContainer()
     let svg = d3.select(container).append("svg")
