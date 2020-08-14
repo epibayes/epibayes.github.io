@@ -121,7 +121,8 @@ function initMap() {
             "layout": { 'visibility': 'visible' },
             "paint": {
                 "line-width": 1,
-                "line-color": "#fff",
+                // "line-color": "#414141",
+                "line-color": "#FFF"
             },
         });
         hexLayers.forEach(layerId => {
