@@ -121,8 +121,7 @@ function initMap() {
             "layout": { 'visibility': 'visible' },
             "paint": {
                 "line-width": 1,
-                // "line-color": "#414141",
-                "line-color": "#FFF"
+                "line-color": overlay === "school" ? "#747474" : "#FFF",
             },
         });
         hexLayers.forEach(layerId => {
