@@ -25,8 +25,8 @@ async function initDashboard(embedMap=false) {
     hexfillTemplate = {} // Object to contain the fill expressions for hex grid
     metrics.forEach(metric => hexfillTemplate[metric] = Array(2))
     hexfill = {
-        'CP': hexfillTemplate,
-        'C': hexfillTemplate,
+        'cp': hexfillTemplate,
+        'c': hexfillTemplate,
     }
     hexdata = {
         'hex20': d3.group(data20, d => +d.date, d => d.index),

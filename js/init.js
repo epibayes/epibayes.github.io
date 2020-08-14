@@ -27,7 +27,7 @@ let delay = 100;
 let alpha = 0.65;
 let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
 let metric = 'cumulative';
-let status = 'CP';
+let status = 'cp';
 
 let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)
     .domain([1, 100000])

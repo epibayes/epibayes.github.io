@@ -12,7 +12,7 @@ function makeCaseChart() {
         .domain(d3.extent(caseData.get(status), d => d.date))
         .range([0, width]);
     y = d3.scaleLinear()
-        .domain([0, d3.max(caseData.get('CP'), d => d.value)]).nice()
+        .domain([0, d3.max(caseData.get('cp'), d => d.value)]).nice()
         .range([height, 0]);
 
     // define the line
@@ -90,11 +90,11 @@ function updateCaseCircle(k, anim=true) {
     }
 }
 
-function updateCaseChart(metric, CP=false) {
+function updateCaseChart(metric, cp=false) {
     let T = 750
     const stat = metric.replace('rate','')
     caseData.get(status).map(d => { d.value = d[stat]; return d })
-    let key = CP ? 'CP' : status
+    let key = cp ? 'cp' : status
     y.domain([0, d3.max(caseData.get(key), d => d.value)]).nice()
     d3.select('.y-axis').call(yAxis).call(formatAxis)
     setYAxisLabel()
