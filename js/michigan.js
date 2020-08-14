@@ -25,8 +25,8 @@ async function initDashboard(embedMap=false) {
     hexfillTemplate = {} // Object to contain the fill expressions for hex grid
     metrics.forEach(metric => hexfillTemplate[metric] = Array(2))
     hexfill = {
-        'CP': hexfillTemplate,
-        'C': hexfillTemplate,
+        'cp': hexfillTemplate,
+        'c': hexfillTemplate,
     }
     hexdata = {
         'hex20': d3.group(data20, d => +d.date, d => d.index),
@@ -37,7 +37,7 @@ async function initDashboard(embedMap=false) {
     
     initRadio(true)
     generateEmbedURL()
-
+    initMap()
 
     setDateRange(minDate, maxDate)
 
@@ -53,14 +53,14 @@ async function initDashboard(embedMap=false) {
         caseData = d3.group(caseData, d => d.status)
         
         initRadio(false)
-        initMap(false)
+        // initMap(false)
         insertDates(minDate, maxDate)
         updateTotal(metric)
         makeCaseChart()
     } 
-    if (embedMap) {
-        initMap(true)
-    }
+    // if (embedMap) {
+    //     initMap(true)
+    // }
 }
 
 // Mapbox Related Functions
@@ -133,12 +133,13 @@ function initMap(embedmap = false) {
             map.on('mouseenter', layerId, () => map.getCanvas().style.cursor = 'pointer');
             map.on('mouseleave', layerId, () => map.getCanvas().style.cursor = '');
         })
-        addLegend(false)
+        // addLegend(false)
+        addLegend()
         animateMap()
     });
-    if (embedmap){
-        addLegend(true);
-    }
+    // if (embedmap){
+    //     addLegend(true);
+    // }
 }
 
 function updateHexLayers(metric) {

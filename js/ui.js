@@ -68,11 +68,11 @@ function initRadio(embedmap = false) {
     // confirmed probable cases radio button
     d3.selectAll('.case-type').on('click', function() { // updateRadio
         status = this.value
-        d3.select('#CP-total-text').text(status === 'CP' ? 'confirmed & probable cases' : 'confirmed cases')
+        d3.select('#cp-total-text').text(status === 'cp' ? 'confirmed & probable cases' : 'confirmed cases')
         updateHexGrid()
         updateLegend(metric)
         updateTotalInfo()
-        updateCaseChart(metric, CP=true)
+        updateCaseChart(metric, cp=true)
         updatePopup()
         generateEmbedURL()
     })

@@ -71,9 +71,9 @@ function addLegend(embedmap = false) {
         .call(yAxis)
 
     legend.select('path.domain').remove()
-    if (embedmap){
-        updateLegend(metric)
-    }
+    // if (embedmap){
+    //     updateLegend(metric)
+    // }
 }
 
 function getLinearGradientData(colorScale) {
