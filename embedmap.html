@@ -90,6 +90,9 @@
           }
           d3.select(`#${metric}`).property('checked', true)
       }
+			if (urlParams.get('overlay')) {
+          overlay = urlParams.get('overlay')
+      }
       initDashboard(embedMap=true)
     </script>
 
