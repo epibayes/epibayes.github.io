@@ -14,6 +14,11 @@ const hex10TilesetSrc = {
     type: 'vector',
     url: 'mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk',
 }
+const schoolTileset = 'school_districts'
+const schoolTilesetSrc = {
+    type: 'vector',
+    url: 'mapbox://epibayes.ckduippsj1bj324p9iacozz9d-6as5y',
+}
 
 const hexLayers = ['hex20','hex10']
 const dateParser = d3.timeParse('%y%m%d')
@@ -28,6 +33,7 @@ let alpha = 0.65;
 let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
 let metric = 'cumulative';
 let status = 'cp';
+let overlay = 'county'
 
 let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)
     .domain([1, 100000])
