@@ -42,22 +42,11 @@ async function initDashboard() {
     status = datatype === 'symptoms' ? 'atrisk' : 'cp'
     initDropdown()
     generateEmbedURL()
-    initMap()
 
+    initMap()
     setDateRange(minDate, maxDate)
 
     if (!embedMap) {
-        const dailyweeklycum_cases_statewide = 'https://gist.githubusercontent.com/choisteph/494b84d649a51bfb764e4792567ccb0f/raw'
-        caseData = await d3.csv(dailyweeklycum_cases_statewide, d3.autoType)
-        caseData.map((d,i) => {
-            d.date = dateParser(d.date)
-            d.value = d.cumulative
-            d.idx = i
-            return d
-        })
-        caseData = d3.group(caseData, d => d.status)
-        
-        initRadio(false)
         insertDates(minDate, maxDate)
         makeCaseChart2()
     }
@@ -118,14 +107,14 @@ function initMap() {
             },
         });
         map.addLayer({
-            "id": overlay === "school" ? "school-district-border" : "county-border",
+            "id": "county-border",
             "type": "line",
-            "source": overlay === "school" ? schoolTilesetSrc : countyTilesetSrc,
-            "source-layer": overlay === "school" ? schoolTileset : countyTileset,
+            "source": countyTilesetSrc,
+            "source-layer": countyTileset,
             "layout": { 'visibility': 'visible' },
             "paint": {
                 "line-width": 1,
-                "line-color": overlay === "school" ? "#747474" : "#FFF",
+                "line-color": "#fff",
             },
         });
         hexLayers.forEach(layerId => {

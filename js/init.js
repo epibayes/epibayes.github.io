@@ -39,8 +39,6 @@ const daterangeFmt = d3.timeFormat('%B %e')
 const tooltipFmt = d3.timeFormat('%b %e')
 const numFmt = d3.format(',.0f')
 const proportionFmt = d3.format('.2f')
-const sliderFmt = d3.timeFormat('%B %e')
-const N = 7
 const zoomThreshold = 8.5
 let minDate, maxDate, caseData;
 let playing = false;
