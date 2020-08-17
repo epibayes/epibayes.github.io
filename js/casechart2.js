@@ -211,9 +211,16 @@ function setYAxisTicks() {
 }
 
 function setYAxisLabel(d) {
-    d3.select('#yaxislabel')
-        .attr('y', y(d)) 
-        .text(N === 7 ? 'weekly cases' : 'cumulative cases')    
+    if (datatype === "symptoms"){
+        d3.select('#yaxislabel')
+            .attr('y', y(d)) 
+            .text(N === 7 ? 'weekly responses' : 'cumulative responses')    
+    } else {
+        d3.select('#yaxislabel')
+            .attr('y', y(d)) 
+            .text(N === 7 ? 'weekly cases' : 'cumulative cases')    
+    }
+
 }
 
 // brush function
