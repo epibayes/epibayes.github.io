@@ -14,6 +14,11 @@ const hex10TilesetSrc = {
     type: 'vector',
     url: 'mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk',
 }
+const schoolTileset = 'school_districts'
+const schoolTilesetSrc = {
+    type: 'vector',
+    url: 'mapbox://epibayes.ckduippsj1bj324p9iacozz9d-6as5y',
+}
 
 const datafiles = {
     'cases': {
@@ -34,6 +39,8 @@ const daterangeFmt = d3.timeFormat('%B %e')
 const tooltipFmt = d3.timeFormat('%b %e')
 const numFmt = d3.format(',.0f')
 const proportionFmt = d3.format('.2f')
+const sliderFmt = d3.timeFormat('%B %e')
+const N = 7
 const zoomThreshold = 8.5
 let minDate, maxDate, caseData;
 let playing = false;

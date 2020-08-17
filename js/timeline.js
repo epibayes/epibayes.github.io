@@ -3,7 +3,8 @@ const numFmt = d3.format(',.0f')
 
 async function makeTimeline(weekBin=false) {
     // Get data
-    daily = await d3.csv('data/dailyweeklycum_cases_statewide.csv', d3.autoType)
+    const dailyweeklycum_cases_statewide = 'https://gist.githubusercontent.com/choisteph/494b84d649a51bfb764e4792567ccb0f/raw'
+    daily = await d3.csv(dailyweeklycum_cases_statewide, d3.autoType)
     daily = daily.filter(d => d.status === 'cp')
     daily.map((d,i) => {
         d.date = dateParser(d.date)
@@ -111,7 +112,8 @@ async function makeTimeline(weekBin=false) {
     svg.selectAll('.milestone-text')
       .data(annotations)
       .join('text')
-        .attr('class', d => `milestone-text ${d.date < new Date(2020,3,7) ? 'end' : ''}`)
+        .style('text-anchor', d => d.anchor )
+        .attr('class', 'milestone-text')
         .attr('x', d => x(d3.timeHour.offset(d.date,12)))
         .attr('y', d => weekBin ? y(d.y3) - 3 :y(d.y2) - 3)
         .text(d => d.annotation)

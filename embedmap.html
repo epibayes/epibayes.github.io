@@ -14,6 +14,10 @@
     <title>Michigan COVID-19 Tracker</title>
     <link rel="icon" type="image/png" href="img/favicon.png">
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <!-- bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
     <!-- Mapbox GL JS -->
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
@@ -25,26 +29,71 @@
     <!-- d3 utilities -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
-    <style>
-        #map{
-            width: inherit;
-            height: 500px;
-        }
-    </style>
+
+    <!-- CSS links -->
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-
-    <div id="map"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row maprow">
+                    <div class="col-sm-12 mapcol">
+                        <div id="map"></div>
+                    </div>
+                </div>
+                <div class="row ddowns">
+                    <div class="col-sm-12 ddowncol">
+                        <div class="row radioset">
+                            <div class="col-sm-12 ddowncol d-flex align-items-center justify-content-center">
+                              <div class="form-check form-check-inline periodradio">
+                                <input class="form-check-input period" type="radio" name="period" id="cumulative" value="cumulative">
+                                <label class="form-check-label" for="cumulative">Cumulative Cases</label>
+                              </div>
+                              <div class="form-check form-check-inline periodradio">
+                                <input class="form-check-input period" type="radio" name="period" id="weekly" value="weekly">
+                                <label class="form-check-label" for="weekly">Cases in the Past Week</label>
+                              </div>
+                            </div> <!--close col-->
+                          </div> <!--close row radioset casecount-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/init.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/michigan.js"></script>
     <script src="js/legend.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
     <script>
       const url = new URL(window.location.href)
       const urlParams = new Map(url.searchParams.entries())
-      if (urlParams.get('metric')) {
+			if (urlParams.get('metric')) {
           metric = urlParams.get('metric')
+          if (metric.includes("rate")){
+            d3.select("#cumulative")
+              .attr("id", "cumulativerate")
+              .attr("value", "cumulativerate")
+            d3.select("#weekly")
+              .attr("id", "weeklyrate")
+              .attr("value", "weeklyrate")
+          }
+          d3.select(`#${metric}`).property('checked', true)
+      } else {
+        d3.select("#cumulative").property("checked", true)
+      }
+			if (urlParams.get('overlay')) {
+          overlay = urlParams.get('overlay')
       }
       const datatype = 'cases'
       const embedMap = true
