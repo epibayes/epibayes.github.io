@@ -20,36 +20,45 @@ const schoolTilesetSrc = {
     url: 'mapbox://epibayes.ckduippsj1bj324p9iacozz9d-6as5y',
 }
 
+const datafiles = {
+    'cases': {
+        'weeklycum_20km': 'https://gist.githubusercontent.com/choisteph/1ee6eac84d6c9c1c4cea22bd046c1113/raw',
+        'weeklycum_10km': 'https://gist.githubusercontent.com/choisteph/9a7d7e541969c00b252526b8b5cd3b13/raw',
+        'dailyweeklycum_statewide': 'https://gist.githubusercontent.com/choisteph/494b84d649a51bfb764e4792567ccb0f/raw',
+    },
+    'symptoms': {
+        'weeklycum_20km': 'https://gist.githubusercontent.com/choisteph/155c3f691a975d901be675311d9937c4/raw',
+        'weeklycum_10km': 'https://gist.githubusercontent.com/choisteph/2bada37d1c9c04b428c7a26aaa54a317/raw',
+        'dailyweeklycum_statewide': 'https://gist.githubusercontent.com/choisteph/bf6d330edb7a92c84aabf53700bfc176/raw',
+    }
+}
+
 const hexLayers = ['hex20','hex10']
 const dateParser = d3.timeParse('%y%m%d')
-const sliderFmt = d3.timeFormat('%B %e')
+const daterangeFmt = d3.timeFormat('%B %e')
+const tooltipFmt = d3.timeFormat('%b %e')
 const numFmt = d3.format(',.0f')
-const N = 7
+const proportionFmt = d3.format('.2f')
 const zoomThreshold = 8.5
-let minDate, maxDate, caseData, sliderValue;
+let minDate, maxDate, caseData;
 let playing = false;
 let delay = 100;
 let alpha = 0.65;
 let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
 let metric = 'cumulative';
-let status = 'cp';
-let overlay = 'county'
+//let status = 'cp';
 
-let colorCaseCum = d3.scaleSequentialLog(d3.interpolateYlOrRd)
-    .domain([1, 100000])
-    .clamp(true)
-let colorCaseWeek = d3.scaleSequentialLog(d3.interpolateYlGnBu)
-    .domain([1, 1000])
-    .clamp(true)
-let colorCaseCumRate = d3.scaleSequential(d3.interpolateYlOrRd)
-    .domain([0, 2000])
-    .clamp(true)
-let colorCaseWeekRate = d3.scaleSequential(d3.interpolateYlGnBu)
-    .domain([0, 400])
-    .clamp(true)    
 let colorScales = {
-    'cumulative': colorCaseCum,
-    'weekly': colorCaseWeek,
-    'cumulativerate': colorCaseCumRate,
-    'weeklyrate': colorCaseWeekRate,
+    'cases' : {
+        'cumulative': d3.scaleSequentialLog(d3.interpolateYlOrRd).domain([1, 100000]).clamp(true),
+        'cumulativerate': d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 1000]).clamp(true),
+        'weekly': d3.scaleSequentialLog(d3.interpolateYlGnBu).domain([1, 1000]).clamp(true),
+        'weeklyrate': d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 400]).clamp(true),
+    },
+    'symptoms': {
+        'cumulative': d3.scaleSequentialLog(d3.interpolateBlues).domain([1, 10000]).clamp(true),
+        'cumulativerate': d3.scaleSequential(d3.interpolateBlues).domain([0, 1]).clamp(true),
+        'weekly': d3.scaleSequentialLog(d3.interpolatePurples).domain([1, 1000]).clamp(true),
+        'weeklyrate': d3.scaleSequential(d3.interpolatePurples).domain([0, 1]).clamp(true),
+    },
 }
