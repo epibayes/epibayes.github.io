@@ -1,3 +1,7 @@
+/* general HTML styling */
+html{
+  scroll-behavior:smooth
+}
 
 /* || Main styling || */
 /* navigation bar styling */
@@ -76,7 +80,11 @@ footer{
 
 /* adding a top padding to the container */
 .container-fluid{
-  padding-top:5px;
+  padding-top:10px;
+}
+
+.fa-info-circle{
+  color:	#0275d8;
 }
 
 /* || INDEX.html || */
@@ -88,6 +96,12 @@ footer{
   width: 100%;
   height: 500px;
 }
+
+.mapboxgl-popup{
+  max-width: 350px !important;
+  /* width: 500px !important; */
+}
+
 
 /* map div styling */
 .mapcol{
@@ -101,18 +115,22 @@ footer{
 
 }
 
+
+/* style daterangepick stuff */
+.drprow{
+  padding: 10px 0px;
+}
+.drpdesc{
+  font-size: 11pt;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 /* button styling */
 #toggle-count-rate, #toggle-probable-cases{
   margin: 0px !important;
   /* padding: 0px !important; */
 }
-
-/* delete this */
-/* .mapbuttons{
-  padding: 0px;
-  margin: 0px;
-  padding-top: 10px;
-} */
 
 .updated{
   padding: 0px;
@@ -137,9 +155,10 @@ footer{
   margin: 0;
 }
 
-.radcol{
-  padding: 0;
+.radiocol{
   margin: 0;
+  padding: 0;
+  
 }
 
 .form-check-input{
@@ -155,6 +174,54 @@ footer{
   padding: 0;
   margin: 0;
   padding: 10px 0px;
+
+}
+/* styling info buttons */
+.infobutton{
+  width: 16px;
+  padding: 0;
+  margin: 0;
+}
+.iconrow{
+  padding: 0;
+  margin-top: -10px;
+}
+
+.iconcol{
+  padding: 0;
+  margin-top: -10px;
+}
+
+/* switch styling */
+.switches{
+  padding: 10px 0px;
+}
+
+.switchcol{
+  padding: 0;
+  vertical-align: center;
+}
+.switchlabel{
+  font-size: 10pt;
+  margin: 0;
+  padding: 0;
+  padding: 6px;
+  background-color:white;
+  color: gray;
+  border-color: gray;
+}
+
+.switchlabel:hover, .switchlabel:active, .switchlabel:focus{
+  background-color: gray !important;
+  border-color: gray !important;
+}
+
+.switchlabel.active{
+  background-color: #002F63 !important;
+}
+
+#select-case-rate, #select-case-count, #select-cp, #select-C {
+  display: none;
 }
 
 /* style embeddable div elements */
@@ -172,6 +239,7 @@ footer{
   display: none;
 }
 
+
 /* styling the iframe code elements */
 .iframecode, .iframeelement{
   margin: 0;
@@ -187,6 +255,7 @@ footer{
 }
 
 textarea{
+  display: none;
   width: 0;
   height: 0;
 }
@@ -203,27 +272,12 @@ textarea{
   margin: 0;
 }
 
-/* DELETE */
-/* styling radio div elements */
-/* .radios{
-  margin: 0;
-  padding: 25px 0;
-} */
-
-/* .custom-radio{
-  margin-right: 10px;
-} */
-
 /* style the dropdown button for linechart */
 .dropdowns{
-  margin: 0;
-  padding: 0;
   padding: 10px 0px;
 }
-
-.dropdowns .col-sm-12{
-  padding: 0;
-  margin: 0;
+.dropdown-item{
+  cursor: pointer;
 }
 
 /* style linechart div elements*/
@@ -291,16 +345,19 @@ h6{
 }
 
 /* styling the case chart */
-.daily-cases {
+.daily-cases, .daily-symptoms {
   fill: none;
-  stroke: #00274C;
   stroke-width: 2;
 }
 
-.daily {
-  stroke: #00274C;
-  stroke-width: 2;
+.daily-symptoms {
+  stroke: #08519C;
 }
+
+.daily-cases {
+  stroke: #00274C;
+}
+
 /* styling popup */
 .mapboxgl-popup-content{
   padding: 15px 10px 10px 10px;
@@ -325,6 +382,17 @@ h6{
 #popup-header{
   line-height: 8pt !important;
   font-size: 8pt !important;
+}
+
+/* daterangepicker related styles */
+.drpbutton{
+  vertical-align: baseline;
+  margin: 0px 10px;
+}
+
+.fa-calendar{
+  color:white;
+  padding: 0px 5px;
 }
 
 /* || TEAM.html || */
@@ -379,6 +447,8 @@ h5{
   fill: none;
   stroke: #000;
   stroke-width: 1.5px;
+  /*clip line with rectangle */
+  clip-path: url(#clip);
 }
 
 .axis, #ylabel {
@@ -541,14 +611,111 @@ h5{
   }
 }
 
-/* || EMBEDMAP.html || */
-.periodradio{
+/* ||MISYMPTOMS.html|| */
+/* remove col paddings */
+.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12, .midrpcol, .slidercol{
+  padding: 0px;
+  margin: 0px;
+}
+/* add top border to abouttext section */
+.abouttext{
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #e8e8e8;
+}
+/* add padding back to left section */
+.leftsections{
   padding-right: 10px;
 }
+/* add padding back to right section */
+.rightsections{
+  padding-left: 10px;
+}
 
-.ddowncol{
+/* add padding to top of covidlists + style */
+.twolists{
+  padding-top: 10px;
+  background-color: #F9FBFD;
+}
+/* remove col paddings from covid list */
+.covidlist{
   padding: 0;
   margin: 0;
+}
+
+/* making left paddings smaller on ULs */
+.covidul{
+  padding-left: 30px;
+}
+/* style headings for lists */
+.listheading{
+  font-size: 12pt;
+  padding-bottom: 5px;
+}
+
+/* adding buffer to map */
+.misymptomsmap{
+  padding-bottom: 10px;
+}
+
+/* styling the map for the misymptoms page */
+.misymptomspage #map{
+  /* height: 525px; */
+  height: 100%;
+}
+/* removing left padding from msslider */
+.msslider{
+  padding-left: 0;
+}
+/* adding padding to map and buttons */
+.mimapcontrols{
+  padding: 10px 0px;
+}
+/* remove padding for dropdown col */
+.midrop{
+  padding: 0;
+}
+.misymptomspage .dropdowncol{
+  padding: 0;
+}
+/* adding padding to wherearewe row */
+.wherearewe{
+  padding: 5px 0px;
+  background-color: #f0f6fb;
+  margin-bottom: 10px;
+}
+.gettingnumbers{
+  padding: 0px 5px;
+}
+/* styling the wherearewe items */
+.whereheading{
+  font-size: 16pt;
+}
+.wherep{
+  font-size: 11pt;
+  margin: 0;
+  padding: 0;
+}
+.whereli{
+  font-size: 10pt;
+}
+.misymphead{
+  padding: 0px 5px;
+}
+.aboutmisym{
+  padding: 5px !important;
+}
+/* .themisym{
+  padding-bottom: 20px;
+} */
+
+/* removing padding to the miCPtotals div */
+.miCPtotals{
+  padding: 0;
+}
+/* tri-state radio button */
+#response-total, #response-covid, #response-proportion{
+  display: none;
 }
 
 /* || media rules || */
@@ -558,11 +725,16 @@ h5{
     padding: 0;
     padding-top: 10px;
   }
-  .cumulativevis, .goaltext, .whatcanwelearn, .covidlearn{
+  .cumulativevis, .goaltext, .whatcanwelearn, .covidlearn, .msslider, .drpcol, .CPtotals, .drpdwncol{
     padding: 0;
     margin: 0;
   }
-  
+  .leftsections, .rightsections{
+    padding: 0px;
+  }
+  #total{
+    padding-top: 10px;
+  }
 }
 
 @media screen and (max-width: 624px) {
