@@ -21,7 +21,7 @@ async function makeTimeline(weekBin=false) {
     })
     let grps = d3.group(annotations, d => +d.date)
 
-    // Set the dimensions and margins of the graph 
+    // Set the dimensions and margins of the graph
     const margin = {top: 10, right: 80, bottom: 30, left: 80};
     const W = 600;
     const width = W - margin.left - margin.right;
