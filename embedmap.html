@@ -89,6 +89,8 @@
               .attr("value", "weeklyrate")
           }
           d3.select(`#${metric}`).property('checked', true)
+      } else {
+        d3.select("#cumulative").property("checked", true)
       }
 			if (urlParams.get('overlay')) {
           overlay = urlParams.get('overlay')
