@@ -63,7 +63,7 @@ function initRadio() {
         updateTotalInfo()
         if (datatype === 'symptoms') {
             updateCaseChart2(updateAxis=true)
-            d3.select('#cp-total-text').text(status === 'cp' ? 'MI Symptoms responses' : 'COVID-like illness responses')
+            d3.select('#cp-total-text').text(status === 'all' ? 'MI Symptoms responses' : 'COVID-like illness responses')
         } else {
             updateCaseChart2(updateAxis=true)
             d3.select('#cp-total-text').text(status === 'cp' ? 'confirmed & probable cases' : 'confirmed cases')
