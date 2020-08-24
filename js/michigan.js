@@ -8,7 +8,6 @@ async function initDashboard() {
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
-  
     caseData = await d3.csv(datafiles[datatype]['dailyweeklycum_statewide'], d3.autoType)
     caseData.map((d,i) => {
         d.date = dateParser(d.date)
