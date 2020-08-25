@@ -5,7 +5,7 @@ async function makeTimeline(weekBin=false) {
     // Get data
     const dailyweeklycum_cases_statewide = 'https://gist.githubusercontent.com/choisteph/494b84d649a51bfb764e4792567ccb0f/raw'
     daily = await d3.csv(dailyweeklycum_cases_statewide, d3.autoType)
-    daily = daily.filter(d => d.status === 'cp')
+    daily = daily.filter(d => d.status.toLowerCase() === 'cp')
     daily.map((d,i) => {
         d.date = dateParser(d.date)
         d.avg7 = i > 6 ? +d.weekly/7 : +d.weekly/(i+1)
