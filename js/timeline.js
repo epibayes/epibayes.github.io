@@ -109,7 +109,9 @@ async function makeTimeline() {
         .call(yAxis2) 
 
     context.select('.y-axis .domain').remove()
+    
     addMilestoneText(minDate, maxDate)
+    
     //this rectangle shows from when to when the stay home stay safe period was in place 
     //add it to focus
     focus.append('rect').lower()
@@ -147,11 +149,13 @@ async function makeTimeline() {
         .datum(daily)
         .attr('class', 'avgLine')
         .attr('d', mvAvgLine)
-    
-    avgLine2 = context.append('path')
-        .datum(daily)
-        .attr('class', 'avgLine')
-        .attr('d', mvAvgLine2)
+
+        
+    // //moving average line doesn't need to be seen in context?    
+    // avgLine2 = context.append('path')
+    //     .datum(daily)
+    //     .attr('class', 'avgLine')
+    //     .attr('d', mvAvgLine2)
     
     // add brush
     brush = d3.brushX()
@@ -167,14 +171,8 @@ async function makeTimeline() {
     xBrush.selectAll('.overlay').remove()
 
 
-    
-    // clipping rectangle
-    focus.append('defs').append("clipPath")
-        .attr("id", "clip")
-      .append("rect")
-        .attr("x", 0)
-        .attr("width", width-0)
-        .attr("height", height)
+    //add the boundary rectangle so bars don't spill over beyond the svg
+    addClipRect(width, height)
 
     // brush function
     function brushed() {
@@ -222,6 +220,15 @@ async function makeTimeline() {
 
         
     };
+}
+function addClipRect(width, height){
+    // clipping rectangle
+    focus.append('defs').append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("x", 0)
+        .attr("width", width-0)
+        .attr("height", height)    
 }
 
 function insertDuration() {
@@ -327,10 +334,13 @@ function addMilestoneText(minDate, maxDate){
         .style('font-size', '0.5em')
 
 }
-function updateMilestoneText(minDate, maxDate){
+
+function updateMilestoneText(minDate, width, height){
+    console.log("width and height are", width, height)
     // delete what was there before
     focus.selectAll('.milestone-text').remove()
     focus.selectAll('.milestone line').remove()
+    focus.selectAll(' clipPath').remove()   
 
     // remake them
     focus.selectAll('.milestone')
@@ -355,13 +365,14 @@ function updateMilestoneText(minDate, maxDate){
       .text(d => d.annotation)
       .attr("data-toggle", "tooltip")
       .attr("data-html", true)
-      .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)  
+      .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)
+      .lower()
 
       $(function() {
         $('[data-toggle="tooltip"]').tooltip()
-    })
-
+    }}
 }
+
 function updateSHSS(){
     focus.selectAll('.rect').remove()
     focus.selectAll('.rect-text').remove()
@@ -378,6 +389,7 @@ function updateSHSS(){
         .attr('y', 10)
         .text('Stay Home, Stay Safe period')
 }
+
 function updateBars(){
     // console.log("the bars will update")
     focus.selectAll('.bar').remove()
