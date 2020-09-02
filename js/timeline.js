@@ -342,7 +342,8 @@ function updateMilestoneText(minDate){
     console.log("update milestone text")
     // delete what was there before
     focus.selectAll('.milestone-text').remove()
-    focus.selectAll('.milestone line').remove()   
+    focus.selectAll('.milestone line').remove()
+    focus.selectAll('.hideit').remove()   
 
     // remake them
     focus.selectAll('.milestone')
@@ -375,7 +376,7 @@ function updateMilestoneText(minDate){
     // .attr('class',  'milestone-text')
     .attr('class', function(d){
         let x_coord = x(d3.timeHour.offset(d.date, 12))
-        if (0 < x_coord && x_coord< width){
+        if (0 < x_coord && x_coord < width){
             return 'milestone-text'
         } else {
             return 'milestone-text hideit hidetext'
