@@ -110,7 +110,7 @@ async function makeTimeline() {
 
     context.select('.y-axis .domain').remove()
     
-    addMilestoneText(minDate, maxDate)
+    addMilestoneText(minDate)
     
     //this rectangle shows from when to when the stay home stay safe period was in place 
     //add it to focus
@@ -189,7 +189,7 @@ async function makeTimeline() {
 
         updateAvLine(); //update the average line
 
-        updateMilestoneText(minDate, maxDate);
+        updateMilestoneText(minDate);
         updateSHSS();
         updateXAxis(); //update the months that show up
         // updateYAxis(); //update the Y axis to fit with the bars that show up on the graph
@@ -213,7 +213,7 @@ async function makeTimeline() {
 
         updateAvLine(); //update the average line
 
-        updateMilestoneText(minDate, maxDate);
+        updateMilestoneText(minDate);
         updateSHSS();
         updateXAxis(); //update the months that show up
         // updateYAxis(); //update the Y axis to fit with the bars that show up on the graph
@@ -221,6 +221,7 @@ async function makeTimeline() {
         
     };
 }
+
 function addClipRect(width, height){
     // clipping rectangle
     focus.append('defs').append("clipPath")
@@ -229,6 +230,7 @@ function addClipRect(width, height){
         .attr("x", 0)
         .attr("width", width-0)
         .attr("height", height)    
+        .style('text-overflow', 'clip')
 }
 
 function insertDuration() {
@@ -335,12 +337,10 @@ function addMilestoneText(minDate, maxDate){
 
 }
 
-function updateMilestoneText(minDate, width, height){
-    console.log("width and height are", width, height)
+function updateMilestoneText(minDate){
     // delete what was there before
     focus.selectAll('.milestone-text').remove()
-    focus.selectAll('.milestone line').remove()
-    focus.selectAll(' clipPath').remove()   
+    focus.selectAll('.milestone line').remove()   
 
     // remake them
     focus.selectAll('.milestone')
@@ -370,7 +370,7 @@ function updateMilestoneText(minDate, width, height){
 
       $(function() {
         $('[data-toggle="tooltip"]').tooltip()
-    }}
+    })
 }
 
 function updateSHSS(){
