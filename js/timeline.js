@@ -292,6 +292,7 @@ function addBars(){
 }
 
 function addMilestoneText(minDate, maxDate){
+    console.log("add milestone text")
     // milestone text only needs to be added to the top chart (focus)
     focus.selectAll('.milestone')
       .data(annotations)
@@ -338,6 +339,7 @@ function addMilestoneText(minDate, maxDate){
 }
 
 function updateMilestoneText(minDate){
+    console.log("update milestone text")
     // delete what was there before
     focus.selectAll('.milestone-text').remove()
     focus.selectAll('.milestone line').remove()   
@@ -346,7 +348,15 @@ function updateMilestoneText(minDate){
     focus.selectAll('.milestone')
     .data(annotations)
     .join('line').lower()
-    .attr('class', 'milestone')
+    // .attr('class', 'milestone')
+    .attr('class', function(d){
+        let x_coord = x(d3.timeHour.offset(d.date,12))
+        if (0 < x_coord && x_coord< width){
+            return 'milestone'
+        } else {
+            return 'hideit'
+        }
+    })
     .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
     .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
     .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
@@ -362,17 +372,25 @@ function updateMilestoneText(minDate){
     .data(annotations)
     .join('text')
     .style('text-anchor', d => d.anchor )
-    .attr('class',  'milestone-text')
-    // .attr('x', d => x(d3.timeHour.offset(d.date,12)))
-    .attr('x', function(d){
-        let x_coord = x(d3.timeHour.offset(d.date,12))
-        if (0 < x_coord < width){
-            console.log('between')
+    // .attr('class',  'milestone-text')
+    .attr('class', function(d){
+        let x_coord = x(d3.timeHour.offset(d.date, 12))
+        if (0 < x_coord && x_coord< width){
+            return 'milestone-text'
         } else {
-            console.log("not between")
+            return 'milestone-text hideit'
         }
-        return x_coord
     })
+    .attr('x', d => x(d3.timeHour.offset(d.date,12)))
+    // .attr('x', function(d){
+    //     let x_coord = x(d3.timeHour.offset(d.date,12))
+    //     if (0 < x_coord && x_coord< width){
+    //         // d.classList.remove('hideit')
+    //     } else {
+    //         console.log("not between")
+    //     }
+    //     return x_coord
+    // })
     .attr('y', d => y(d.y2) - 3)
     // .attr('class', d => 0 < d.x < width ? 'milestone-text' : 'hideit')
 
