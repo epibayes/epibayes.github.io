@@ -230,7 +230,6 @@ function addClipRect(width, height){
         .attr("x", 0)
         .attr("width", width-0)
         .attr("height", height)    
-        .style('text-overflow', 'clip')
 }
 
 function insertDuration() {
