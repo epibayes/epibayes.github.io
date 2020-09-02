@@ -40,7 +40,10 @@
   <!-- d3 utilities -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="https://d3js.org/d3-array.v2.min.js"></script>
-  
+
+  <!-- daterangepicker -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
   <!-- CSS links -->
   <link rel="stylesheet" href="css/main.css">
 
@@ -53,7 +56,7 @@
     <!-- navbar brand image + title -->
     <a class="navbar-brand align-items-center" href="/index.html">
       <img id="epibayes-logo" src="img/logo_transparent.png">
-      <p class="navtitle d-none d-sm-inline-block text-center">Michigan COVID-19 Mapping</p>
+      <p class="navtitle d-none d-sm-inline-block text-center" title="Michigan COVID-19 Mapping Home">Michigan COVID-19 Mapping</p>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -61,13 +64,16 @@
     <div class="collapse navbar-collapse" id="website-nav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item text-right">
-          <a class="nav-link text-primary" href="/team.html">Team</a>
+          <a class="nav-link text-primary" href="/team.html" title="About Us">Team</a>
         </li>
         <li class="nav-item text-right">
-          <a class="nav-link text-primary" href="/timeline.html">Timeline</a>
+            <a class="nav-link text-primary" href="/timeline.html" title="A timeline of major COVID milestones in Michigan">MI COVID Timeline</a>
         </li>
         <li class="nav-item text-right">
-          <a class="nav-link text-primary" href="/storymap.html">Your COVID Risk</a>
+            <a class="nav-link text-primary" href="/storymap.html" title="Understand different possible sources of COVID exposure">Your COVID Risk</a>
+        </li>
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/misymptoms.html" title="Identify potential symptoms of COVID-19">MI Symptoms</a>
         </li>
       </ul>
     </div>
@@ -88,38 +94,32 @@
                   <div id="map"> </div>
                 </div> <!--close col-->
               </div> <!--close row-->
-              <!-- <div class="row togglemapbuttons">
-                <div class="col-sm-12 mapbuttons">
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-count-rate"> Showing case count</button>
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-probable-cases">Showing confirmed and probable cases</button>
-                </div> 
-              </div> -->
               <div class="row togglemapradios">
                 <div class="col-sm-12 mapradios">
-                  <div class="row radioset">
-                    <div class="col-sm-12">
-                      <div class="form-check form-check-inline set1">
-                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-count" value="" checked>
-                        <label class="form-check-label" for="radio-case-count">Case Count</label>
+                  <div class="row switches">
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                      <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                        <label class="btn btn-primary active switchlabel" for="select-case-count">
+                          <input type="radio" name="ratecount" id="select-case-count" class="count-rate ctrate" autocomplete="off" value="" checked> Case Count
+                        </label>
+                        <label class="btn btn-primary switchlabel" for="select-case-rate">
+                          <input type="radio" name="ratecount" id="select-case-rate" class="count-rate ctrate"  autocomplete="off" value="rate"> Cases per 100,000 People
+                        </label>
                       </div>
-                      <div class="form-check form-check-inline set1">
-                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-rate" value="rate">
-                        <label class="form-check-label" for="radio-case-rate">Cases per 100,000 People</label>
-                      </div>
-                    </div> <!--close col-->
-                  </div> <!--close row radioset casecount-->
-                  <div class="row radioset">
-                    <div class="col-sm-12">
-                      <div class="form-check form-check-inline set2">
-                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-CP" value="CP" checked>
-                        <label class="form-check-label" for="radio-CP">Confirmed & Probable Cases</label>
-                      </div>
-                      <div class="form-check form-check-inline set2">
-                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-C" value="C">
-                        <label class="form-check-label" for="radio-C">Confirmed Cases Only</label> 
-                      </div> 
                     </div>
-                  </div> <!--close row radioset probablecases-->
+                  </div>
+                  <div class="row switches">
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                      <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                        <label class="btn btn-primary active switchlabel" for="select-cp">
+                          <input type="radio" name="probconfirmed" id="select-cp" class="case-type" autocomplete="off" value="cp" checked>Confirmed & Probable Cases
+                        </label>
+                        <label class="btn btn-primary switchlabel" for="select-C">
+                          <input type="radio" name="probconfirmed" id="select-C" class="case-type"  autocomplete="off" value="C">Confirmed Cases Only
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div> <!--close col 12-->
               </div> <!--close togglemapradios-->
               <div class="row builtandmaintained">
@@ -143,49 +143,46 @@
               <div class="row">
                 <div class="col-sm-12 text-left CPtotals">
                   <h1 id="total"></h1>
-                  <p class="d-inline" id= "CP-total-text">confirmed & probable cases</p>
+                  <p class="d-inline" id= "cp-total-text">confirmed & probable cases</p>
                   <p class="d-inline dayrange" id="startdate"></p>
                   <p class="d-inline">to</p>
                   <p class="d-inline dayrange" id="enddate"></p>
-                </div> <!--close CP totals-->
+                </div> <!--close cp totals-->
               </div> <!--close row-->
-              <div class="row">
-                <div class="col-sm-12 cumulativevis">
-                  <div class="row dropdowns">
-                    <div class="col-sm-12">
-                      <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Cumulative Cases
-                        </button>
-                        <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
-                          <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
-                        </div>
-                      </div>
+              <!-- <div class="row drprow">
+                <div class="col-sm-12 drpcol">
+                  <p class="d-inline drpdesc drpbutton">
+                    Select Time Window:</p>
+                  <button type="button" class='btn btn-link drpbutton d-inline'><i class="fa fa-calendar"></i></button>
+                </div>
+              </div> -->
+              <div class="row dropdowns">
+                <div class="col-sm-12 drpdwncol d-flex align-items-center justify-content-start">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Cumulative Cases
+                    </button>
+                    <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
+                      <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
                     </div>
                   </div>
-                  <!-- <div class="row radiobuttons">
-                    <div class="col-sm-12 radios d-flex">
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input time-period" type="radio" id="casecum" name="attributes" value="cumulative" checked>
-                          <label class="custom-control-label" for= "casecum">Show cumulative cases</label>
-                        </div>
-                      <div class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input time-period" id="caseweek" name="attributes"
-                        value="weekly">
-                        <label class="custom-control-label" for="caseweek">Show cases in the past week</label>
-                      </div>
-                    </div>
-                  </div> -->
+                  <button type="button" class='btn btn-primary drpbutton d-inline'><i class="fa fa-calendar"></i></button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 cumulativevis">
                   <div class="row linechartrow">
                     <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
-                      <div class="" id="slider-container">
-                        <input class="custom-range" id="slider" type="range" min="0" step="1">
-                      </div> <!--close slider container-->
-                      <button type="button" class="d-inline btn btn-outline-primary" id="play">Play cases over time</button>
+                      <!-- <button type="button" class="d-inline btn btn-outline-primary" id="play">Rescale Y-Axis</button> -->
                     </div> <!--close line chart div-->
                   </div> <!--close linechart row-->
+                  <div class="row iconrow">
+                    <div class="col-sm-12 d-flex align-items-start justify-content-end iconcol">
+                      <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="top" title="Change the view by adjusting the gray box"><i class="fa fa-info-circle d-inline" ></i></button>
+                    </div>
+                  </div>
                 </div> <!--close cumulativevis-->
               </div> <!--close row-->
               <div class="row thegoal">
@@ -204,7 +201,7 @@
                   <h3>How is COVID-19 transmitted?</h3>
                   <h6>Close contact. Surfaces. Respiratory droplets.</h6>
                   <p>
-                    COVID-19 is transmitted through respiratory droplets. Respiratory droplets, according to the WHO, refers to droplets > 5-10 μm (micrometers) in diameter. Transmission by respiratory droplets typically requires close contact between individuals. The WHO defines such contact as within about 1 meter (approximately 3 feet) of someone experiencing respiratory symptoms like coughing or sneezing. However, transmission can also occur through droplets on surfaces, and if someone touches that surface and then touches their eyes/mouth/nose, the virus can spread.
+                    COVID-19 is transmitted through respiratory droplets. Respiratory droplets, according to the WHO, refers to droplets > 5-10 μm (micrometers) in diameter. Transmission by respiratory droplets typically requires close contact between individuals. The WHO defines such contact as within about 1 meter (approximately 3 feet) of someone experiencing respiratory symptoms like coughing or sneezing. Transmission can also occur through droplets on surfaces, and the <a href="https://www.who.int/news-room/commentaries/detail/transmission-of-sars-cov-2-implications-for-infection-prevention-precautions" target="_blank">WHO has updated its guidance on COVID-19 transmission</a> to account for emerging studies that suggest that airborne transmission of the virus through aerosolized (smaller) droplets may be possible in certain circumstances.
                   </p>
                 </div> <!--close covidtransmit-->
               </div> <!--close transmitfacts row-->
@@ -212,7 +209,7 @@
                 <div class="col-sm-12 covidnumbers">
                   <h3>Where are we getting these numbers?</h3>
                   <p>
-                    These data come from the <a href="https://www.michigan.gov/mdhhs/">Michigan Department of Health and Human Services</a> and reflect counts of <b>confirmed (and probable)</b> COVID-19 cases in Michigan including cases reported from the Michigan Department of Corrections (MDOC). As a result, this specifically reflects risk among those who are being tested in the state of Michigan. Information on testing in Michigan is available at the <a href="https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173_99225---,00.html">Michigan.gov coronavirus page</a>. However, it is important to keep in mind that the numbers on the map here reflect not the total number of COVID-19 infections, but confirmed cases who are being tested. Specific criteria are required in order to be tested, and this has changed over time. The percent positive rate is a good way to contextualize how many of the ‘true’ cases are being captured. The cumulative percent positive rate <a href="https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173_99225---,00.html"> is about 25%</a> in the state of Michigan, meaning that on average, for every case detected by a COVID-19 test, there are three negative tests. This high rate of positives indicates we are likely missing a good portion of the true extent of cases, indicating that risk estimates on this map are conservative.
+                    These data come from the <a href="https://www.michigan.gov/mdhhs/" target="_blank">Michigan Department of Health and Human Services</a> and reflect counts of <b>confirmed (and probable)</b> COVID-19 cases in Michigan including cases reported from the Michigan Department of Corrections (MDOC). As a result, this specifically reflects risk among those who are being tested in the state of Michigan. Information on testing in Michigan is available at the <a href="https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173---,00.html" target="_blank">Michigan.gov coronavirus page</a>. However, it is important to keep in mind that the numbers on the map here reflect not the total number of COVID-19 infections, but confirmed cases who are being tested. Specific criteria are required in order to be tested, and this has changed over time. The percent positive rate is a good way to contextualize how many of the ‘true’ cases are being captured. The cumulative percent positive rate <a href="https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173---,00.html" target="_blank"> is about 25%</a> in the state of Michigan, meaning that on average, for every case detected by a COVID-19 test, there are three negative tests. This high rate of positives indicates we are likely missing a good portion of the true extent of cases, indicating that risk estimates on this map are conservative.
                   </p>
                 </div> <!--close covidnumbers-->
               </div> <!--close row wherenumbers-->
@@ -277,13 +274,20 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/michigan.js"></script>
   <script src="js/legend.js"></script>
-  <script src="js/casechart.js"></script>
+  <script src="js/casechart2.js"></script>
   <script>
+    const datatype = 'cases'
+    const embedMap = false
     initDashboard()
+  </script>
+  <script>
+    $('[data-toggle="tooltip"]').tooltip()
   </script>
 </body>
 </html>

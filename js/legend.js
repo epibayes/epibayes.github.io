@@ -2,10 +2,18 @@
 const w = 20
 const h = 120
 let tickValues = {
-    'cumulative': [10, 100, 1000, 10000],
-    'weekly': [10, 100],
-    'cumulativerate': [500, 1000, 1500],
-    'weeklyrate': [100, 200, 300],
+    'cases': {
+        'cumulative': [10, 100, 1000, 10000],
+        'weekly': [10, 100],
+        'cumulativerate': [200, 400, 600, 800],
+        'weeklyrate': [100, 200, 300],
+    },
+    'symptoms': {
+        'cumulative': [10, 100, 1000],
+        'weekly': [10, 100],
+        'cumulativerate': [0.2, 0.4, 0.6, 0.8],
+        'weeklyrate': [0.2, 0.4, 0.6, 0.8],
+    },
 }
 
 // Legend Related Functions
@@ -47,7 +55,7 @@ function addLegend() {
         .attr('class', 'legend-label')
         .attr('x', w+5)
         .attr('dy', '0.35em')
-        .text('Cases')
+        .text(updateLegendLabel())
 
     legendScaleLog = d3.scaleLog()
         .domain(colorScale.domain())
@@ -58,11 +66,11 @@ function addLegend() {
     legendYAxisLog = d3.axisRight(legendScaleLog)
         .ticks(3, ',')
         .tickSize(0)
-        .tickValues(tickValues[metric])
+        .tickValues(getTickValues())
     legendYAxis = d3.axisRight(legendScale)
-        .ticks(3, 'd')
+        .ticks(3, datatype === 'symptoms' ? '.1f' : 'd')
         .tickSize(0)
-        .tickValues(tickValues[metric])
+        .tickValues(getTickValues())
     let yAxis = metric.includes('rate') ? legendYAxis : legendYAxisLog
 
     legendAxis = legend.append('g')
@@ -71,6 +79,10 @@ function addLegend() {
         .call(yAxis)
 
     legend.select('path.domain').remove()
+}
+
+function getTickValues() {
+    return tickValues[datatype][metric]
 }
 
 function getLinearGradientData(colorScale) {
@@ -96,11 +108,19 @@ function updateLegend(metric) {
         legendScaleLog.domain(colorScale.domain())
         yAxis = legendYAxisLog
     }
-    yAxis.tickValues(tickValues[metric])
+    yAxis.tickValues(getTickValues())
     legend.select('.legend-label')
-        .text(metric.includes('rate') ? 'Cases per 100K' : 'Cases')
+        .text(updateLegendLabel())
     legendAxis.call(yAxis)
     legend.select('path.domain').remove()
+}
+
+function updateLegendLabel() {
+    if (datatype === 'symptoms') {
+        return metric.includes('rate') || status === 'atrisk' ? 'COVID Responses' : 'Responses'
+    } else {
+        return metric.includes('rate') ? 'Cases per 100K' : 'Cases'
+    }
 }
 
 function LegendText(d, i, arr) {
