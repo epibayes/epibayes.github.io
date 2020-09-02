@@ -223,12 +223,13 @@ async function makeTimeline() {
 }
 
 function addClipRect(width, height){
+    console.log(width)
     // clipping rectangle
     focus.append('defs').append("clipPath")
         .attr("id", "clip")
       .append("rect")
         .attr("x", 0)
-        .attr("width", width-0)
+        .attr("width", width)
         .attr("height", height)    
 }
 
@@ -345,31 +346,47 @@ function updateMilestoneText(minDate){
     focus.selectAll('.milestone')
     .data(annotations)
     .join('line').lower()
-      .attr('class', 'milestone')
-      .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
-      .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
-      .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
-      .attr('y2', d => {
-          col = 'y2'
-          return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
-      })
+    .attr('class', 'milestone')
+    .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
+    .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
+    .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
+    .attr('y2', d => {
+        col = 'y2'
+        return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
+    })
+    // .attr('class', d => 0 < d.x < width ? 'milestone' : 'hideit')
+
+
 
     focus.selectAll('.milestone-text')
     .data(annotations)
     .join('text')
-      .style('text-anchor', d => d.anchor )
-      .attr('class', 'milestone-text')
-      .attr('x', d => x(d3.timeHour.offset(d.date,12)))
-      .attr('y', d => y(d.y2) - 3)
-      .text(d => d.annotation)
-      .attr("data-toggle", "tooltip")
-      .attr("data-html", true)
-      .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)
-      .lower()
+    .style('text-anchor', d => d.anchor )
+    .attr('class',  'milestone-text')
+    // .attr('x', d => x(d3.timeHour.offset(d.date,12)))
+    .attr('x', function(d){
+        let x_coord = x(d3.timeHour.offset(d.date,12))
+        if (0 < x_coord < width){
+            console.log('between')
+        } else {
+            console.log("not between")
+        }
+        return x_coord
+    })
+    .attr('y', d => y(d.y2) - 3)
+    // .attr('class', d => 0 < d.x < width ? 'milestone-text' : 'hideit')
 
-      $(function() {
+    .text(d => d.annotation)
+    .attr("data-toggle", "tooltip")
+    .attr("data-html", true)
+    .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)
+    .lower()
+    
+
+    $(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
 }
 
 function updateSHSS(){
