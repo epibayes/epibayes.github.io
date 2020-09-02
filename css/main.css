@@ -411,6 +411,9 @@ h5{
 .hideit{
   clip-path: url(#clip);
 }
+.hidetext{
+  display: none;
+}
 
 .end {
   text-anchor: end;

@@ -378,7 +378,7 @@ function updateMilestoneText(minDate){
         if (0 < x_coord && x_coord< width){
             return 'milestone-text'
         } else {
-            return 'milestone-text hideit'
+            return 'milestone-text hideit hidetext'
         }
     })
     .attr('x', d => x(d3.timeHour.offset(d.date,12)))
