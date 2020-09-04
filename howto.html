@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+  <head>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-37324839-1"></script>
+      <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', 'UA-37324839-1');
+      </script>
+      
+      <meta charset='utf-8' />
+      <title>Michigan COVID-19 Tracker</title>
+      <link rel="icon" type="image/png" href="img/favicon.png">
+      <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+      <!-- bootstrap 4 -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+      <!-- project files -->
+      <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <!-- navigation bar -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+      <!-- navbar brand image + title -->
+      <a class="navbar-brand align-items-center" href="/index.html">
+        <img id="epibayes-logo" src="img/logo_transparent.png">
+        <p class="navtitle d-none d-sm-inline-block text-center">Michigan COVID-19 Mapping</p>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="website-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item text-right">
+            <a class="nav-link text-primary" href="/team.html" title="About Us">Team</a>
+          </li>
+          <li class="nav-item text-right">
+              <a class="nav-link text-primary" href="/timeline.html" title="A timeline of major COVID milestones in Michigan">MI COVID Timeline</a>
+          </li>
+          <li class="nav-item text-right">
+              <a class="nav-link text-primary" href="/storymap.html" title="Understand different possible sources of COVID exposure">Your COVID Risk</a>
+          </li>
+          <li class="nav-item text-right">
+            <a class="nav-link text-primary" href="/misymptoms.html" title="Identify potential symptoms of COVID-19">MI Symptoms</a>
+          </li>
+          <li class="nav-item text-right">
+            <a class="nav-link text-primary" href="/howto.html" title="How to use this site">How to Use</a>
+          </li>
+        </ul>
+      </div>
+    </nav> 
+    <!--close nav bar-->
+    <!-- main content -->
+    <main>
+      <div class="container-fluid">
+        <div class="row toprow">
+          <div class="col-sm-12 titlecol">
+            <h1>How to Use this Website</h1>
+          </div> <!-- close titlecol -->
+        </div> <!--close toprow-->
+        <div class="row useindexpage">
+          <div class="col-sm-12 indexpageabout">
+            <div class="row pagetitle">
+              <div class="col-sm-12 titlecol">
+                <h2>MI Symptoms</h2>
+              </div> <!-- close titlecol -->
+            </div> <!-- close pagetitle -->
+            <div class="row pageexpl">
+              <div class="col-sm-12 explcontent">
+                <div class="defaultview">
+                  <p>This is the default view of the MI Symptoms page.</p>
+                </div>
+
+              </div> <!--close explcontent-->
+            </div> <!--close pageexpl-->
+          </div> <!--close indexpageabout-->
+        </div> <!-- close useindexpage row-->
+      </div> <!--close parent container-->
+    </main>
+    <footer class="footer">
+      <div class="container-fluid footeritems">
+        <div class="row sphiconrow">
+          <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
+            <img id="sphlogo" src="img/public health logo.png">
+          </div>
+        </div> <!--close sphiconrow-->
+        <div class="row footerstuff ">
+          <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
+            <p class="footertext">Built and maintained by the <a href="https://sph.umich.edu/" target="_blank">University of Michigan School of Public Health.</a></p>
+          </div>
+        </div> <!--close row footerstuff-->
+      </div> <!--close the container for footer items-->
+    </footer>
+  </body>
+</html>
