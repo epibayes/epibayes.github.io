@@ -56,25 +56,91 @@
     <main>
       <div class="container-fluid">
         <div class="row toprow">
-          <div class="col-sm-12 titlecol">
-            <h1>How to Use this Website</h1>
+          <div class="col-sm-12 titlecol text-center">
+            <h1 class="howtoh1">How to Use MI Symptoms</h1>
           </div> <!-- close titlecol -->
         </div> <!--close toprow-->
         <div class="row useindexpage">
           <div class="col-sm-12 indexpageabout">
-            <div class="row pagetitle">
-              <div class="col-sm-12 titlecol">
-                <h2>MI Symptoms</h2>
-              </div> <!-- close titlecol -->
-            </div> <!-- close pagetitle -->
             <div class="row pageexpl">
-              <div class="col-sm-12 explcontent">
-                <div class="defaultview">
-                  <p>This is the default view of the MI Symptoms page.</p>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-10 explcontent">
+                <div id="defaultviewhowto" class="howtosection">
+                  <h3 class="howtoh3">Default View</h3>
+                  <img class="howtoimg" src="/img/fullmisymp.png">
+                  <p>
+                    The line chart at the left should show data for cumulative COVID-like responses, and the map at the right should have the center button selected to also display cumulative COVID-like responses.
+                  </p>
+                </div> <!--close defaultviewhowto-->
+                <div id = "linecharthowto" class="howtosection">
+                  <h3 class="howtoh3">Line Chart - Interactive Features</h3>
+                  <div class="row howtorow">
+                    <div class="col-sm-6">
+                      <img class="howtoimg" src="/img/linechart_toggle.png">
+                    </div>
+                    <div class="col-sm-6 d-flex align-items-center">
+                      <p>
+                        You can toggle between seeing <b>cumulative</b> responses and <b>responses over the past week</b>.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="row howtorow">
+                    <div class="col-sm-6">
+                      <img class="howtoimg" src="/img/linechart_calendar.png">
+                    </div>
+                    <div class="col-sm-6 d-flex align-items-center">
+                      <p>
+                        You can also select a custom time frame by clicking on the calendar.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row howtorow">
+                    <div class="col-sm-6">
+                      <img class="howtoimg" src="/img/linechart_graybar.png">
+                    </div>
+                    <div class="col-sm-6 d-flex align-items-center">
+                      <p>
+                        Use the gray slider under the line chart to fine-tune your time selection.
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    Toggling and adjusting the time frames will update the map accordingly!
+                  </p>
+                </div> <!-- close linecharthowto -->
+                <div class="howtosection">
+                  <h3 class="howtoh3">Map - Interactive Features</h3>
+                  <div class="row howtomaptoggles">
+                    <div class="col-sm-6">
+                      <img class="howtoimg" src=/img/map_toggle1.png>
+                    </div>
+                    <div class="col-sm-6">
+                      <img class="howtoimg" src="/img/map_toggle2.png">
+                    </div>
+                  </div>
+                  <p>
+                    Toggle amongst the three buttons under the map to view data for MI Symptoms responses. COVID-like Symptoms responses, and Proportion of COVID-like responses.
+                  </p>
+                  <div class="row howtorow">
+                    <div class="col-sm-6">
+                      <img class="howtoimg" src="/img/map_popup.png">
+                    </div>
+                    <div class="col-sm-6 d-flex align-items-center">
+                      <p>
+                        Click on any hexagon on the map to display more detailed stats about the location. <b>Grayed-out hexagons</b> represent areas with fewer than 20 responses.
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    Toggling amongst the buttons will update the line chart accordingly!
+                  </p>
                 </div>
 
               </div> <!--close explcontent-->
+              <div class="col-sm-1"></div>
             </div> <!--close pageexpl-->
+
           </div> <!--close indexpageabout-->
         </div> <!-- close useindexpage row-->
       </div> <!--close parent container-->

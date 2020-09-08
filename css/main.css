@@ -717,6 +717,29 @@ h5{
   display: none;
 }
 
+/* || HOW TO USE PAGE || */
+.howtoh1{
+  font-size: 20pt;
+}
+.howtoh2{
+  font-size: 18pt;
+}
+.howtoh3{
+  font-size: 16pt;
+  padding-top: 10px;
+}
+.howtoimg{
+  width: 100%;
+  border: 3px solid #e8e8e8;
+}
+.howtosection{
+  padding-bottom: 10px;
+  text-align: center;
+}
+.howtorow{
+  padding-bottom: 10px;
+}
+
 /* || media rules || */
 @media (max-width: 576px){
   .CPtotals{
