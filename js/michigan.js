@@ -15,7 +15,7 @@ async function initDashboard(embedMap=false) {
         const weeklycum_cases_20km = 'https://gist.githubusercontent.com/choisteph/1ee6eac84d6c9c1c4cea22bd046c1113/raw'
         data20 = await d3.csv(weeklycum_cases_20km, type)
         km = 10
-        const weeklycum_cases_10km = 'https://gist.githubusercontent.com/choisteph/d2d8a63eaeb81c868d7617f426e2c555/raw'
+        const weeklycum_cases_10km = 'https://gist.githubusercontent.com/choisteph/9a7d7e541969c00b252526b8b5cd3b13/raw'
         data10 = await d3.csv(weeklycum_cases_10km, type)
     }
     const dateExtent = d3.extent(data20, d => d.date)
