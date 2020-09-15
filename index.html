@@ -40,7 +40,10 @@
   <!-- d3 utilities -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="https://d3js.org/d3-array.v2.min.js"></script>
-  
+
+  <!-- daterangepicker -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
   <!-- CSS links -->
   <link rel="stylesheet" href="css/main.css">
 
@@ -69,6 +72,9 @@
         <li class="nav-item text-right">
             <a class="nav-link text-primary" href="/storymap.html" title="Understand different possible sources of COVID exposure">Your COVID Risk</a>
         </li>
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/misymptoms.html" title="Identify potential symptoms of COVID-19">MI Symptoms</a>
+        </li>
       </ul>
     </div>
   </nav> 
@@ -88,38 +94,32 @@
                   <div id="map"> </div>
                 </div> <!--close col-->
               </div> <!--close row-->
-              <!-- <div class="row togglemapbuttons">
-                <div class="col-sm-12 mapbuttons">
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-count-rate"> Showing case count</button>
-                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="button" id="toggle-probable-cases">Showing confirmed and probable cases</button>
-                </div> 
-              </div> -->
               <div class="row togglemapradios">
                 <div class="col-sm-12 mapradios">
-                  <div class="row radioset">
-                    <div class="col-sm-12 radcol">
-                      <div class="form-check form-check-inline set1">
-                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-count" value="" checked>
-                        <label class="form-check-label" for="radio-case-count">Case Count</label>
+                  <div class="row switches">
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                      <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                        <label class="btn btn-primary active switchlabel" for="select-case-count">
+                          <input type="radio" name="ratecount" id="select-case-count" class="count-rate ctrate" autocomplete="off" value="" checked> Case Count
+                        </label>
+                        <label class="btn btn-primary switchlabel" for="select-case-rate">
+                          <input type="radio" name="ratecount" id="select-case-rate" class="count-rate ctrate"  autocomplete="off" value="rate"> Cases per 100,000 People
+                        </label>
                       </div>
-                      <div class="form-check form-check-inline set1">
-                        <input class="form-check-input count-rate" type="radio" name="ctrate" id="radio-case-rate" value="rate">
-                        <label class="form-check-label" for="radio-case-rate">Cases per 100,000 People</label>
-                      </div>
-                    </div> <!--close col-->
-                  </div> <!--close row radioset casecount-->
-                  <div class="row radioset">
-                    <div class="col-sm-12 radcol">
-                      <div class="form-check form-check-inline set2">
-                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-cp" value="cp" checked>
-                        <label class="form-check-label" for="radio-cp">Confirmed & Probable Cases</label>
-                      </div>
-                      <div class="form-check form-check-inline set2">
-                        <input class="form-check-input case-type" type="radio" name="probconfirmed" id="radio-c" value="c">
-                        <label class="form-check-label" for="radio-c">Confirmed Cases Only</label> 
-                      </div> 
                     </div>
-                  </div> <!--close row radioset probablecases-->
+                  </div>
+                  <div class="row switches">
+                    <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                      <div class="btn-group switchgroup" data-toggle="buttons" role="group">
+                        <label class="btn btn-primary active switchlabel" for="select-cp">
+                          <input type="radio" name="probconfirmed" id="select-cp" class="case-type" autocomplete="off" value="cp" checked>Confirmed & Probable Cases
+                        </label>
+                        <label class="btn btn-primary switchlabel" for="select-c">
+                          <input type="radio" name="probconfirmed" id="select-c" class="case-type"  autocomplete="off" value="c">Confirmed Cases Only
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div> <!--close col 12-->
               </div> <!--close togglemapradios-->
               <div class="row builtandmaintained">
@@ -149,30 +149,40 @@
                   <p class="d-inline dayrange" id="enddate"></p>
                 </div> <!--close cp totals-->
               </div> <!--close row-->
-              <div class="row">
-                <div class="col-sm-12 cumulativevis">
-                  <div class="row dropdowns">
-                    <div class="col-sm-12">
-                      <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Cumulative Cases
-                        </button>
-                        <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
-                          <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
-                        </div>
-                      </div>
+              <!-- <div class="row drprow">
+                <div class="col-sm-12 drpcol">
+                  <p class="d-inline drpdesc drpbutton">
+                    Select Time Window:</p>
+                  <button type="button" class='btn btn-link drpbutton d-inline'><i class="fa fa-calendar"></i></button>
+                </div>
+              </div> -->
+              <div class="row dropdowns">
+                <div class="col-sm-12 drpdwncol d-flex align-items-center justify-content-start">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Cumulative Cases
+                    </button>
+                    <div class="dropdown-menu time-period" id="period" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item active" id="ccase" value="cumulative">Cumulative Cases</a>
+                      <a class="dropdown-item" id="wcase" value="weekly">Cases in the Past Week</a>
                     </div>
                   </div>
+                  <button type="button" class='btn btn-primary drpbutton d-inline'><i class="fa fa-calendar"></i></button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 cumulativevis">
                   <div class="row linechartrow">
                     <div class="col-sm-12 linechartdiv">
                       <div id="casechart"></div>
-                      <div class="" id="slider-container">
-                        <input class="custom-range" id="slider" type="range" min="0" step="1">
-                      </div> <!--close slider container-->
-                      <button type="button" class="d-inline btn btn-outline-primary" id="play">Play cases over time</button>
+                      <!-- <button type="button" class="d-inline btn btn-outline-primary" id="play">Rescale Y-Axis</button> -->
                     </div> <!--close line chart div-->
                   </div> <!--close linechart row-->
+                  <div class="row iconrow">
+                    <div class="col-sm-12 d-flex align-items-start justify-content-end iconcol">
+                      <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="top" title="Change the view by adjusting the gray box"><i class="fa fa-info-circle d-inline" ></i></button>
+                    </div>
+                  </div>
                 </div> <!--close cumulativevis-->
               </div> <!--close row-->
               <div class="row thegoal">
@@ -264,13 +274,20 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/michigan.js"></script>
   <script src="js/legend.js"></script>
-  <script src="js/casechart.js"></script>
+  <script src="js/casechart2.js"></script>
   <script>
+    const datatype = 'cases'
+    const embedMap = false
     initDashboard()
+  </script>
+  <script>
+    $('[data-toggle="tooltip"]').tooltip()
   </script>
 </body>
 </html>
