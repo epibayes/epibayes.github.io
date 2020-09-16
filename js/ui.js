@@ -51,11 +51,15 @@ function initRadio() {
     }
     // confirmed probable cases radio button OR mi symptoms radio buttons
     d3.selectAll('.case-type').on('click', function() { // updateRadio
-        if (this.value === 'rate') {
-            metric = metric + 'rate'
-            status = datatype === 'symptoms' ? 'atrisk' : 'c'
+        if (datatype === 'symptoms') {
+            if (this.value === 'rate') {
+                metric = metric + 'rate'
+                status = 'atrisk'
+            } else {
+                metric = metric.replace('rate','')
+                status = this.value
+            }
         } else {
-            metric = metric.replace('rate','')
             status = this.value
         }
         updateHexGrid()
