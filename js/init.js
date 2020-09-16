@@ -56,8 +56,8 @@ let colorScales = {
     },
     'symptoms': {
         'cumulative': d3.scaleSequentialLog(d3.interpolateBlues).domain([1, 100000]).clamp(true),
-        'cumulativerate': d3.scaleSequential(d3.interpolateBlues).domain([0, 1]).clamp(true),
+        'cumulativerate': d3.scaleSequential(d3.interpolateBlues).domain([0, 0.2]).clamp(true),
         'weekly': d3.scaleSequentialLog(d3.interpolatePurples).domain([1, 4000]).clamp(true),
-        'weeklyrate': d3.scaleSequential(d3.interpolatePurples).domain([0, 1]).clamp(true),
+        'weeklyrate': d3.scaleSequential(d3.interpolatePurples).domain([0, 0.2]).clamp(true),
     },
 }
