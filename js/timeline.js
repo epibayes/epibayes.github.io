@@ -40,14 +40,14 @@ async function makeTimeline(weekBin=false) {
         .range([0, width])
 
     let y = d3.scaleLinear()
-        .domain([0, weekBin ? 13000 : 2500])
+        .domain([0, weekBin ? 13000 : 6000])
         .range([height, 0])
 
-    let ticks = [0,500,1000,1500,2000],
+    let ticks = [0,1000,2000,3000,4000,5000],
         xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0),
         yAxis = d3.axisRight(y)
-            .ticks(5)
-            .tickValues(weekBin ? ticks.map(d => d*5) : ticks)
+            .ticks(6)
+            .tickValues(weekBin ? ticks.map(d => d*6) : ticks)
             .tickSize(3)
 
     svg.append("g")
@@ -98,28 +98,53 @@ async function makeTimeline(weekBin=false) {
 
     // Annotation section
     svg.selectAll('.milestone')
-      .data(annotations)
-      .join('line').lower()
+        .data(annotations)
+        .join('line').lower()
         .attr('class', 'milestone')
         .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
         .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
         .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
         .attr('y2', d => {
             col = weekBin ? 'y3' : 'y2'
-            return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
+            return grps.get(+d.date).length > 1 ? y(d[col] ) : y(d[col]) - 30
         })
 
     svg.selectAll('.milestone-text')
-      .data(annotations)
-      .join('text')
+        .data(annotations)
+        .join('text')
         .style('text-anchor', d => d.anchor )
         .attr('class', 'milestone-text')
         .attr('x', d => x(d3.timeHour.offset(d.date,12)))
-        .attr('y', d => weekBin ? y(d.y3) - 3 :y(d.y2) - 3)
+        .attr('y', d => weekBin ? y(d.y3) - 3 : grps.get(+d.date).length > 1 ? y(d[col] - 10 ) : y(d[col]) - 30)
         .text(d => d.annotation)
         .attr("data-toggle", "tooltip")
         .attr("data-html", true)
         .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
+                
+    // // Annotation section
+    // svg.selectAll('.milestone')
+    //   .data(annotations)
+    //   .join('line').lower()
+    //     .attr('class', 'milestone')
+    //     .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
+    //     .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
+    //     .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
+    //     .attr('y2', d => {
+    //         col = weekBin ? 'y3' : 'y2'
+    //         return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
+    //     })
+
+    // svg.selectAll('.milestone-text')
+    //   .data(annotations)
+    //   .join('text')
+    //     .style('text-anchor', d => d.anchor )
+    //     .attr('class', 'milestone-text')
+    //     .attr('x', d => x(d3.timeHour.offset(d.date,12)))
+    //     .attr('y', d => weekBin ? y(d.y3) - 3 :y(d.y2) - 3)
+    //     .text(d => d.annotation)
+    //     .attr("data-toggle", "tooltip")
+    //     .attr("data-html", true)
+    //     .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
 
     const x0 = x(maxDate)-80, y0 = 10;
     svg.append('line')
