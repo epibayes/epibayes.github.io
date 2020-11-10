@@ -21,14 +21,19 @@
     <!-- Mapbox GL JS -->
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
+
     <!-- Mapbox GL Geocoder -->
     <script
         src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet'
         href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css'>
+
     <!-- d3 utilities -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <!-- CSS links -->
     <link rel="stylesheet" href="css/main.css">
@@ -39,7 +44,7 @@
             <div class="col-sm-12">
                 <div class="row maprow">
                   <div class="col-sm-12 mapcol d-flex align-items-start">
-                    <div id="map"> </div>
+                    <div id="map"></div>
                     <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="left" title="Daily case counts are not displayed on our map because small case counts could be identifiable."><i class="fa fa-info-circle d-inline" ></i></button>
                   </div> <!--close col-->
                 </div>
@@ -67,12 +72,14 @@
     <script src="js/ui.js"></script>
     <script src="js/michigan.js"></script>
     <script src="js/legend.js"></script>
+
+    <!-- BOOSTRAP -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"></script>
@@ -100,6 +107,9 @@
       const embedMap = true
       initDashboard()
     </script>
+  <script>
+    $('[data-toggle="tooltip"]').tooltip()
+  </script>
 
 </body>
 </html>
