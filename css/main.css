@@ -122,6 +122,13 @@ footer{
 
 }
 
+/* style data note */
+.datanote{
+  padding-top: 10px;
+  /* font-size: 12px; */
+  font-style: oblique;
+  color: red;
+}
 
 /* style daterangepick stuff */
 .drprow{
