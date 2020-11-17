@@ -40,14 +40,14 @@ async function makeTimeline(weekBin=false) {
         .range([0, width])
 
     let y = d3.scaleLinear()
-        .domain([0, weekBin ? 13000 : 6000])
+        .domain([0, weekBin ? 13000 : 10000])
         .range([height, 0])
 
-    let ticks = [0,1000,2000,3000,4000,5000],
-        xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0),
+    let ticks = [0,1000,2000,3000,4000,5000,6000,7000,8000, 9000, 10000],
+        xAxis = d3.axisBottom(x).ticks(11).tickSizeOuter(0),
         yAxis = d3.axisRight(y)
-            .ticks(6)
-            .tickValues(weekBin ? ticks.map(d => d*6) : ticks)
+            .ticks(11)
+            .tickValues(weekBin ? ticks.map(d => d*11) : ticks)
             .tickSize(3)
 
     svg.append("g")
@@ -82,7 +82,7 @@ async function makeTimeline(weekBin=false) {
     svg.append('text')
         .attr('id', 'ylabel')
         .attr('x', width+2)
-        .attr('y', 5)
+        .attr('y', 8)
         .text(weekBin ? 'Weekly Cases' : 'Daily Cases')
 
     // Moving average section
