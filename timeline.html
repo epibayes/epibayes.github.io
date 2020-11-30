@@ -136,10 +136,11 @@
   <script src="js/timeline.js"></script>
   <script>
     $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
+        console.log("scrape runs")
         scraped = data.contents;
         let allSplit = scraped.split('<tr>')
         for (each of allSplit){
-            if (each.includes('<td>US</td>')){
+            if (each.includes('<td>United States</td>')){
                 let usDeets = each
                 let splitUS = usDeets.split('<td>');
                 let reportedCasesDirty = splitUS[2].split('</td>')[0];
