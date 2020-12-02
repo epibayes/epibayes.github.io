@@ -51,11 +51,15 @@ function initRadio() {
     }
     // confirmed probable cases radio button OR mi symptoms radio buttons
     d3.selectAll('.case-type').on('click', function() { // updateRadio
-        if (this.value === 'rate') {
-            metric = metric + 'rate'
-            status = datatype === 'symptoms' ? 'atrisk' : 'c'
+        if (datatype === 'symptoms') {
+            if (this.value === 'rate') {
+                metric = metric + 'rate'
+                status = 'atrisk'
+            } else {
+                metric = metric.replace('rate','')
+                status = this.value
+            }
         } else {
-            metric = metric.replace('rate','')
             status = this.value
         }
         updateHexGrid()
@@ -63,10 +67,10 @@ function initRadio() {
         updateTotalInfo()
         if (datatype === 'symptoms') {
             updateCaseChart2(updateAxis=true)
-            d3.select('#cp-total-text').text(status === 'cp' ? 'MI Symptoms responses' : 'COVID-like illness responses')
+            d3.select('#cp-total-text').text(status.toLowerCase() === 'all' ? 'MI Symptoms responses' : 'COVID-like symptoms responses')
         } else {
             updateCaseChart2(updateAxis=true)
-            d3.select('#cp-total-text').text(status === 'cp' ? 'confirmed & probable cases' : 'confirmed cases')
+            d3.select('#cp-total-text').text(status.toLowerCase() === 'cp' ? 'confirmed & probable cases' : 'confirmed cases')
         }
         updatePopup()
         generateEmbedURL()
@@ -112,13 +116,13 @@ function updateTotal(endDate) {
     startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
     const idx0 = Math.round(date2idx(startDate))
     const idx1 = Math.round(date2idx(endDate))
-    const subset = caseData.get(status).slice(idx0, idx1+1)
+    const subset = caseData.get(status.toLowerCase()).slice(idx0, idx1+1)
     const total = d3.sum(subset, d => d.daily)
     d3.select('#total').text(numFmt(total))
 }
 
 function getNumDays() {
-    const array = caseData.get(status)
+    const array = caseData.get(status.toLowerCase())
     return metric.includes('cumulative') ? d3.timeDay.count(array[0].date, array.slice(-1)[0].date) + 1 : 7
 }
 

@@ -25,34 +25,35 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <!-- navigation bar -->
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
-      <!-- navbar brand image + title -->
-      <a class="navbar-brand align-items-center" href="/index.html">
-        <img id="epibayes-logo" src="img/logo_transparent.png">
-        <p class="navtitle d-none d-sm-inline-block text-center">Michigan COVID-19 Mapping</p>
+  <!-- navigation bar -->
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <!-- navbar brand image + title -->
+    <a class="navbar-brand align-items-center" title="Go to the Epibayes Lab" href="https://epibayes.io" target="_blank">
+      <img id="epibayes-logo" src="img/logo_transparent.png">
+      <a class="navtitle d-none d-sm-inline-block text-center" title="Michigan COVID-19 Mapping Home" href="/index.html">Michigan COVID-19 Mapping
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="website-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item text-right">
-            <a class="nav-link text-primary" href="/team.html" title="About Us">Team</a>
-          </li>
-          <li class="nav-item text-right">
-              <a class="nav-link text-primary" href="/timeline.html" title="A timeline of major COVID milestones in Michigan">MI COVID Timeline</a>
-          </li>
-          <li class="nav-item text-right">
-              <a class="nav-link text-primary" href="/storymap.html" title="Understand different possible sources of COVID exposure">Your COVID Risk</a>
-          </li>
-          <li class="nav-item text-right">
-            <a class="nav-link text-primary" href="/misymptoms.html" title="Identify potential symptoms of COVID-19">MI Symptoms</a>
-          </li>
-        </ul>
-      </div>
-    </nav> 
-    <!--close nav bar-->
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="website-nav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/team.html" title="About Us">Team</a>
+        </li>
+        <li class="nav-item text-right">
+            <a class="nav-link text-primary" href="/timeline.html" title="A timeline of major COVID milestones in Michigan">MI COVID Timeline</a>
+        </li>
+        <li class="nav-item text-right">
+            <a class="nav-link text-primary" href="/storymap.html" title="Understand different possible sources of COVID exposure">Your COVID Risk</a>
+        </li>
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/misymptoms.html" title="Identify potential symptoms of COVID-19">MI Symptoms</a>
+        </li>
+      </ul>
+    </div>
+  </nav> 
+  <!--close nav bar-->
     <!-- main content -->
     <main>
       <div class="container-fluid">
@@ -65,13 +66,13 @@
           <div class="col-sm-2 col-lg-3 buffer"></div>
           <div class="col-sm-8 col-lg-6 tl_1">
             <p>
-              Here we present a timeline of major COVID-19 milestones, executive orders and actions taken in Michigan to reduce crowding and enforce social distancing, and how the trajectory of cases has changed since COVID-19 began to appear in Michigan.
+              Here we present a timeline of major COVID-19 milestones, executive orders and actions taken in Michigan to reduce crowding and enforce social distancing, and how the trajectory of cases has changed since COVID-19 began to appear in Michigan in March of 2020.
             </p>
             <p>
-              Early, aggressive action taken starting March 12th (by closing K-12 schools), through March 23rd (issuing the Michigan Stay Home, Stay Safe order) does appear to have curbed the trajectory of COVID-19 infections in the state, or ‘flattened the curve’, with infections levelling off around April 6th.
+              Early, aggressive action taken starting March 12th (by closing K-12 schools), through March 23rd (issuing the Michigan Stay Home, Stay Safe order) does appear to have curbed the trajectory of COVID-19 infections in the state, or ‘flattened the curve’. The stay at home order ended on June 1st, with case burdens significantly reduced.
             </p>
             <p>
-              However, even with 2 months of a stay-at-home order, there are still hundreds of cases per day, indicating that there are still substantial infections in the state of Michigan. When social distancing precautions begin to lift with the end of Governor Whitmer's Stay Home, Stay Safe period, vigilance will be necessary.
+              However, starting in October, caseloads have increased dramatically as the Republican legislature deemed Governor Whitmer's executive orders pertaining to COVID-19 to be unconstitutional. Since then, MDHHS has issued some epidemic orders to continue to enforce gathering limits and mask wearing, but November has seen very high case burdens, with nearly 10,000 cases a day at its peak on the 19th.
             </p>
           </div> <!--close tl_1-->
           <div class="col-sm-2 col-lg-3 buffer"></div>
@@ -135,10 +136,11 @@
   <script src="js/timeline.js"></script>
   <script>
     $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
+        console.log("scrape runs")
         scraped = data.contents;
         let allSplit = scraped.split('<tr>')
         for (each of allSplit){
-            if (each.includes('<td>US</td>')){
+            if (each.includes('<td>United States</td>')){
                 let usDeets = each
                 let splitUS = usDeets.split('<td>');
                 let reportedCasesDirty = splitUS[2].split('</td>')[0];

@@ -54,9 +54,10 @@
   <!-- navigation bar -->
   <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <!-- navbar brand image + title -->
-    <a class="navbar-brand align-items-center" href="/index.html">
+    <a class="navbar-brand align-items-center" title="Go to the Epibayes Lab" href="https://epibayes.io" target="_blank">
       <img id="epibayes-logo" src="img/logo_transparent.png">
-      <p class="navtitle d-none d-sm-inline-block text-center">Michigan COVID-19 Mapping</p>
+      <a class="navtitle d-none d-sm-inline-block text-center" title="Michigan COVID-19 Mapping Home" href="/index.html">Michigan COVID-19 Mapping
+      </a>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#website-nav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -147,7 +148,7 @@
               <div class="row">
                 <div class="col-sm-12 text-left miCPtotals">
                   <h1 id="total" class="d-inline"></h1>
-                  <p class="d-inline" id= "cp-total-text">COVID-like illness responses</p>
+                  <p class="d-inline" id= "cp-total-text">COVID-like symptoms responses</p>
                   <p class="d-inline dayrange" id="startdate"></p>
                   <p class="d-inline">to</p>
                   <p class="d-inline dayrange" id="enddate"></p>
@@ -214,7 +215,7 @@
                       <input type="radio" name="covidresponse" class="case-type" id="response-total" autocomplete="off" value="all">MI Symptoms Responses
                     </label>
                     <label class="btn btn-primary switchlabel" for="response-covid">
-                      <input type="radio" name="covidresponse" class="case-type"  id="response-covid" autocomplete="off" value="atrisk" checked>COVID-like Illness Responses
+                      <input type="radio" name="covidresponse" class="case-type"  id="response-covid" autocomplete="off" value="atrisk" checked>COVID-like Symptoms Responses
                     </label>
                     <label class="btn btn-primary switchlabel" for="response-proportion">
                       <input type="radio" name="covidresponse" class="case-type"  id="response-proportion" autocomplete="off" value="rate">Proportion of COVID-like Responses

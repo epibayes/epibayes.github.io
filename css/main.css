@@ -12,9 +12,16 @@ html{
 .navtitle{
   margin: 0;
   padding: 0;
+  padding-left: 5px;
   vertical-align: middle;
   font-weight: 400;
   font-size: x-large;
+  text-decoration: none;
+  color: black;
+}
+.navtitle:hover{
+  color: gray;
+  text-decoration: none;
 }
 
 .navbar-brand img{
@@ -32,7 +39,7 @@ html{
 
 #epibayes-logo {
   height: 50px;
-  width: 52px;
+  /* width: 52px; */
 }
 
 /* styling footer */
@@ -220,7 +227,7 @@ footer{
   background-color: #002F63 !important;
 }
 
-#select-case-rate, #select-case-count, #select-cp, #select-C {
+#select-case-rate, #select-case-count, #select-cp, #select-c {
   display: none;
 }
 
@@ -465,7 +472,7 @@ h5{
 
 .milestone-text {
   font-size: 0.35em;
-  line-height: 1.5em !important;
+  line-height: 0.5em;
   font-weight: 300;
   /* clip-path: url(#clip); */
 }
