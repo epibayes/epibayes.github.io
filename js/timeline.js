@@ -21,11 +21,11 @@ async function makeTimeline() {
     grps = d3.group(annotations, d => +d.date)
 
     // Set the dimensions and margins of the graph
-    H = 200;
+    H = 250;
     W = 600;
 
     // Set the height and margins for the focus view
-    margin = {top: 0, right: 80, bottom: 80, left: 80};
+    margin = {top: 10, right: 80, bottom: 80, left: 80};
     width = W - margin.left - margin.right;
     height = H - margin.top - margin.bottom;
 
@@ -49,31 +49,20 @@ async function makeTimeline() {
     //     .domain([0, d3.max(daily, d => d.daily)])
     //     .range([height, 0])
     y = d3.scaleLinear()
-        .domain([0, 2500])
+        .domain([0, 12000])
         .range([height, 0])
     y2 = d3.scaleLinear()
         .domain([0, d3.max(daily, d => d.daily)])
         .range([height2, 0])
     
     //set ticks
-    ticks = [0,500,1000,1500,2000],
-        xAxis = d3.axisBottom(x).ticks(6).tickSizeOuter(0),
-        yAxis = d3.axisRight(y)
-            .ticks(5)
-            .tickValues(ticks)
-
-    let y = d3.scaleLinear()
-        .domain([0, weekBin ? 13000 : 12000])
-        .range([height, 0])
-
-    let ticks = [0,2000,4000,6000,8000,10000,12000],
-        xAxis = d3.axisBottom(x).ticks(7).tickSizeOuter(0),
-        yAxis = d3.axisRight(y)
+    ticks = [0,2000,4000,6000,8000,10000,12000],
+    xAxis = d3.axisBottom(x).ticks(7).tickSizeOuter(0),
+    yAxis = d3.axisRight(y)
             .ticks(7)
-            .tickValues(weekBin ? ticks.map(d => d*7) : ticks)
             .tickSize(3)
-        xAxis2 = d3.axisBottom(x2).ticks(6).tickSizeOuter(0)
-        yAxis2 = d3.axisRight(y2)
+    xAxis2 = d3.axisBottom(x2).ticks(7).tickSizeOuter(0)
+    yAxis2 = d3.axisRight(y2)
             .ticks(0)
             .tickValues(0)
             .tickSize(0)
@@ -103,8 +92,7 @@ async function makeTimeline() {
     focus.append('text')
         .attr('id', 'ylabel')
         .attr('x', width+2)
-<<<<<<< HEAD
-        .attr('y', 5)
+        .attr('y', 8)
         .text('Daily Cases')
     
     focus.select('.y-axis .domain').remove()
@@ -137,10 +125,8 @@ async function makeTimeline() {
         .attr('x', x(new Date(2020,2,26)))
         .attr('y', 10)
         .text('Stay Home, Stay Safe period')
-=======
         .attr('y', 8)
-        .text(weekBin ? 'Weekly Cases' : 'Daily Cases')
->>>>>>> development
+        .text('Daily Cases')
 
     // Add bootstrap tooltip
     $(function() {
@@ -166,7 +152,6 @@ async function makeTimeline() {
         .attr('class', 'avgLine')
         .attr('d', mvAvgLine)
 
-<<<<<<< HEAD
         
     // //moving average line doesn't need to be seen in context?    
     // avgLine2 = context.append('path')
@@ -293,7 +278,7 @@ function addBars(){
     //context is the bottom chart  
     context.selectAll(".bar")
       .data(daily)
-      .join("rect")
+      .join("rect").lower()
         .attr('class', 'bar')
         .attr('x', d => x2(d3.timeHour.offset(d.date)))
         .attr('y', d => y2(d.daily))
@@ -311,76 +296,31 @@ function addBars(){
 function addMilestoneText(minDate, maxDate){
     console.log("add milestone text")
     // milestone text only needs to be added to the top chart (focus)
+
     focus.selectAll('.milestone')
-      .data(annotations)
-      .join('line').lower()
-=======
-    // Annotation section
-    svg.selectAll('.milestone')
-        .data(annotations)
-        .join('line').lower()
->>>>>>> development
-        .attr('class', 'milestone')
-        .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
-        .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
-        .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
-        .attr('y2', d => {
-<<<<<<< HEAD
-            col = 'y2'
-            return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
-=======
-            col = weekBin ? 'y3' : 'y2'
-            return grps.get(+d.date).length > 1 ? y(d[col] ) : y(d[col]) - 30
->>>>>>> development
-        })
-        
+    .data(annotations)
+    .join('line').lower()
+      .attr('class', 'milestone')
+      .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
+      .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
+      .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
+      .attr('y2', d => {
+          col = 'y2'
+          return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
+      })
+      
 
-<<<<<<< HEAD
-    focus.selectAll('.milestone-text')
-      .data(annotations)
-      .join('text')
-        .style('text-anchor', d => d.anchor )
-        .attr('class', 'milestone-text')
-        .attr('x', d => x(d3.timeHour.offset(d.date,12)))
-        .attr('y', d => y(d.y2) - 3)
-=======
-    svg.selectAll('.milestone-text')
-        .data(annotations)
-        .join('text')
-        .style('text-anchor', d => d.anchor )
-        .attr('class', 'milestone-text')
-        .attr('x', d => x(d3.timeHour.offset(d.date,12)))
-        .attr('y', d => weekBin ? y(d.y3) - 3 : grps.get(+d.date).length > 1 ? y(d[col] - 10 ) : y(d[col]) - 30)
->>>>>>> development
-        .text(d => d.annotation)
-        .attr("data-toggle", "tooltip")
-        .attr("data-html", true)
-        .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
-                
-    // // Annotation section
-    // svg.selectAll('.milestone')
-    //   .data(annotations)
-    //   .join('line').lower()
-    //     .attr('class', 'milestone')
-    //     .attr('x1', d => x(d3.timeHour.offset(d.date,12)))
-    //     .attr('x2', d => x(d3.timeHour.offset(d.date,12)))
-    //     .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
-    //     .attr('y2', d => {
-    //         col = weekBin ? 'y3' : 'y2'
-    //         return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
-    //     })
-
-    // svg.selectAll('.milestone-text')
-    //   .data(annotations)
-    //   .join('text')
-    //     .style('text-anchor', d => d.anchor )
-    //     .attr('class', 'milestone-text')
-    //     .attr('x', d => x(d3.timeHour.offset(d.date,12)))
-    //     .attr('y', d => weekBin ? y(d.y3) - 3 :y(d.y2) - 3)
-    //     .text(d => d.annotation)
-    //     .attr("data-toggle", "tooltip")
-    //     .attr("data-html", true)
-    //     .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
+  focus.selectAll('.milestone-text')
+    .data(annotations)
+    .join('text').raise().raise()
+      .style('text-anchor', d => d.anchor )
+      .attr('class', 'milestone-text')
+      .attr('x', d => x(d3.timeHour.offset(d.date,12)))
+      .attr('y', d => y(d.y2) - 3)
+      .text(d => d.annotation)
+      .attr("data-toggle", "tooltip")
+      .attr("data-html", true)
+      .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)      
 
     const x0 = x(maxDate)-80, y0 = 10;
 
@@ -398,7 +338,6 @@ function addMilestoneText(minDate, maxDate){
         .attr('dy', '0.35em')
         .text('7-day average')
         .style('font-size', '0.5em')
-
 }
 
 function updateMilestoneText(minDate){
@@ -434,7 +373,7 @@ function updateMilestoneText(minDate){
 
     focus.selectAll('.milestone-text')
     .data(annotations)
-    .join('text')
+    .join('text').raise().raise()
     .style('text-anchor', d => d.anchor )
     // .attr('class',  'milestone-text')
     .attr('class', function(d){
@@ -457,13 +396,11 @@ function updateMilestoneText(minDate){
     // })
     .attr('y', d => y(d.y2) - 3)
     // .attr('class', d => 0 < d.x < width ? 'milestone-text' : 'hideit')
-
     .text(d => d.annotation)
     .attr("data-toggle", "tooltip")
     .attr("data-html", true)
     .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)
-    .lower()
-    
+ 
 
     $(function() {
         $('[data-toggle="tooltip"]').tooltip()
@@ -475,7 +412,7 @@ function updateSHSS(){
     focus.selectAll('.rect').remove()
     focus.selectAll('.rect-text').remove()
 
-    focus.append('rect').lower()
+    focus.append('rect').lower().lower()
     .attr('class', 'rect')
     .attr('x', x(new Date(2020,2,24)))
     .attr('width', x(new Date(2020,5,2)) - x(new Date(2020,2,24)))
@@ -493,7 +430,7 @@ function updateBars(){
     focus.selectAll('.bar').remove()
     focus.selectAll(".bar")
     .data(daily)
-    .join("rect")
+    .join("rect").lower()
       .attr('class', 'bar')
       .attr('x', d => x(d3.timeHour.offset(d.date)))
       .attr('y', d => y(d.daily))
