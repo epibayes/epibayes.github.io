@@ -14,6 +14,7 @@ async function makeTimeline() {
     insertDuration()
 
     let [minDate, maxDate] = d3.extent(daily, d => d.date)
+    console.log("min date and max date", minDate, maxDate)
     annotations = await d3.csv('data/timeline.csv', d => {
         d.date = d3.timeParse('%m/%d/%y')(d.date)
         return d
@@ -25,8 +26,9 @@ async function makeTimeline() {
     W = 600;
 
     // Set the height and margins for the focus view
-    margin = {top: 10, right: 80, bottom: 80, left: 80};
+    margin = {top: 10, right: 70, bottom: 80, left: 70};
     width = W - margin.left - margin.right;
+    console.log("width is", width)
     height = H - margin.top - margin.bottom;
 
     // Set the height and margins for the context view (this goes below the focus view)
@@ -35,16 +37,22 @@ async function makeTimeline() {
 
     // append timetable svg
     svg = d3.select('#timeline').append("svg")
-        .attr("viewBox", `-20 0 ${W} ${H}`)
+        .attr("viewBox", `0 0 ${W} ${H}`)
         .attr("preserveAspectRatio", "xMidYMid meet")
 
     //set ranges
     x = d3.scaleTime()
         .domain([d3.min(daily, d => d.date), d3.timeDay.offset(d3.max(daily, d=> d.date))])
+        // .domain([minDate, maxDate])
         .range([0, width])
     x2 = d3.scaleTime()
-        .domain([d3.min(daily, d => d.date),d3.max(daily, d=> d.date)])
-        .range([0, width])
+            .domain(x.domain())
+            .range(x.range())
+        // .domain([d3.min(daily, d => d.date),d3.max(daily, d=> d.date)])
+        // .domain([d3.min(daily, d => d.date), d3.timeDay.offset(d3.max(daily, d=> d.date))])
+        // .range([0, width])
+    console.log("x2 at init is", x2.range(), "and domain is", x2.domain())
+
     // y = d3.scaleLinear()
     //     .domain([0, d3.max(daily, d => d.daily)])
     //     .range([height, 0])
@@ -52,7 +60,8 @@ async function makeTimeline() {
         .domain([0, 12000])
         .range([height, 0])
     y2 = d3.scaleLinear()
-        .domain([0, d3.max(daily, d => d.daily)])
+        // .domain([0, d3.max(daily, d => d.daily)])
+        .domain(y.domain())
         .range([height2, 0])
     
     //set ticks
@@ -86,12 +95,12 @@ async function makeTimeline() {
 
     focus.append('g')
         .attr('class', 'y-axis axis')
-        .attr('transform', `translate(${width},0)`)
+        .attr('transform', `translate(${width+2},0)`)
         .call(yAxis) 
 
     focus.append('text')
         .attr('id', 'ylabel')
-        .attr('x', width+2)
+        .attr('x', width)
         .attr('y', 8)
         .text('Daily Cases')
     
@@ -110,10 +119,10 @@ async function makeTimeline() {
 
     context.select('.y-axis .domain').remove()
     
+
+    // add milestone text
     addMilestoneText(minDate)
-    
-    //this rectangle shows from when to when the stay home stay safe period was in place 
-    //add it to focus
+    //this rectangle shows from when to when the stay home stay safe period was in place and adds it to focus
     focus.append('rect').lower()
         .attr('class', 'rect')
         .attr('x', x(new Date(2020,2,24)))
@@ -124,15 +133,15 @@ async function makeTimeline() {
         .attr('class', 'rect-text')
         .attr('x', x(new Date(2020,2,26)))
         .attr('y', 10)
-        .text('Stay Home, Stay Safe period')
+        // .text('Stay Home, Stay Safe period')
         .attr('y', 8)
-        .text('Daily Cases')
 
     // Add bootstrap tooltip
     $(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })
 
+    // add bars to charts
     addBars()
     
     // create the data for moving average lines
@@ -141,10 +150,11 @@ async function makeTimeline() {
         .x(d => x(d3.timeHour.offset(d.date,12)))
         .y(d => y(d.avg7))
 
-    mvAvgLine2 = d3.line()
-        .curve(d3.curveCardinal)
-        .x(d => x2(d3.timeHour.offset(d.date,12)))
-        .y(d => y2(d.avg7))
+    // // moving average for context, if need be    
+    // mvAvgLine2 = d3.line()
+    //     .curve(d3.curveCardinal)
+    //     .x(d => x2(d3.timeHour.offset(d.date,12)))
+    //     .y(d => y2(d.avg7))
 
     // moving average paths based on the data created above
     avgLine = focus.append('path')
@@ -153,35 +163,43 @@ async function makeTimeline() {
         .attr('d', mvAvgLine)
 
         
-    // //moving average line doesn't need to be seen in context?    
+    // //moving average for context, if need be   
     // avgLine2 = context.append('path')
     //     .datum(daily)
     //     .attr('class', 'avgLine')
     //     .attr('d', mvAvgLine2)
-    
+
+
     // add brush
     brush = d3.brushX()
         .extent([[0, 0], [width, height2]])
         .on("brush", brushed)
         .on("end", brushended) // add brush snapping
 
+    //set beginDate as minDate
+    const beginDate = minDate
+    const endDate = d3.timeDay.offset(d3.max(daily, d=> d.date))
+    console.log("begin and end are", beginDate, endDate)
     // add the context brush
+    console.log("x2 begin and end date", x2(beginDate), x2(endDate))
     xBrush = context.append("g")
         .attr("class", "brush")
         .call(brush)
-        .call(brush.move, [x2(minDate), x2(maxDate)]) // initialize brush selection
+        .call(brush.move, [x2(beginDate), x2(endDate)]) // initialize brush selection
     xBrush.selectAll('.overlay').remove()
 
-
+   
     //add the boundary rectangle so bars don't spill over beyond the svg
     addClipRect(width, height)
 
     // brush function
     function brushed() {
-        const selection = d3.event.selection || x2.range(); // default brush selection
-        x.domain(selection.map(x2.invert, x2)); // new focus x-domain
-        context.selectAll(".avgLine")
-            .attr("d", mvAvgLine2);
+        const selection = d3.event.selection || x2.range([0, width]); // default brush selection
+        console.log("selection is", selection)
+        console.log("d3 event selection is", d3.event.selection)
+        x.domain(selection.map(x2.invert)); // new focus x-domain
+        // context.selectAll(".avgLine")
+        //     .attr("d", mvAvgLine2);
         context.select(".x-axis")
             .call(xAxis2)
     
@@ -220,14 +238,12 @@ async function makeTimeline() {
         updateMilestoneText(minDate);
         updateSHSS();
         updateXAxis(); //update the months that show up
-        // updateYAxis(); //update the Y axis to fit with the bars that show up on the graph
-
-        
+        // updateYAxis(); //update the Y axis to fit with the bars that show up on the graph       
     };
 }
 
 function addClipRect(width, height){
-    console.log(width)
+    console.log("clipping rect width is", width)
     // clipping rectangle
     focus.append('defs').append("clipPath")
         .attr("id", "clip")
@@ -263,9 +279,9 @@ function addBars(){
     // focus is the top chart
     focus.selectAll(".bar")
     .data(daily)
-    .join("rect")
+    .join("rect").lower()
       .attr('class', 'bar')
-      .attr('x', d => x( d3.timeHour.offset(d.date)))
+      .attr('x', d => x(d3.timeHour.offset(d.date)))
       .attr('y', d => y(d.daily))
       .attr('width', x(79200*1000)-x(0))
       .attr('height', d => height - y(d.daily))
@@ -296,6 +312,10 @@ function addBars(){
 }
 
 function addMilestoneText(minDate, maxDate){
+    
+    //set X0 and y0
+    x0 = x(maxDate)+20, y0 = 10;
+
     console.log("add milestone text")
 
     //remove anything just in case
@@ -329,7 +349,6 @@ function addMilestoneText(minDate, maxDate){
       .attr("data-html", true)
       .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)      
 
-    const x0 = x(maxDate)-80, y0 = 10;
 
     focus.append('line')
         .attr('class', 'avgLine sevendayavline')
@@ -458,7 +477,7 @@ function updateBars(){
 function updateAvLine() {
     // delete what was there before (there should be a better way to do this)
     focus.selectAll('path').remove()
-    
+
     // update the average line
     focus.append('path')
         .datum(daily)
