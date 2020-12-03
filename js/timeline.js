@@ -186,6 +186,7 @@ async function makeTimeline() {
             .call(xAxis2)
     
         // make some content updates
+        d3.selectAll('.tooltip').remove()
 
         updateBars(); //update the bars that show up
 
@@ -210,6 +211,7 @@ async function makeTimeline() {
         
         //do this when the brush snaps
         // make some content updates
+        d3.selectAll('.tooltip').remove()
 
         updateBars(); //update the bars that show up
 
@@ -295,8 +297,13 @@ function addBars(){
 
 function addMilestoneText(minDate, maxDate){
     console.log("add milestone text")
-    // milestone text only needs to be added to the top chart (focus)
 
+    //remove anything just in case
+    focus.selectAll('.milestone-text').remove()
+    focus.selectAll('.milestone line').remove()
+    focus.selectAll('.hideit').remove()
+
+    // milestone text only needs to be added to the top chart (focus)
     focus.selectAll('.milestone')
     .data(annotations)
     .join('line').lower()
@@ -342,7 +349,7 @@ function addMilestoneText(minDate, maxDate){
 
 function updateMilestoneText(minDate){
     console.log("update milestone text")
-    // delete what was there before
+    // delete what was there before (there should be a better way to do this)
     focus.selectAll('.milestone-text').remove()
     focus.selectAll('.milestone line').remove()
     focus.selectAll('.hideit').remove()   
@@ -409,6 +416,7 @@ function updateMilestoneText(minDate){
 }
 
 function updateSHSS(){
+    // delete what was there before (there should be a better way to do this)
     focus.selectAll('.rect').remove()
     focus.selectAll('.rect-text').remove()
 
@@ -426,8 +434,10 @@ function updateSHSS(){
 }
 
 function updateBars(){
-    // console.log("the bars will update")
+    // delete what was there before (there should be a better way to do this)
     focus.selectAll('.bar').remove()
+
+    // update bars
     focus.selectAll(".bar")
     .data(daily)
     .join("rect").lower()
@@ -446,10 +456,10 @@ function updateBars(){
 }
 
 function updateAvLine() {
-    // console.log("update av line")
-
+    // delete what was there before (there should be a better way to do this)
     focus.selectAll('path').remove()
-
+    
+    // update the average line
     focus.append('path')
         .datum(daily)
         .attr('class', 'avgLine')
