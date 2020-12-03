@@ -37,7 +37,7 @@ async function makeTimeline() {
 
     // append timetable svg
     svg = d3.select('#timeline').append("svg")
-        .attr("viewBox", `0 0 ${W} ${H}`)
+        .attr("viewBox", `-20 0 ${W} ${H}`)
         .attr("preserveAspectRatio", "xMidYMid meet")
 
     //set ranges
