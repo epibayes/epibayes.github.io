@@ -123,7 +123,7 @@ function makeCaseChart2() {
 
     focus.append('text')
         .attr('id', 'yaxislabel')
-        .attr('x', 37)
+        .attr('x', 45)
         .attr('y', y(20000))
         .attr('dy', "-.35em")
         .attr('font-size', '0.7em')
