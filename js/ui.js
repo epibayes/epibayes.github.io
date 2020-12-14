@@ -8,33 +8,53 @@ function initTimeScale() {
 
 function initDropdown() {
     // time period dropdown button
-    d3.selectAll('#period a').on('click', function() { // updateRadio
-        const timePeriod = d3.select(this).attr("value")
-        if (metric.includes(timePeriod)) return;
-        const rateRadio = datatype === 'cases' ? d3.select('#select-case-rate').property('checked')
-            : d3.select('#response-proportion').property('checked') ? true 
-            : false
-        metric = rateRadio ? timePeriod + 'rate' : timePeriod
-        N = getNumDays()
-        updateHexGrid()
-        updateLegend(metric)
-        updateTotalInfo()
-        updateCaseChart2()
-        generateEmbedURL()
-        let dbutton = d3.select('#dropdownMenuButton');
-        let ccase = d3.select('#ccase');
-        let wcase = d3.select('#wcase');
+    if (!embedMap){
+        d3.selectAll('#period > *').on('click', function() { // updateRadio
+            const timePeriod = d3.select(this).attr("value")
+            if (metric.includes(timePeriod)) return;
+            const rateRadio = datatype === 'cases' ? d3.select('#select-case-rate').property('checked')
+                : d3.select('#response-proportion').property('checked') ? true 
+                : false
+            metric = rateRadio ? timePeriod + 'rate' : timePeriod
+            console.log("metric is", metric)
+            N = getNumDays()
+            updateHexGrid()
+            updateLegend(metric)
+            updateTotalInfo()
+            updateCaseChart2()
+            generateEmbedURL()
+            let dbutton = d3.select('#dropdownMenuButton');
+            let ccase = d3.select('#ccase');
+            let wcase = d3.select('#wcase');
+    
+            if (timePeriod === 'weekly'){
+                dbutton.html(wcase.text()) 
+                ccase.classed('active', false)
+                wcase.classed('active', true)
+            } else {
+                dbutton.html(ccase.text())
+                ccase.classed('active', true)
+                wcase.classed('active', false)
+            }
+        })
+    }
 
-        if (timePeriod === 'weekly'){
-            dbutton.html(wcase.text()) 
-            ccase.classed('active', false)
-            wcase.classed('active', true)
-        } else {
-            dbutton.html(ccase.text())
-            ccase.classed('active', true)
-            wcase.classed('active', false)
-        }
-    })
+    if (embedMap){
+        d3.selectAll('.form-check-input').on('click', function() { // updateRadio
+            const timePeriod = d3.select(this).attr("value")
+            console.log("timeperiod is", timePeriod)
+            if (metric.includes(timePeriod)) return;
+            metric = timePeriod;
+            console.log("metric is", metric)
+            N = getNumDays()
+            updateHexGrid()
+            updateLegend(metric)
+            updateTotalInfo()
+            updateCaseChart2()
+            generateEmbedURL()
+        })
+
+    }
 }
 
 function initRadio() {
