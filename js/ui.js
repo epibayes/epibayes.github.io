@@ -42,16 +42,14 @@ function initDropdown() {
     if (embedMap){
         d3.selectAll('.form-check-input').on('click', function() { // updateRadio
             const timePeriod = d3.select(this).attr("value")
-            console.log("timeperiod is", timePeriod)
+            // console.log("timeperiod is", timePeriod)
             if (metric.includes(timePeriod)) return;
             metric = timePeriod;
-            console.log("metric is", metric)
+            // console.log("metric is", metric)
             N = getNumDays()
             updateHexGrid()
             updateLegend(metric)
             updateTotalInfo()
-            updateCaseChart2()
-            generateEmbedURL()
         })
 
     }
@@ -122,11 +120,14 @@ function updateMapInfo() {
 }
 
 function updateHexGrid() {
+    console.log("updateHexGrid called.")
     updateFillExpression()
     updateHexLayers()    
 }
 
-function updateTotalInfo(endDate=x.domain()[1]) {
+function updateTotalInfo() {
+    let endDate = embedMap ? maxDate : x.domain()[1]
+    console.log("at updateTotalInfo, end date is", endDate)
     updateTotal(endDate)
     updateDateRange(endDate)
 }
