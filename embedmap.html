@@ -46,13 +46,15 @@
                     <div class="col-sm-12 ddowncol">
                         <div class="row radioset">
                             <div class="col-sm-12 ddowncol d-flex align-items-center justify-content-center">
-                              <div class="form-check form-check-inline periodradio">
-                                <input class="form-check-input period" type="radio" name="period" id="cumulative" value="cumulative">
-                                <label class="form-check-label" for="cumulative">Cumulative Cases</label>
-                              </div>
-                              <div class="form-check form-check-inline periodradio">
-                                <input class="form-check-input period" type="radio" name="period" id="weekly" value="weekly">
-                                <label class="form-check-label" for="weekly">Cases in the Past Week</label>
+                              <div class="form-group time-period" id="period">
+                                <div class="form-check form-check-inline period">
+                                  <input class="form-check-input" type="radio" name="period" id="cumulative" value="cumulative">
+                                  <label class="form-check-label" for="cumulative">Cumulative Cases</label>
+                                </div>
+                                <div class="form-check form-check-inline period">
+                                  <input class="form-check-input" type="radio" name="period" id="weekly" value="weekly">
+                                  <label class="form-check-label" for="weekly">Cases in the Past Week</label>
+                                </div>
                               </div>
                             </div> <!--close col-->
                           </div> <!--close row radioset casecount-->
