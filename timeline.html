@@ -138,32 +138,73 @@
   <script src="https://d3js.org/d3-format.v1.min.js"></script>
   <script src="js/timeline.js"></script>
   <script>
-    $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
-        console.log("scrape runs")
-        scraped = data.contents;
-        let allSplit = scraped.split('<tr>')
-        for (each of allSplit){
-            if (each.includes('<td>United States</td>')){
-                let usDeets = each
-                let splitUS = usDeets.split('<td>');
-                let reportedCasesDirty = splitUS[2].split('</td>')[0];
-                let reportedDeathsDirty = splitUS[3].split('</td>')[0];
-                reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
-                reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
+    function reqListener () {
+      // console.log(this.responseText);
+      let allSplit = this.responseText.split('<table class="TFormat_tableBase__1KAwz">')
+      // console.log(allSplit)
+      console.log(allSplit[1])
+      let splitFurther = allSplit[1].split("<tr>")
+        console.log(splitFurther)
+      for (each of splitFurther){
+        if (each.includes('<td>United States</td>')){
+            let usDeets = each
+            console.log(usDeets)
+            let splitUS = usDeets.split('<td>');
+            console.log(splitUS)
+            let reportedCasesDirty = splitUS[2].split('</td>')[0];
+            let reportedDeathsDirty = splitUS[3].split('</td>')[0];
+            reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
+            reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
+            
+            let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
+
+            let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
+
+            let reportedCases = ceilingedcases.toLocaleString();
+            let reportedDeaths = ceilingeddeaths.toLocaleString();
+
+            document.querySelector('#numberReportedCases').innerHTML = reportedCases;
+
+            document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
+        }
+      }
+    }
+
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+    oReq.open("GET", "https://cors-anywhere.herokuapp.com/https://coronavirus.jhu.edu/data/mortality");
+    oReq.send();
+    
+    // $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
+    //     console.log("scrape runs")
+    //     scraped = data.contents;
+    //     let allSplit = scraped.split('<tr>')
+    //       console.log(allSplit)
+    //     for (each of allSplit){
+
+    //         if (each.includes('<td>United States</td>')){
+    //             let usDeets = each
+    //             console.log(usDeets)
+    //             let splitUS = usDeets.split('<td>');
+    //               console.log(splitUS)
+    //             let reportedCasesDirty = splitUS[2].split('</td>')[0];
+    //             let reportedDeathsDirty = splitUS[3].split('</td>')[0];
+    //             reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
+    //             reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
                 
-                let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
+    //             let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
 
-                let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
+    //             let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
 
-                let reportedCases = ceilingedcases.toLocaleString();
-                let reportedDeaths = ceilingeddeaths.toLocaleString();
+    //             let reportedCases = ceilingedcases.toLocaleString();
+    //             let reportedDeaths = ceilingeddeaths.toLocaleString();
 
-                document.querySelector('#numberReportedCases').innerHTML = reportedCases;
+    //             document.querySelector('#numberReportedCases').innerHTML = reportedCases;
 
-                document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
-            }
-          }
-      });
+    //             document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
+    //         }
+    //       }
+    //   });
     </script>
     <script src="js/ui.js"></script>
   </body>
