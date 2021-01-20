@@ -142,15 +142,15 @@
       // console.log(this.responseText);
       let allSplit = this.responseText.split('<table class="TFormat_tableBase__1KAwz">')
       // console.log(allSplit)
-      console.log(allSplit[1])
+      // console.log(allSplit[1])
       let splitFurther = allSplit[1].split("<tr>")
         console.log(splitFurther)
       for (each of splitFurther){
         if (each.includes('<td>United States</td>')){
             let usDeets = each
-            console.log(usDeets)
+            // console.log(usDeets)
             let splitUS = usDeets.split('<td>');
-            console.log(splitUS)
+            // console.log(splitUS)
             let reportedCasesDirty = splitUS[2].split('</td>')[0];
             let reportedDeathsDirty = splitUS[3].split('</td>')[0];
             reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
