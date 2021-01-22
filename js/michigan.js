@@ -31,7 +31,7 @@ async function initDashboard() {
             'c': hexfillTemplate,
         }
     }
-    console.log("hexfill is", hexfill)
+    // console.log("hexfill is", hexfill)
     hexdata = {
         'hex20': d3.group(data20, d => +d.date, d => d.index),
         'hex10': d3.group(data10, d => +d.date, d => d.index),
@@ -131,7 +131,7 @@ function initMap() {
 }
 
 function updateHexLayers() {
-    console.log("at updateHexLayers, status and metric are", status, metric)
+    // console.log("at updateHexLayers, status and metric are", status, metric)
     hexLayers.forEach((d,i) => updateHexFill(d, hexfill[status][metric][i]))
 }
 
@@ -146,10 +146,10 @@ function getHexLayer() {
 function updateFillExpression(key=metric, day) {
     day = maxDate 
     // embedMap ? maxDate : d3.timeDay(x.domain()[1])
-    console.log("day is", day)
+    // console.log("day is", day)
     const colorScale = getColorScale(key)
     const column = `${key}_${status.toLowerCase()}`
-    console.log("column is", column)
+    // console.log("column is", column)
     hexLayers.forEach((h,i) => {
         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
