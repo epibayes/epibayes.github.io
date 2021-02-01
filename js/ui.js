@@ -175,10 +175,10 @@ function addHome(){
     // navbar resize = add link to home
     // called using jQuery
     let device = window.innerWidth;
-    console.log(device);
+    // console.log(device);
     if (device <= 768){
         if (document.querySelector(".homelink")){
-            console.log("homelink already exists")
+            // console.log("homelink already exists")
         } else{
             let homelink = document.createElement("li");
             let navbarlist = document.querySelector(".navbar-nav")
@@ -197,7 +197,7 @@ function addHome(){
 addHome()
 
 $(window).resize(function(){
-    console.log("window was resized")
+    // console.log("window was resized")
     addHome()
 })
 
