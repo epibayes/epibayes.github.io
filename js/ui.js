@@ -16,7 +16,7 @@ function initDropdown() {
                 : d3.select('#response-proportion').property('checked') ? true 
                 : false
             metric = rateRadio ? timePeriod + 'rate' : timePeriod
-            console.log("metric is", metric)
+            // console.log("metric is", metric)
             N = getNumDays()
             updateHexGrid()
             updateLegend(metric)
@@ -120,14 +120,14 @@ function updateMapInfo() {
 }
 
 function updateHexGrid() {
-    console.log("updateHexGrid called.")
+    // console.log("updateHexGrid called.")
     updateFillExpression()
     updateHexLayers()    
 }
 
 function updateTotalInfo() {
     let endDate = embedMap ? maxDate : x.domain()[1]
-    console.log("at updateTotalInfo, end date is", endDate)
+    // console.log("at updateTotalInfo, end date is", endDate)
     updateTotal(endDate)
     updateDateRange(endDate)
 }

@@ -256,6 +256,7 @@ function type(d) {
         d.weeklyrate_c = d.weekly_c * poprate
         d.cumulativerate_c = d.cumulative_c * poprate
     }
+    // console.log("data wrangle result: ", d)
     return d
 }
 
