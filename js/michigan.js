@@ -167,6 +167,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
+    // console.log("the result of getColorScale is", colorScales[datatype][metric] )
     return colorScales[datatype][metric]
 }
 
@@ -238,6 +239,7 @@ function type(d) {
     d.index = +d.index
     d.date = dateParser(d.date)
     if (datatype === 'symptoms') {
+        // console.log("d weekly_all and cumulative_all are", d.weekly_all, d.cumulative_all)
         d.weekly_all = +d.weekly_all || 0
         d.cumulative_all = +d.cumulative_all
         d.weekly_atrisk = +d.weekly_atrisk || 0

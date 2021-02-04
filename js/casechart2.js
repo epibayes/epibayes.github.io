@@ -221,7 +221,7 @@ function setYDomain(rescale) {
 function setYAxisTicks() {
     let ticks = d3.selectAll('.y-axis .tick')
     ticks.each((d,i) => { 
-        console.log("d and i at tick are", d, i) 
+        // console.log("d and i at tick are", d, i) 
         if (i === ticks.size()-1) setYAxisLabel(d) 
     })    
 }

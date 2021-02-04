@@ -67,7 +67,6 @@ function addLegend() {
         .ticks(3, ',')
         .tickSize(0)
         .tickValues(getTickValues())
-    // console.log("datatype at legend is", datatype)
     legendYAxis = d3.axisRight(legendScale)
         .ticks(3, datatype === 'symptoms' ? '.2f' : 'd')
         .tickSize(0)
@@ -83,7 +82,6 @@ function addLegend() {
 }
 
 function getTickValues() {
-    console.log("tick values are", tickValues[datatype][metric])
     return tickValues[datatype][metric]
 }
 
@@ -92,6 +90,7 @@ function getLinearGradientData(colorScale) {
 }
 
 function convert2rgba(rgb) {
+    // console.log("when converting to rbg, alpha is", alpha)
     return rgb.replace('rgb','rgba').replace(')',`, ${alpha})`)
 }
 
