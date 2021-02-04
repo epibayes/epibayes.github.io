@@ -725,6 +725,12 @@ h5{
   display: none;
 }
 
+/* ||  DISPARITIES.HTML  || */
+.disparities-img{
+  width: inherit;
+}
+
+
 /* || media rules || */
 @media (max-width: 576px){
   .CPtotals{
