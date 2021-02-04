@@ -90,6 +90,7 @@ function getLinearGradientData(colorScale) {
 }
 
 function convert2rgba(rgb) {
+    // console.log("when converting to rbg, alpha is", alpha)
     return rgb.replace('rgb','rgba').replace(')',`, ${alpha})`)
 }
 

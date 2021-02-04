@@ -31,7 +31,7 @@ async function initDashboard() {
             'c': hexfillTemplate,
         }
     }
-    console.log("hexfill is", hexfill)
+    // console.log("hexfill is", hexfill)
     hexdata = {
         'hex20': d3.group(data20, d => +d.date, d => d.index),
         'hex10': d3.group(data10, d => +d.date, d => d.index),
@@ -131,7 +131,7 @@ function initMap() {
 }
 
 function updateHexLayers() {
-    console.log("at updateHexLayers, status and metric are", status, metric)
+    // console.log("at updateHexLayers, status and metric are", status, metric)
     hexLayers.forEach((d,i) => updateHexFill(d, hexfill[status][metric][i]))
 }
 
@@ -146,10 +146,10 @@ function getHexLayer() {
 function updateFillExpression(key=metric, day) {
     day = maxDate 
     // embedMap ? maxDate : d3.timeDay(x.domain()[1])
-    console.log("day is", day)
+    // console.log("day is", day)
     const colorScale = getColorScale(key)
     const column = `${key}_${status.toLowerCase()}`
-    console.log("column is", column)
+    // console.log("column is", column)
     hexLayers.forEach((h,i) => {
         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
@@ -167,6 +167,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
+    // console.log("the result of getColorScale is", colorScales[datatype][metric] )
     return colorScales[datatype][metric]
 }
 
@@ -238,6 +239,7 @@ function type(d) {
     d.index = +d.index
     d.date = dateParser(d.date)
     if (datatype === 'symptoms') {
+        // console.log("d weekly_all and cumulative_all are", d.weekly_all, d.cumulative_all)
         d.weekly_all = +d.weekly_all || 0
         d.cumulative_all = +d.cumulative_all
         d.weekly_atrisk = +d.weekly_atrisk || 0
@@ -256,6 +258,7 @@ function type(d) {
         d.weeklyrate_c = d.weekly_c * poprate
         d.cumulativerate_c = d.cumulative_c * poprate
     }
+    // console.log("data wrangle result: ", d)
     return d
 }
 
