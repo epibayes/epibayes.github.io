@@ -729,7 +729,10 @@ h5{
 .disparities-img{
   width: inherit;
 }
-
+.pdf{
+  width: inherit;
+  height: 500px;
+}
 
 /* || media rules || */
 @media (max-width: 576px){
