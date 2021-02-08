@@ -144,6 +144,7 @@ function getHexLayer() {
 }
 
 function updateFillExpression(key=metric, day) {
+    // console.log("updating Fill Expression with metric at ", key, "and day at ", day)
     day = maxDate 
     // embedMap ? maxDate : d3.timeDay(x.domain()[1])
     // console.log("day is", day)
