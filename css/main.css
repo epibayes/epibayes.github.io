@@ -748,22 +748,75 @@ h5{
 
 .subheadercol{
   margin: 0;
-  padding: 10px;
-  background-color: #ff7c3c;
-  clip-path: polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
-  -webkit-clip-path:polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
+  padding: 0;
 }
 
 .subheading{
-  /* margin: 10px; */
-  font-size: 18px;
+  margin: 0;
+  padding: 5px 10px 10px 5px;
+  font-size: 22px;
   font-weight: bold;
 }
 
 .headertextcol{
   margin:0;
-  padding:0;
+  padding-right: 55px;
+  background-color: #ff7c3c;
+  clip-path: polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
+  -webkit-clip-path:polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
 }
+
+.charts{
+  width:100%;
+  }
+.linegraphrow{
+  padding: 10px 0 10px 0;
+}
+.linegraphcol{
+    margin:0;
+    padding:0;
+}
+
+.charttitle{
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.imgandtext{
+  position: relative;
+}
+
+#cfrstandardizedexplainer{
+  margin:0;
+  padding:0;
+  font-weight: 500;
+  font-size: 16px;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 500px;
+  background-color: white;
+}
+
+.blackid{
+  font-weight: bold;
+  color: #ed7d31;
+}
+
+.whiteid{
+  font-weight: bold;
+  color: #180086;
+}
+.APIAid{
+  font-weight: bold;
+  color:#ff0000;
+}
+
+
+
+  
 /* || media rules || */
 @media (max-width: 576px){
   .CPtotals{
