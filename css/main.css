@@ -726,14 +726,44 @@ h5{
 }
 
 /* ||  DISPARITIES.HTML  || */
-.disparities-img{
+/* .disparities-img{
   width: inherit;
 }
 .pdf{
   width: inherit;
   height: 700px;
+} */
+
+.topcol{
+  background-color: #231f20 !important;
+  margin: 0;
+  padding: 10px;
+  color: white !important;
 }
 
+.disparitiestitle{
+  margin: 0;
+  padding: 0;
+}
+
+.subheadercol{
+  margin: 0;
+  padding: 10px;
+  background-color: #ff7c3c;
+  clip-path: polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
+  -webkit-clip-path:polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
+}
+
+.subheading{
+  /* margin: 10px; */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.headertextcol{
+  margin:0;
+  padding:0;
+}
 /* || media rules || */
 @media (max-width: 576px){
   .CPtotals{
