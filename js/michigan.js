@@ -144,6 +144,7 @@ function getHexLayer() {
 }
 
 function updateFillExpression(key=metric, day) {
+    // console.log("updating Fill Expression with metric at ", key, "and day at ", day)
     day = maxDate 
     // embedMap ? maxDate : d3.timeDay(x.domain()[1])
     // console.log("day is", day)
@@ -167,6 +168,7 @@ function createFillExpression(data, colorScale, column) {
 }
 
 function getColorScale() {
+    // console.log("the result of getColorScale is", colorScales[datatype][metric] )
     return colorScales[datatype][metric]
 }
 
@@ -238,6 +240,7 @@ function type(d) {
     d.index = +d.index
     d.date = dateParser(d.date)
     if (datatype === 'symptoms') {
+        // console.log("d weekly_all and cumulative_all are", d.weekly_all, d.cumulative_all)
         d.weekly_all = +d.weekly_all || 0
         d.cumulative_all = +d.cumulative_all
         d.weekly_atrisk = +d.weekly_atrisk || 0
@@ -256,6 +259,7 @@ function type(d) {
         d.weeklyrate_c = d.weekly_c * poprate
         d.cumulativerate_c = d.cumulative_c * poprate
     }
+    // console.log("data wrangle result: ", d)
     return d
 }
 
