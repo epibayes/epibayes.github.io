@@ -746,7 +746,9 @@ h5{
   padding: 0;
 }
 
-
+.sidelinecharts{
+  height:inherit;
+}
 .subheadercol{
   margin: 0;
   padding: 0;
@@ -769,10 +771,12 @@ h5{
 
 .charts{
   width:100%;
-  }
+}
+
 .linegraphrow{
   padding: 0px;
 }
+
 .linegraphcol{
     margin:0;
     padding:0;
@@ -787,7 +791,7 @@ h5{
 
 .imgandtextfloat{
   position: relative;
-  padding-bottom: 15px;
+  /* padding-bottom: 15px; */
 }
 
 #cfrstandardizedexplainer{
@@ -811,9 +815,23 @@ h5{
   font-weight: bold;
   color: #180086;
 }
+
 .APIAid{
   font-weight: bold;
   color:#ff0000;
+}
+
+.latinoid{
+  font-weight: bold;
+  color: #f05856;
+}
+
+.datasource{
+  margin:0;
+  padding:0;
+  padding-bottom:5px;
+  font-size:9px;
+  font-weight:700;
 }
 
 .darkcharttitle{
@@ -826,6 +844,10 @@ h5{
 .imgandtext{
   background-color: black;
   padding: 5px 0px 20px 0px;
+}
+.gingerbreadcol{
+  margin:0;
+  padding:0;
 }
 
 .gingercol{
@@ -851,10 +873,76 @@ h5{
 }
 
 .verticalchart{
-  width: 100%;
+  width: 90%;
   /* height: 90% !important; */
 }
-  
+
+.legendimg{
+  width: 70%;
+}
+
+#bwincidenceexplainer{
+  margin:0;
+  padding:0;
+  font-weight: 500;
+  font-size: 13px;
+  font-style: italic;
+  position: absolute;
+  top: 60px;
+  right: 180px;
+  width: 300px;
+  background-color: white;
+}
+
+.incidencechartcol{
+  margin:0;
+  padding:0;
+}  
+
+#wlincidenceexplainer{
+  margin:0;
+  padding:0;
+  font-weight: 500;
+  font-size: 13px;
+  font-style: italic;
+  position: absolute;
+  top: 420px;
+  right: 180px;
+  width: 300px;
+  background-color: white;
+}
+
+.donutcol{
+  background-color:black;
+  color: white;
+}
+ 
+#topdonutexp{
+  font-weight:bold;
+  color: #ffc000;
+}
+
+#bottomdonutexp{
+  font-weight: bold;
+  color:#f05856;
+}
+
+.darksource{
+  color: white;
+}
+
+.creditcol{
+  background-color: #e7e6e6;
+  }
+
+.credit{
+  margin:0;
+  padding:0;
+  padding: 5px;
+  font-weight: bold;
+
+}
+
 /* || media rules || */
 @media (max-width: 576px){
   .CPtotals{
