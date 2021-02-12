@@ -771,6 +771,7 @@ h5{
 
 .charts{
   width:100%;
+  vertical-align: center !important;
 }
 
 .linegraphrow{
@@ -933,7 +934,7 @@ h5{
 
 .creditcol{
   background-color: #e7e6e6;
-  }
+}
 
 .credit{
   margin:0;
