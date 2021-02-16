@@ -788,11 +788,13 @@ h5{
     font-size: 18px;
     font-weight: bold;
     padding-bottom: 5px;
+    padding-top:5px;
 }
 
 .imgandtextfloat{
   position: relative;
-  /* padding-bottom: 15px; */
+  padding-top:10px;
+  padding-bottom: 10px;
 }
 
 #cfrstandardizedexplainer{
@@ -825,6 +827,16 @@ h5{
 .latinoid{
   font-weight: bold;
   color: #f05856;
+}
+
+.nativeid{
+  font-weight: bold;
+  color: #b12a90;
+}
+
+.otherid{
+  font-weight: bold;
+  color: #6a00a8;
 }
 
 .datasource{
@@ -869,12 +881,45 @@ h5{
 }
 
 .gingericon{
-  height:20px;
+  height: 20px;
   vertical-align: center;
 }
 
+.sidegraphrow{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.sidegraphcol{
+  margin:0;
+  padding:0;
+}
+
+.sideheader{
+  margin:0;
+  padding:0;
+  position: absolute;
+  top: 15px;
+  left: 0px;
+  right: 0px;
+}
+
+#standardized{
+  display: inline-block;
+  width: 50px;
+  border-bottom: 3px solid black;
+}
+#unstandardized{
+  display: inline-block;
+  width: 50px;
+  border-bottom: 3px dashed  black;
+}
+
+.linelabel{
+  display: inline-block;
+}
 .verticalchart{
-  width: 90%;
+  /* width: 100%; */
+  width: 95%;
   /* height: 90% !important; */
 }
 
@@ -917,7 +962,23 @@ h5{
   background-color:black;
   color: white;
 }
- 
+
+.donutlabel{
+  font-size: 14px;
+  color: lightgray;
+}
+
+.donut{
+  width: 100%;
+}
+
+.donutgraphcol{
+  padding:0;
+  margin:0;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 #topdonutexp{
   font-weight:bold;
   color: #ffc000;

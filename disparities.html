@@ -81,7 +81,7 @@
                   <div class="col-sm-12 linegraphcol">
                     <h4 class="charttitle">Age & Sex Standardized Case Fatality Ratio (CFR) of COVID-19 Patients in MI by Race/Ethnicity</h4>
                     <div class="imgandtextfloat">
-                      <img class="charts" src="/img/cfrraceplot.png" alt="line chart that shows the CFR% of Black, White, Asian or Pacific Islander, Native, Other, and White populations from March to December">
+                      <img class="charts" src="/img/all_incidence.png" alt="line chart that shows the CFR% of Black, White, Asian or Pacific Islander, Native, Other, and White populations from March to December">
                       <p id="cfrstandardizedexplainer">
                         Early in the pandemic, <span class="blackid">Black</span> Michiganders had the highest CFR, followed by <span class="whiteid">White</span> Michiganders. <span class="blackid">Black</span> disparties in CFR decreased over the summer but increased in Sept. The CFR for <span class="APIAid">Asian or Islander</span> is increasing. Overall, CFR disparities do <u><b>not</b></u> explain racial disparities in death rates.
                       </p>
@@ -90,13 +90,13 @@
                     
                   </div> <!--close col-12 linegraphcol-->
                 </div> <!--close linegraphrow-->
-                <div class="row gingerbreadrow">
+                <div class="row gingerbreadrow mt-auto">
                   <div class="col-sm-12 gingerbreadcol">
                     <div class="imgandtext">
                       <h4 class="charttitle darkcharttitle">What was the standardized CFR by race in the first wave (Mar - Jun) vs. the current surge (Oct - Dec)?</h4>
                       <div class="row gingerrow">
                         <div class="col-sm-9 gingercol">
-                          <img class="charts" src="/img/topgingerbread.png" alt="different colored ginger bread men represent patients per 100 that die from COVID-19, split by race">
+                          <img class="charts" src="/img/gingerbread_chart.png" alt="different colored ginger bread men represent patients per 100 that die from COVID-19, split by race">
                         </div> <!--close col-9 gingercol-->
                         <div class="col-sm-3 gingerexplain d-flex align-items-center justify-content-center">
                           <div class="gingerfloat">
@@ -108,9 +108,55 @@
                   </div>
                 </div> <!--close gingerbreadrow-->
               </div> <!--close col-9 subheadercol-->
-              <div class="col-sm-3 sidelinecharts d-flex flex-column justify-content-end align-items-end">
-                <img class="verticalchart" src="/img/sidelinecharts.png" alt="line charts that show the CFR% of Black, Latino, Asian or Pacific Islander, Native, Other, and White populations from March to November">
-                <img class="charts legendimg" src="/img/standardunstandard.png" alt= "a legend that shows that a solid line represents standardized cases while a dashed line represents unstandardized cases">
+              <div class="col-sm-3 sidelinecharts d-flex flex-column justify-content-around align-items-center">
+                <div class="row sidegraphrow">
+                  <div class="col-sm-12 sidegraphcol text-center">
+                    <h5 class="sideheader blackid">Black</h5>
+                    <img class="verticalchart" src="/img/black_incidence_chart.png" src="a line graph that shows the CFR% for Black people">
+                  </div> <!--close sidegraphcol-->
+                </div> <!--close sidegraphrow-->
+                <div class="row sidegraphrow">
+                  <div class="col-sm-12 sidegraphcol text-center">
+                    <h5 class="sideheader latinoid">Latino</h5>
+                    <img class="verticalchart" src="/img/latino_incidence_chart.png" src="a line graph that shows the CFR% for Latino people">
+                  </div> <!--close sidegraphcol-->
+                </div> <!--close sidegraphrow-->
+                <div class="row sidegraphrow">
+                  <div class="col-sm-12 sidegraphcol text-center">
+                    <h5 class="sideheader APIAid">Asian or Islander</h5>
+                    <img class="verticalchart" src="/img/latino_incidence_chart.png" src="a line graph that shows the CFR% for Asian and Islander people">
+                  </div> <!--close sidegraphcol-->
+                </div> <!--close sidegraphrow-->
+                <div class="row sidegraphrow">
+                  <div class="col-sm-12 sidegraphcol text-center">
+                    <h5 class="sideheader nativeid">Native</h5>
+                    <img class="verticalchart" src="/img/native_incidence_chart.png" src="a line graph that shows the CFR% for Native and Islander people">
+                  </div> <!--close sidegraphcol-->
+                </div> <!--close sidegraphrow-->
+                <div class="row sidegraphrow">
+                  <div class="col-sm-12 sidegraphcol text-center">
+                    <h5 class="sideheader otherid">Other</h5>
+                    <img class="verticalchart" src="/img/other_incidence_chart.png" src="a line graph that shows the CFR% for people who do not identify as White, Black, Latino, Asian or Islander, or Native">
+                  </div> <!--close sidegraphcol-->
+                </div> <!--close sidegraphrow-->
+                <div class="row sidegraphrow">
+                  <div class="col-sm-12 sidegraphcol text-center">
+                    <h5 class="sideheader whiteid">White</h5>
+                    <img class="verticalchart" src="/img/white_incidence_chart.png" src="a line graph that shows the CFR% for White people">
+                  </div> <!--close sidegraphcol-->
+                </div> <!--close sidegraphrow-->
+                <div class="row sidegraphrow">
+                  <div class="col-sm-12 sidegraphcol text-right">
+                    <div class="standardizedline">
+                      <p class="linelabel">Standardized</p>
+                      <span id="standardized"></span> 
+                    </div> <!--close standardized-->
+                    <div class="unstandardizedline">
+                      <p class="linelabel">Unstandardized</p>
+                      <span id="unstandardized"></span> 
+                    </div> <!-- close unstandardized-->
+                  </div> <!--close sidegraphcol-->
+                </div> <!--close sidegraphrow-->
               </div> <!--close col-3 sidelinecharts-->
             </div> <!--close row subheader-->
             <div class="row subheader">
@@ -126,12 +172,12 @@
               <div class="col-sm-7 incidencechartcol">
                 <h4 class="charttitle">Standardized Weekly Incidence of <span class="blackid">Black</span> & <span class="whiteid">White</span> COVID-19 Patients in MI</h4>
                 <div class="imgtextfloat">
-                  <img class="charts" src="/img/bwincidence.png" alt="a line graph that shows how Black and White incidence compares">
+                  <img class="charts" src="/img/weekly_incidence_white_black.png" alt="a line graph that shows how Black and White incidence compares">
                   <p id="bwincidenceexplainer">Black Michiganders had very high weekly incidence rates at the start of the pandemic, but incidence was higher for White Michiganders during the winter surge</p>
                 </div> <!--close div for imgtextfloat-->
                 <h4 class="charttitle">Standardized Weekly Incidence of <span class="latinoid">Latino</span> & <span class="whiteid">White</span> COVID-19 Patients in MI</h4>
                 <div class="imgtextfloat">
-                  <img class="charts" src="/img/wlincidence.png" alt="a line graph that shows how White and Latino incidence compares">
+                  <img class="charts" src="/img/weekly_incidence_white_latino.png" alt="a line graph that shows how White and Latino incidence compares">
                   <p id="wlincidenceexplainer">Latino incidence reached a peak of about ~200 cases per 100k per week in May, and outpaced that of White Michiganders during the winter surge</p>
                 </div> <!--close div for imgtextfloat-->
               </div> <!--close col-7 incidencechartcol-->
@@ -143,14 +189,38 @@
                       Black workers make up 11.9% of the workforce, but are over-represented in frontline jobs
                     </p>
                   </div> <!--close col-4 topdonutexplaincon-->
-                  <div class="col-sm-8 d-flex justify-content-center align-items-center">
-                    <img class="charts" src="/img/flpt.png" alt="donut graphs that show that 17% of front line workers and 26% of public transit workers are Black">
-                  </div>
+                  <div class="donutgraphcol col-sm-4 text-center d-flex justify-content-center align-items-center">
+                    <div class="donutgroup">
+                      <h5 class="donutlabel">Front-Line Workers</h5>
+                      <img class="donut" src="/img/black_front_line_workers.png" alt="a donut graph that shows that 17% of front-line workers are Black">
+                    </div> <!--close donutgroup-->
+                  </div> <!--close col-4-->
+                  <div class="donutgraphcol col-sm-4 text-center d-flex justify-content-center align-items-center">
+                    <div class="donutgroup">
+                      <h5 class="donutlabel">Public Transit Workers</h5>
+                      <img class="donut" src="/img/black_public_transit_workers.png" alt="a donut graph that shows that 26% of public transit workers are Black">
+                    </div> <!--close donutgroup-->
+                  </div> <!--close col-4-->
                 </div><!--close topdonutrow-->
                 <div class="row middonutrow">
-                  <div class="col-sm-12 middonutcol">
-                    <img class="charts" src="/img/ghc.png" alt="donut graphs that show that 14% of grocery workers, 18% of health care workers, and 19% of child care workers are Black">
-                  </div>
+                  <div class="donutgraphcol col-sm-4 text-center d-flex justify-content-center align-items-center">
+                    <div class="donutgroup">
+                      <h5 class="donutlabel">Grocery Workers</h5>
+                      <img class="donut" src="/img/black_grocery_workers.png" alt="a donut graph that shows that 14% of grocery workers are Black">
+                    </div> <!--close donutgroup-->
+                  </div> <!--close col-4-->
+                  <div class="donutgraphcol col-sm-4 text-center d-flex justify-content-center align-items-center">
+                    <div class="donutgroup">
+                      <h5 class="donutlabel">Health Care Workers</h5>
+                      <img class="donut" src="/img/black_health_care_workers.png" alt="a donut graph that shows that 18% of health care workers are Black">
+                    </div> <!--close donutgroup-->
+                  </div> <!--close col-4-->
+                  <div class="donutgraphcol col-sm-4 text-center d-flex justify-content-center align-items-center">
+                    <div class="donutgroup">
+                      <h5 class="donutlabel">Childcare Workers</h5>
+                      <img class="donut" src="/img/black_childcare_workers.png" alt="a donut graph that shows that 19% of child care workers are Black">
+                    </div> <!--close donutgroup-->
+                  </div> <!--close col-4-->
                 </div> <!--close middonutrow-->
                 <div class="row bottomdonutrow">
                   <div class="col-sm-4 bottomdonutexplaincol">
@@ -158,9 +228,18 @@
                       Male Latino workers make up 9.9% of the work force but are over-represented in jobs at high risk for spread of COVID-19
                     </p>
                   </div> <!--close col-4 bottomdonutexplaincol-->
-                  <div class="col-sm-8 d-flex justify-content-center align-items-center">
-                    <img class="charts" src="/img/cl.png" alt="donut graphs that show that 19% of construction workers and 12& of leisure and hospitality workers are Latino">
-                  </div>
+                  <div class="donutgraphcol col-sm-4 text-center d-flex justify-content-center align-items-center">
+                    <div class="donutgroup">
+                      <h5 class="donutlabel">Construction Workers</h5>
+                      <img class="donut" src="/img/latino_construction_workers.png" alt="a donut graph that shows that 19% of construction workers are Latino">
+                    </div> <!--close donutgroup-->
+                  </div> <!--close col-4-->
+                  <div class="donutgraphcol col-sm-4 text-center d-flex justify-content-center align-items-center">
+                    <div class="donutgroup">
+                      <h5 class="donutlabel">Leisure & Hospitality Workers</h5>
+                      <img class="donut" src="/img/latino_leisure_hospitality_workers.png" alt="a donut graph that shows that 12% of leisure and hospitality workers are Latino">
+                    </div> <!--close donutgroup-->
+                  </div> <!--close col-4-->
                 </div> <!--close bottomdonutrow-->
                 <p class="datasource darksource text-right">Data from Economic Policy Institute</p>
               </div> <!--close col-5 donutcol-->
