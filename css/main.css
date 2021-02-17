@@ -787,9 +787,9 @@ h5{
     color: black;
     font-size: 18px;
     font-weight: bold;
-    margin:0;
-    padding-bottom: 5px;
-    padding-top:5px;
+    margin: 0;
+    /* padding-bottom: 5px;
+    padding-top:5px; */
 }
 
 .imgandtextfloat{
@@ -849,7 +849,7 @@ h5{
 }
 
 .darkcharttitle{
-  margin: 10px;
+  /* margin: 10px; */
   padding: 5px;
   color: white;
   background-color: black;
@@ -946,7 +946,7 @@ h5{
 .donutcol{
   background-color:black;
   color: white;
-  padding:0;
+  /* padding:0; */
 }
 
 .donutlabel{
@@ -1063,14 +1063,15 @@ h5{
 /* ||L DEVICES|| */
 @media (min-width: 992px){
   #bwincidenceexplainer, #wlincidenceexplainer{
-    margin:0;
-    padding:0;
+    margin:auto;
+    padding:auto;
     font-weight: 500;
     font-size: 14px;
     font-style: italic;
     position: absolute;
-    top: 70px;
-    left: 130px;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 280px;
     background-color: none !important;
   }
@@ -1113,6 +1114,35 @@ h5{
   }
 
   #bwincidenceexplainer, #wlincidenceexplainer{
+    margin:auto;
+    padding:auto;
+    font-weight: 500;
+    font-size: 16px;
+    font-style: italic;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    left:0;
+    width: 350px;
+    /* background-color: white; */
+  }
+
+}
+/* ||SUPER XL DEVICES|| */
+@media (min-width: 1400px){
+  #cfrstandardizedexplainer{
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    font-size: 20px;
+    position: absolute;
+    top: 18px;
+    right: 16px;
+    width: 500px;
+    background-color: white;
+  }
+
+  #bwincidenceexplainer, #wlincidenceexplainer{
     margin:0;
     padding:0;
     font-weight: 500;
@@ -1120,7 +1150,7 @@ h5{
     font-style: italic;
     position: absolute;
     top: 70px;
-    left: 180px;
+    left: 240px;
     width: 350px;
     /* background-color: white; */
   }
