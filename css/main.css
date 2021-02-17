@@ -886,19 +886,21 @@ h5{
 }
 
 .sidegraphrow{
-  padding-top: 5px;
-  padding-bottom: 5px;
+  margin:0;
+  padding:0;
 }
+
 .sidegraphcol{
   margin:0;
   padding:0;
 }
 
 .sideheader{
+  font-size: 18px;
   margin:0;
   padding:0;
   position: absolute;
-  top: 15px;
+  top: 20px;
   left: 0px;
   right: 0px;
 }
@@ -919,7 +921,7 @@ h5{
 }
 .verticalchart{
   /* width: 100%; */
-  width: 95%;
+  width: 100%;
   /* height: 90% !important; */
 }
 
@@ -931,29 +933,29 @@ h5{
   margin:0;
   padding:0;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 14px;
   font-style: italic;
   position: absolute;
-  top: 60px;
-  right: 180px;
+  top: 70px;
+  right: 200px;
   width: 300px;
   background-color: white;
 }
 
 .incidencechartcol{
   margin:0;
-  padding:0;
+  /* padding:0; */
 }  
 
 #wlincidenceexplainer{
   margin:0;
   padding:0;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 14px;
   font-style: italic;
   position: absolute;
-  top: 420px;
-  right: 180px;
+  top: 450px;
+  right: 200px;
   width: 300px;
   background-color: white;
 }
