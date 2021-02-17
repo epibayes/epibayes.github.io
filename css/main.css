@@ -620,7 +620,7 @@ h5{
 
 /* ||MISYMPTOMS.html|| */
 /* remove col paddings */
-.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12, .midrpcol, .slidercol{
+.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .  col-md-12, .midrpcol, .slidercol{
   padding: 0px;
   margin: 0px;
 }
@@ -787,12 +787,13 @@ h5{
     color: black;
     font-size: 18px;
     font-weight: bold;
+    margin:0;
     padding-bottom: 5px;
     padding-top:5px;
 }
 
 .imgandtextfloat{
-  position: relative;
+  /* position: relative; */
   padding-top:10px;
   padding-bottom: 10px;
 }
@@ -929,7 +930,7 @@ h5{
   width: 70%;
 }
 
-#bwincidenceexplainer{
+#bwincidenceexplainer, #wlincidenceexplainer{
   margin:0;
   padding:0;
   font-weight: 500;
@@ -939,30 +940,13 @@ h5{
   top: 70px;
   right: 200px;
   width: 300px;
-  background-color: white;
-}
-
-.incidencechartcol{
-  margin:0;
-  /* padding:0; */
-}  
-
-#wlincidenceexplainer{
-  margin:0;
-  padding:0;
-  font-weight: 500;
-  font-size: 14px;
-  font-style: italic;
-  position: absolute;
-  top: 450px;
-  right: 200px;
-  width: 300px;
-  background-color: white;
+  /* background-color: white; */
 }
 
 .donutcol{
   background-color:black;
   color: white;
+  padding:0;
 }
 
 .donutlabel{
@@ -1004,6 +988,142 @@ h5{
   padding:0;
   padding: 5px;
   font-weight: bold;
+
+}
+
+
+/* ||adjustments based on screen size|| */
+/* (for disparities page) */
+/* ||XS DEVICES|| */
+@media (max-width:600px){
+  .incidencechartcol{
+    margin:0;
+    padding:0;
+  }  
+  .imgandtextfloat{
+    position: inherit;
+    margin:0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  #bwincidenceexplainer, #wlincidenceexplainer, #cfrstandardizedexplainer, .sideheader{
+    position: initial;
+    width: 100%;
+  }
+
+  #cfrstandardizedexplainer{
+    padding-top: 10px;
+  }
+
+  #bwincidenceexplainer, #wlincidenceexplainer{
+    padding-bottom: 5px;
+  }
+  .subheading{
+    font-size: 20px;
+  }
+
+  .sideheader{
+    font-size: 20px;
+  }
+
+
+}
+
+/* ||S DEVICES|| */
+@media (min-width:600px){
+  .imgandtextfloat{
+    position: inherit;
+    margin:0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  #bwincidenceexplainer, #wlincidenceexplainer, #cfrstandardizedexplainer, .sideheader{
+    position: initial;
+    width: 100%;
+  }
+
+  #cfrstandardizedexplainer{
+    padding-top: 10px;
+  }
+  #bwincidenceexplainer, #wlincidenceexplainer{
+    padding-bottom: 5px;
+  }
+  .sideheader{
+    font-size: 32px;
+  }
+}
+
+/* ||M DEVICES|| */
+@media (min-width:768px){
+  .sideheader{
+    font-size: 24px;
+  }
+}
+
+/* ||L DEVICES|| */
+@media (min-width: 992px){
+  #bwincidenceexplainer, #wlincidenceexplainer{
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    font-size: 14px;
+    font-style: italic;
+    position: absolute;
+    top: 70px;
+    left: 130px;
+    width: 280px;
+    background-color: none !important;
+  }
+
+  .sideheader{
+    font-size: 18px;
+    margin:0;
+    padding:0;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    right: 0px;
+  }
+  
+  #cfrstandardizedexplainer{
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    font-size: 15px;
+    position: absolute;
+    top: 12px;
+    right: 0px;
+    width: 500px;
+    background-color: white;
+  }
+}
+
+/* ||XL DEVICES|| */
+@media (min-width: 1200px){
+  #cfrstandardizedexplainer{
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    font-size: 20px;
+    position: absolute;
+    top: 18px;
+    right: 16px;
+    width: 500px;
+    background-color: white;
+  }
+
+  #bwincidenceexplainer, #wlincidenceexplainer{
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    font-size: 16px;
+    font-style: italic;
+    position: absolute;
+    top: 70px;
+    left: 180px;
+    width: 350px;
+    /* background-color: white; */
+  }
 
 }
 
