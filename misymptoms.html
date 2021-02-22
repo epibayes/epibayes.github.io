@@ -85,24 +85,23 @@
       </ul>
     </div>
   </nav> 
-  <!--close nav bar-->
   <!-- main content -->
   <main>
     <!--parent container-->
     <div class="container-fluid">
       <div class="row parentrow">
         <div class="d-none d-sm-none d-md-block col-lg-1 buffer"></div>
-        <div class="  col-md-12 col-lg-10 mainitems">
+        <div class="col-sm-12 col-lg-10 mainitems">
           <div class="row misymptomsmapslider">
-            <div class="  col-md-6 msslider">
+            <div class="col-sm-6 msslider">
               <div class="row wherearewe">
-                <div class="  col-md-12 gettingnumbers">
+                <div class="col-sm-12 gettingnumbers">
                   <h3 class="whereheading">Where are we getting these numbers?</h3>
                   <p class="aboutdescription wherep">
                     These data come from <a href="https://misymptomapp.state.mi.us/" target="_blank">MI Symptoms Web Application</a> and reflect the number of total users completing well checks with the app and the proportion of users reporting <b>COVID-19-like symptoms</b> across the state of Michigan. We combine responses over a 10-20 km area in order to place users on the map, based on their home address. Combining responses this way means that individual responses cannot be identified. COVID-like symptoms are determined based on definitions developed by the <a href="https://www.cste.org/" target="_blank">Council of State and Territorial Epidemiologists (CSTE):</a>
                   </p>
                   <div class="row twolists">
-                    <div class="  col-md-5 covidlist d-flex justify-content-center">
+                    <div class="col-sm-5 covidlist d-flex justify-content-center">
                       <ul class="covidul">
                         <h5 class="listheading">One of:</h5>
                         <li class="whereli">
@@ -116,12 +115,12 @@
                         </li>
                       </ul>
                     </div>
-                    <div class="  col-md-2 covidlist text-center d-flex align-items-center justify-content-center">
+                    <div class="col-sm-2 covidlist text-center d-flex align-items-center justify-content-center">
                       <p>
                         <b>OR</b>
                       </p>
                     </div>
-                    <div class="  col-md-5 covidlist d-flex justify-content-center">
+                    <div class="col-sm-5 covidlist d-flex justify-content-center">
                       <ul class="covidul">
                         <h5 class="listheading">Two of:</h5>
                         <li class="whereli">
@@ -152,7 +151,7 @@
                 </div> <!--close col-->
               </div> <!--close row wherearewe-->
               <div class="row">
-                <div class="  col-md-12 text-left miCPtotals">
+                <div class="col-sm-12 text-left miCPtotals">
                   <h1 id="total" class="d-inline"></h1>
                   <p class="d-inline" id= "cp-total-text">COVID-like symptoms responses</p>
                   <p class="d-inline dayrange" id="startdate"></p>
@@ -161,7 +160,7 @@
                 </div> <!--close cp totals-->
               </div> <!--close row-->
               <div class="row dropdowns">
-                <div class="  col-md-12 dropdowncol d-flex align-items-center justify-content-start">
+                <div class="col-sm-12 dropdowncol d-flex align-items-center justify-content-start">
                   <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Cumulative Responses
@@ -175,33 +174,33 @@
                 </div>
               </div>
               <!-- <div class="row drprow">
-                <div class="  col-md-12 midrpcol">
+                <div class="col-sm-12 midrpcol">
                   <p class="d-inline drpdesc drpbutton">
                     Select Time Window:</p>
                   <button type="button" class='btn btn-link drpbutton d-inline'><i class="fa fa-calendar"></i></button>
                 </div>
               </div> -->
               <div class="row linechartrow">
-                <div class="  col-md-12 linechartdiv">
+                <div class="col-sm-12 linechartdiv">
                   <div id="casechart"></div>
                 </div> <!--close line chart div-->
               </div> <!--close linechart row-->
               <div class="row iconrow">
-                <div class="  col-md-12 d-flex align-items-start justify-content-end iconcol">
+                <div class="col-sm-12 d-flex align-items-start justify-content-end iconcol">
                   <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="top" title="Adjust your view by moving the gray box."><i class="fa fa-info-circle d-inline" ></i></button>
                 </div>
               </div>
               <!-- <div class="row sliderrow">
-                <div class="  col-md-11 slidercol">
+                <div class="col-sm-11 slidercol">
                   <div class="" id="slider-container">
                     <input class="custom-range" id="slider" type="range" min="0" step="1">
                   </div> close slider container
                 </div>
               </div> -->
             </div> <!--close msslider-->
-            <div class="  col-md-6 msmap d-flex align-items-start flex-column">
+            <div class="col-sm-6 msmap d-flex align-items-start flex-column">
               <div class="row themisym">
-                <div class="  col-md-12 theappis wherearewe">
+                <div class="col-sm-12 theappis wherearewe">
                   <h3 class="whereheading misymphead">MI Symptoms</h3>
                   <p class="wherep aboutmisym">
                     The <b>MI Symptoms Web Application</b> is an online tool where users can enter information daily to help identify symptoms that might be caused by the virus that causes COVID-19 and to make decisions about when to seek appropriate medical care. 
@@ -209,13 +208,13 @@
                 </div>
               </div>
               <div class="row maprow flex-grow-1">
-                <div class="  col-md-12 mapcol d-flex align-items-start">
+                <div class="col-sm-12 mapcol d-flex align-items-start">
                   <div id="map"></div>
                   <button type="button" class="btn infobutton" data-toggle="tooltip" data-placement="top" title="Grayed-out hexagons represent areas with fewer than 20 responses."><i class="fa fa-info-circle d-inline" ></i></button>
                 </div> <!--close col 12-->
               </div> <!--close maprow-->
               <div class="row switches">
-                <div class="  col-md-12 d-flex align-items-center justify-content-center">
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
                   <div class="btn-group switchgroup" data-toggle="buttons" role="group">
                     <label class="btn btn-primary active switchlabel" for="response-total">
                       <input type="radio" name="covidresponse" class="case-type" id="response-total" autocomplete="off" value="all">MI Symptoms Responses
@@ -232,11 +231,11 @@
             </div> <!--close msmap-->
           </div> <!--close row misymptomsmapslider-->
           <div class="row abouttext">
-            <div class="  col-md-12 allabout">
+            <div class="col-sm-12 allabout">
               <div class="row organizesections">
-                <div class="  col-md-6 leftsections">
+                <div class="col-sm-6 leftsections">
                   <div class="row whatthese">
-                    <div class="  col-md-12 numberstell">
+                    <div class="col-sm-12 numberstell">
                       <h3>What these numbers can tell us</h3>
                       <p class="aboutdescription">
                         The MI Symptoms Web Application is a symptom survey to be taken daily by Michigan residents and employees, for early detection of illnesses with COVID-like symptoms. This symptom survey may also help us better understand what influences the spread of the virus. We combine reports of COVID-like symptoms from MI Symptoms across the state into small geographic regions, so that we can see overall changes in an area over time.
@@ -261,9 +260,9 @@
                     </div> <!--close col-->
                   </div> <!--close row whatthese-->
                 </div> <!--close leftsections-->
-                <div class="  col-md-6 rightsections">
+                <div class="col-sm-6 rightsections">
                   <div class="row numbersdont">
-                    <div class="  col-md-12 numbersdonttell">
+                    <div class="col-sm-12 numbersdonttell">
                       <h3>What these numbers don't tell us</h3>
                       <p class="aboutdescription">
                         These numbers are not laboratory confirmed cases of COVID-19. Other respiratory viruses can cause symptoms similar to those caused by COVID-19, especially when symptoms are mild.
@@ -292,12 +291,12 @@
   <footer class="footer">
     <div class="container-fluid footeritems">
       <div class="row sphiconrow">
-        <div class="  col-md-12 d-flex justify-content-center align-items-center text-center">
+        <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
           <img id="sphlogo" src="img/public health logo.png">
         </div>
       </div> <!--close sphiconrow-->
       <div class="row footerstuff ">
-        <div class="  col-md-12 d-flex justify-content-center align-items-center text-center">
+        <div class="col-sm-12 d-flex justify-content-center align-items-center text-center">
           <p class="footertext">
             Built and maintained by the <a href="https://sph.umich.edu/" target="_blank">University of Michigan School of Public Health.</a>
           </p>

@@ -620,7 +620,7 @@ h5{
 
 /* ||MISYMPTOMS.html|| */
 /* remove col paddings */
-.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .  col-md-12, .midrpcol, .slidercol{
+.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols, .col-md-12, .midrpcol, .slidercol{
   padding: 0px;
   margin: 0px;
 }
@@ -763,7 +763,9 @@ h5{
 
 .headertextcol{
   margin:0;
-  padding-right: 55px;
+  padding:0;
+  padding-left: 10px;
+  padding-right: 80px;
   background-color: #ff7c3c;
   clip-path: polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
   -webkit-clip-path:polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
@@ -772,6 +774,8 @@ h5{
 .charts{
   width:100%;
   vertical-align: center !important;
+  padding:10px;
+  margin: 5px;
 }
 
 .linegraphrow{
@@ -788,6 +792,7 @@ h5{
     font-size: 18px;
     font-weight: bold;
     margin: 0;
+    padding: 10px;
     /* padding-bottom: 5px;
     padding-top:5px; */
 }
@@ -844,6 +849,7 @@ h5{
   margin:0;
   padding:0;
   padding-bottom:5px;
+  padding-right: 5px;
   font-size:9px;
   font-weight:700;
 }
@@ -857,17 +863,17 @@ h5{
 
 .imgandtext{
   background-color: black;
-  padding: 5px 0px 20px 0px;
+  padding: 10px
 }
-.gingerbreadcol{
+/* .gingerbreadcol{
   margin:0;
   padding:0;
-}
+} */
 
-.gingercol{
+/* .gingercol{
   margin:0;
   padding:0;
-}
+} */
 
 .gingerfloat{
   margin:10px;
@@ -946,7 +952,8 @@ h5{
 .donutcol{
   background-color:black;
   color: white;
-  /* padding:0; */
+  padding-left:10px;
+  padding-right:10px;
 }
 
 .donutlabel{
@@ -956,6 +963,8 @@ h5{
 
 .donut{
   width: 100%;
+  padding:10px;
+  margin:5px;
 }
 
 .donutgraphcol{
