@@ -774,12 +774,13 @@ h5{
 .charts{
   width:100%;
   vertical-align: center !important;
-  padding:10px;
+  padding: 10px;
   margin: 5px;
 }
 
 #gingerchart{
   margin:0;
+  padding: 0;
 }
 
 .linegraphrow{
