@@ -468,9 +468,9 @@ h5{
 }
 
 .milestone-text {
-  font-size: 0.35em;
+  font-size: 0.355em;
   line-height: 0.5em;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .rect {
@@ -478,8 +478,8 @@ h5{
 }
 
 .rect-text {
-  font-size: 0.5em;
-  font-weight: 400;
+  font-size: 0.55em;
+  font-weight: 500;
 }
 
 .end {
