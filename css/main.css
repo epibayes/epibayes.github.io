@@ -734,6 +734,10 @@ h5{
   height: 700px;
 } */
 
+.incidencerow{
+  padding-bottom:15px;
+}
+
 .topcol{
   background-color: #231f20 !important;
   margin: 0;
@@ -802,6 +806,10 @@ h5{
     padding-top:5px; */
 }
 
+#donutsectiontitle{
+  font-size: 26px;
+  padding-bottom: 10px;
+}
 .imgandtextfloat{
   /* position: relative; */
   padding-top:10px;
@@ -813,10 +821,10 @@ h5{
   padding:0;
   font-weight: 500;
   font-size: 16px;
-  position: absolute;
+  /* position: absolute;
   top: 12px;
   right: 16px;
-  width: 500px;
+  width: 500px; */
   background-color: white;
 }
 
@@ -902,10 +910,10 @@ h5{
   font-size: 18px;
   margin:0;
   padding:0;
-  position: absolute;
+  /* position: absolute;
   top: 20px;
   left: 0px;
-  right: 0px;
+  right: 0px; */
 }
 
 #standardized{
@@ -937,12 +945,13 @@ h5{
   margin:0;
   padding:0;
   font-weight: 500;
-  font-size: 14px;
-  font-style: italic;
-  position: absolute;
-  top: 70px;
+  font-size: 16px;
+  /* font-style: italic; */
+
+  /* position: absolute; */
+  /* top: 70px;
   right: 200px;
-  width: 300px;
+  width: 300px; */
   /* background-color: white; */
 }
 
@@ -954,14 +963,22 @@ h5{
 }
 
 .donutlabel{
-  font-size: 14px;
+  font-size: 18px;
   color: lightgray;
 }
 
 .donut{
   width: 100%;
-  padding:10px;
   margin:5px;
+}
+
+.racedonutcol{
+  margin:0;
+  padding:0;
+}
+
+.donutgroup{
+  padding: 10px;
 }
 
 .donutgraphcol{
@@ -1068,17 +1085,23 @@ h5{
 
 /* ||L DEVICES|| */
 @media (min-width: 992px){
+  .topcol, .incidencechartcol, .linegraphcol, .gingerbreadcol, .creditcol, .creditrow{
+    padding-left: 15px;
+    padding-right: 15px;
+  }  
+
+
   #bwincidenceexplainer, #wlincidenceexplainer{
     margin:auto;
     padding:auto;
     font-weight: 500;
-    font-size: 14px;
-    font-style: italic;
-    position: absolute;
-    top: 0;
+    font-size: 16px;
+    /* font-style: italic; */
+    /* position: absolute; */
+    /* top: 0;
     left: 0;
     right: 0;
-    width: 280px;
+    width: 280px; */
     background-color: none !important;
   }
 
@@ -1086,10 +1109,10 @@ h5{
     font-size: 18px;
     margin:0;
     padding:0;
-    position: absolute;
-    top: 10px;
+    /* position: absolute; */
+    /* top: 10px;
     left: 0px;
-    right: 0px;
+    right: 0px; */
   }
   
   #cfrstandardizedexplainer{
@@ -1097,10 +1120,10 @@ h5{
     padding:0;
     font-weight: 500;
     font-size: 15px;
-    position: absolute;
-    top: 12px;
+    /* position: absolute; */
+    /* top: 12px;
     right: 0px;
-    width: 500px;
+    width: 500px; */
     background-color: white;
   }
 }
@@ -1112,10 +1135,10 @@ h5{
     padding:0;
     font-weight: 500;
     font-size: 20px;
-    position: absolute;
-    top: 18px;
+    /* position: absolute; */
+    /* top: 18px;
     right: 16px;
-    width: 500px;
+    width: 500px; */
     background-color: white;
   }
 
@@ -1124,12 +1147,11 @@ h5{
     padding:auto;
     font-weight: 500;
     font-size: 16px;
-    font-style: italic;
-    position: absolute;
-    top: 50px;
+    /* position: absolute; */
+    /* top: 50px;
     right: 0;
     left:0;
-    width: 350px;
+    width: 350px; */
     /* background-color: white; */
   }
 
@@ -1141,10 +1163,10 @@ h5{
     padding:0;
     font-weight: 500;
     font-size: 20px;
-    position: absolute;
-    top: 18px;
+    /* position: absolute; */
+    /* top: 18px;
     right: 16px;
-    width: 500px;
+    width: 500px; */
     background-color: white;
   }
 
@@ -1153,11 +1175,10 @@ h5{
     padding:0;
     font-weight: 500;
     font-size: 16px;
-    font-style: italic;
-    position: absolute;
-    top: 70px;
+    /* position: absolute; */
+    /* top: 70px;
     left: 240px;
-    width: 350px;
+    width: 350px; */
     /* background-color: white; */
   }
 
