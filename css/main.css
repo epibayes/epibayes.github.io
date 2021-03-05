@@ -1002,6 +1002,10 @@ h5{
   color: white;
 }
 
+.gingerbreadrow{
+  background-color: black;
+}
+
 .creditcol{
   background-color: #e7e6e6;
 }
@@ -1013,7 +1017,39 @@ h5{
   font-weight: bold;
 
 }
+.topcol{
+  background-color: black;
+}
 
+.introcol{
+  /* background-color:#ff7c3c; */
+  /* background-color: #C5DECD; */
+  background-color: #FCF6B1;
+  /* background-color: black; */
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.introhd{
+  padding: 10px;
+  margin: 0;
+  /* color: white; */
+  color: black;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.disparity, .incidence, .fatality, .standardized{
+  font-weight: 700;
+  color: #006992;
+}
+
+.definitionsdiv{
+  padding: 15px;
+  /* color: white; */
+  color: black;
+  font-weight: 500;
+}
 
 /* ||adjustments based on screen size|| */
 /* (for disparities page) */
@@ -1085,7 +1121,7 @@ h5{
 
 /* ||L DEVICES|| */
 @media (min-width: 992px){
-  .topcol, .incidencechartcol, .linegraphcol, .gingerbreadcol, .creditcol, .creditrow{
+  .topcol, .incidencechartcol, .linegraphcol, .gingerbreadcol, .creditcol{
     padding-left: 15px;
     padding-right: 15px;
   }  
