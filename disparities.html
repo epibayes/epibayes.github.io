@@ -20,11 +20,11 @@
     <!-- d3 utilities -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
-
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <!-- project files -->
     <link rel="stylesheet" href="css/main.css">
   </head>
-  <body>
+  <body id="disparitiespg">
   <!-- navigation bar -->
   <nav class="navbar navbar-expand-md navbar-light bg-light">
     <!-- navbar brand image + title -->
@@ -87,7 +87,7 @@
                   <img class="charts" src="/img/weekly_incidence_white_black.png" alt="a line graph that shows how Black and White incidence compares">
                   <p class="datasource align-bottom text-right">Data from MDHHS, US Census</p>
                   <p id="bwincidenceexplainer">
-                    Black Michiganders had very high weekly incidence rates at the start of the pandemic, but incidence was higher for White Michiganders during the winter surge</p>
+                    <span class="blackid">Black </span>Michiganders had very high weekly incidence rates at the start of the pandemic, but incidence was higher for <span class="whiteid">White</span> Michiganders during the winter surge</p>
                 </div> <!--close div for imgandtextfloat-->
               </div> <!--close col-6 incidencechartcol-->
               <div class="col-lg-6 col-md-12 incidencechartcol">
@@ -95,7 +95,7 @@
                 <div class="imgandtextfloat">
                   <img class="charts" src="/img/weekly_incidence_white_latino.png" alt="a line graph that shows how White and Latino incidence compares">
                   <p class="datasource align-bottom text-right">Data from MDHHS, US Census</p>
-                  <p id="wlincidenceexplainer">Latino incidence reached a peak of about ~200 cases per 100k per week in May, and outpaced that of White Michiganders during the winter surge</p>
+                  <p id="wlincidenceexplainer"><span class="latinoid">Latino</span> incidence reached a peak of about ~200 cases per 100k per week in May, and outpaced that of <span class="whiteid">White</span> Michiganders during the winter surge</p>
                 </div> <!--close div for imgandtextfloat-->
               </div> <!--close col-6 incidencechartcol-->
             </div> <!--close incidencerow-->
@@ -128,13 +128,15 @@
                     <div class="donutgraphcol col-md-4 text-center d-flex justify-content-center align-items-center">
                       <div class="donutgroup">
                         <h5 class="donutlabel">Front-Line Workers</h5>
-                        <img class="donut" src="/img/black_front_line_workers.png" alt="a donut graph that shows that 17% of front-line workers are Black">
+                        <!-- <img class="donut" src="/img/black_front_line_workers.png" alt="a donut graph that shows that 17% of front-line workers are Black"> -->
+                        <div id="black-frontline"></div>
                       </div> <!--close donutgroup-->
                     </div> <!--close col-4-->
                     <div class="donutgraphcol col-md-4 text-center d-flex justify-content-center align-items-center">
                       <div class="donutgroup">
                         <h5 class="donutlabel">Public Transit Workers</h5>
-                        <img class="donut" src="/img/black_public_transit_workers.png" alt="a donut graph that shows that 26% of public transit workers are Black">
+                        <!-- <img class="donut" src="/img/black_public_transit_workers.png" alt="a donut graph that shows that 26% of public transit workers are Black"> -->
+                        <div id="black-publictransit"></div>
                       </div> <!--close donutgroup-->
                     </div> <!--close col-4-->
                   </div><!--close topdonutrow-->
@@ -142,19 +144,22 @@
                     <div class="donutgraphcol col-md-4 text-center d-flex justify-content-center align-items-center">
                       <div class="donutgroup">
                         <h5 class="donutlabel">Grocery Workers</h5>
-                        <img class="donut" src="/img/black_grocery_workers.png" alt="a donut graph that shows that 14% of grocery workers are Black">
+                        <!-- <img class="donut" src="/img/black_grocery_workers.png" alt="a donut graph that shows that 14% of grocery workers are Black"> -->
+                        <div id="black-grocery"></div>
                       </div> <!--close donutgroup-->
                     </div> <!--close col-4-->
                     <div class="donutgraphcol   col-md-4 text-center d-flex justify-content-center align-items-center">
                       <div class="donutgroup">
                         <h5 class="donutlabel">Health Care Workers</h5>
-                        <img class="donut" src="/img/black_health_care_workers.png" alt="a donut graph that shows that 18% of health care workers are Black">
+                        <!-- <img class="donut" src="/img/black_health_care_workers.png" alt="a donut graph that shows that 18% of health care workers are Black"> -->
+                        <div id="black-healthcare"></div>
                       </div> <!--close donutgroup-->
                     </div> <!--close col-4-->
                     <div class="donutgraphcol   col-md-4 text-center d-flex justify-content-center align-items-center">
                       <div class="donutgroup">
                         <h5 class="donutlabel">Childcare Workers</h5>
-                        <img class="donut" src="/img/black_childcare_workers.png" alt="a donut graph that shows that 19% of child care workers are Black">
+                        <!-- <img class="donut" src="/img/black_childcare_workers.png" alt="a donut graph that shows that 19% of child care workers are Black"> -->
+                        <div id="black-childcare"></div>
                       </div> <!--close donutgroup-->
                     </div> <!--close col-4-->
                   </div> <!--close middonutrow-->
@@ -167,13 +172,15 @@
                     <div class="donutgraphcol   col-md-4 text-center d-flex justify-content-center align-items-center">
                       <div class="donutgroup">
                         <h5 class="donutlabel">Construction Workers</h5>
-                        <img class="donut" src="/img/latino_construction_workers.png" alt="a donut graph that shows that 19% of construction workers are Latino">
+                        <!-- <img class="donut" src="/img/latino_construction_workers.png" alt="a donut graph that shows that 19% of construction workers are Latino"> -->
+                        <div id="latino-construction"></div>
                       </div> <!--close donutgroup-->
                     </div> <!--close col-4-->
                     <div class="donutgraphcol   col-md-4 text-center d-flex justify-content-center align-items-center">
                       <div class="donutgroup">
                         <h5 class="donutlabel">Leisure & Hospitality Workers</h5>
-                        <img class="donut" src="/img/latino_leisure_hospitality_workers.png" alt="a donut graph that shows that 12% of leisure and hospitality workers are Latino">
+                        <!-- <img class="donut" src="/img/latino_leisure_hospitality_workers.png" alt="a donut graph that shows that 12% of leisure and hospitality workers are Latino"> -->
+                        <div id="latino-leisurehospitality"></div>
                       </div> <!--close donutgroup-->
                     </div> <!--close col-4-->
                   </div> <!--close bottomdonutrow-->
@@ -277,5 +284,9 @@
   crossorigin="anonymous"></script>
   <script src="https://d3js.org/d3-format.v1.min.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/disparities.js"></script>
+  <script>
+    initDisparities()
+  </script>
   </body>
 </html>
