@@ -863,8 +863,8 @@ h5{
   padding:0;
   padding-bottom:5px;
   padding-right: 5px;
-  font-size:9px;
-  font-weight:700;
+  font-size:12px;
+  font-weight:500;
 }
 
 .darkcharttitle{
@@ -1052,9 +1052,14 @@ h5{
   font-weight: 500;
 }
 
+.note{
+  color: white;
+}
+
 #disparitiespg svg{
   padding: 10px;
 }
+
 
 /* ||adjustments based on screen size|| */
 /* (for disparities page) */

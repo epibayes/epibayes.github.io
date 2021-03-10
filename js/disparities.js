@@ -166,6 +166,7 @@ function buildPie(radius, data, color, div){
           // return 'start'
         }
       })
+      .attr('alignment-baseline', 'central')
       .style('fill', function(d){
         if (d.index === 0){
           if (div.includes("latino")){
@@ -175,6 +176,7 @@ function buildPie(radius, data, color, div){
           }
         }
       })
-      .style('font-size', 24)
+      .style('font-size', 28)
+      .style('font-family','Helvetica Neue')
       .style('font-weight', 500)
 }
