@@ -21,6 +21,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
     <!-- project files -->
     <link rel="stylesheet" href="css/main.css">
   </head>
@@ -234,7 +235,89 @@
                   <h4 class="charttitle darkcharttitle">What was the standardized CFR by race in the first wave (Mar - Jun) vs. the current surge (Oct - Dec)?</h4>
                   <div class="row gingerrow">
                     <div class="col-md-12 gingercol">
-                      <img class="charts" id="gingerchart" src="/img/gingerbread_chart2.png" alt="different colored ginger bread men represent patients per 100 that die from COVID-19, split by race">
+                      <!-- <img class="charts" id="gingerchart" src="/img/gingerbread_chart2.png" alt="different colored ginger bread men represent patients per 100 that die from COVID-19, split by race"> -->
+                      <!-- <div class="row racelabelgingers">
+                        <div class="col-sm-12 text-center">
+                          <div class="btn-group" role="group" aria-label="Toggle different Race groups" id="gingerbutton">
+                            <button type="button" class="btn btn-secondary" value="black">Black</button>
+                            <button type="button" class="btn btn-secondary" value="latino">Latino</button>
+                            <button type="button" class="btn btn-secondary" value=api>Asian & Pacific Islander</button>
+                            <button type="button" class="btn btn-secondary" value="other">Other</button>
+                            <button type="button" class="btn btn-secondary" value="white">White</button>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div class="row gingerd3row_labels">
+                        <div class="col-sm-6 text-center">
+                          <h5 class="wavelabel">Wave 1 <br/> (Mar - Jun)</h5>
+                        </div>
+                        <div class="col-sm-6 text-center">
+                          <h5 class="wavelabel">Wave 2 <br/> (Oct - Dec)</h5>
+                        </div>
+                      </div> <!--close row gingerd3row_labels-->
+                      <div class="row racegingertitle text-center">
+                        <div class="col-sm-12">
+                          <h6 class="racelabel">Black</h6>
+                        </div>
+                      </div> <!--close row racegingertitle-->
+                      <div class="row race_gingers text-center">
+                        <div class="col-sm-6" id="black_w1">
+                        </div>
+                        <div class="col-sm-6" id="black_w2">
+                        </div>
+                      </div> <!--close row race_gingers-->
+                      <div class="row racegingertitle text-center">
+                        <div class="col-sm-12">
+                          <h6 class="racelabel">Latino</h6>
+                        </div>
+                      </div> <!--close row racegingertitle-->
+                      <div class="row race_gingers text-center">
+                        <div class="col-sm-6">
+                          <div id="latino_w1"></div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div id="latino_w2"></div>
+                        </div>
+                      </div> <!--close row race_gingerns-->
+                      <div class="row racegingertitle text-center">
+                        <div class="col-sm-12">
+                          <h6 class="racelabel">Asian & Pacific Islander</h6>
+                        </div>
+                      </div> <!--close row racegingertitle-->
+                      <div class="row race_gingers text-center">
+                        <div class="col-sm-6">
+                          <div id="api_w1"></div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div id="api_w2"></div>
+                        </div>
+                      </div>
+                      <div class="row racegingertitle text-center">
+                        <div class="col-sm-12">
+                          <h6 class="racelabel">Other</h6>
+                        </div>
+                      </div> <!--close row racegingertitle-->     
+                      <div class="row race_gingers text-center">
+                        <div class="col-sm-6">
+                          <div id="other_w1"></div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div id="other_w2"></div>
+                        </div>
+                      </div>
+                      <div class="row racegingertitle text-center">
+                        <div class="col-sm-12">
+                          <h6 class="racelabel">White</h6>
+                        </div>
+                      </div> <!--close row racegingertitle-->
+                      <div class="row race_gingers text-center">
+                        <div class="col-sm-6">
+                          <div id="white_w1"></div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div id="white_w2"></div>
+                        </div>
+                      </div> 
                     </div> <!--close col-12 gingercol-->
                   </div> <!--close gingerrow-->
                   <div class="row gingerexplrow">
@@ -285,8 +368,76 @@
   <script src="https://d3js.org/d3-format.v1.min.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/disparities.js"></script>
+  <script src="js/gingers.js"></script>
   <script>
     initDisparities()
+    // gingerRaceButton()
+    allData = [
+      black={
+        w1_percent: 8.3,
+        w2_percent: 3.3,
+        w1_color: "#ed7d31",
+        w2_color: "#ed7d31",
+        w1_maindiv: "#black_w1",
+        w2_maindiv: "#black_w2",
+        w1_label: "black_w1_label",
+        w2_label: "black_w2_label",
+        w1_gradientid: "black_w1_gradient",
+        w2_gradientid: "black_w2_gradient"
+      },
+      api={
+        w1_percent: 5.5,
+        w2_percent: 2.4,
+        w1_color: "#ff0000",
+        w2_color: "#ff0000",
+        w1_maindiv: "#api_w1",
+        w2_maindiv: "#api_w2",
+        w1_label: "api_w1_label",
+        w2_label:"api_w2_label",
+        w1_gradientid: "api_w1_gradient",
+        w2_gradientid: "api_w2_gradient"
+      },
+      white={
+        w1_percent: 6.3,
+        w2_percent: 2.1,
+        w1_color: "#6680B6",
+        w2_color: "#6680B6",
+        w1_maindiv: "#white_w1",
+        w2_maindiv: "#white_w2",
+        w1_label: "white_w1_label",
+        w2_label:"white_w2_label",
+        w1_gradientid: "white_w1_gradient",
+        w2_gradientid: "white_w2_gradient"
+      },
+      latino={
+        w1_percent: 5.4,
+        w2_percent: 3.0,
+        w1_color: "#f05856",
+        w2_color: "#f05856",
+        w1_maindiv: "#latino_w1",
+        w2_maindiv: "#latino_w2",
+        w1_label: "latino_w1_label",
+        w2_label:"latino_w2_label",
+        w1_gradientid: "latino_w1_gradient",
+        w2_gradientid: "latino_w2_gradient"
+      },
+      other={
+        w1_percent: 4.5,
+        w2_percent: 1.6,
+        w1_color: "#A566CA",
+        w2_color: "#A566CA",
+        w1_maindiv: "#other_w1",
+        w2_maindiv: "#other_w2",
+        w1_label: "other_w1_label",
+        w2_label:"other_w2_label",
+        w1_gradientid: "other_w1_gradient",
+        w2_gradientid: "other_w2_gradient"
+      }          
+    ]
+    for (d of allData){
+      makeGingers(d)
+    }
+
   </script>
   </body>
 </html>

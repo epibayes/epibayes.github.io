@@ -863,7 +863,7 @@ h5{
   padding:0;
   padding-bottom:5px;
   padding-right: 5px;
-  font-size:12px;
+  font-size:11px;
   font-weight:500;
 }
 
@@ -1058,6 +1058,29 @@ h5{
 
 #disparitiespg svg{
   padding: 10px;
+}
+
+.wavelabel{
+  font-size: 18px;
+  color: white;
+}
+
+#black_w1_label, #black_w2_label,
+#api_w1_label,#api_w2_label,
+#white_w1_label, #white_w2_label,
+#latino_w1_label,#latino_w2_label,
+#other_w1_label,#other_w2_label{
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.racelabel{
+  margin:0;
+  color: white;
+  font-size: 18px;
+}
+.race_gingers{
+  padding-bottom: 30px;
 }
 
 

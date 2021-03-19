@@ -121,7 +121,7 @@ function buildPie(radius, data, color, div){
           .style("fill", "none")
           .attr("stroke-width", 3)
           .attr('points', function(d) {
-            console.log("d is", d);
+            // console.log("d is", d);
             if(d.index === 0){
               // console.log("index is 0")
               var posA = arc.centroid(d) // line insertion in the slice
