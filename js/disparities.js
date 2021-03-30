@@ -11,7 +11,7 @@ async function initDisparities(){
     {leisurehospitality:{"12%":12, "": 100-12},div:"#latino-leisurehospitality"}
   ]
   buildEssentialWorkDonut(essentialworkers_black);
-  buildEssentialWorkDonut(essentialworkers_latino)
+  buildEssentialWorkDonut(essentialworkers_latino);
 }
 
 function buildEssentialWorkDonut(inputdata){

@@ -1074,16 +1074,14 @@ h5{
   font-size: 12px;
 }
 
-.racelabel{
-  margin:0;
-  color: white;
+.racelabelgingers{
+  padding: 10px 0px 10px 0px;
+}
+#gingerbutton > *{
   font-size: 18px;
+  font-weight: 00;
+  padding: 15px;
 }
-.race_gingers{
-  padding-bottom: 30px;
-}
-
-
 /* ||adjustments based on screen size|| */
 /* (for disparities page) */
 /* ||XS DEVICES|| */
