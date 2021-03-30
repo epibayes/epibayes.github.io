@@ -175,7 +175,7 @@
     // oReq.open("GET", "https://cors-anywhere.herokuapp.com/https://coronavirus.jhu.edu/data/mortality");
     // oReq.send();
     
-    $.getJSON(' https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
+    $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
         // console.log("scrape runs")
         scraped = data.contents;
         // console.log(scraped)
