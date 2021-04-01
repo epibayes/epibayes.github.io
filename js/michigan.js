@@ -144,25 +144,37 @@ function getHexLayer() {
     return map.getZoom() < zoomThreshold ? 'hex20' : 'hex10'
 }
 
-// function updateFillExpression(key=metric, day) {
-//     // console.log("updating Fill Expression with metric at ", key, "and day at ", day)
-//     day = maxDate 
-//     // embedMap ? maxDate : d3.timeDay(x.domain()[1])
-//     // console.log("day is", day)
-//     const colorScale = getColorScale(key)
-//     const column = `${key}_${status.toLowerCase()}`
-//     // console.log("column is", column)
-//     hexLayers.forEach((h,i) => {
-//         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
-//     })
-// }
-function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1]) ) {
+
+function updateFillExpressionEmbed(key=metric, day){
+    day = maxDate
     const colorScale = getColorScale(key)
     const column = `${key}_${status.toLowerCase()}`
+    // console.log("column is", column)
     hexLayers.forEach((h,i) => {
         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
+
+function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1])) {
+    // console.log("updating Fill Expression with metric at ", key, "and day at ", day)
+    // console.log("day is", day)
+    const colorScale = getColorScale(key)
+    const column = `${key}_${status.toLowerCase()}`
+    // console.log("column is", column)
+    hexLayers.forEach((h,i) => {
+        hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
+    })
+}
+// function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1])) {
+//     if (embedMap){
+//         day = maxDate
+//     }
+//     const colorScale = getColorScale(key)
+//     const column = `${key}_${status.toLowerCase()}`
+//     hexLayers.forEach((h,i) => {
+//         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
+//     })
+// }
 
 // function createFillExpression(data, colorScale, column) {
 //     let expression = ['match', ['get', 'index']];
