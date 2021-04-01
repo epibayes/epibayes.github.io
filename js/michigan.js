@@ -131,11 +131,12 @@ function initMap() {
 }
 
 function updateHexLayers() {
-    // console.log("at updateHexLayers, status and metric are", status, metric)
+    // console.log("update hex layers is called")
     hexLayers.forEach((d,i) => updateHexFill(d, hexfill[status][metric][i]))
 }
 
 function updateHexFill(layerId, scale) {
+    // console.log("update hex fill is called")
     map.setPaintProperty(layerId, 'fill-color', scale)
 }
 
@@ -143,19 +144,36 @@ function getHexLayer() {
     return map.getZoom() < zoomThreshold ? 'hex20' : 'hex10'
 }
 
-function updateFillExpression(key=metric, day) {
-    // console.log("updating Fill Expression with metric at ", key, "and day at ", day)
-    day = maxDate 
-    // embedMap ? maxDate : d3.timeDay(x.domain()[1])
-    // console.log("day is", day)
+// function updateFillExpression(key=metric, day) {
+//     // console.log("updating Fill Expression with metric at ", key, "and day at ", day)
+//     day = maxDate 
+//     // embedMap ? maxDate : d3.timeDay(x.domain()[1])
+//     // console.log("day is", day)
+//     const colorScale = getColorScale(key)
+//     const column = `${key}_${status.toLowerCase()}`
+//     // console.log("column is", column)
+//     hexLayers.forEach((h,i) => {
+//         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
+//     })
+// }
+function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1]) ) {
     const colorScale = getColorScale(key)
     const column = `${key}_${status.toLowerCase()}`
-    // console.log("column is", column)
     hexLayers.forEach((h,i) => {
         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
 
+// function createFillExpression(data, colorScale, column) {
+//     let expression = ['match', ['get', 'index']];
+//     data.forEach((d, idx) => expression.push(idx, colorScale(d[0][column])));
+//     if ( (datatype == 'symptoms') && (metric.includes('rate')) ) {
+//         expression.push('#aaa') // gray out low responses for misymptoms
+//     } else {
+//         expression.push(colorScale(0)) // unknown case
+//     }        
+//     return expression
+// }
 function createFillExpression(data, colorScale, column) {
     let expression = ['match', ['get', 'index']];
     data.forEach((d, idx) => expression.push(idx, colorScale(d[0][column])));
@@ -166,6 +184,7 @@ function createFillExpression(data, colorScale, column) {
     }        
     return expression
 }
+
 
 function getColorScale() {
     // console.log("the result of getColorScale is", colorScales[datatype][metric] )
