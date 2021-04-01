@@ -49,7 +49,7 @@ function initDropdown() {
             N = getNumDays()
             updateHexGrid()
             updateLegend(metric)
-            updateTotalInfo()
+            // updateTotalInfo()
         })
 
     }
@@ -123,7 +123,7 @@ function updateMapInfo() {
 
 function updateHexGrid() {
     // console.log("updateHexGrid called.")
-    updateFillExpression()
+    embedMap ? updateFillExpressionEmbed() : updateFillExpression()
     updateHexLayers()    
 }
 
