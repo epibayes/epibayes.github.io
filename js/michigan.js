@@ -295,6 +295,7 @@ function filterByDate(data, date) {
 }
 
 function insertDates(minDate, maxDate) {
+    console.log("minDate is", minDate)
     d3.select('#first-date').text(daterangeFmt(minDate))
     d3.select('#last-date').text(daterangeFmt(maxDate))
     d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))
