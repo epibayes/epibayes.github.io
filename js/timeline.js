@@ -40,14 +40,14 @@ async function makeTimeline(weekBin=false) {
         .range([0, width])
 
     let y = d3.scaleLinear()
-        .domain([0, weekBin ? 13000 : 12000])
+        .domain([0, weekBin ? 13000 : 14000])
         .range([height, 0])
 
     let ticks = [0,2000,4000,6000,8000,10000,12000],
-        xAxis = d3.axisBottom(x).ticks(7).tickSizeOuter(0),
+        xAxis = d3.axisBottom(x).ticks(8).tickSizeOuter(0),
         yAxis = d3.axisRight(y)
-            .ticks(7)
-            .tickValues(weekBin ? ticks.map(d => d*7) : ticks)
+            .ticks(8)
+            .tickValues(weekBin ? ticks.map(d => d*8) : ticks)
             .tickSize(3)
 
     svg.append("g")
@@ -119,7 +119,8 @@ async function makeTimeline(weekBin=false) {
         .text(d => d.annotation)
         .attr("data-toggle", "tooltip")
         .attr("data-html", true)
-        .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)     
+        .attr("title", d => `<b>${d3.timeFormat('%B %e')(d.date)}</b><br>${d.description}`)
+  
                 
     // // Annotation section
     // svg.selectAll('.milestone')
@@ -151,13 +152,13 @@ async function makeTimeline(weekBin=false) {
         .attr('class', 'avgLine')
         .attr('x1', x0)
         .attr('x2', x0+20)
-        .attr('y1', y0+35)
-        .attr('y2', y0+35)
+        .attr('y1', y0+40)
+        .attr('y2', y0+40)
 
     svg.append('text')
         .attr('class', 'milestone-text')
         .attr('x', x0+25)
-        .attr('y', y0+35)
+        .attr('y', y0+40)
         .attr('dy', '0.35em')
         .text('7-day average')
         .style('font-size', '0.5em')

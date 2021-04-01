@@ -467,6 +467,10 @@ h5{
   stroke-width: 1;
 }
 
+text .milestone-text{
+  background-color: white !important;
+}
+
 .milestone-text {
   font-size: 0.355em;
   line-height: 0.5em;
