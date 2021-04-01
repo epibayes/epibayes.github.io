@@ -104,7 +104,9 @@ function generateEmbedURL() {
 
 function updateDateRange(endDate) {
     const key = metric.replace('rate','')
-    startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    // console.log("xdomain 0 is", x.domain()[0])
+    startDate = x.domain()[0]
+    // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
     setDateRange(startDate, endDate)
 }
 
@@ -127,14 +129,15 @@ function updateHexGrid() {
 
 function updateTotalInfo() {
     let endDate = embedMap ? maxDate : x.domain()[1]
-    // console.log("at updateTotalInfo, end date is", endDate)
     updateTotal(endDate)
     updateDateRange(endDate)
 }
 
 function updateTotal(endDate) {
     const key = metric.replace('rate','')
-    startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    startDate = x.domain()[0]
+    // console.log("startDate", startDate)
     const idx0 = Math.round(date2idx(startDate))
     const idx1 = Math.round(date2idx(endDate))
     const subset = caseData.get(status.toLowerCase()).slice(idx0, idx1+1)
