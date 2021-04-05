@@ -1029,7 +1029,9 @@ text .milestone-text{
 .introcol{
   /* background-color:#ff7c3c; */
   /* background-color: #C5DECD; */
-  background-color: #FCF6B1;
+  /* background-color: #FCF6B1; */
+  /* background-color: #F0CEA0; */
+  background-color: #C7DBE6;
   /* background-color: black; */
   padding-bottom: 5px;
   margin-bottom: 15px;
@@ -1046,7 +1048,9 @@ text .milestone-text{
 
 .disparity, .incidence, .fatality, .standardized{
   font-weight: 700;
-  color: #006992;
+  /* color: #006992; */
+  color: #232C33;
+  background-color: #FFCB47;
 }
 
 .definitionsdiv{
