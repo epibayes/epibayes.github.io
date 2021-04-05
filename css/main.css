@@ -1069,22 +1069,14 @@ text .milestone-text{
   color: white;
 }
 
-#black_w1_label, #black_w2_label,
-#api_w1_label,#api_w2_label,
-#white_w1_label, #white_w2_label,
-#latino_w1_label,#latino_w2_label,
-#other_w1_label,#other_w2_label{
-  font-weight: 700;
-  font-size: 12px;
-}
-
-.racelabelgingers{
-  padding: 10px 0px 10px 0px;
-}
 #gingerbutton > *{
   font-size: 18px;
-  font-weight: 00;
+  font-weight: 700;
   padding: 15px;
+}
+#gingerbutton{
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 /* ||adjustments based on screen size|| */
 /* (for disparities page) */
