@@ -1,14 +1,14 @@
 async function initDisparities(){
   essentialworkers_black = [
-    {frontline:{"17%":17, "":100-17}, div:"#black-frontline"},
-    {publictransit:{"26%":26, "": 100-26}, div:"#black-publictransit"},
-    {grocery:{"14%":14, "": 100-14}, div:"#black-grocery"}, 
-    {healthcare:{"18%":18, "":100-18}, div:"#black-healthcare"},
-    {childcare:{"19%":19, "":100-19}, div:"#black-childcare"}
+    {frontline:{"17%":17, "":100-17}, div:"#black-frontline", title:"Front-line Workers"},
+    {publictransit:{"26%":26, "": 100-26}, div:"#black-publictransit", title:"Public Transit Workers"},
+    {grocery:{"14%":14, "": 100-14}, div:"#black-grocery", title:"Grocery Workers"}, 
+    {healthcare:{"18%":18, "":100-18}, div:"#black-healthcare", title:"Health Care Workers"},
+    {childcare:{"19%":19, "":100-19}, div:"#black-childcare", title:"Childcare Workers"}
   ]
   essentialworkers_latino = [
-    {construction:{"19%":19, "": 100-19}, div:"#latino-construction"},
-    {leisurehospitality:{"12%":12, "": 100-12},div:"#latino-leisurehospitality"}
+    {construction:{"19%":19, "": 100-19}, div:"#latino-construction", title:"Construction Workers"},
+    {leisurehospitality:{"12%":12, "": 100-12},div:"#latino-leisurehospitality", title:"Leisure & Hospitality Workers"}
   ]
   buildEssentialWorkDonut(essentialworkers_black);
   buildEssentialWorkDonut(essentialworkers_latino);
@@ -30,6 +30,7 @@ function buildEssentialWorkDonut(inputdata){
       let div;
       let data;
       let color;
+      let title;
 
       for (let key in dic){
         // console.log("begin for loop for key in dic")
@@ -38,16 +39,20 @@ function buildEssentialWorkDonut(inputdata){
         if (key === "div"){
           div = dic[key]
         }
-        if (key != "div"){
+        if (key === "title"){
+          title = dic[key]
+        }
+        if (key != "div" &&  key != "title"){
           data = dic[key]
         }
       } //close for loop for key in dic
 
-      // console.log("div is", div);
-      // console.log("data is", data);
+      console.log("div is", div);
+      console.log("data is", data);
+      console.log("title is", title)
       svg = createSvg(div, width, height);
       color = getColor(div, data);
-      buildPie(radius, data, color, div);
+      buildPie(radius, data, color, div, title);
 
     } //close for loop for dic of inputdata
 }
@@ -58,9 +63,11 @@ function createSvg(div, width, height){
     .attr("width", "100%")
     .attr("height","100%")
     .attr('viewBox','0 0 '+Math.min(width,height) +' '+Math.min(width,height) )
+    .attr("class", "donut")
   .append("g")
-    .attr("transform", `translate(${width/2},${height/2})`);
+    .attr("transform", `translate(${width/2},${height/2})`)
   //   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+
 
 }
 
@@ -81,7 +88,7 @@ function getColor(div, data){
 
 }
 
-function buildPie(radius, data, color, div){
+function buildPie(radius, data, color, div, title){
     // Compute the position of each group on the pie:
     var pie = d3.pie()
       .sort(null) // Do not sort group by size
@@ -179,4 +186,14 @@ function buildPie(radius, data, color, div){
       .style('font-size', 28)
       .style('font-family','Helvetica Neue')
       .style('font-weight', 500)
+
+  svg.append("text")
+  .attr("class", "donutlab")
+  .attr("x", 0)
+  .attr("y", 125)
+  // .attr("dy", 120)
+  .attr("text-anchor", "middle")
+  .attr("dominant-baseline", "middle")
+  .text(title)
+  .style("fill", "white")
 }

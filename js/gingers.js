@@ -1,6 +1,6 @@
   function makeGingers(demographic, update){
     // console.log("going into makeGingers, demographic is", demographic)
-    if (demographic === "black"){
+    if (demographic === "Black"){
       // console.log("demographic is black");
 
       w1_percent = 8.3,
@@ -11,7 +11,7 @@
       w2_gradientid = "black_w2_gradient"
 
      
-    } else if (demographic === "white"){
+    } else if (demographic === "White"){
       // console.log("demographic is white");
 
       w1_percent = 6.3
@@ -22,7 +22,7 @@
       w2_gradientid = "white_w2_gradient"
       
   
-    } else if (demographic === "api"){
+    } else if (demographic === "API"){
       // console.log("demographic is api");
       
       w1_percent = 5.5
@@ -33,7 +33,7 @@
       w2_gradientid ="api_w2_gradient"
 
 
-    } else if (demographic === "latino"){
+    } else if (demographic === "Latino"){
       // console.log("demographic is latino");
 
       w1_percent = 5.4,
@@ -200,11 +200,13 @@
     
     textdiv1.text(valueLit1 + '%')
       .style("fill", color)
-      .style("font-weight", "bold");
+      .style("font-weight", "bold")
+      .style("font-size", ".8em");
 
     textdiv2.text(valueLit2 + '%')
       .style("fill", color)
-      .style("font-weight", "bold");
+      .style("font-weight", "bold")
+      .style("font-size", ".8em");
 
     mySvg1.selectAll("use").attr("fill", function (d) {
       if (d < valuePict1 - 1) {              
@@ -341,10 +343,12 @@
     
     textdiv1.text(valueLit1 + '%')
       .style("fill", color)
-      .style("font-weight", "bold");
+      .style("font-weight", "bold")
+      .style("font-size", ".8em");
     textdiv2.text(valueLit2 + '%')
       .style("fill", color)
-      .style("font-weight", "bold");  
+      .style("font-weight", "bold")
+      .style("font-size", ".8em"); 
 
     mySvg1.selectAll("use").attr("fill", function (d) {
       if (d < valuePict1 - 1) {              
@@ -405,8 +409,10 @@
 
       d3.selectAll("#gingerbutton > *").classed("active", false)
       d3.select(this).classed("active", true)
+
+      d3.select("#w1_label").html(demographic + " Wave 1 (Mar - Jun)")
+      d3.select("#w2_label").html(demographic + " Wave 2 (Oct - Dec)")
     })
 
-
-
   }
+

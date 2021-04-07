@@ -972,8 +972,8 @@ text .milestone-text{
 }
 
 .donut{
-  width: 100%;
-  margin:5px;
+  width: 85%;
+  /* margin:5px; */
 }
 
 .racedonutcol{
@@ -1033,8 +1033,8 @@ text .milestone-text{
   /* background-color: #F0CEA0; */
   background-color: #C7DBE6;
   /* background-color: black; */
-  padding-bottom: 5px;
-  margin-bottom: 15px;
+  /* padding-bottom: 5px; */
+  /* margin: 15px; */
 }
 
 .introhd{
@@ -1042,8 +1042,14 @@ text .milestone-text{
   margin: 0;
   /* color: white; */
   color: black;
-  font-weight: 500;
+  font-weight: 700;
   font-style: italic;
+}
+
+.float-right-top{
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .disparity, .incidence, .fatality, .standardized{
@@ -1054,7 +1060,7 @@ text .milestone-text{
 }
 
 .definitionsdiv{
-  padding: 15px;
+  padding: 5px;
   /* color: white; */
   color: black;
   font-weight: 500;
@@ -1078,10 +1084,20 @@ text .milestone-text{
   font-weight: 700;
   padding: 15px;
 }
+
 #gingerbutton{
   padding-top: 10px;
   padding-bottom: 20px;
 }
+
+.gingerlabel{
+  color: white;
+}
+
+.linegraphrow{
+  padding-bottom: 15px;
+}
+
 /* ||adjustments based on screen size|| */
 /* (for disparities page) */
 /* ||XS DEVICES|| */
@@ -1116,6 +1132,13 @@ text .milestone-text{
     font-size: 20px;
   }
 
+  #gingerbutton{
+    width: 100%;
+  }
+  
+  #gingerbutton > .gingtoggle{
+    font-size: 14px;
+  }
 
 }
 
@@ -1141,12 +1164,19 @@ text .milestone-text{
   .sideheader{
     font-size: 32px;
   }
+
 }
 
 /* ||M DEVICES|| */
 @media (min-width:768px){
   .sideheader{
     font-size: 24px;
+  }
+  .donut{
+    width: 90%;
+  }
+  .donutlab{
+    font-size: 20px;
   }
 }
 
@@ -1193,6 +1223,23 @@ text .milestone-text{
     width: 500px; */
     background-color: white;
   }
+
+  .introhd{
+    padding: 10px;
+    margin: 0;
+    /* color: white; */
+    color: black;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  .def{
+    font-size: 13px;
+  }
+  .donutlab{
+    font-size: 20px;
+  }
 }
 
 /* ||XL DEVICES|| */
@@ -1222,6 +1269,25 @@ text .milestone-text{
     /* background-color: white; */
   }
 
+  .introcol{
+    position: default;
+
+  }
+
+  .donut{
+    width: 80%;
+  }
+
+  .gingchart > *{
+    width: 90%;
+  }
+  .donutlab{
+    font-size: 18px;
+  }
+  .charts{
+    width: 85%;
+  }
+
 }
 /* ||SUPER XL DEVICES|| */
 @media (min-width: 1400px){
@@ -1248,7 +1314,16 @@ text .milestone-text{
     width: 350px; */
     /* background-color: white; */
   }
+  .gingchart > *{
+    width: 70%;
+  }
+  .donutlab{
+    font-size: 18px;
+  }
 
+  .charts{
+    width: 70%
+  }
 }
 
 /* || media rules || */
