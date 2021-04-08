@@ -1091,7 +1091,8 @@ text .milestone-text{
   padding-top: 10px;
   padding-bottom: 20px;
 }
-
+ts
+c
 .gingerlabel{
   color: white;
 }
@@ -1103,6 +1104,11 @@ text .milestone-text{
 #w1_ginger, #w2_ginger{
   display: block;
   margin: auto;
+}
+
+.gingerlabel{
+  margin: auto;
+  color: white;
 }
 
 /* ||adjustments based on screen size|| */
@@ -1291,7 +1297,7 @@ text .milestone-text{
   .donutlab{
     font-size: 18px;
   }
-  .charts{
+  .chartallincidence{
     width: 85%;
   }
 
@@ -1328,7 +1334,7 @@ text .milestone-text{
     font-size: 18px;
   }
 
-  .charts{
+  .chartallincidence{
     width: 70%
   }
 }
