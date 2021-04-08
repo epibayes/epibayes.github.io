@@ -813,6 +813,7 @@ text .milestone-text{
 #donutsectiontitle{
   font-size: 26px;
   padding-bottom: 10px;
+  padding-top:15px;
 }
 .imgandtextfloat{
   /* position: relative; */
@@ -960,7 +961,7 @@ text .milestone-text{
 }
 
 .donutcol{
-  background-color:black;
+  /* background-color:black; */
   color: white;
   padding-left:10px;
   padding-right:10px;
@@ -979,6 +980,7 @@ text .milestone-text{
 .racedonutcol{
   margin:0;
   padding:0;
+  background-color: black;
 }
 
 .donutgroup{
@@ -1096,6 +1098,11 @@ text .milestone-text{
 
 .linegraphrow{
   padding-bottom: 15px;
+}
+
+#w1_ginger, #w2_ginger{
+  display: block;
+  margin: auto;
 }
 
 /* ||adjustments based on screen size|| */
