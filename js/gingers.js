@@ -263,11 +263,11 @@
     mySvg1 = d3.select("#w1_ginger").select("svg")
     mySvg2 = d3.select("#w2_ginger").select("svg")
 
-    mySvg1.select("id", "iconCustom")
-    .attr('fill', "#gradientid1")
+    // mySvg1.select("id", "iconCustom")
+    // .attr('fill', "#gradientid1")
     
-    mySvg2.select("id", "iconCustom")
-    .attr('fill', "#gradientid2")
+    // mySvg2.select("id", "iconCustom")
+    // .attr('fill', "#gradientid2")
     //create group element and create an svg <use> element for each icon
     mySvg1.select(".pictoLayer")
     .selectAll("use")
