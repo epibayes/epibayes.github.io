@@ -35,7 +35,7 @@ const datafiles = {
 
 const hexLayers = ['hex20','hex10']
 const dateParser = d3.timeParse('%y%m%d')
-const daterangeFmt = d3.timeFormat('%B %e')
+const daterangeFmt = d3.timeFormat('%B %e, %Y')
 const tooltipFmt = d3.timeFormat('%b %e')
 const numFmt = d3.format(',.0f')
 const proportionFmt = d3.format('.2f')
