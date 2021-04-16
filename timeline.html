@@ -141,6 +141,20 @@
   <script src="https://d3js.org/d3-format.v1.min.js"></script>
   <script src="js/timeline.js"></script>
   <script>
+    function roundTotals(reportedCasesDirty,reportedDeathsDirty){
+      
+      let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
+
+      let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
+
+      let reportedCases = ceilingedcases.toLocaleString();
+      let reportedDeaths = ceilingeddeaths.toLocaleString();
+
+      document.querySelector('#numberReportedCases').innerHTML = reportedCases;
+
+      document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
+    }
+  roundTotals(31500848,565353)
     // function reqListener () {
     //   // console.log(this.responseText);
     //   let allSplit = this.responseText.split('<table class="TFormat_tableBase__1KAwz">')
@@ -178,6 +192,10 @@
     // oReq.open("GET", "https://api.allorigins.win/get?url=https://coronavirus.jhu.edu/data/mortality");
     // oReq.send();
     
+    // $.get('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://coronavirus.jhu.edu/') + '&callback=?', function(data){
+    //   console.log(data);
+    // });
+
     // $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
     //     // console.log("scrape runs")
     //     scraped = data.contents;
