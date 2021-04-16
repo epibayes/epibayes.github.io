@@ -47,9 +47,9 @@ function buildEssentialWorkDonut(inputdata){
         }
       } //close for loop for key in dic
 
-      console.log("div is", div);
-      console.log("data is", data);
-      console.log("title is", title)
+      // console.log("div is", div);
+      // console.log("data is", data);
+      // console.log("title is", title)
       svg = createSvg(div, width, height);
       color = getColor(div, data);
       buildPie(radius, data, color, div, title);
