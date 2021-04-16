@@ -93,7 +93,7 @@
           <div class="col-sm-8 col-lg-6 relationshipinfo">
             <h3>What is the relationship between changing behavior and COVID-19 case rates?</h3>
             <p>
-              Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data from John Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly <span id="numberReportedCases">###</span> reported cases and <span id="numberReportedDeaths">###</span> deaths across the country due to COVID-19.
+              Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data from John Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly <span id="numberReportedCases">31,500,848</span> reported cases and <span id="numberReportedDeaths">565,353</span> deaths across the country due to COVID-19.
             </p>
             <p>
               There are currently <a href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/therapeutic-options.html" target="_blank">no approved treatments for COVID-19</a>, and there is no vaccine. The <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html" target="_blank">CDC has guidelines on what to do if you are sick</a>, but because there are no effective treatments or ways to prevent infection, <b>the best tool we have to protect ourselves and our communities is <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/social-distancing.html" target="_blank"> social distancing.</a></b> Social distancing means keeping about 6 feet of distance from others, staying home whenever possible, and avoiding groups.
@@ -141,81 +141,81 @@
   <script src="https://d3js.org/d3-format.v1.min.js"></script>
   <script src="js/timeline.js"></script>
   <script>
-    function reqListener () {
-      // console.log(this.responseText);
-      let allSplit = this.responseText.split('<table class="TFormat_tableBase__1KAwz">')
-      // console.log(allSplit)
-      // console.log(allSplit[1])
-      let splitFurther = allSplit[1].split("<tr>")
-        // console.log(splitFurther)
-      for (each of splitFurther){
-        if (each.includes('<td>United States</td>')){
-            let usDeets = each
-            // console.log(usDeets)
-            let splitUS = usDeets.split('<td>');
-            // console.log(splitUS)
-            let reportedCasesDirty = splitUS[2].split('</td>')[0];
-            let reportedDeathsDirty = splitUS[3].split('</td>')[0];
-            reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
-            reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
+    // function reqListener () {
+    //   // console.log(this.responseText);
+    //   let allSplit = this.responseText.split('<table class="TFormat_tableBase__1KAwz">')
+    //   // console.log(allSplit)
+    //   // console.log(allSplit[1])
+    //   let splitFurther = allSplit[1].split("<tr>")
+    //     // console.log(splitFurther)
+    //   for (each of splitFurther){
+    //     if (each.includes('<td>United States</td>')){
+    //         let usDeets = each
+    //         // console.log(usDeets)
+    //         let splitUS = usDeets.split('<td>');
+    //         // console.log(splitUS)
+    //         let reportedCasesDirty = splitUS[2].split('</td>')[0];
+    //         let reportedDeathsDirty = splitUS[3].split('</td>')[0];
+    //         reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
+    //         reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
             
-            let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
+    //         let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
 
-            let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
+    //         let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
 
-            let reportedCases = ceilingedcases.toLocaleString();
-            let reportedDeaths = ceilingeddeaths.toLocaleString();
+    //         let reportedCases = ceilingedcases.toLocaleString();
+    //         let reportedDeaths = ceilingeddeaths.toLocaleString();
 
-            document.querySelector('#numberReportedCases').innerHTML = reportedCases;
+    //         document.querySelector('#numberReportedCases').innerHTML = reportedCases;
 
-            document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
-        }
-      }
-    }
+    //         document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
+    //     }
+    //   }
+    // }
 
     // var oReq = new XMLHttpRequest();
     // oReq.addEventListener("load", reqListener);
-    // oReq.open("GET", "https://cors-anywhere.herokuapp.com/https://coronavirus.jhu.edu/data/mortality");
+    // oReq.open("GET", "https://api.allorigins.win/get?url=https://coronavirus.jhu.edu/data/mortality");
     // oReq.send();
     
-    $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
-        // console.log("scrape runs")
-        scraped = data.contents;
-        // console.log(scraped)
-        let allSplit = scraped.split('<tbody id="t-body-e4705825-9249-46ac-a733-566eef44d994">')
-          // console.log(allSplit)
-        for (each of allSplit){
+    // $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
+    //     // console.log("scrape runs")
+    //     scraped = data.contents;
+    //     // console.log(scraped)
+    //     let allSplit = scraped.split('<tbody id="t-body-e4705825-9249-46ac-a733-566eef44d994">')
+    //       // console.log(allSplit)
+    //     for (each of allSplit){
 
-            if (each.includes('<td>United States</td>')){
-                let eachcountryDeets = each
-                // console.log(eachcountryDeets)
-                let splitEach = eachcountryDeets.split('<tr ');
-                  // console.log(splitEach)
-                for (eachCountry of splitEach){
-                  if (eachCountry.includes('<td>United States</td>')){
-                    let usDeets = eachCountry.split('<td>')
-                      // console.log(usDeets)
-                      let reportedCasesDirty = usDeets[2].split('</td>')[0];
-                      let reportedDeathsDirty = usDeets[3].split('</td>')[0];
-                      reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
-                      reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
+    //         if (each.includes('<td>United States</td>')){
+    //             let eachcountryDeets = each
+    //             // console.log(eachcountryDeets)
+    //             let splitEach = eachcountryDeets.split('<tr ');
+    //               // console.log(splitEach)
+    //             for (eachCountry of splitEach){
+    //               if (eachCountry.includes('<td>United States</td>')){
+    //                 let usDeets = eachCountry.split('<td>')
+    //                   // console.log(usDeets)
+    //                   let reportedCasesDirty = usDeets[2].split('</td>')[0];
+    //                   let reportedDeathsDirty = usDeets[3].split('</td>')[0];
+    //                   reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
+    //                   reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
                       
-                      let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
+    //                   let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
 
-                      let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
+    //                   let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
 
-                      let reportedCases = ceilingedcases.toLocaleString();
-                      let reportedDeaths = ceilingeddeaths.toLocaleString();
+    //                   let reportedCases = ceilingedcases.toLocaleString();
+    //                   let reportedDeaths = ceilingeddeaths.toLocaleString();
 
-                      document.querySelector('#numberReportedCases').innerHTML = reportedCases;
+    //                   document.querySelector('#numberReportedCases').innerHTML = reportedCases;
 
-                      document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
-                  }
-                }
+    //                   document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
+    //               }
+    //             }
                 
-            }
-          }
-      });
+    //         }
+    //       }
+    //   });
     </script>
     <script src="js/ui.js"></script>
     <script src="js/addhome.js"></script>
