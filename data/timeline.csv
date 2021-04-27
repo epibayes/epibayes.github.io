@@ -27,5 +27,9 @@ date,y2,anchor,annotation,description
 9/3/20,10400,start,"MI Gov reopens gyms, pools and organized sports","Governor Whitmer signs Executive Order 2020-176, reopening Michigan's gyms and pools in those regions where they remain closed and allowing for organized sports practices and competitions to resume in those regions where they remain restricted"
 10/2/20,9800,start,MI Supreme Court Rules MI Gov's Executive Orders Unconstitutional,"Michigan Supreme Court ruled that a series of executive orders pertaining to public health guidelines and business closures put in place by Gov. Whitmer to combat COVID-19 were unconstitutional and are now invalid under Michigan law"
 11/15/20,9200,start,MI Gov issues 3-week "Pause to Save Lives" order, "Gov. Whitmer announces a three-week pause limiting indoor social gatherings and other group activities"
-1/16/21,8600,end,MI Gov identifies first MI case of COVID variant B.1.1.7,"The first Michigan case of COVID-19 variant B.1.1.7 was identified in Washtenaw County"
-3/8/21,8000,end,MI Gov identifies first MI case of COVID variant B.1.351,"The first Michigan case of the COVID-19 variant B.1.351 was identified in Jackson County"
+12/15/20,8600,end,Vaccination Phase 1A,Healthcare workers with the potential for direct or indirect exposure to patients or infectious materials and residents of long term care facilities eligible for COVID vaccine
+1/11/21,8000,end,Vaccination Phase 1B,Everyone 75+ and frontline essential workers in critical infrastructure eligible for COVID vaccine
+1/16/21,7400,end,1st MI case of B.1.1.7 variant,"The first Michigan case of COVID-19 variant B.1.1.7 was identified in Washtenaw County"
+3/8/21,6800,end,1st MI case of B.1.351 variant,"The first Michigan case of the COVID-19 variant B.1.351 was identified in Jackson County"
+3/22/21,6200,end,Vaccination Phase 1C,Anyone 16+ with a qualifying medical condition or anyone 50+ eligible for COVID vaccine in MI
+4/5/21,5600,end,Vaccination Phase 2,All MI residents 16+ eligible for COVID vaccination
