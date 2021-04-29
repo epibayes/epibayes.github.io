@@ -93,7 +93,7 @@
           <div class="col-sm-8 col-lg-6 relationshipinfo">
             <h3>What is the relationship between changing behavior and COVID-19 case rates?</h3>
             <p>
-              Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data from John Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly <span id="numberReportedCases">31,500,848</span> reported cases and <span id="numberReportedDeaths">565,353</span> deaths across the country due to COVID-19.
+              Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data compiled by Johns Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly <span id="numberReportedCases">###</span> reported cases and <span id="numberReportedDeaths">###</span> deaths across the country due to COVID-19.
             </p>
             <p>
               There are currently three vaccines approved under Emergency Use Authorization (EUA) by the FDA in the United States: two two-dose mRNA vaccines made by Pfizer and Moderna, and a single-dose adenovirus-vectored vaccine made by Johnson & Johnson. Data from the CDC show that <span id="totalvax_us">230,768,454</span> vaccines have currently been administered in the US, with <span id="fullyvax_us">95,888,088</span> Americans being fully vaccinated (including both doses of the mRNA vaccines). In Michigan, <span id="18plus_mi">26.6</span>% of the population aged 18+ is currently vaccinated against COVID-19, and <span id="65plus_mi">65.6</span>% of the population aged 65+ is currently vaccinated.
@@ -158,7 +158,68 @@
 
       document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
     }
-  roundTotals(32077178,572200)
+  // roundTotals(32077178,572200)
+
+  // async function grabTotals(){
+  //   const casedeath = await d3.csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv')
+
+  //   // console.log(casedeath)
+  //   const mostRecent = casedeath[(casedeath.length-1)]
+  //   // console.log(mostRecent["date"])
+  //   let casecount = parseInt(mostRecent['cases'])
+  //   let deathcount = parseInt(mostRecent['deaths']) 
+    
+  //   roundTotals(casecount,deathcount)
+    
+  // }
+  
+  // grabTotals()
+
+  async function jhutotals(){
+    
+    let formatteddate = d3.timeFormat("%m-%d-%Y")
+    let today = new Date();
+    let yesterday = new Date(new Date().setDate(new Date().getDate()-1));
+    let twodaysago = new Date(new Date().setDate(new Date().getDate()-2));
+
+    let today_nice = formatteddate(today);
+    let yesterday_nice = formatteddate(yesterday);
+    let twodaysago_nice = formatteddate(twodaysago);
+
+    // console.log(typeof today_nice)
+    
+    todaysdata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${today_nice}.csv`
+    yesterdaysdata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${yesterday_nice}.csv`
+    twodaysagodata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${twodaysago_nice}.csv`
+
+    try{
+      mydata = await d3.csv(todaysdata, d3.autoType)
+
+      // for troubleshooting :
+      // mydata = await d3.csv(yesterdaysdata, d3.autoType)
+    } 
+    catch(err){
+      console.log("there was an error getting today's data, get yesterday's data...")
+      mydata = await d3.csv(yesterdaysdata, d3.autoType)
+      
+      // for troubleshooting :
+      // mydata = await d3.csv(twodaysagodata, d3.autoType)
+    }
+
+    usdata = mydata.filter(d => d.Country_Region=== 'US')
+    // console.log(usdata)
+    let confirmedcount = d3.sum(usdata.map(d => d.Confirmed))
+    let deathcount = d3.sum(usdata.map(d => d.Deaths))
+    
+    // console.log("confirmed and death:", confirmedcount, deathcount)
+
+    roundTotals(confirmedcount, deathcount)
+  }
+
+jhutotals()
+
+
+
     // function reqListener () {
     //   // console.log(this.responseText);
     //   let allSplit = this.responseText.split('<table class="TFormat_tableBase__1KAwz">')
