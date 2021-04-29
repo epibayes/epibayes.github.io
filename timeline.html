@@ -93,15 +93,15 @@
           <div class="col-sm-8 col-lg-6 relationshipinfo">
             <h3>What is the relationship between changing behavior and COVID-19 case rates?</h3>
             <p>
-              Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data compiled by Johns Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly <span id="numberReportedCases">###</span> reported cases and <span id="numberReportedDeaths">###</span> deaths across the country due to COVID-19.
+              Since the discovery of the SARS-CoV-2 virus in China late in 2019, the disease caused by infection with this virus, COVID-19, has rapidly spread around the globe. In the United States, the first case was detected on January 22, 2020. <a href="https://coronavirus.jhu.edu/data/mortality" target="_blank"> Data from Johns Hopkins University</a> shows that in the <span id="duration"></span> months since the first case was detected in the United States, there are now nearly <span id="numberReportedCases">###</span> reported cases and <span id="numberReportedDeaths">###</span> deaths across the country due to COVID-19.
             </p>
             <p>
-              There are currently three vaccines approved under Emergency Use Authorization (EUA) by the FDA in the United States: two two-dose mRNA vaccines made by Pfizer and Moderna, and a single-dose adenovirus-vectored vaccine made by Johnson & Johnson. Data from the CDC show that <span id="totalvax_us">230,768,454</span> vaccines have currently been administered in the US, with <span id="fullyvax_us">95,888,088</span> Americans being fully vaccinated (including both doses of the mRNA vaccines). In Michigan, <span id="18plus_mi">26.6</span>% of the population aged 18+ is currently vaccinated against COVID-19, and <span id="65plus_mi">65.6</span>% of the population aged 65+ is currently vaccinated.
+              There are currently three vaccines approved under Emergency Use Authorization (EUA) by the FDA in the United States: two two-dose mRNA vaccines made by Pfizer and Moderna, and a single-dose adenovirus-vectored vaccine made by Johnson & Johnson. <a href="https://covid.cdc.gov/covid-data-tracker/#vaccinations" target="_blank" alt="link out to CDC Covid Vaccination data page">Data from the CDC</a> show that almost <span id="totalvax_us">###</span> vaccines have currently been administered in the US, with almost <span id="fullyvax_us">###</span> Americans being fully vaccinated (including both doses of the mRNA vaccines). In <a href="https://www.michigan.gov/coronavirus/0,9753,7-406-98178_103214_103272-547150--,00.html" target="_blank" alt="link out to Michigan government paeg for COVID vaccine coverage">Michigan</a>, <span id="18plus_mi">27.5</span>% of the population aged 18+ is currently vaccinated against COVID-19, and <span id="65plus_mi">66.2</span>% of the population aged 65+ is currently vaccinated.
             </p>
             <p>
               Even with a growing proportion of the population receiving vaccines against SARS-CoV-2, it is still important to <b>maintain <a href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/social-distancing.html" target="_blank" alt="link out to CDC social distancing page">social distancing</a> and mask wearing to further reduce the spread of COVID-19.</b>
             </p>
-            <h3>Understanding this TImeline</h3>
+            <h3>Understanding this Timeline</h3>
             <p>
               In evaluating the timeline above, it is important to acknowledge the delay between getting <i>infected</i> with COVID-19 and being sick enough to get <i>tested</i> for COVID-19. After exposure to COVID-19, it typically takes <a href="https://annals.org/aim/fullarticle/2762808/incubation-period-coronavirus-disease-2019-covid-19-from-publicly-reported" target="_blank" alt="link out to annals dot org article on coronavirus incubation period">4-6 days</a> to develop symptoms, though it can take as long as <b><a href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/clinical-guidance-management-patients.html" target="_blank" alt="link out to CDC page for guidance on patient management for coronavirus">14 days</a></b>.This means that there is up to a <i>two week delay</i> between when someone comes into contact with the virus (either through a sick person or touching a contaminated surface) and when they begin to show symptoms.
             </p>
@@ -144,164 +144,12 @@
   crossorigin="anonymous"></script>
   <script src="https://d3js.org/d3-format.v1.min.js"></script>
   <script src="js/timeline.js"></script>
+  <script src="js/timeline-ui.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/addhome.js"></script>
   <script>
-    function roundTotals(reportedCasesDirty,reportedDeathsDirty){
-      
-      let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
-
-      let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
-
-      let reportedCases = ceilingedcases.toLocaleString();
-      let reportedDeaths = ceilingeddeaths.toLocaleString();
-
-      document.querySelector('#numberReportedCases').innerHTML = reportedCases;
-
-      document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
-    }
-  // roundTotals(32077178,572200)
-
-  // async function grabTotals(){
-  //   const casedeath = await d3.csv('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv')
-
-  //   // console.log(casedeath)
-  //   const mostRecent = casedeath[(casedeath.length-1)]
-  //   // console.log(mostRecent["date"])
-  //   let casecount = parseInt(mostRecent['cases'])
-  //   let deathcount = parseInt(mostRecent['deaths']) 
-    
-  //   roundTotals(casecount,deathcount)
-    
-  // }
-  
-  // grabTotals()
-
-  async function jhutotals(){
-    
-    let formatteddate = d3.timeFormat("%m-%d-%Y")
-    let today = new Date();
-    let yesterday = new Date(new Date().setDate(new Date().getDate()-1));
-    let twodaysago = new Date(new Date().setDate(new Date().getDate()-2));
-
-    let today_nice = formatteddate(today);
-    let yesterday_nice = formatteddate(yesterday);
-    let twodaysago_nice = formatteddate(twodaysago);
-
-    // console.log(typeof today_nice)
-    
-    todaysdata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${today_nice}.csv`
-    yesterdaysdata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${yesterday_nice}.csv`
-    twodaysagodata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${twodaysago_nice}.csv`
-
-    try{
-      mydata = await d3.csv(todaysdata, d3.autoType)
-
-      // for troubleshooting :
-      // mydata = await d3.csv(yesterdaysdata, d3.autoType)
-    } 
-    catch(err){
-      console.log("there was an error getting today's data, get yesterday's data...")
-      mydata = await d3.csv(yesterdaysdata, d3.autoType)
-      
-      // for troubleshooting :
-      // mydata = await d3.csv(twodaysagodata, d3.autoType)
-    }
-
-    usdata = mydata.filter(d => d.Country_Region=== 'US')
-    // console.log(usdata)
-    let confirmedcount = d3.sum(usdata.map(d => d.Confirmed))
-    let deathcount = d3.sum(usdata.map(d => d.Deaths))
-    
-    // console.log("confirmed and death:", confirmedcount, deathcount)
-
-    roundTotals(confirmedcount, deathcount)
-  }
-
-jhutotals()
-
-
-
-    // function reqListener () {
-    //   // console.log(this.responseText);
-    //   let allSplit = this.responseText.split('<table class="TFormat_tableBase__1KAwz">')
-    //   // console.log(allSplit)
-    //   // console.log(allSplit[1])
-    //   let splitFurther = allSplit[1].split("<tr>")
-    //     // console.log(splitFurther)
-    //   for (each of splitFurther){
-    //     if (each.includes('<td>United States</td>')){
-    //         let usDeets = each
-    //         // console.log(usDeets)
-    //         let splitUS = usDeets.split('<td>');
-    //         // console.log(splitUS)
-    //         let reportedCasesDirty = splitUS[2].split('</td>')[0];
-    //         let reportedDeathsDirty = splitUS[3].split('</td>')[0];
-    //         reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
-    //         reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
-            
-    //         let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
-
-    //         let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
-
-    //         let reportedCases = ceilingedcases.toLocaleString();
-    //         let reportedDeaths = ceilingeddeaths.toLocaleString();
-
-    //         document.querySelector('#numberReportedCases').innerHTML = reportedCases;
-
-    //         document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
-    //     }
-    //   }
-    // }
-
-    // var oReq = new XMLHttpRequest();
-    // oReq.addEventListener("load", reqListener);
-    // oReq.open("GET", "https://api.allorigins.win/get?url=https://coronavirus.jhu.edu/data/mortality");
-    // oReq.send();
-    
-    // $.get('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://coronavirus.jhu.edu/') + '&callback=?', function(data){
-    //   console.log(data);
-    // });
-
-    // $.getJSON('https://api.allorigins.win/get?url=' + encodeURIComponent('https://coronavirus.jhu.edu/data/mortality') + '&callback=?', function(data){
-    //     // console.log("scrape runs")
-    //     scraped = data.contents;
-    //     // console.log(scraped)
-    //     let allSplit = scraped.split('<tbody id="t-body-e4705825-9249-46ac-a733-566eef44d994">')
-    //       // console.log(allSplit)
-    //     for (each of allSplit){
-
-    //         if (each.includes('<td>United States</td>')){
-    //             let eachcountryDeets = each
-    //             // console.log(eachcountryDeets)
-    //             let splitEach = eachcountryDeets.split('<tr ');
-    //               // console.log(splitEach)
-    //             for (eachCountry of splitEach){
-    //               if (eachCountry.includes('<td>United States</td>')){
-    //                 let usDeets = eachCountry.split('<td>')
-    //                   // console.log(usDeets)
-    //                   let reportedCasesDirty = usDeets[2].split('</td>')[0];
-    //                   let reportedDeathsDirty = usDeets[3].split('</td>')[0];
-    //                   reportedCasesDirty = parseInt(reportedCasesDirty.replace(/,/g, ''));
-    //                   reportedDeathsDirty = parseInt(reportedDeathsDirty.replace(/,/g, ''));
-                      
-    //                   let ceilingedcases=Math.ceil(reportedCasesDirty/100000)*100000
-
-    //                   let ceilingeddeaths=Math.ceil(reportedDeathsDirty/1000)*1000
-
-    //                   let reportedCases = ceilingedcases.toLocaleString();
-    //                   let reportedDeaths = ceilingeddeaths.toLocaleString();
-
-    //                   document.querySelector('#numberReportedCases').innerHTML = reportedCases;
-
-    //                   document.querySelector('#numberReportedDeaths').innerHTML = reportedDeaths;
-    //               }
-    //             }
-                
-    //         }
-    //       }
-    //   });
-
-    </script>
-    <script src="js/ui.js"></script>
-    <script src="js/addhome.js"></script>
+    roundVax(234639414,98044421)
+    jhutotals()
+  </script>
   </body>
 </html>
