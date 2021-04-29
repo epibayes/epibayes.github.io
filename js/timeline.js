@@ -14,7 +14,7 @@ async function makeTimeline() {
     insertDuration()
 
     let [minDate, maxDate] = d3.extent(daily, d => d.date)
-    console.log("min date and max date", minDate, maxDate)
+    // console.log("min date and max date", minDate, maxDate)
     annotations = await d3.csv('data/timeline.csv', d => {
         d.date = d3.timeParse('%m/%d/%y')(d.date)
         return d
@@ -28,7 +28,6 @@ async function makeTimeline() {
     // Set the height and margins for the focus view
     margin = {top: 10, right: 70, bottom: 80, left: 70};
     width = W - margin.left - margin.right;
-    console.log("width is", width)
     height = H - margin.top - margin.bottom;
 
     // Set the height and margins for the context view (this goes below the focus view)
@@ -51,7 +50,7 @@ async function makeTimeline() {
         // .domain([d3.min(daily, d => d.date),d3.max(daily, d=> d.date)])
         // .domain([d3.min(daily, d => d.date), d3.timeDay.offset(d3.max(daily, d=> d.date))])
         // .range([0, width])
-    console.log("x2 at init is", x2.range(), "and domain is", x2.domain())
+    // console.log("x2 at init is", x2.range(), "and domain is", x2.domain())
 
     // y = d3.scaleLinear()
     //     .domain([0, d3.max(daily, d => d.daily)])
@@ -66,11 +65,11 @@ async function makeTimeline() {
     
     //set ticks
     ticks = [0,2000,4000,6000,8000,10000,12000],
-    xAxis = d3.axisBottom(x).ticks(7).tickSizeOuter(0),
+    xAxis = d3.axisBottom(x).ticks(8).tickSizeOuter(0),
     yAxis = d3.axisRight(y)
-            .ticks(7)
+            .ticks(8)
             .tickSize(3)
-    xAxis2 = d3.axisBottom(x2).ticks(7).tickSizeOuter(0)
+    xAxis2 = d3.axisBottom(x2).ticks(8).tickSizeOuter(0)
     yAxis2 = d3.axisRight(y2)
             .ticks(0)
             .tickValues(0)
@@ -122,6 +121,7 @@ async function makeTimeline() {
 
     // add milestone text
     addMilestoneText(minDate)
+
     //this rectangle shows from when to when the stay home stay safe period was in place and adds it to focus
     focus.append('rect').lower()
         .attr('class', 'rect')
@@ -179,9 +179,9 @@ async function makeTimeline() {
     //set beginDate as minDate
     const beginDate = minDate
     const endDate = d3.timeDay.offset(d3.max(daily, d=> d.date))
-    console.log("begin and end are", beginDate, endDate)
+    // console.log("begin and end are", beginDate, endDate)
     // add the context brush
-    console.log("x2 begin and end date", x2(beginDate), x2(endDate))
+    // console.log("x2 begin and end date", x2(beginDate), x2(endDate))
     xBrush = context.append("g")
         .attr("class", "brush")
         .call(brush)
@@ -195,8 +195,8 @@ async function makeTimeline() {
     // brush function
     function brushed() {
         const selection = d3.event.selection || x2.range([0, width]); // default brush selection
-        console.log("selection is", selection)
-        console.log("d3 event selection is", d3.event.selection)
+        // console.log("selection is", selection)
+        // console.log("d3 event selection is", d3.event.selection)
         x.domain(selection.map(x2.invert)); // new focus x-domain
         // context.selectAll(".avgLine")
         //     .attr("d", mvAvgLine2);
@@ -314,9 +314,7 @@ function addBars(){
 function addMilestoneText(minDate, maxDate){
     
     //set X0 and y0
-    x0 = x(maxDate)+20, y0 = 10;
-
-    console.log("add milestone text")
+    x0 = x(maxDate)+30, y0 = 10;
 
     //remove anything just in case
     focus.selectAll('.milestone-text').remove()
@@ -333,7 +331,7 @@ function addMilestoneText(minDate, maxDate){
       .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
       .attr('y2', d => {
           col = 'y2'
-          return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
+          return grps.get(+d.date).length > 1 ? y(d[col] - 10) : y(d[col]-30)
       })
       
 
@@ -367,7 +365,7 @@ function addMilestoneText(minDate, maxDate){
 }
 
 function updateMilestoneText(minDate){
-    console.log("update milestone text")
+    // console.log("update milestone text")
     // delete what was there before (there should be a better way to do this)
     focus.selectAll('.milestone-text').remove()
     focus.selectAll('.milestone line').remove()
@@ -391,7 +389,7 @@ function updateMilestoneText(minDate){
     .attr('y1', d => y(daily[d3.timeDay.count(minDate,d.date)]['daily'] + 30) )
     .attr('y2', d => {
         col = 'y2'
-        return grps.get(+d.date).length > 1 ? y(d[col] - 100) : y(d[col])
+        return grps.get(+d.date).length > 1 ? y(d[col] - 10) : y(d[col]-30)
     })
     // .attr('class', d => 0 < d.x < width ? 'milestone' : 'hideit')
 
