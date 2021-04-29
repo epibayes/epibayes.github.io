@@ -31,6 +31,7 @@ async function initDashboard() {
             'c': hexfillTemplate,
         }
     }
+    // console.log("hexfill is", hexfill)
     hexdata = {
         'hex20': d3.group(data20, d => +d.date, d => d.index),
         'hex10': d3.group(data10, d => +d.date, d => d.index),
@@ -130,10 +131,12 @@ function initMap() {
 }
 
 function updateHexLayers() {
+    // console.log("update hex layers is called")
     hexLayers.forEach((d,i) => updateHexFill(d, hexfill[status][metric][i]))
 }
 
 function updateHexFill(layerId, scale) {
+    // console.log("update hex fill is called")
     map.setPaintProperty(layerId, 'fill-color', scale)
 }
 
@@ -141,14 +144,48 @@ function getHexLayer() {
     return map.getZoom() < zoomThreshold ? 'hex20' : 'hex10'
 }
 
-function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1]) ) {
+
+function updateFillExpressionEmbed(key=metric, day){
+    day = maxDate
     const colorScale = getColorScale(key)
     const column = `${key}_${status.toLowerCase()}`
+    // console.log("column is", column)
     hexLayers.forEach((h,i) => {
         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
 
+function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1])) {
+    // console.log("updating Fill Expression with metric at ", key, "and day at ", day)
+    // console.log("day is", day)
+    const colorScale = getColorScale(key)
+    const column = `${key}_${status.toLowerCase()}`
+    // console.log("column is", column)
+    hexLayers.forEach((h,i) => {
+        hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
+    })
+}
+// function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1])) {
+//     if (embedMap){
+//         day = maxDate
+//     }
+//     const colorScale = getColorScale(key)
+//     const column = `${key}_${status.toLowerCase()}`
+//     hexLayers.forEach((h,i) => {
+//         hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
+//     })
+// }
+
+// function createFillExpression(data, colorScale, column) {
+//     let expression = ['match', ['get', 'index']];
+//     data.forEach((d, idx) => expression.push(idx, colorScale(d[0][column])));
+//     if ( (datatype == 'symptoms') && (metric.includes('rate')) ) {
+//         expression.push('#aaa') // gray out low responses for misymptoms
+//     } else {
+//         expression.push(colorScale(0)) // unknown case
+//     }        
+//     return expression
+// }
 function createFillExpression(data, colorScale, column) {
     let expression = ['match', ['get', 'index']];
     data.forEach((d, idx) => expression.push(idx, colorScale(d[0][column])));
@@ -160,7 +197,9 @@ function createFillExpression(data, colorScale, column) {
     return expression
 }
 
+
 function getColorScale() {
+    // console.log("the result of getColorScale is", colorScales[datatype][metric] )
     return colorScales[datatype][metric]
 }
 
@@ -232,6 +271,7 @@ function type(d) {
     d.index = +d.index
     d.date = dateParser(d.date)
     if (datatype === 'symptoms') {
+        // console.log("d weekly_all and cumulative_all are", d.weekly_all, d.cumulative_all)
         d.weekly_all = +d.weekly_all || 0
         d.cumulative_all = +d.cumulative_all
         d.weekly_atrisk = +d.weekly_atrisk || 0
@@ -250,6 +290,7 @@ function type(d) {
         d.weeklyrate_c = d.weekly_c * poprate
         d.cumulativerate_c = d.cumulative_c * poprate
     }
+    // console.log("data wrangle result: ", d)
     return d
 }
 
@@ -266,6 +307,7 @@ function filterByDate(data, date) {
 }
 
 function insertDates(minDate, maxDate) {
+    console.log("minDate is", minDate)
     d3.select('#first-date').text(daterangeFmt(minDate))
     d3.select('#last-date').text(daterangeFmt(maxDate))
     d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))

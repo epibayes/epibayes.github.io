@@ -8,33 +8,51 @@ function initTimeScale() {
 
 function initDropdown() {
     // time period dropdown button
-    d3.selectAll('#period a').on('click', function() { // updateRadio
-        const timePeriod = d3.select(this).attr("value")
-        if (metric.includes(timePeriod)) return;
-        const rateRadio = datatype === 'cases' ? d3.select('#select-case-rate').property('checked')
-            : d3.select('#response-proportion').property('checked') ? true 
-            : false
-        metric = rateRadio ? timePeriod + 'rate' : timePeriod
-        N = getNumDays()
-        updateHexGrid()
-        updateLegend(metric)
-        updateTotalInfo()
-        updateCaseChart2()
-        generateEmbedURL()
-        let dbutton = d3.select('#dropdownMenuButton');
-        let ccase = d3.select('#ccase');
-        let wcase = d3.select('#wcase');
+    if (!embedMap){
+        d3.selectAll('#period > *').on('click', function() { // updateRadio
+            const timePeriod = d3.select(this).attr("value")
+            if (metric.includes(timePeriod)) return;
+            const rateRadio = datatype === 'cases' ? d3.select('#select-case-rate').property('checked')
+                : d3.select('#response-proportion').property('checked') ? true 
+                : false
+            metric = rateRadio ? timePeriod + 'rate' : timePeriod
+            // console.log("metric is", metric)
+            N = getNumDays()
+            updateHexGrid()
+            updateLegend(metric)
+            updateTotalInfo()
+            updateCaseChart2()
+            generateEmbedURL()
+            let dbutton = d3.select('#dropdownMenuButton');
+            let ccase = d3.select('#ccase');
+            let wcase = d3.select('#wcase');
+    
+            if (timePeriod === 'weekly'){
+                dbutton.html(wcase.text()) 
+                ccase.classed('active', false)
+                wcase.classed('active', true)
+            } else {
+                dbutton.html(ccase.text())
+                ccase.classed('active', true)
+                wcase.classed('active', false)
+            }
+        })
+    }
 
-        if (timePeriod === 'weekly'){
-            dbutton.html(wcase.text()) 
-            ccase.classed('active', false)
-            wcase.classed('active', true)
-        } else {
-            dbutton.html(ccase.text())
-            ccase.classed('active', true)
-            wcase.classed('active', false)
-        }
-    })
+    if (embedMap){
+        d3.selectAll('.form-check-input').on('click', function() { // updateRadio
+            const timePeriod = d3.select(this).attr("value")
+            // console.log("timeperiod is", timePeriod)
+            if (metric.includes(timePeriod)) return;
+            metric = timePeriod;
+            // console.log("metric is", metric)
+            N = getNumDays()
+            updateHexGrid()
+            updateLegend(metric)
+            // updateTotalInfo()
+        })
+
+    }
 }
 
 function initRadio() {
@@ -86,7 +104,9 @@ function generateEmbedURL() {
 
 function updateDateRange(endDate) {
     const key = metric.replace('rate','')
-    startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    // console.log("xdomain 0 is", x.domain()[0])
+    startDate = x.domain()[0]
+    // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
     setDateRange(startDate, endDate)
 }
 
@@ -102,18 +122,22 @@ function updateMapInfo() {
 }
 
 function updateHexGrid() {
-    updateFillExpression()
+    // console.log("updateHexGrid called.")
+    embedMap ? updateFillExpressionEmbed() : updateFillExpression()
     updateHexLayers()    
 }
 
-function updateTotalInfo(endDate=x.domain()[1]) {
+function updateTotalInfo() {
+    let endDate = embedMap ? maxDate : x.domain()[1]
     updateTotal(endDate)
     updateDateRange(endDate)
 }
 
 function updateTotal(endDate) {
     const key = metric.replace('rate','')
-    startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    startDate = x.domain()[0]
+    // console.log("startDate", startDate)
     const idx0 = Math.round(date2idx(startDate))
     const idx1 = Math.round(date2idx(endDate))
     const subset = caseData.get(status.toLowerCase()).slice(idx0, idx1+1)

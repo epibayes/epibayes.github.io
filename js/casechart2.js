@@ -46,16 +46,29 @@ function makeCaseChart2() {
         .range([height, 0])
 
     // sets ticks for time series chart
-    xAxis = d3.axisBottom(x)
-        .ticks(4)
-        .tickFormat(multiDateFormat)
-        .tickSizeOuter(0)
-    yAxis = d3.axisRight(y)
-        .ticks(4)
-    xAxis2 = d3.axisBottom(x2)
-        .ticks(4)
-        .tickFormat(multiDateFormat)
-        .tickSizeOuter(0)
+    if (datatype === "symptoms"){
+        xAxis = d3.axisBottom(x)
+            .ticks(8)
+            .tickFormat(multiDateFormat)
+            .tickSizeOuter(0)
+        yAxis = d3.axisRight(y)
+            .ticks(5)
+        xAxis2 = d3.axisBottom(x2)
+            .ticks(8)
+            .tickFormat(multiDateFormat)
+            .tickSizeOuter(0)
+    } else {
+        xAxis = d3.axisBottom(x)
+            .ticks(4)
+            .tickFormat(multiDateFormat)
+            .tickSizeOuter(0)
+        yAxis = d3.axisRight(y)
+            .ticks(4)
+        xAxis2 = d3.axisBottom(x2)
+            .ticks(4)
+            .tickFormat(multiDateFormat)
+            .tickSizeOuter(0)
+    }
 
     formatAxis = g => g
         .call(g => g.select(".domain").remove())
@@ -123,7 +136,7 @@ function makeCaseChart2() {
 
     focus.append('text')
         .attr('id', 'yaxislabel')
-        .attr('x', 37)
+        .attr('x', 50)
         .attr('y', y(20000))
         .attr('dy', "-.35em")
         .attr('font-size', '0.7em')
@@ -207,7 +220,10 @@ function setYDomain(rescale) {
 
 function setYAxisTicks() {
     let ticks = d3.selectAll('.y-axis .tick')
-    ticks.each((d,i) => { if (i === ticks.size()-1) setYAxisLabel(d) })    
+    ticks.each((d,i) => { 
+        // console.log("d and i at tick are", d, i) 
+        if (i === ticks.size()-1) setYAxisLabel(d) 
+    })    
 }
 
 function setYAxisLabel(d) {

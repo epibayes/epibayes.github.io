@@ -470,11 +470,14 @@ h5{
   /* clip-path: url(#clip); */
 }
 
+text .milestone-text{
+  background-color: white !important;
+}
+
 .milestone-text {
-  font-size: 0.35em;
+  font-size: 0.355em;
   line-height: 0.5em;
-  font-weight: 300;
-  /* clip-path: url(#clip); */
+  font-weight: 400;
 }
 
 .rect {
@@ -483,16 +486,8 @@ h5{
 }
 
 .rect-text {
-  font-size: 0.5em;
-  font-weight: 400;
-  clip-path: url(#clip);
-}
-
-.hideit{
-  clip-path: url(#clip);
-}
-.hidetext{
-  display: none;
+  font-size: 0.55em;
+  font-weight: 500;
 }
 
 .end {
@@ -637,7 +632,7 @@ h5{
 
 /* ||MISYMPTOMS.html|| */
 /* remove col paddings */
-.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols .col-sm-12, .midrpcol, .slidercol{
+.mainitems, .msmap, .allabout, .gettingnumbers, .leftsections, .rightsections, .numberstell, .numbersdonttell, .mimapcontrols, .col-md-12, .midrpcol, .slidercol{
   padding: 0px;
   margin: 0px;
 }
@@ -740,6 +735,616 @@ h5{
 /* tri-state radio button */
 #response-total, #response-covid, #response-proportion{
   display: none;
+}
+
+/* ||  DISPARITIES.HTML  || */
+/* .disparities-img{
+  width: inherit;
+}
+.pdf{
+  width: inherit;
+  height: 700px;
+} */
+
+.incidencerow{
+  padding-bottom:15px;
+}
+
+.topcol{
+  background-color: #231f20 !important;
+  margin: 0;
+  padding: 10px;
+  color: white !important;
+}
+
+.disparitiestitle{
+  margin: 0;
+  padding: 0;
+}
+
+.sidelinecharts{
+  height:inherit;
+}
+.subheadercol{
+  margin: 0;
+  padding: 0;
+}
+
+.subheading{
+  margin: 0;
+  padding: 5px 10px 10px 5px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.headertextcol{
+  margin:0;
+  padding:0;
+  padding-left: 10px;
+  padding-right: 80px;
+  background-color: #ff7c3c;
+  clip-path: polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
+  -webkit-clip-path:polygon(90% 0, 100% 48%, 90% 100%, 0 100%, 0 0);
+}
+
+.charts{
+  width:100%;
+  vertical-align: center !important;
+  padding: 10px;
+  margin: 5px;
+}
+
+#gingerchart{
+  margin:0;
+  padding: 0;
+}
+
+.linegraphrow{
+  padding: 0px;
+}
+
+.linegraphcol{
+    margin:0;
+    padding:0;
+}
+
+.charttitle{
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+    /* padding-bottom: 5px;
+    padding-top:5px; */
+}
+
+#donutsectiontitle{
+  font-size: 26px;
+  padding-bottom: 10px;
+  padding-top:15px;
+}
+.imgandtextfloat{
+  /* position: relative; */
+  padding-top:10px;
+  padding-bottom: 10px;
+}
+
+#cfrstandardizedexplainer{
+  margin:0;
+  padding:0;
+  font-weight: 500;
+  font-size: 16px;
+  /* position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 500px; */
+  background-color: white;
+}
+
+.blackid{
+  font-weight: bold;
+  color: #ed7d31;
+}
+
+.whiteid{
+  font-weight: bold;
+  color: #180086;
+}
+
+.APIAid{
+  font-weight: bold;
+  color:#ff0000;
+}
+
+.latinoid{
+  font-weight: bold;
+  color: #f05856;
+}
+
+.nativeid{
+  font-weight: bold;
+  color: #b12a90;
+}
+
+.otherid{
+  font-weight: bold;
+  color: #6a00a8;
+}
+
+.datasource{
+  margin:0;
+  padding:0;
+  padding-bottom:5px;
+  padding-right: 5px;
+  font-size:11px;
+  font-weight:500;
+}
+
+.darkcharttitle{
+  /* margin: 10px; */
+  padding: 5px;
+  color: white;
+  background-color: black;
+}
+
+.imgandtext{
+  background-color: black;
+  padding: 10px
+}
+
+.gingerfloat{
+  margin:10px;
+  padding:10px;
+}
+
+.gingerexplain{
+  margin:0;
+  padding:0;
+  background-color:black;
+  color: white;
+}
+
+.gingericon{
+  height: 20px;
+  vertical-align: center;
+}
+
+.sidegraphrow{
+  margin:0;
+  padding:0;
+}
+
+.sidegraphcol{
+  margin:0;
+  padding:0;
+}
+
+.sideheader{
+  font-size: 18px;
+  margin:0;
+  padding:0;
+  /* position: absolute;
+  top: 20px;
+  left: 0px;
+  right: 0px; */
+}
+
+#standardized{
+  display: inline-block;
+  width: 50px;
+  border-bottom: 3px solid black;
+}
+
+#unstandardized{
+  display: inline-block;
+  width: 50px;
+  border-bottom: 3px dashed  black;
+}
+
+.linelabel{
+  display: inline-block;
+}
+.verticalchart{
+  /* width: 100%; */
+  width: 100%;
+  /* height: 90% !important; */
+}
+
+.legendimg{
+  width: 70%;
+}
+
+#bwincidenceexplainer, #wlincidenceexplainer{
+  margin:0;
+  padding:0;
+  font-weight: 500;
+  font-size: 16px;
+  /* font-style: italic; */
+
+  /* position: absolute; */
+  /* top: 70px;
+  right: 200px;
+  width: 300px; */
+  /* background-color: white; */
+}
+
+.donutcol{
+  /* background-color:black; */
+  color: white;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.donutlabel{
+  font-size: 18px;
+  color: lightgray;
+}
+
+.donut{
+  width: 85%;
+  /* margin:5px; */
+}
+
+.racedonutcol{
+  margin:0;
+  padding:0;
+  background-color: black;
+}
+
+.donutgroup{
+  /* padding: 10px; */
+  width: inherit;
+}
+
+.donutgraphcol{
+  padding:0;
+  margin:0;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#topdonutexp{
+  font-weight:bold;
+  color: #ffc000;
+}
+
+#bottomdonutexp{
+  font-weight: bold;
+  color:#f05856;
+}
+
+.darksource{
+  color: white;
+}
+
+.gingerbreadrow{
+  background-color: black;
+}
+
+.creditcol{
+  background-color: #e7e6e6;
+}
+
+.credit{
+  margin:0;
+  padding:0;
+  padding: 5px;
+  font-weight: bold;
+
+}
+.topcol{
+  background-color: black;
+}
+
+.introcol{
+  /* background-color:#ff7c3c; */
+  /* background-color: #C5DECD; */
+  /* background-color: #FCF6B1; */
+  /* background-color: #F0CEA0; */
+  background-color: #C7DBE6;
+  /* background-color: black; */
+  /* padding-bottom: 5px; */
+  /* margin: 15px; */
+}
+
+.introhd{
+  padding: 10px;
+  margin: 0;
+  /* color: white; */
+  color: black;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.float-right-top{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.disparity, .incidence, .fatality, .standardized{
+  font-weight: 700;
+  /* color: #006992; */
+  color: #232C33;
+  background-color: #FFCB47;
+}
+
+.definitionsdiv{
+  padding: 5px;
+  /* color: white; */
+  color: black;
+  font-weight: 500;
+}
+
+.note{
+  color: white;
+}
+
+#disparitiespg svg{
+  padding: 10px;
+}
+
+.wavelabel{
+  font-size: 18px;
+  color: white;
+}
+
+#gingerbutton > *{
+  font-size: 18px;
+  font-weight: 700;
+  padding: 15px;
+}
+
+#gingerbutton{
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+ts
+c
+.gingerlabel{
+  color: white;
+}
+
+.linegraphrow{
+  padding-bottom: 15px;
+}
+
+#w1_ginger, #w2_ginger{
+  display: block;
+  margin: auto;
+}
+
+.gingerlabel{
+  margin: auto;
+  color: white;
+}
+
+/* ||adjustments based on screen size|| */
+/* (for disparities page) */
+/* ||XS DEVICES|| */
+@media (max-width:600px){
+  .incidencechartcol{
+    margin:0;
+    padding:0;
+  }  
+  .imgandtextfloat{
+    position: inherit;
+    margin:0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  #bwincidenceexplainer, #wlincidenceexplainer, #cfrstandardizedexplainer, .sideheader{
+    position: initial;
+    width: 100%;
+  }
+
+  #cfrstandardizedexplainer{
+    padding-top: 10px;
+  }
+
+  #bwincidenceexplainer, #wlincidenceexplainer{
+    padding-bottom: 5px;
+  }
+  .subheading{
+    font-size: 20px;
+  }
+
+  .sideheader{
+    font-size: 20px;
+  }
+
+  #gingerbutton{
+    width: 100%;
+  }
+  
+  #gingerbutton > .gingtoggle{
+    font-size: 14px;
+  }
+
+}
+
+/* ||S DEVICES|| */
+@media (min-width:600px){
+  .imgandtextfloat{
+    position: inherit;
+    margin:0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  #bwincidenceexplainer, #wlincidenceexplainer, #cfrstandardizedexplainer, .sideheader{
+    position: initial;
+    width: 100%;
+  }
+
+  #cfrstandardizedexplainer{
+    padding-top: 10px;
+  }
+  #bwincidenceexplainer, #wlincidenceexplainer{
+    padding-bottom: 5px;
+  }
+  .sideheader{
+    font-size: 32px;
+  }
+
+}
+
+/* ||M DEVICES|| */
+@media (min-width:768px){
+  .sideheader{
+    font-size: 24px;
+  }
+  .donut{
+    width: 90%;
+  }
+  .donutlab{
+    font-size: 20px;
+  }
+}
+
+/* ||L DEVICES|| */
+@media (min-width: 992px){
+  .topcol, .incidencechartcol, .linegraphcol, .gingerbreadcol, .creditcol{
+    padding-left: 15px;
+    padding-right: 15px;
+  }  
+
+
+  #bwincidenceexplainer, #wlincidenceexplainer{
+    margin:auto;
+    padding:auto;
+    font-weight: 500;
+    font-size: 16px;
+    /* font-style: italic; */
+    /* position: absolute; */
+    /* top: 0;
+    left: 0;
+    right: 0;
+    width: 280px; */
+    background-color: none !important;
+  }
+
+  .sideheader{
+    font-size: 18px;
+    margin:0;
+    padding:0;
+    /* position: absolute; */
+    /* top: 10px;
+    left: 0px;
+    right: 0px; */
+  }
+  
+  #cfrstandardizedexplainer{
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    font-size: 15px;
+    /* position: absolute; */
+    /* top: 12px;
+    right: 0px;
+    width: 500px; */
+    background-color: white;
+  }
+
+  .introhd{
+    padding: 10px;
+    margin: 0;
+    /* color: white; */
+    color: black;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  .def{
+    font-size: 13px;
+  }
+  .donutlab{
+    font-size: 20px;
+  }
+}
+
+/* ||XL DEVICES|| */
+@media (min-width: 1200px){
+  #cfrstandardizedexplainer{
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    font-size: 20px;
+    /* position: absolute; */
+    /* top: 18px;
+    right: 16px;
+    width: 500px; */
+    background-color: white;
+  }
+
+  #bwincidenceexplainer, #wlincidenceexplainer{
+    margin:auto;
+    padding:auto;
+    font-weight: 500;
+    font-size: 16px;
+    /* position: absolute; */
+    /* top: 50px;
+    right: 0;
+    left:0;
+    width: 350px; */
+    /* background-color: white; */
+  }
+
+  .introcol{
+    position: default;
+
+  }
+
+  .donut{
+    width: 80%;
+  }
+
+  .gingchart > *{
+    width: 90%;
+  }
+  .donutlab{
+    font-size: 18px;
+  }
+  .chartallincidence{
+    width: 85%;
+  }
+
+}
+/* ||SUPER XL DEVICES|| */
+@media (min-width: 1400px){
+  #cfrstandardizedexplainer{
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    font-size: 20px;
+    /* position: absolute; */
+    /* top: 18px;
+    right: 16px;
+    width: 500px; */
+    background-color: white;
+  }
+
+  #bwincidenceexplainer, #wlincidenceexplainer{
+    margin:0;
+    padding:0;
+    font-weight: 500;
+    font-size: 16px;
+    /* position: absolute; */
+    /* top: 70px;
+    left: 240px;
+    width: 350px; */
+    /* background-color: white; */
+  }
+  .gingchart > *{
+    width: 70%;
+  }
+  .donutlab{
+    font-size: 18px;
+  }
+
+  .chartallincidence{
+    width: 70%
+  }
 }
 
 /* || media rules || */
