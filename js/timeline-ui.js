@@ -25,6 +25,11 @@ function roundVax(totalvaxDirty,fullvaxDirty){
 
 }
 
+function miPercents(eighteenplus, sixtyfiveplus){
+  document.querySelector('#plus18_mi').innerHTML = eighteenplus;
+  document.querySelector('#plus65_mi').innerHTML = sixtyfiveplus;
+}
+
 async function jhutotals(){
     let formatteddate = d3.timeFormat("%m-%d-%Y")
     let today = new Date();
@@ -54,7 +59,8 @@ async function jhutotals(){
       // for troubleshooting :
       // mydata = await d3.csv(twodaysagodata, d3.autoType)
     }
-
+    // console.log(mydata)
+    // console.log(typeof mydata)
     usdata = mydata.filter(d => d.Country_Region=== 'US')
     // console.log(usdata)
     let confirmedcount = d3.sum(usdata.map(d => d.Confirmed))
@@ -63,5 +69,45 @@ async function jhutotals(){
     // console.log("confirmed and death:", confirmedcount, deathcount)
 
     roundTotals(confirmedcount, deathcount)
+}
+
+async function cdcVaxNumbers(){
+    console.log("cdcvaxnumbers was called")
+
+    cdcurl='https://api.allorigins.win/get?url=http://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data'
+
+    try{
+      mydata = await d3.json(cdcurl)
+      console.log("i ran the try argument and got data")
+    } catch(err){
+      console.log("unable to get cdc data from url")
+    }
+    mydataContents = mydata.contents
+    //mydata with the stuff i need is a string that i need to parse...
+    mydataFormatted = JSON.parse(mydataContents)
+    // console.log(typeof mydataFormatted)
+
+    neededData = mydataFormatted.vaccination_data
+    // console.log(neededData)
+
+    //administered and fully vaccinated US totals
+    let totalAdmin = neededData[0].Doses_Administered
+    // console.log("totalAdmin", totalAdmin)
+    let fullyVaxed= neededData[0].Series_Complete_Yes
+
+    roundVax(totalAdmin, fullyVaxed)
+    // console.log("fullyVaxed", fullyVaxed)
+
+    //michigan percents
+    michiganData = neededData.filter(d => d.Location === "MI")
+    // console.log("miData", michiganData)
+
+    // 18+ vax and 65+ vax numbers for michigan
+    let vax18plus = michiganData[0].Series_Complete_18PlusPop_Pct
+    // console.log(vax18plus)
+    let vax65plus = michiganData[0].Series_Complete_65PlusPop_Pct
+    // console.log(vax65plus)
+
+    miPercents(vax18plus, vax65plus)
 }
 
