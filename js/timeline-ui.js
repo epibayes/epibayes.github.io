@@ -53,7 +53,7 @@ async function jhutotals(){
       // mydata = await d3.csv(yesterdaysdata, d3.autoType)
     } 
     catch(err){
-      console.log("there was an error getting today's data, get yesterday's data...")
+      // console.log("there was an error getting today's data, get yesterday's data...")
       mydata = await d3.csv(yesterdaysdata, d3.autoType)
       
       // for troubleshooting :
@@ -78,9 +78,9 @@ async function cdcVaxNumbers(){
 
     try{
       mydata = await d3.json(cdcurl)
-      console.log("i ran the try argument and got data")
+      // console.log("i ran the try argument and got data")
     } catch(err){
-      console.log("unable to get cdc data from url")
+      // console.log("unable to get cdc data from url")
     }
     mydataContents = mydata.contents
     //mydata with the stuff i need is a string that i need to parse...
