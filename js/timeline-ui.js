@@ -72,9 +72,9 @@ async function jhutotals(){
 }
 
 async function cdcVaxNumbers(){
-    console.log("cdcvaxnumbers was called")
+    // console.log("cdcvaxnumbers was called")
 
-    cdcurl='https://api.allorigins.win/get?url=http://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data'
+    cdcurl='https://api.allorigins.win/get?url=https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data'
 
     try{
       mydata = await d3.json(cdcurl)
