@@ -82,7 +82,9 @@ async function cdcVaxNumbers(){
     } catch(err){
       console.log("unable to get cdc data from url")
     }
+    console.log(mydata)
     mydataContents = mydata.contents
+    console.log(mydataContents)
     //mydata with the stuff i need is a string that i need to parse...
     mydataFormatted = JSON.parse(mydataContents)
     console.log(mydataFormatted)
