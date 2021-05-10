@@ -78,7 +78,7 @@ async function cdcVaxNumbers(){
 
     try{
       mydata = await d3.json(cdcurl)
-      // console.log("i ran the try argument and got data")
+      console.log("i ran the try argument and got data")
     } catch(err){
       console.log("unable to get cdc data from url")
     }
