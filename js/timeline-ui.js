@@ -72,42 +72,55 @@ async function jhutotals(){
 }
 
 async function cdcVaxNumbers(){
-    console.log("cdcvaxnumbers was called")
+    // console.log("cdcvaxnumbers was called")
 
-    cdcurl='https://api.allorigins.win/get?url=http://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data'
+    cdcurl='https://jsonp.afeld.me/?callback=&url=https%3A%2F%2Fcovid.cdc.gov%2Fcovid-data-tracker%2FCOVIDData%2FgetAjaxData%3Fid%3Dvaccination_data'
+    
+    // try{
+    //   mydata = await d3.json(cdcurl)
+    //   console.log("i ran the try argument and got data")
+    // } catch(err){
+    //   console.log("unable to get cdc data from url")
+    // }
 
-    try{
-      mydata = await d3.json(cdcurl)
-      // console.log("i ran the try argument and got data")
-    } catch(err){
-      // console.log("unable to get cdc data from url")
-    }
-    mydataContents = mydata.contents
-    //mydata with the stuff i need is a string that i need to parse...
-    mydataFormatted = JSON.parse(mydataContents)
-    // console.log(typeof mydataFormatted)
+    fetchJsonp(cdcurl)
+        .then(res => res.json())
+        .then(json => {
+          let mydata = json;
+          // console.log("my data is", mydata)
+          // mydataContents = mydata.contents
+          // console.log(mydataContents)
+          //mydata with the stuff i need is a string that i need to parse...
+          // mydataFormatted = JSON.parse(mydataContents)
+          // mydataFormatted = mydataContents
+          // console.log(mydataFormatted)
 
-    neededData = mydataFormatted.vaccination_data
-    // console.log(neededData)
+          // neededData = mydataFormatted.vaccination_data
+          neededData=mydata.vaccination_data
+          // console.log(neededData)
 
-    //administered and fully vaccinated US totals
-    let totalAdmin = neededData[0].Doses_Administered
-    // console.log("totalAdmin", totalAdmin)
-    let fullyVaxed= neededData[0].Series_Complete_Yes
+          //administered and fully vaccinated US totals
+          let totalAdmin = neededData[0].Doses_Administered
+          // console.log("totalAdmin", totalAdmin)
+          let fullyVaxed= neededData[0].Series_Complete_Yes
 
-    roundVax(totalAdmin, fullyVaxed)
-    // console.log("fullyVaxed", fullyVaxed)
+          roundVax(totalAdmin, fullyVaxed)
+          // console.log("fullyVaxed", fullyVaxed)
 
-    //michigan percents
-    michiganData = neededData.filter(d => d.Location === "MI")
-    // console.log("miData", michiganData)
+          //michigan percents
+          michiganData = neededData.filter(d => d.Location === "MI")
+          // console.log("miData", michiganData)
 
-    // 18+ vax and 65+ vax numbers for michigan
-    let vax18plus = michiganData[0].Series_Complete_18PlusPop_Pct
-    // console.log(vax18plus)
-    let vax65plus = michiganData[0].Series_Complete_65PlusPop_Pct
-    // console.log(vax65plus)
+          // 18+ vax and 65+ vax numbers for michigan
+          let vax18plus = michiganData[0].Series_Complete_18PlusPop_Pct
+          // console.log(vax18plus)
+          let vax65plus = michiganData[0].Series_Complete_65PlusPop_Pct
+          // console.log(vax65plus)
 
-    miPercents(vax18plus, vax65plus)
+          miPercents(vax18plus, vax65plus)
+
+        });
+        
+    
 }
 
