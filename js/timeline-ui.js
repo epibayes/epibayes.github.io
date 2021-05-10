@@ -85,7 +85,7 @@ async function cdcVaxNumbers(){
     mydataContents = mydata.contents
     //mydata with the stuff i need is a string that i need to parse...
     mydataFormatted = JSON.parse(mydataContents)
-    // console.log(typeof mydataFormatted)
+    console.log(mydataFormatted)
 
     neededData = mydataFormatted.vaccination_data
     // console.log(neededData)
