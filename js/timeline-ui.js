@@ -80,7 +80,7 @@ async function cdcVaxNumbers(){
       mydata = await d3.json(cdcurl)
       // console.log("i ran the try argument and got data")
     } catch(err){
-      // console.log("unable to get cdc data from url")
+      console.log("unable to get cdc data from url")
     }
     mydataContents = mydata.contents
     //mydata with the stuff i need is a string that i need to parse...
