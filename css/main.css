@@ -1111,19 +1111,6 @@ c
   color: white;
 }
 
-/* ||FUNDING.HTML|| */
-.funderH2{
-  font-size: 18px;
-  font-weight: bold;
-}
-.funderLogo{
-  width: 350px;
-}
-.fundingFooter{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
 /* ||adjustments based on screen size|| */
 /* (for disparities page) */
 /* ||XS DEVICES|| */
