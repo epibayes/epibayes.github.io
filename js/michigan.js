@@ -43,7 +43,14 @@ async function initDashboard() {
     initDropdown()
     generateEmbedURL()
 
-    initMap()
+    initMap().then(()=>{
+        console.log("map, then")
+        d3.selectAll(".loader").remove()
+        d3.select('#map').classed('d-flex align-items-center justify-content-center', false)
+        d3.select('#casechart').classed('d-flex align-items-center justify-content-center', false)
+    })
+
+
     setDateRange(minDate, maxDate)
 
     if (!embedMap) {
@@ -53,7 +60,7 @@ async function initDashboard() {
 }
 
 // Mapbox Related Functions
-function initMap() {
+async function initMap() {
     metrics.forEach(metric => updateFillExpression(metric, maxDate))
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZXBpYmF5ZXMiLCJhIjoiY2tiaml0b3JpMHBuNzJ1bXk3MzdsbWs1aCJ9.YlxrUIBkuWk-VuYDDeMjBQ';
