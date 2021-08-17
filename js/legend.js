@@ -5,11 +5,11 @@ let tickValues = {
     'cases': {
         'cumulative': [10, 100, 1000, 10000],
         'weekly': [10, 100],
-        'cumulativerate': [2000, 4000,  6000],
+        'cumulativerate': [2000, 6000, 10000],
         'weeklyrate': [200, 400, 600],
     },
     'symptoms': {
-        'cumulative': [10, 100, 1000, 10000],
+        'cumulative': [10, 100, 1000, 10000, 100000],
         'weekly': [10, 100, 1000],
         'cumulativerate': [0.05, 0.10, 0.15],
         'weeklyrate': [0.05, 0.10, 0.15],
