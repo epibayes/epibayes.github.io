@@ -43,13 +43,13 @@ async function jhutotals(){
     let twodaysago_nice = formatteddate(twodaysago);
 
     // there were no new csvs after 09/29/2021, so hardset date to 09/29/2021
-    let hardset_nice = '09-29-2021';
+    // let hardset_nice = '09-29-2021';
 
     todaysdata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${today_nice}.csv`
     yesterdaysdata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${yesterday_nice}.csv`
     twodaysagodata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${twodaysago_nice}.csv`
 
-    hardsetdata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${hardset_nice}.csv`
+    // hardsetdata = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${hardset_nice}.csv`
     try{
 
       mydata = await d3.csv(todaysdata, d3.autoType)
@@ -59,9 +59,9 @@ async function jhutotals(){
     } 
     catch(err){
       //use hardset data if no today's data (TEMPORARY)
-      mydata = await d3.csv(hardsetdata, d3.autoType)
+      // mydata = await d3.csv(hardsetdata, d3.autoType)
       // console.log("there was an error getting today's data, get yesterday's data...")
-      // mydata = await d3.csv(yesterdaysdata, d3.autoType)
+      mydata = await d3.csv(yesterdaysdata, d3.autoType)
       
       // for troubleshooting :
       // mydata = await d3.csv(twodaysagodata, d3.autoType)
