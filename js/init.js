@@ -50,7 +50,7 @@ let metric = 'cumulative';
 let colorScales = {
     'cases' : {
         'cumulative': d3.scaleSequentialLog(d3.interpolateYlOrRd).domain([1, 100000]).clamp(true),
-        'cumulativerate': d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 12000]).clamp(true),
+        'cumulativerate': d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 18000]).clamp(true),
         'weekly': d3.scaleSequentialLog(d3.interpolateYlGnBu).domain([1, 1000]).clamp(true),
         'weeklyrate': d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 800]).clamp(true),
     },
