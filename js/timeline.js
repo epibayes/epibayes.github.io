@@ -40,11 +40,11 @@ async function makeTimeline(weekBin=false) {
         .range([0, width])
 
     let y = d3.scaleLinear()
-        .domain([0, weekBin ? 13000 : 14000])
+        .domain([0, weekBin ? 20000 : 20000])
         .range([height, 0])
 
-    let ticks = [0,2000,4000,6000,8000,10000,12000],
-        xAxis = d3.axisBottom(x).ticks(8).tickSizeOuter(0),
+    let ticks = [0,4000,8000,12000,16000,20000],
+        xAxis = d3.axisBottom(x).ticks(ticks.length).tickSizeOuter(0),
         yAxis = d3.axisRight(y)
             .ticks(8)
             .tickValues(weekBin ? ticks.map(d => d*8) : ticks)
