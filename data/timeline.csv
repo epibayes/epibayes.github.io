@@ -35,5 +35,5 @@ date,y2,anchor,annotation,description
 4/5/21,4000,start,Vaccination Phase 2,All MI residents 16+ are eligible for COVID vaccination
 5/15/21,3200,start,Gatherings and Face Mask Order, Gatherings are restricted and face masks are required indoors unless the individual falls under certain exceptions
 6/7/21,2400,start,MI Gov rescinds emergency orders,"Due to the decrease in positivity rates and due to the effectiveness of COVID vaccines, previous emergency orders were lifted"
-8/21/21,11200,start,Delta becomes predominant strain of COVID-19, MDHHS notes that 99% of sampled cases were delta variant cases
-12/3/21, 10400, start,1st MI case of B.1.1.529 variant,"The first Michigan case of the COVID-19 variant B.1.1.529 was identified in Kent County"
+8/21/21,11200,end,Delta becomes predominant strain of COVID-19, MDHHS notes that 99% of sampled cases were delta variant cases
+12/3/21,10400,end,1st MI case of B.1.1.529 variant,"The first Michigan case of the COVID-19 variant B.1.1.529 was identified in Kent County"
