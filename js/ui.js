@@ -14,12 +14,7 @@ function initDropdown() {
             : d3.select('#response-proportion').property('checked') ? true 
             : false
         metric = rateRadio ? timePeriod + 'rate' : timePeriod
-        N = getNumDays()
-        updateHexGrid()
-        updateLegend(metric)
-        updateTotalInfo()
-        updateCaseChart2()
-        generateEmbedURL()
+
         let dbutton = d3.select('#dropdownMenuButton');
         let ccase = d3.select('#ccase');
         let wcase = d3.select('#wcase');
@@ -28,11 +23,20 @@ function initDropdown() {
             dbutton.html(wcase.text()) 
             ccase.classed('active', false)
             wcase.classed('active', true)
+            
+            x.domain([d3.timeDay.offset(maxDate, -6), maxDate])
         } else {
             dbutton.html(ccase.text())
             ccase.classed('active', true)
             wcase.classed('active', false)
+            x.domain([minDate, maxDate])
         }
+        N = getNumDays()
+        updateHexGrid()
+        updateLegend(metric)
+        updateTotalInfo()
+        updateCaseChart2()
+        generateEmbedURL()
     })
 }
 
@@ -85,11 +89,13 @@ function generateEmbedURL() {
 
 function updateDateRange(endDate) {
     const key = metric.replace('rate','')
-    startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    startDate = x.domain()[0]
     setDateRange(startDate, endDate)
 }
 
 function setDateRange(startDate, endDate) {
+    console.log("startDate at setDateRange", startDate)
     d3.select('#startdate').text(daterangeFmt(startDate))
     d3.select('#enddate').text(daterangeFmt(endDate))
 }
@@ -112,7 +118,8 @@ function updateTotalInfo(endDate=x.domain()[1]) {
 
 function updateTotal(endDate) {
     const key = metric.replace('rate','')
-    startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    startDate = x.domain()[0]
     const idx0 = Math.round(date2idx(startDate))
     const idx1 = Math.round(date2idx(endDate))
     const subset = caseData.get(riskStatus.toLowerCase()).slice(idx0, idx1+1)

@@ -184,8 +184,8 @@ function updateCaseChart2(updateAxis=true) {
         updateYAxis()
         updateLines()
     }
-    console.log("updateCaseChart got called")
-    updateBrush()
+    // console.log("updateCaseChart got called")
+    // updateBrush()
 };
 
 function updateLines() {
@@ -253,6 +253,7 @@ function brushed(updateYAx=false) {
         .attr("d", movingAvg1);
     focus.select(".x-axis")
         .call(xAxis)
+
     updateTotalInfo()
     if (updateYAx) {
         updateYAxis()
@@ -275,11 +276,14 @@ function brushended() {
     //     dayRange[1] = d3.timeDay.offset(dayRange[0],1);
     // }
     x.domain(dayRange)
+    console.log("dayRange at brushended is", dayRange)
+    console.log("dateRange is", dateRange)
     xBrush.transition()
         .call(brush.move, dayRange.map(x2));
     updateMapInfo()
     updateYAxis()
     updateLines()
+    updateCaseChart2()
 };
 
 function chooseCustomDate(beginDate, endDate) {
@@ -288,9 +292,11 @@ function chooseCustomDate(beginDate, endDate) {
 
 // calls the custom date selector that updates brush
 function updateBrush(){
+    console.log("max and min dates at updateBrush", maxDate, minDate)
     endDate = maxDate
-    beginDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
-    xBrush.call(brush.move, [x2(beginDate), x2(endDate)])
+    beginDate = minDate
+    // beginDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    // xBrush.call(brush.move, [x2(beginDate), x2(endDate)])
 }
 
 // calculates simple moving sum over N days

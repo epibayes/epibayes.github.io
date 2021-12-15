@@ -54,7 +54,7 @@ async function initDashboard() {
     setDateRange(minDate, maxDate)
 
     if (!embedMap) {
-        insertDates(minDate, maxDate)
+        // insertDates(minDate, maxDate)
         makeCaseChart2()
     }
 }
@@ -155,7 +155,7 @@ function getHexLayer() {
 function updateFillExpressionEmbed(key=metric, day){
     day = maxDate
     const colorScale = getColorScale(key)
-    console.log("color scale is", )
+    // console.log("color scale is", )
     const column = `${key}_${riskStatus.toLowerCase()}`
     // console.log("column is", column)
     hexLayers.forEach((h,i) => {
