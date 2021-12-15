@@ -32,6 +32,7 @@ function makeCaseChart2() {
         .attr("preserveAspectRatio", "xMidYMid meet")
 
     // set the ranges
+    // console.log("at chart init, min and max date are", minDate, maxDate)
     x2 = d3.scaleTime()
         .domain([minDate, maxDate])
         .range([0, width])
@@ -179,8 +180,12 @@ function updateCaseChart2(updateAxis=true) {
     // calculate new dataset
     chartData = newChartData()
     // update chart
-    if (updateAxis) updateYAxis()
-    updateLines()
+    if (updateAxis) {
+        updateYAxis()
+        updateLines()
+    }
+    console.log("updateCaseChart got called")
+    updateBrush()
 };
 
 function updateLines() {
@@ -200,7 +205,7 @@ function getDateRange(d) {
 }
 
 function newChartData() {
-    return movingSum(caseData.get(status), N)
+    return movingSum(caseData.get(riskStatus), N)
 }
 
 function updateYAxis(rescale=true) {
@@ -212,8 +217,9 @@ function updateYAxis(rescale=true) {
 }
 
 function setYDomain(rescale) {
+    // console.log("minDate and maxdate coming into setYDomain", minDate, maxDate)
     const idx0 = Math.round(date2idx(x.domain()[0]))
-    const idx1 = Math.round(date2idx(x.domain()[1]))     
+    const idx1 = Math.round(date2idx(x.domain()[1]))  
     y.domain(d3.extent(chartData.slice(idx0,idx1+1), d => d.total)).nice()
     y2.domain([0, d3.max(chartData, d => d.total)]).nice()
 }
@@ -252,7 +258,7 @@ function brushed(updateYAx=false) {
         updateYAxis()
         updateLines()
     }
-};
+};    
 
 // brush snapping function
 function brushended() {
@@ -277,6 +283,13 @@ function brushended() {
 };
 
 function chooseCustomDate(beginDate, endDate) {
+    xBrush.call(brush.move, [x2(beginDate), x2(endDate)])
+}
+
+// calls the custom date selector that updates brush
+function updateBrush(){
+    endDate = maxDate
+    beginDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
     xBrush.call(brush.move, [x2(beginDate), x2(endDate)])
 }
 

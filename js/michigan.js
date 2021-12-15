@@ -13,10 +13,10 @@ async function initDashboard() {
         d.date = dateParser(d.date)
         d.value = d.cumulative
         d.idx = i
-        d.status = d.status.toLowerCase()
+        d.riskStatus = d.status.toLowerCase()
         return d
     })
-    caseData = d3.group(caseData, d => d.status)
+    caseData = d3.group(caseData, d => d.riskStatus)
 
     hexfillTemplate = {} // Object to contain the fill expressions for hex grid
     metrics.forEach(metric => hexfillTemplate[metric] = Array(2))
@@ -39,7 +39,7 @@ async function initDashboard() {
 
     initTimeScale()
     initRadio()
-    status = datatype === 'symptoms' ? 'atrisk' : 'cp'
+    riskStatus = datatype === 'symptoms' ? 'atrisk' : 'cp'
     initDropdown()
     generateEmbedURL()
 
@@ -97,7 +97,7 @@ async function initMap() {
             "maxzoom": zoomThreshold,
             "layout": { 'visibility': 'visible' },
             "paint": {
-                "fill-color": hexfill[status][metric][0],
+                "fill-color": hexfill[riskStatus][metric][0],
                 "fill-opacity": alpha,
             },
         });
@@ -109,7 +109,7 @@ async function initMap() {
             "minzoom": zoomThreshold,
             "layout": { 'visibility': 'visible' },
             "paint": {
-                "fill-color": hexfill[status][metric][1],
+                "fill-color": hexfill[riskStatus][metric][1],
                 "fill-opacity": alpha,
             },
         });
@@ -139,7 +139,7 @@ async function initMap() {
 
 function updateHexLayers() {
     // console.log("update hex layers is called")
-    hexLayers.forEach((d,i) => updateHexFill(d, hexfill[status][metric][i]))
+    hexLayers.forEach((d,i) => updateHexFill(d, hexfill[riskStatus][metric][i]))
 }
 
 function updateHexFill(layerId, scale) {
@@ -155,10 +155,11 @@ function getHexLayer() {
 function updateFillExpressionEmbed(key=metric, day){
     day = maxDate
     const colorScale = getColorScale(key)
-    const column = `${key}_${status.toLowerCase()}`
+    console.log("color scale is", )
+    const column = `${key}_${riskStatus.toLowerCase()}`
     // console.log("column is", column)
     hexLayers.forEach((h,i) => {
-        hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
+        hexfill[riskStatus][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
 
@@ -166,10 +167,10 @@ function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1])) {
     // console.log("updating Fill Expression with metric at ", key, "and day at ", day)
     // console.log("day is", day)
     const colorScale = getColorScale(key)
-    const column = `${key}_${status.toLowerCase()}`
+    const column = `${key}_${riskStatus.toLowerCase()}`
     // console.log("column is", column)
     hexLayers.forEach((h,i) => {
-        hexfill[status][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
+        hexfill[riskStatus][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
 // function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1])) {
@@ -235,8 +236,8 @@ function getMetricValues(idx) {
     const day = embedMap ? maxDate : d3.timeDay(x.domain()[1])
     const h = getHexLayer()
     const array = hexdata[h].get(+day).get(idx)
-    metricsStatus = metrics.map(metric => `${metric}_${status.toLowerCase()}`)
-    let data = metricsStatus.map((col,i) => array === undefined ? '0'
+    metricsstatus = metrics.map(metric => `${metric}_${riskStatus.toLowerCase()}`)
+    let data = metricsstatus.map((col,i) => array === undefined ? '0'
         : ( (i%2 == 0) && (d3.range(1,6).includes(array[0][col])) ) ? '≤5'
         : (datatype === 'symptoms') && (i%2 == 1) ? proportionFmt(array[0][col]) 
         : numFmt(array[0][col])
@@ -301,7 +302,7 @@ function type(d) {
     return d
 }
 
-// function convertStatus(status) {
+// function convertstatus(status) {
 //     if (datatype === 'symptoms') {
 //         return status === 'cp' ? 'all' : 'atrisk'
 //     } else {
