@@ -48,12 +48,12 @@
                             <div class="col-sm-12 ddowncol d-flex align-items-center justify-content-center">
                               <div class="form-group time-period" id="period">
                                 <div class="form-check form-check-inline period">
-                                  <input class="form-check-input" type="radio" name="period" id="cumulative" value="cumulative">
-                                  <label class="form-check-label" for="cumulative">Cumulative Cases</label>
-                                </div>
-                                <div class="form-check form-check-inline period">
                                   <input class="form-check-input" type="radio" name="period" id="weekly" value="weekly">
                                   <label class="form-check-label" for="weekly">Cases in the Past Week</label>
+                                </div>
+                                <div class="form-check form-check-inline period">
+                                  <input class="form-check-input" type="radio" name="period" id="cumulative" value="cumulative">
+                                  <label class="form-check-label" for="cumulative">Cumulative Cases</label>
                                 </div>
                               </div>
                             </div> <!--close col-->
@@ -92,13 +92,14 @@
           }
           d3.select(`#${metric}`).property('checked', true)
       } else {
-        d3.select("#cumulative").property("checked", true)
+        d3.select("#weekly").property("checked", true)
       }
 			if (urlParams.get('overlay')) {
           overlay = urlParams.get('overlay')
       }
       const datatype = 'cases'
       const embedMap = true
+       console.log("on embed, metric is", metric)
       initDashboard()
     </script>
 

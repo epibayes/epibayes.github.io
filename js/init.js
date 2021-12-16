@@ -30,6 +30,9 @@ const datafiles = {
         'weeklycum_20km': 'https://gist.githubusercontent.com/choisteph/155c3f691a975d901be675311d9937c4/raw',
         'weeklycum_10km': 'https://gist.githubusercontent.com/choisteph/2bada37d1c9c04b428c7a26aaa54a317/raw',
         'dailyweeklycum_statewide': 'https://gist.githubusercontent.com/choisteph/bf6d330edb7a92c84aabf53700bfc176/raw',
+    },
+    'embed':{
+        'hex_lastday': 'https://gist.githubusercontent.com/choisteph/7763a24cb0abc2a75f38e54180e5b639/raw/92133e66132b6504798bf31db7bc508092f03aba/hex_lastday.csv'
     }
 }
 

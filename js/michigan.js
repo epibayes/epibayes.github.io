@@ -59,6 +59,16 @@ async function initDashboard() {
         makeCaseChart2()
         // add update date (not using insertDates function)
         d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))
+    } else {
+        // console.log("in init dash, the metric is", metric)
+        d3.selectAll('#period input').on('click', function() { // updateRadio
+            metric = d3.select(this).attr("value")
+            // console.log("metric at embed is", metric)
+            updateFillExpressionEmbed(metric, maxDate)
+            updateLegend(metric)
+            updateHexLayers()
+
+        })
     }
 }
 
@@ -142,6 +152,9 @@ async function initMap() {
 
 function updateHexLayers() {
     // console.log("update hex layers is called")
+    // console.log("hexfill at updateHexLayers is", hexfill)
+    // console.log("at updateHexLayers, riskStatus is", riskStatus)
+    // console.log("at updateHexLayers, metric is", metric)
     hexLayers.forEach((d,i) => updateHexFill(d, hexfill[riskStatus][metric][i]))
 }
 

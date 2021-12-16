@@ -14,7 +14,7 @@ function initDropdown() {
             : d3.select('#response-proportion').property('checked') ? true 
             : false
         metric = rateRadio ? timePeriod + 'rate' : timePeriod
-        console.log("dropdown was clicked and the metric is", metric)
+
         let dbutton = d3.select('#dropdownMenuButton');
         let ccase = d3.select('#ccase');
         let wcase = d3.select('#wcase');
@@ -99,7 +99,7 @@ function updateDateRange() {
 }
 
 function setDateRange(startDate, endDate) {
-    console.log("startDate at setDateRange", startDate)
+    // console.log("startDate at setDateRange", startDate)
     d3.select('#startdate').text(daterangeFmt(startDate))
     d3.select('#enddate').text(daterangeFmt(endDate))
 }
