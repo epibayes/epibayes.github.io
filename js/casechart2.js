@@ -156,7 +156,10 @@ function makeCaseChart2() {
         .call(xAxis2);
 
     // add the context brush
-    const beginDate = minDate
+    // initialize to weekly
+    const beginDate = d3.timeDay.offset(maxDate, -6)
+    console.log("initializing brush sets beginDate to", beginDate)
+    // const beginDate = minDate
     xBrush = context.append("g")
         .attr("class", "brush")
         .call(brush)
@@ -184,8 +187,6 @@ function updateCaseChart2(updateAxis=true) {
         updateYAxis()
         updateLines()
     }
-    // console.log("updateCaseChart got called")
-    // updateBrush()
 };
 
 function updateLines() {
@@ -292,11 +293,11 @@ function chooseCustomDate(beginDate, endDate) {
 
 // calls the custom date selector that updates brush
 function updateBrush(){
-    console.log("max and min dates at updateBrush", maxDate, minDate)
-    endDate = maxDate
-    beginDate = minDate
+    // console.log("max and min dates at updateBrush", maxDate, minDate)
+    // endDate = maxDate
+    // beginDate = minDate
     // beginDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
-    // xBrush.call(brush.move, [x2(beginDate), x2(endDate)])
+    xBrush.call(brush.move, [x2(x.domain()[0]), x2(x.domain()[1])])
 }
 
 // calculates simple moving sum over N days

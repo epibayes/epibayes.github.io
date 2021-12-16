@@ -53,9 +53,12 @@ async function initDashboard() {
 
     setDateRange(minDate, maxDate)
 
+
     if (!embedMap) {
         // insertDates(minDate, maxDate)
         makeCaseChart2()
+        // add update date (not using insertDates function)
+        d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))
     }
 }
 
@@ -315,7 +318,7 @@ function filterByDate(data, date) {
 }
 
 function insertDates(minDate, maxDate) {
-    console.log("minDate is", minDate)
+    // console.log("minDate is", minDate)
     d3.select('#first-date').text(daterangeFmt(minDate))
     d3.select('#last-date').text(daterangeFmt(maxDate))
     d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))

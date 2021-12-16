@@ -14,7 +14,7 @@ function initDropdown() {
             : d3.select('#response-proportion').property('checked') ? true 
             : false
         metric = rateRadio ? timePeriod + 'rate' : timePeriod
-
+        console.log("dropdown was clicked and the metric is", metric)
         let dbutton = d3.select('#dropdownMenuButton');
         let ccase = d3.select('#ccase');
         let wcase = d3.select('#wcase');
@@ -25,11 +25,13 @@ function initDropdown() {
             wcase.classed('active', true)
             
             x.domain([d3.timeDay.offset(maxDate, -6), maxDate])
+            // console.log("new x domain at weekly", x.domain())
         } else {
             dbutton.html(ccase.text())
             ccase.classed('active', true)
             wcase.classed('active', false)
             x.domain([minDate, maxDate])
+            // console.log("new x domain at cumulative", x.domain())
         }
         N = getNumDays()
         updateHexGrid()
@@ -37,6 +39,7 @@ function initDropdown() {
         updateTotalInfo()
         updateCaseChart2()
         generateEmbedURL()
+        updateBrush()
     })
 }
 
@@ -87,10 +90,11 @@ function generateEmbedURL() {
     d3.select('#embeddable').text(embeddableLink)
 }
 
-function updateDateRange(endDate) {
+function updateDateRange() {
     const key = metric.replace('rate','')
     // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
     startDate = x.domain()[0]
+    endDate = x.domain()[1]
     setDateRange(startDate, endDate)
 }
 
@@ -111,15 +115,16 @@ function updateHexGrid() {
     updateHexLayers()    
 }
 
-function updateTotalInfo(endDate=x.domain()[1]) {
-    updateTotal(endDate)
-    updateDateRange(endDate)
+function updateTotalInfo() {
+    updateTotal()
+    updateDateRange()
 }
 
-function updateTotal(endDate) {
+function updateTotal() {
     const key = metric.replace('rate','')
     // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
     startDate = x.domain()[0]
+    endDate = x.domain()[1]
     const idx0 = Math.round(date2idx(startDate))
     const idx1 = Math.round(date2idx(endDate))
     const subset = caseData.get(riskStatus.toLowerCase()).slice(idx0, idx1+1)
