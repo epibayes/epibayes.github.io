@@ -158,7 +158,7 @@ function makeCaseChart2() {
     // add the context brush
     // initialize to weekly
     const beginDate = d3.timeDay.offset(maxDate, -6)
-    console.log("initializing brush sets beginDate to", beginDate)
+    // console.log("initializing brush sets beginDate to", beginDate)
     // const beginDate = minDate
     xBrush = context.append("g")
         .attr("class", "brush")
@@ -277,8 +277,8 @@ function brushended() {
     //     dayRange[1] = d3.timeDay.offset(dayRange[0],1);
     // }
     x.domain(dayRange)
-    console.log("dayRange at brushended is", dayRange)
-    console.log("dateRange is", dateRange)
+    // console.log("dayRange at brushended is", dayRange)
+    // console.log("dateRange is", dateRange)
     xBrush.transition()
         .call(brush.move, dayRange.map(x2));
     updateMapInfo()
