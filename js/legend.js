@@ -5,8 +5,8 @@ let tickValues = {
     'cases': {
         'cumulative': [10, 100, 1000, 10000],
         'weekly': [10, 100],
-        'cumulativerate': [2000, 6000, 10000, 14000],
-        'weeklyrate': [200, 400, 600],
+        'cumulativerate': [6000, 14000, 22000],
+        'weeklyrate': [400, 800, 1200],
     },
     'symptoms': {
         'cumulative': [10, 100, 1000, 10000, 100000],
@@ -82,6 +82,7 @@ function addLegend() {
 }
 
 function getTickValues() {
+    console.log("tick vals at getTickValues", tickValues[datatype][metric])
     return tickValues[datatype][metric]
 }
 

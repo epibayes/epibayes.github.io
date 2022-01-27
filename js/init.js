@@ -53,9 +53,9 @@ let metric = 'weekly';
 let colorScales = {
     'cases' : {
         'cumulative': d3.scaleSequentialLog(d3.interpolateYlOrRd).domain([1, 100000]).clamp(true),
-        'cumulativerate': d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 18000]).clamp(true),
+        'cumulativerate': d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 24000]).clamp(true),
         'weekly': d3.scaleSequentialLog(d3.interpolateYlGnBu).domain([1, 1000]).clamp(true),
-        'weeklyrate': d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 800]).clamp(true),
+        'weeklyrate': d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 1400]).clamp(true),
     },
     'symptoms': {
         'cumulative': d3.scaleSequentialLog(d3.interpolateBlues).domain([1, 500000]).clamp(true),
