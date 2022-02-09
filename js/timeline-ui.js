@@ -81,8 +81,9 @@ async function jhutotals(){
 async function cdcVaxNumbers(){
     // console.log("cdcvaxnumbers was called")
 
-    cdcurl='https://jsonp.afeld.me/?callback=&url=https%3A%2F%2Fcovid.cdc.gov%2Fcovid-data-tracker%2FCOVIDData%2FgetAjaxData%3Fid%3Dvaccination_data'
+    // cdcurl='https://jsonp.afeld.me/?callback=&url=https%3A%2F%2Fcovid.cdc.gov%2Fcovid-data-tracker%2FCOVIDData%2FgetAjaxData%3Fid%3Dvaccination_data'
     
+    cdcurl = 'https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data'
     // try{
     //   mydata = await d3.json(cdcurl)
     //   console.log("i ran the try argument and got data")
@@ -90,20 +91,20 @@ async function cdcVaxNumbers(){
     //   console.log("unable to get cdc data from url")
     // }
 
-    fetchJsonp(cdcurl)
+    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data')}`)
         .then(res => res.json())
         .then(json => {
           let mydata = json;
           // console.log("my data is", mydata)
-          // mydataContents = mydata.contents
+          let mydataContents = mydata.contents
           // console.log(mydataContents)
           //mydata with the stuff i need is a string that i need to parse...
-          // mydataFormatted = JSON.parse(mydataContents)
+          let mydataFormatted = JSON.parse(mydataContents)
           // mydataFormatted = mydataContents
           // console.log(mydataFormatted)
 
           // neededData = mydataFormatted.vaccination_data
-          neededData=mydata.vaccination_data
+          let neededData=mydataFormatted.vaccination_data
           // console.log(neededData)
 
           //administered and fully vaccinated US totals
@@ -115,7 +116,7 @@ async function cdcVaxNumbers(){
           // console.log("fullyVaxed", fullyVaxed)
 
           //michigan percents
-          michiganData = neededData.filter(d => d.Location === "MI")
+          let michiganData = neededData.filter(d => d.Location === "MI")
           // console.log("miData", michiganData)
 
           // 18+ vax and 65+ vax numbers for michigan
