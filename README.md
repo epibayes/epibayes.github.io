@@ -71,7 +71,7 @@ Around 90% of the images are of team members for the `team.html` page. These ima
 - Original Logo (unused on any pages, there for reference): logo.png
 - For Open Graph (on `index.html`, `storymap.html`, and `misymptoms.html`):
     - opengraph.jpg
-- For Funding and Sponsorships (on all pages except `embedmap.html` and `storymap.html`) in the `fundsponsor` folder:
+- For Funding and Sponsorships (on all pages except `embedmap.html` and `storymap.html`), in the `fundsponsor` folder:
     - cdc-logo.png
     - public health logo.png
     - simons-logo-simple.png
