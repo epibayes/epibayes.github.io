@@ -14,11 +14,11 @@ const hex10TilesetSrc = {
     type: 'vector',
     url: 'mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk',
 }
-const schoolTileset = 'school_districts'
-const schoolTilesetSrc = {
-    type: 'vector',
-    url: 'mapbox://epibayes.ckduippsj1bj324p9iacozz9d-6as5y',
-}
+// const schoolTileset = 'school_districts'
+// const schoolTilesetSrc = {
+//     type: 'vector',
+//     url: 'mapbox://epibayes.ckduippsj1bj324p9iacozz9d-6as5y',
+// }
 
 const datafiles = {
     'cases': {

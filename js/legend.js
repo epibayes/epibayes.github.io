@@ -82,7 +82,7 @@ function addLegend() {
 }
 
 function getTickValues() {
-    console.log("tick vals at getTickValues", tickValues[datatype][metric])
+    // console.log("tick vals at getTickValues", tickValues[datatype][metric])
     return tickValues[datatype][metric]
 }
 

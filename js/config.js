@@ -37,7 +37,7 @@ let config = {
             id: 'two',
             title: '2. Neighborhoods and households',
             image: '',
-            description: 'First, let’s present a hypothetical environment 3 hexagonal neighborhoods and 12 <img src="img/home.svg" style="display:inline-block; vertical-align:baseline; margin-left:auto; margin-right:auto; width: 20px;"> households. Let’s say each household has four members, so we have 48 total people in our example.',
+            description: 'First, let’s present a hypothetical environment 3 hexagonal neighborhoods and 12 <img src="img/storymap/home.svg" style="display:inline-block; vertical-align:baseline; margin-left:auto; margin-right:auto; width: 20px;"> households. Let’s say each household has four members, so we have 48 total people in our example.',
             location: {
                 center: [-83.78, 42.28],
                 zoom: 11.2,
@@ -61,7 +61,7 @@ let config = {
             id: 'three',
             title: '3. A household becomes infected',
             image: '',
-            description: 'Now we have one <img src="img/home-infected.svg" style="display:inline-block; vertical-align:baseline; margin-left:auto; margin-right:auto; width: 20px;"> household with a coronavirus infection. For the purposes of this explanation, we will assume that when a household gets COVID, all members of the household get COVID. So here, we have 4 COVID cases.',
+            description: 'Now we have one <img src="img/storymap/home-infected.svg" style="display:inline-block; vertical-align:baseline; margin-left:auto; margin-right:auto; width: 20px;"> household with a coronavirus infection. For the purposes of this explanation, we will assume that when a household gets COVID, all members of the household get COVID. So here, we have 4 COVID cases.',
             location: {
                 center: [-83.78, 42.28],
                 zoom: 11.2,
@@ -117,7 +117,7 @@ let config = {
             id: 'five',
             title: '5. Essential tasks like grocery shopping expand risk',
             image: '',
-            description: 'However, even under social distancing and stay-at-home orders, people are not confined to their homes: they still have leave to do essential tasks - such as getting groceries. Here, we have included the locations of the two grocery stores in this environment. By connecting households to their nearest grocery store <img src="img/grocery.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"> , we can understand an additional way that people mix with individuals outside of their homes - and outside of their immediate neighborhoods. <br><br>We can think of the houses falling into two groups: <ul><li>Closest to grocery store A (blue)<img src="img/grocery-bluegroup.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"></li><li>Closest to grocery store B (green)<img src="img/grocery-greengroup.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"></li></ul>This allows us to construct interaction groups of individuals who are not connected by their neighborhood (hexagon) of residence, but connected by where they shop to get groceries.',
+            description: 'However, even under social distancing and stay-at-home orders, people are not confined to their homes: they still have leave to do essential tasks - such as getting groceries. Here, we have included the locations of the two grocery stores in this environment. By connecting households to their nearest grocery store <img src="img/storymap/grocery.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"> , we can understand an additional way that people mix with individuals outside of their homes - and outside of their immediate neighborhoods. <br><br>We can think of the houses falling into two groups: <ul><li>Closest to grocery store A (blue)<img src="img/storymap/grocery-bluegroup.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"></li><li>Closest to grocery store B (green)<img src="img/storymap/grocery-greengroup.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"></li></ul>This allows us to construct interaction groups of individuals who are not connected by their neighborhood (hexagon) of residence, but connected by where they shop to get groceries.',
             location: {
                 center: [-83.777, 42.28],
                 zoom: 11.8,
@@ -153,7 +153,7 @@ let config = {
             id: 'six',
             title: '6. Risk based on nearest grocery stores tells a different story',
             image: '',
-            description: 'Coding which homes are closest to each grocery store, we get very different senses of who is "at-risk" from the initial infection in Hexagon 1. We now have 14 additional households that are "at-risk" based on shopping at the same grocery stores as the house with COVID cases.<br><ul><li>Calculating the risk for the ‘green’ group <img src="img/greenhome.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"> who attend the same grocery store as the infected household, we now see that, assuming they all go to the grocery store at the same time, these houses have a 1/9 (or 4/36) chance of coming into contact with someone with COVID-19, while the blue houses <img src="img/bluehome.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"> have a 0% chance of coming into contact with someone with COVID-19. This gives us a lower risk in Hexagon 1, a higher risk in Hexagon 3, and the same calculation in Hexagon 2 as the simple model assuming individuals only come into contact with their neighbors.</li></ul>',
+            description: 'Coding which homes are closest to each grocery store, we get very different senses of who is "at-risk" from the initial infection in Hexagon 1. We now have 14 additional households that are "at-risk" based on shopping at the same grocery stores as the house with COVID cases.<br><ul><li>Calculating the risk for the ‘green’ group <img src="img/storymap/greenhome.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"> who attend the same grocery store as the infected household, we now see that, assuming they all go to the grocery store at the same time, these houses have a 1/9 (or 4/36) chance of coming into contact with someone with COVID-19, while the blue houses <img src="img/storymap/bluehome.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"> have a 0% chance of coming into contact with someone with COVID-19. This gives us a lower risk in Hexagon 1, a higher risk in Hexagon 3, and the same calculation in Hexagon 2 as the simple model assuming individuals only come into contact with their neighbors.</li></ul>',
             location: {
                 center: [-83.777, 42.28],
                 zoom: 11.8,
@@ -197,7 +197,7 @@ let config = {
             id: 'seven',
             title: '7. Other essential businesses add possibilities of exposure',
             image: '',
-            description: 'However, grocery stores are not the only essential businesses where individuals from different households might interact. Even during stay-at-home orders, hardware stores <img src="img/hardware.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"> and pharmacies <img src="img/rx.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 15px;"> are also places for infected individuals from different neighborhoods to expose each other, complicating the network of interaction.',
+            description: 'However, grocery stores are not the only essential businesses where individuals from different households might interact. Even during stay-at-home orders, hardware stores <img src="img/storymap/hardware.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 20px;"> and pharmacies <img src="img/storymap/rx.svg" style="display:inline-block; vertical-align:middle; margin-left:auto; margin-right:auto; width: 15px;"> are also places for infected individuals from different neighborhoods to expose each other, complicating the network of interaction.',
             location: {
                 center: [-83.777, 42.28],
                 zoom: 11.8,
