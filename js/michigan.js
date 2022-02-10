@@ -56,7 +56,7 @@ async function initDashboard() {
 
     if (!embedMap) {
         // insertDates(minDate, maxDate)
-        makeCaseChart2()
+        makeCaseChart()
         // add update date (not using insertDates function)
         d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))
     } else {

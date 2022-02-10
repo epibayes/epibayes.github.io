@@ -1,3 +1,4 @@
+  // referenced: https://lvngd.com/blog/building-pictogram-grids-d3js/
   function makeGingers(demographic, update){
     // console.log("going into makeGingers, demographic is", demographic)
     if (demographic === "Black"){
