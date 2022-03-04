@@ -5,11 +5,11 @@ let tickValues = {
     'cases': {
         'cumulative': [10, 100, 1000, 10000],
         'weekly': [10, 100],
-        'cumulativerate': [2000, 4000,  6000],
+        'cumulativerate': [6000, 14000, 22000],
         'weeklyrate': [200, 400, 600],
     },
     'symptoms': {
-        'cumulative': [10, 100, 1000, 10000],
+        'cumulative': [10, 100, 1000, 10000, 100000],
         'weekly': [10, 100, 1000],
         'cumulativerate': [0.05, 0.10, 0.15],
         'weeklyrate': [0.05, 0.10, 0.15],
@@ -64,11 +64,11 @@ function addLegend() {
         .domain(colorScale.domain())
         .range([h, 0])
     legendYAxisLog = d3.axisRight(legendScaleLog)
-        .ticks(3, ',')
+        .ticks(tickValues[datatype][metric].length, ',')
         .tickSize(0)
         .tickValues(getTickValues())
     legendYAxis = d3.axisRight(legendScale)
-        .ticks(3, datatype === 'symptoms' ? '.2f' : 'd')
+        .ticks(tickValues[datatype][metric].length, datatype === 'symptoms' ? '.2f' : 'd')
         .tickSize(0)
         .tickValues(getTickValues())
     let yAxis = metric.includes('rate') ? legendYAxis : legendYAxisLog
@@ -82,6 +82,7 @@ function addLegend() {
 }
 
 function getTickValues() {
+    // console.log("tick vals at getTickValues", tickValues[datatype][metric])
     return tickValues[datatype][metric]
 }
 

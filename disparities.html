@@ -39,12 +39,6 @@
     </button>
     <div class="collapse navbar-collapse" id="website-nav">
       <ul class="navbar-nav ml-auto">
-        <!-- <li class="nav-item text-right">
-          <a class="nav-link text-primary" href="/index.html" title="Home">Home</a>
-        </li> -->
-        <li class="nav-item text-right">
-          <a class="nav-link text-primary" href="/team.html" title="About Us">Team</a>
-        </li>
         <li class="nav-item text-right">
             <a class="nav-link text-primary" href="/timeline.html" title="A timeline of major COVID milestones in Michigan">MI COVID Timeline</a>
         </li>
@@ -55,7 +49,10 @@
           <a class="nav-link text-primary" href="/misymptoms.html" title="Identify potential symptoms of COVID-19">MI Symptoms</a>
         </li>
         <li class="nav-item text-right">
-          <a class="nav-link text-primary" href="/disparities.html" title="COVID Disparities">COVID Disparities</a>
+          <a class="nav-link text-primary active" href="/disparities.html" title="COVID Disparities">COVID Disparities</a>
+        </li>
+        <li class="nav-item text-right">
+          <a class="nav-link text-primary" href="/team.html" title="About the Epibayes Lab">The Team</a>
         </li>
       </ul>
     </div>
@@ -85,7 +82,7 @@
               <div class="col-lg-5 col-md-12 incidencechartcol">
                 <h4 class="charttitle">Standardized Weekly Incidence of <span class="blackid">Black</span> & <span class="whiteid">White</span> COVID-19 Patients in MI</h4>
                 <div class="imgandtextfloat">
-                  <img class="charts chartincidence" src="/img/weekly_incidence_white_black.png" alt="a line graph that shows how Black and White incidence compares">
+                  <img class="charts chartincidence" src="/img/disparities/weekly_incidence_white_black.png" alt="a line graph that shows how Black and White incidence compares">
                   <p class="datasource align-bottom text-right">Data from MDHHS, US Census</p>
                   <p id="bwincidenceexplainer">
                     <span class="blackid">Black </span>Michiganders had very high weekly incidence rates at the start of the pandemic, but incidence was higher for <span class="whiteid">White</span> Michiganders during the winter surge</p>
@@ -94,7 +91,7 @@
               <div class="col-lg-5 col-md-12 incidencechartcol">
                 <h4 class="charttitle">Standardized Weekly Incidence of <span class="latinoid">Latino</span> & <span class="whiteid">White</span> COVID-19 Patients in MI</h4>
                 <div class="imgandtextfloat">
-                  <img class="charts chartincidence" src="/img/weekly_incidence_white_latino.png" alt="a line graph that shows how White and Latino incidence compares">
+                  <img class="charts chartincidence" src="/img/disparities/weekly_incidence_white_latino.png" alt="a line graph that shows how White and Latino incidence compares">
                   <p class="datasource align-bottom text-right">Data from MDHHS, US Census</p>
                   <p id="wlincidenceexplainer"><span class="latinoid">Latino</span> incidence reached a peak of about ~200 cases per 100k per week in May, and outpaced that of <span class="whiteid">White</span> Michiganders during the winter surge</p>
                 </div> <!--close div for imgandtextfloat-->
@@ -104,7 +101,7 @@
                 <div class="definitionsdiv">
                   <div class="row defrow">
                     <div class="col-sm-12">
-                      <p class="def"><span class="disparity">Disparity</span> refers to a noticeable, significant difference. In the context of COVID and Race, <span class="disparity">disparity</span> refers the the much larger number of people of color being affected by COVID compared to the number of non-people of color being affected.  It also refers to the much larger number of people of color working essential jobs or other jobs that are at high risk for the spread of COVID.</p>
+                      <p class="def"><span class="disparity">Disparity</span> refers to a noticeable, significant difference. In the context of COVID and Race, <span class="disparity">disparity</span> refers the much larger number of people of color being affected by COVID compared to the number of non-people of color being affected.  It also refers to the much larger number of people of color working essential jobs or other jobs that are at high risk for the spread of COVID.</p>
                       <p class="def"><span class="incidence">Incidence</span> refers to newly diagnosed or occuring cases of a disease. For COVID, <span class="incidence">incidence</span> refers to newly diagnosed or detected cases. “<span class="incidence">Incidence</span> Rate” or “Weekly <span class="incidence">Incidence</span>” would then refer to any new cases that were found in a given amount of time (i.e. in a week).</p>
                     </div> <!--clpse col-10-->
                   </div> <!--close row defrow-->
@@ -201,7 +198,7 @@
               <div class="col-lg-10 col-md-12 linegraphcol">
                 <h4 class="charttitle">Age & Sex Standardized Case Fatality Ratio (CFR) of COVID-19 Patients in MI by Race/Ethnicity</h4>
                 <div class="imgandtextfloat d-flex flex-column align-items-center">
-                  <img class="charts chartallincidence" src="/img/all_incidence.png" alt="line chart that shows the CFR% of Black, White, Asian or Pacific Islander, Native, Other, and White populations from March to December">
+                  <img class="charts chartallincidence" src="/img/disparities/all_incidence.png" alt="line chart that shows the CFR% of Black, White, Asian or Pacific Islander, Native, Other, and White populations from March to December">
                   <p id="cfrstandardizedexplainer">
                     Early in the pandemic, <span class="blackid">Black</span> Michiganders had the highest CFR, followed by <span class="whiteid">White</span> Michiganders. <span class="blackid">Black</span> disparties in CFR decreased over the summer but increased in Sept. The CFR for <span class="APIAid">Asian or Islander</span> is increasing. Overall, CFR disparities do <u><b>not</b></u> explain racial disparities in death rates.
                   </p>
@@ -256,7 +253,7 @@
                   <div class="row gingerechxplrow">
                     <div class="col-md-12 gingerexplain d-flex align-items-center justify-content-center">
                       <div class="gingerfloat">
-                        <p class="gingerexp">Split by race, how many COVID-19 patients <img class="gingericon" src="/img/gingerbread.png" alt="a human-shaped icon"> will die, per 100, in these two time periods?</p>
+                        <p class="gingerexp">Split by race, how many COVID-19 patients <img class="gingericon" src="/img/disparities/gingerbread.png" alt="a human-shaped icon"> will die, per 100, in these two time periods?</p>
                       </div> <!--close div for gingerfloat-->
                     </div> <!--close col-12 gingerexplain-->
                   </div> <!--close row gingerexplrow-->
@@ -275,16 +272,20 @@
   <footer class="footer">
     <div class="container-fluid footeritems">
       <div class="row sphiconrow">
-        <div class="  col-md-12 d-flex justify-content-center align-items-center text-center">
-          <img id="sphlogo" src="img/public health logo.png">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 d-flex justify-content-around align-items-center text-center">
+          <img class="footerimg" id="sphlogo" src="img/fundsponsor/public health logo.png">
+          <img class="footerimg" id="simonslogo" src="img/fundsponsor/simons-logo-simple.png">
+          <img class="footerimg" id="cdclogo" src="img/fundsponsor/cdc-logo.png">
         </div>
+        <div class="c0l-sm-2"></div>
       </div> <!--close sphiconrow-->
-      <div class="row footerstuff ">
-        <div class="  col-md-12 d-flex justify-content-center align-items-center text-center">
-          <p class="footertext">
-            Built and maintained by the <a href="https://sph.umich.edu/" target="_blank">University of Michigan School of Public Health.</a>
-          </p>
+      <div class="row footerstuff">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 d-flex justify-content-center align-items-center text-center">
+          <p class="footertext">Built and maintained by the <a href="https://sph.umich.edu/" target="_blank">University of Michigan School of Public Health</a> with generous support from the <a href="https://www.cdc.gov/" target="_blank">CDC</a> and the <a href="https://www.simonsfoundation.org/" target="_blank">Simons Foundation</a>.</p>
         </div>
+        <div class="col-sm-2"></div>
       </div> <!--close row footerstuff-->
     </div> <!--close the container for footer items-->
   </footer>

@@ -1,4 +1,3 @@
-// UI Related Functions
 function initTimeScale() {
     const days = d3.timeDay.count(minDate, maxDate)
     date2idx = d3.scaleLinear()
@@ -8,51 +7,40 @@ function initTimeScale() {
 
 function initDropdown() {
     // time period dropdown button
-    if (!embedMap){
-        d3.selectAll('#period > *').on('click', function() { // updateRadio
-            const timePeriod = d3.select(this).attr("value")
-            if (metric.includes(timePeriod)) return;
-            const rateRadio = datatype === 'cases' ? d3.select('#select-case-rate').property('checked')
-                : d3.select('#response-proportion').property('checked') ? true 
-                : false
-            metric = rateRadio ? timePeriod + 'rate' : timePeriod
-            // console.log("metric is", metric)
-            N = getNumDays()
-            updateHexGrid()
-            updateLegend(metric)
-            updateTotalInfo()
-            updateCaseChart2()
-            generateEmbedURL()
-            let dbutton = d3.select('#dropdownMenuButton');
-            let ccase = d3.select('#ccase');
-            let wcase = d3.select('#wcase');
-    
-            if (timePeriod === 'weekly'){
-                dbutton.html(wcase.text()) 
-                ccase.classed('active', false)
-                wcase.classed('active', true)
-            } else {
-                dbutton.html(ccase.text())
-                ccase.classed('active', true)
-                wcase.classed('active', false)
-            }
-        })
-    }
+    d3.selectAll('#period a').on('click', function() { // updateRadio
+        const timePeriod = d3.select(this).attr("value")
+        if (metric.includes(timePeriod)) return;
+        const rateRadio = datatype === 'cases' ? d3.select('#select-case-rate').property('checked')
+            : d3.select('#response-proportion').property('checked') ? true 
+            : false
+        metric = rateRadio ? timePeriod + 'rate' : timePeriod
 
-    if (embedMap){
-        d3.selectAll('.form-check-input').on('click', function() { // updateRadio
-            const timePeriod = d3.select(this).attr("value")
-            // console.log("timeperiod is", timePeriod)
-            if (metric.includes(timePeriod)) return;
-            metric = timePeriod;
-            // console.log("metric is", metric)
-            N = getNumDays()
-            updateHexGrid()
-            updateLegend(metric)
-            // updateTotalInfo()
-        })
+        let dbutton = d3.select('#dropdownMenuButton');
+        let ccase = d3.select('#ccase');
+        let wcase = d3.select('#wcase');
 
-    }
+        if (timePeriod === 'weekly'){
+            dbutton.html(wcase.text()) 
+            ccase.classed('active', false)
+            wcase.classed('active', true)
+            
+            x.domain([d3.timeDay.offset(maxDate, -6), maxDate])
+            // console.log("new x domain at weekly", x.domain())
+        } else {
+            dbutton.html(ccase.text())
+            ccase.classed('active', true)
+            wcase.classed('active', false)
+            x.domain([minDate, maxDate])
+            // console.log("new x domain at cumulative", x.domain())
+        }
+        N = getNumDays()
+        updateHexGrid()
+        updateLegend(metric)
+        updateTotalInfo()
+        updateCaseChart2()
+        generateEmbedURL()
+        updateBrush()
+    })
 }
 
 function initRadio() {
@@ -72,23 +60,23 @@ function initRadio() {
         if (datatype === 'symptoms') {
             if (this.value === 'rate') {
                 metric = metric + 'rate'
-                status = 'atrisk'
+                riskStatus = 'atrisk'
             } else {
                 metric = metric.replace('rate','')
-                status = this.value
+                riskStatus = this.value
             }
         } else {
-            status = this.value
+            riskStatus = this.value
         }
         updateHexGrid()
         updateLegend(metric)
         updateTotalInfo()
         if (datatype === 'symptoms') {
             updateCaseChart2(updateAxis=true)
-            d3.select('#cp-total-text').text(status.toLowerCase() === 'all' ? 'MI Symptoms responses' : 'COVID-like symptoms responses')
+            d3.select('#cp-total-text').text(riskStatus.toLowerCase() === 'all' ? 'MI Symptoms responses' : 'COVID-like symptoms responses')
         } else {
             updateCaseChart2(updateAxis=true)
-            d3.select('#cp-total-text').text(status.toLowerCase() === 'cp' ? 'confirmed & probable cases' : 'confirmed cases')
+            d3.select('#cp-total-text').text(riskStatus.toLowerCase() === 'cp' ? 'confirmed & probable cases' : 'confirmed cases')
         }
         updatePopup()
         generateEmbedURL()
@@ -97,20 +85,21 @@ function initRadio() {
 
 function generateEmbedURL() {
     // const query_string = `status=${status}metric=${metric.replace('rate','')}`
-    const query_string = `status=${status}&metric=${metric}`
+    const query_string = `status=${riskStatus}&metric=${metric}`
     const embeddableLink = `<iframe width="550px" height="550px" src="https://covidmapping.org/embedmap.html?${query_string}"></iframe>`
     d3.select('#embeddable').text(embeddableLink)
 }
 
-function updateDateRange(endDate) {
+function updateDateRange() {
     const key = metric.replace('rate','')
-    // console.log("xdomain 0 is", x.domain()[0])
-    startDate = x.domain()[0]
     // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
+    startDate = x.domain()[0]
+    endDate = x.domain()[1]
     setDateRange(startDate, endDate)
 }
 
 function setDateRange(startDate, endDate) {
+    // console.log("startDate at setDateRange", startDate)
     d3.select('#startdate').text(daterangeFmt(startDate))
     d3.select('#enddate').text(daterangeFmt(endDate))
 }
@@ -122,31 +111,29 @@ function updateMapInfo() {
 }
 
 function updateHexGrid() {
-    // console.log("updateHexGrid called.")
-    embedMap ? updateFillExpressionEmbed() : updateFillExpression()
+    updateFillExpression()
     updateHexLayers()    
 }
 
 function updateTotalInfo() {
-    let endDate = embedMap ? maxDate : x.domain()[1]
-    updateTotal(endDate)
-    updateDateRange(endDate)
+    updateTotal()
+    updateDateRange()
 }
 
-function updateTotal(endDate) {
+function updateTotal() {
     const key = metric.replace('rate','')
     // startDate = N === 7 ? d3.max([minDate, d3.timeDay.offset(endDate, -(N-1))]) : minDate
     startDate = x.domain()[0]
-    // console.log("startDate", startDate)
+    endDate = x.domain()[1]
     const idx0 = Math.round(date2idx(startDate))
     const idx1 = Math.round(date2idx(endDate))
-    const subset = caseData.get(status.toLowerCase()).slice(idx0, idx1+1)
+    const subset = caseData.get(riskStatus.toLowerCase()).slice(idx0, idx1+1)
     const total = d3.sum(subset, d => d.daily)
     d3.select('#total').text(numFmt(total))
 }
 
 function getNumDays() {
-    const array = caseData.get(status.toLowerCase())
+    const array = caseData.get(riskStatus.toLowerCase())
     return metric.includes('cumulative') ? d3.timeDay.count(array[0].date, array.slice(-1)[0].date) + 1 : 7
 }
 

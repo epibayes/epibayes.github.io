@@ -14,11 +14,11 @@ const hex10TilesetSrc = {
     type: 'vector',
     url: 'mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk',
 }
-const schoolTileset = 'school_districts'
-const schoolTilesetSrc = {
-    type: 'vector',
-    url: 'mapbox://epibayes.ckduippsj1bj324p9iacozz9d-6as5y',
-}
+// const schoolTileset = 'school_districts'
+// const schoolTilesetSrc = {
+//     type: 'vector',
+//     url: 'mapbox://epibayes.ckduippsj1bj324p9iacozz9d-6as5y',
+// }
 
 const datafiles = {
     'cases': {
@@ -30,6 +30,9 @@ const datafiles = {
         'weeklycum_20km': 'https://gist.githubusercontent.com/choisteph/155c3f691a975d901be675311d9937c4/raw',
         'weeklycum_10km': 'https://gist.githubusercontent.com/choisteph/2bada37d1c9c04b428c7a26aaa54a317/raw',
         'dailyweeklycum_statewide': 'https://gist.githubusercontent.com/choisteph/bf6d330edb7a92c84aabf53700bfc176/raw',
+    },
+    'embed':{
+        'hex_lastday': 'https://gist.githubusercontent.com/choisteph/7763a24cb0abc2a75f38e54180e5b639/raw/92133e66132b6504798bf31db7bc508092f03aba/hex_lastday.csv'
     }
 }
 
@@ -40,22 +43,22 @@ const tooltipFmt = d3.timeFormat('%b %e')
 const numFmt = d3.format(',.0f')
 const proportionFmt = d3.format('.2f')
 const zoomThreshold = 8.5
-let minDate, maxDate, caseData;
+let minDate, maxDate, caseData, riskStatus;
 let playing = false;
 let delay = 100;
 let alpha = 0.65;
 let metrics = ['cumulative','cumulativerate','weekly','weeklyrate'];
-let metric = 'cumulative';
+let metric = 'weekly';
 
 let colorScales = {
     'cases' : {
         'cumulative': d3.scaleSequentialLog(d3.interpolateYlOrRd).domain([1, 100000]).clamp(true),
-        'cumulativerate': d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 8000]).clamp(true),
+        'cumulativerate': d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 24000]).clamp(true),
         'weekly': d3.scaleSequentialLog(d3.interpolateYlGnBu).domain([1, 1000]).clamp(true),
         'weeklyrate': d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 800]).clamp(true),
     },
     'symptoms': {
-        'cumulative': d3.scaleSequentialLog(d3.interpolateBlues).domain([1, 100000]).clamp(true),
+        'cumulative': d3.scaleSequentialLog(d3.interpolateBlues).domain([1, 500000]).clamp(true),
         'cumulativerate': d3.scaleSequential(d3.interpolateBlues).domain([0, 0.2]).clamp(true),
         'weekly': d3.scaleSequentialLog(d3.interpolatePurples).domain([1, 4000]).clamp(true),
         'weeklyrate': d3.scaleSequential(d3.interpolatePurples).domain([0, 0.2]).clamp(true),
