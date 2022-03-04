@@ -44,7 +44,6 @@ async function initDashboard() {
     generateEmbedURL()
 
     initMap().then(()=>{
-        console.log("init map then")
         // console.log("map, then")
         d3.selectAll(".loader").remove()
         d3.select('#map').classed('d-flex align-items-center justify-content-center', false)
