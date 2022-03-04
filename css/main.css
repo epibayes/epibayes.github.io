@@ -502,7 +502,13 @@ text .milestone-text{
 .selection{
   stroke : none;
 }
+.shss{
+  display: block;
+}
 
+.hideSHSS {
+  display: none;
+}
 /* || STORYMAP.html || */
 #storymappage h1{
   font-size: 24pt;

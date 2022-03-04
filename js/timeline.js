@@ -1,10 +1,6 @@
-const dateParser = d3.timeParse('%y%m%d')
-const numFmt = d3.format(',.0f')
-
 async function makeTimeline() {
     // Get data
-    const dailyweeklycum_cases_statewide = 'https://gist.githubusercontent.com/choisteph/494b84d649a51bfb764e4792567ccb0f/raw'
-    daily = await d3.csv(dailyweeklycum_cases_statewide, d3.autoType)
+    daily = await d3.csv(datafiles['cases']['dailyweeklycum_statewide'], d3.autoType)
     daily = daily.filter(d => d.status.toLowerCase() === 'cp')
     daily.map((d,i) => {
         d.date = dateParser(d.date)
@@ -14,7 +10,7 @@ async function makeTimeline() {
     insertDuration()
 
     let [minDate, maxDate] = d3.extent(daily, d => d.date)
-    console.log("min date and max date", minDate, maxDate)
+    // console.log("min date and max date", minDate, maxDate)
     annotations = await d3.csv('data/timeline.csv', d => {
         d.date = d3.timeParse('%m/%d/%y')(d.date)
         return d
@@ -28,7 +24,7 @@ async function makeTimeline() {
     // Set the height and margins for the focus view
     margin = {top: 10, right: 70, bottom: 80, left: 70};
     width = W - margin.left - margin.right;
-    console.log("width is", width)
+    // console.log("width is", width)
     height = H - margin.top - margin.bottom;
 
     // Set the height and margins for the context view (this goes below the focus view)
@@ -51,7 +47,7 @@ async function makeTimeline() {
         // .domain([d3.min(daily, d => d.date),d3.max(daily, d=> d.date)])
         // .domain([d3.min(daily, d => d.date), d3.timeDay.offset(d3.max(daily, d=> d.date))])
         // .range([0, width])
-    console.log("x2 at init is", x2.range(), "and domain is", x2.domain())
+    // console.log("x2 at init is", x2.range(), "and domain is", x2.domain())
 
     // y = d3.scaleLinear()
     //     .domain([0, d3.max(daily, d => d.daily)])
@@ -179,9 +175,9 @@ async function makeTimeline() {
     //set beginDate as minDate
     const beginDate = minDate
     const endDate = d3.timeDay.offset(d3.max(daily, d=> d.date))
-    console.log("begin and end are", beginDate, endDate)
+    // console.log("begin and end are", beginDate, endDate)
     // add the context brush
-    console.log("x2 begin and end date", x2(beginDate), x2(endDate))
+    // console.log("x2 begin and end date", x2(beginDate), x2(endDate))
     xBrush = context.append("g")
         .attr("class", "brush")
         .call(brush)
@@ -195,8 +191,8 @@ async function makeTimeline() {
     // brush function
     function brushed() {
         const selection = d3.event.selection || x2.range([0, width]); // default brush selection
-        console.log("selection is", selection)
-        console.log("d3 event selection is", d3.event.selection)
+        // console.log("selection is", selection)
+        // console.log("d3 event selection is", d3.event.selection)
         x.domain(selection.map(x2.invert)); // new focus x-domain
         // context.selectAll(".avgLine")
         //     .attr("d", mvAvgLine2);
@@ -243,7 +239,7 @@ async function makeTimeline() {
 }
 
 function addClipRect(width, height){
-    console.log("clipping rect width is", width)
+    // console.log("clipping rect width is", width)
     // clipping rectangle
     focus.append('defs').append("clipPath")
         .attr("id", "clip")
@@ -316,7 +312,7 @@ function addMilestoneText(minDate, maxDate){
     //set X0 and y0
     x0 = x(maxDate)+20, y0 = 10;
 
-    console.log("add milestone text")
+    // console.log("add milestone text")
 
     //remove anything just in case
     focus.selectAll('.milestone-text').remove()
@@ -367,7 +363,7 @@ function addMilestoneText(minDate, maxDate){
 }
 
 function updateMilestoneText(minDate){
-    console.log("update milestone text")
+    // console.log("update milestone text")
     // delete what was there before (there should be a better way to do this)
     focus.selectAll('.milestone-text').remove()
     focus.selectAll('.milestone line').remove()
@@ -407,7 +403,7 @@ function updateMilestoneText(minDate){
         if (0 < x_coord && x_coord < width){
             return 'milestone-text'
         } else {
-            console.log("return hideit")
+            // console.log("return hideit")
             return 'milestone-text hideit hidetext'
         }
     })
@@ -447,7 +443,17 @@ function updateSHSS(){
     .attr('height', height)
 
     focus.append('text')
-        .attr('class', 'rect-text .shss')
+        // .attr('class', 'rect-text shss')
+        .attr('class', function(){
+            // x coord is the end of the shss rectangle
+            let x_coord = x(new Date(2020,5,2))
+
+            if (0 < x_coord && x_coord  < width){
+                return 'rect-text shss'
+            } else {
+                return 'rect-text hideSHSS'
+            }
+        })
         .attr('x', x(new Date(2020,2,26)))
         .attr('y', 10)
         .text('Stay Home, Stay Safe period')
