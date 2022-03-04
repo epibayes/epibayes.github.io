@@ -44,6 +44,7 @@ async function initDashboard() {
     generateEmbedURL()
 
     initMap().then(()=>{
+        console.log("init map then")
         // console.log("map, then")
         d3.selectAll(".loader").remove()
         d3.select('#map').classed('d-flex align-items-center justify-content-center', false)
@@ -57,6 +58,7 @@ async function initDashboard() {
     if (!embedMap) {
         // insertDates(minDate, maxDate)
         makeCaseChart()
+        d3.selectAll(".loader").remove()
         // add update date (not using insertDates function)
         d3.select('#update-date').text(d3.timeFormat('%B %e, %Y')(d3.timeDay.offset(maxDate)))
     } else {
@@ -180,12 +182,12 @@ function updateFillExpressionEmbed(key=metric, day){
 }
 
 function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1])) {
-    // console.log("updating Fill Expression with metric at ", key, "and day at ", day)
-    // console.log("day is", day)
     const colorScale = getColorScale(key)
     const column = `${key}_${riskStatus.toLowerCase()}`
-    // console.log("column is", column)
+    // console.log(hexfill[riskStatus][key])
+    // console.log("day is", day)
     hexLayers.forEach((h,i) => {
+        // console.log("hexfill[riskStatus][key][i]", hexfill[riskStatus][key][i])
         hexfill[riskStatus][key][i] = createFillExpression(hexdata[h].get(+day), colorScale, column)
     })
 }
@@ -212,6 +214,7 @@ function updateFillExpression(key=metric, day=d3.timeDay(x.domain()[1])) {
 // }
 function createFillExpression(data, colorScale, column) {
     let expression = ['match', ['get', 'index']];
+    // console.log("data is", data)
     data.forEach((d, idx) => expression.push(idx, colorScale(d[0][column])));
     if ( (datatype == 'symptoms') && (metric.includes('rate')) ) {
         expression.push('#aaa') // gray out low responses for misymptoms
