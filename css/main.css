@@ -475,9 +475,14 @@ text .milestone-text{
 }
 
 .milestone-text {
+  display: block;
   font-size: 0.355em;
   line-height: 0.5em;
   font-weight: 400;
+}
+
+.hidetext{
+  display: none !important;
 }
 
 .rect {

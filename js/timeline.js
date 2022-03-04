@@ -57,7 +57,7 @@ async function makeTimeline() {
     //     .domain([0, d3.max(daily, d => d.daily)])
     //     .range([height, 0])
     y = d3.scaleLinear()
-        .domain([0, 12000])
+        .domain([0, 20000])
         .range([height, 0])
     y2 = d3.scaleLinear()
         // .domain([0, d3.max(daily, d => d.daily)])
@@ -65,7 +65,7 @@ async function makeTimeline() {
         .range([height2, 0])
     
     //set ticks
-    ticks = [0,2000,4000,6000,8000,10000,12000],
+    ticks = [0,4000,8000,12000,16000,18000,20000],
     xAxis = d3.axisBottom(x).ticks(7).tickSizeOuter(0),
     yAxis = d3.axisRight(y)
             .ticks(7)
@@ -407,6 +407,7 @@ function updateMilestoneText(minDate){
         if (0 < x_coord && x_coord < width){
             return 'milestone-text'
         } else {
+            console.log("return hideit")
             return 'milestone-text hideit hidetext'
         }
     })
