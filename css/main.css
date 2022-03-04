@@ -262,6 +262,7 @@ footer{
 }
 
 textarea{
+  display: none;
   width: 0;
   height: 0;
 }
@@ -447,6 +448,7 @@ h5{
 
 .bar {
   fill: #5CBDCA;
+  clip-path: url(#clip);
 }
 
 .avgLine {
@@ -465,6 +467,7 @@ h5{
 .milestone {
   stroke: lightgray;
   stroke-width: 1;
+  /* clip-path: url(#clip); */
 }
 
 text .milestone-text{
@@ -472,13 +475,19 @@ text .milestone-text{
 }
 
 .milestone-text {
+  display: block;
   font-size: 0.355em;
   line-height: 0.5em;
   font-weight: 400;
 }
 
+.hidetext{
+  display: none !important;
+}
+
 .rect {
   fill: #e6e9eb;
+  clip-path: url(#clip);
 }
 
 .rect-text {
@@ -490,6 +499,16 @@ text .milestone-text{
   text-anchor: end;
 }
 
+.selection{
+  stroke : none;
+}
+.shss{
+  display: block;
+}
+
+.hideSHSS {
+  display: none;
+}
 /* || STORYMAP.html || */
 #storymappage h1{
   font-size: 24pt;
