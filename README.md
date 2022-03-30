@@ -121,6 +121,32 @@ The following tilesets (not styles!) are used to build out the main maps:
     - used in `michigan.js` to create a map layer with county borders
 - **hex_20km_polygons** *(mapbox://epibayes.ckcqmt8ey0paa2bt69m7pyfdn-6k0du)*
     - used in `michigan.js` to create a map layer with hexagons that are 20km big (toggles based on zoom threshold)
-- **hex_10km_polugons** *(mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk)*
+- **hex_10km_polygons** *(mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk)*
     - used in `michigan.js` to create a map layer with hexagons that are 10km big (toggles based on zoom threshold)
     - *doesn't seem to ever be used...*
+- - - -
+## GISTS
+### WORKFLOW
+[***as of Spring 2022***] Gists (`.csv` files) of case data and MI Symptoms data (called in `init.js`,`michigan.js`, and `timeline.js`) are uploaded by Stephanie to her personal gists. Gist data is compiled and uploaded to Dropbox by Kelly, usually on Wednesdays.
+
+Once Kelly messages Stephanie about data being uploaded to Dropbox, Stephanie runs a Python file that does some simple (and non-comprehensive) data validation checks before uploading each csv to gist.
+
+The current data validation checks are being conducted on csvs before upload:
+
+- Checks that csvs have more than 1 line (the csv was populated with content)
+- Checks that date strings are a certain length (6, to correspond with the necessary yymmdd format)
+- [***not currently implemented, WIP***] Checks that the most recent date exists in the csv somewhere
+
+### HOW GIST DATA IS USED BY COVIDMAPPING
+Gist data is fetched with the `await d3.csv()` method, and csv contents are parsed further using `d3` utilities.
+
+### FILES
+The following are the names of the files:
+
+- dailyweeklycum_cases_statewide.csv
+- weeklycum_cases_10km.csv
+- weeklycum_cases_20km.csv
+- dailyweeklycum_symptoms_statewide.csv
+- weeklycum_symptoms_10km.csv
+- weeklycum_symptoms_20km.csv
+- hex_lastday.csv
