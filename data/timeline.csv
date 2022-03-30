@@ -22,19 +22,20 @@ date,y2,anchor,annotation,description
 6/1/20,16000,end,MI Gov ends stay-at-home order,"Governor Whitmer ends the state's Stay Home, Stay Safe order, effective immediately, indicating the state has moved into Phase 4 of Michigan's Safe Start recovery plan, including permitting outdoor gatherings of up to 100 people, office work, and reopening of outdoor parks and recreation facilities."
 6/8/20,16800,end,Restaurants begin reopening,"Governor Whitmer allows restaurants to reopen to in-person service, as long as they follow safe COVID-19 protocols."
 6/15/20,17600,end,Personal care services resume,"Personal care services including hair salons, nail salons, massage businesses resume operations"
-7/10/20,17600,start,MI Gov institutes mask mandate,"Governor Whitmer requires the use of face coverings in crowded outdoor spaces, reiterates that individuals must wear masks when in indoor public spaces, and requires businesses to refuse entry or service to people who refuse to wear a face covering, with limited exceptions"
-7/29/20,16800,start,MI Gov mandates remote work if possible,"Starting July 31, 2020, statewide indoor gatherings will be limited to 10 people and certain bars will be closed for indoor service across the state (newly applicable to Northern lower Michigan and the Upper Peninsula). Remote work, which previously looked to be strongly encouraged is now being required if an employee can perform their duties remotely"
-9/3/20,16000,start,"MI Gov reopens gyms, pools and organized sports","Governor Whitmer signs Executive Order 2020-176, reopening Michigan's gyms and pools in those regions where they remain closed and allowing for organized sports practices and competitions to resume in those regions where they remain restricted"
-10/2/20,15200,start,MI Supreme Court Rules MI Gov's Executive Orders Unconstitutional,"Michigan Supreme Court ruled that a series of executive orders pertaining to public health guidelines and business closures put in place by Gov. Whitmer to combat COVID-19 were unconstitutional and are now invalid under Michigan law"
-11/15/20,14400,start,MI Gov issues 3-week "Pause to Save Lives" order, Governor Whitmer announces a three-week pause limiting indoor social gatherings and other group activities
-12/15/20,13600,start,Vaccination Phase 1A,Healthcare workers with the potential for direct or indirect exposure to patients or infectious materials and residents of long term care facilities eligible for COVID vaccine
-1/11/21,12800,start,Vaccination Phase 1B,Everyone 75+ and frontline essential workers in critical infrastructure eligible for COVID vaccine
-1/16/21,12000,start,1st MI case of B.1.1.7 variant,"The first Michigan case of COVID-19 variant B.1.1.7 was identified in Washtenaw County"
-3/8/21,11200,start,1st MI case of B.1.351 variant,"The first Michigan case of the COVID-19 variant B.1.351 was identified in Jackson County"
-3/22/21,10400,start,Vaccination Phase 1C,Anyone 16+ with a qualifying medical condition or anyone 50+ is eligible for COVID vaccine in MI
-4/5/21,9600,start,Vaccination Phase 2,All MI residents 16+ are eligible for COVID vaccination
-5/15/21,8800,start,Gatherings and Face Mask Order, Gatherings are restricted and face masks are required indoors unless the individual falls under certain exceptions
-6/7/21,8000,start,MI Gov rescinds emergency orders,"Due to the decrease in positivity rates and due to the effectiveness of COVID vaccines, previous emergency orders were lifted"
-8/21/21,7200,middle,Delta becomes predominant strain, MDHHS notes that 99% of sampled cases were delta variant cases
+7/10/20,18400,end,MI Gov institutes mask mandate,"Governor Whitmer requires the use of face coverings in crowded outdoor spaces, reiterates that individuals must wear masks when in indoor public spaces, and requires businesses to refuse entry or service to people who refuse to wear a face covering, with limited exceptions"
+7/29/20,19200,end,MI Gov mandates remote work if possible,"Starting July 31, 2020, statewide indoor gatherings will be limited to 10 people and certain bars will be closed for indoor service across the state (newly applicable to Northern lower Michigan and the Upper Peninsula). Remote work, which previously looked to be strongly encouraged is now being required if an employee can perform their duties remotely"
+9/3/20,19200,start,"MI Gov reopens gyms, pools and organized sports","Governor Whitmer signs Executive Order 2020-176, reopening Michigan's gyms and pools in those regions where they remain closed and allowing for organized sports practices and competitions to resume in those regions where they remain restricted"
+10/2/20,18400,start,MI Supreme Court Rules MI Gov's Executive Orders Unconstitutional,"Michigan Supreme Court ruled that a series of executive orders pertaining to public health guidelines and business closures put in place by Gov. Whitmer to combat COVID-19 were unconstitutional and are now invalid under Michigan law"
+11/15/20,17600,start,MI Gov issues 3-week "Pause to Save Lives" order, Governor Whitmer announces a three-week pause limiting indoor social gatherings and other group activities
+12/15/20,16800,start,Vaccination Phase 1A,Healthcare workers with the potential for direct or indirect exposure to patients or infectious materials and residents of long term care facilities eligible for COVID vaccine
+1/11/21,16000,start,Vaccination Phase 1B,Everyone 75+ and frontline essential workers in critical infrastructure eligible for COVID vaccine
+1/16/21,15200,start,1st MI case of B.1.1.7 variant,"The first Michigan case of COVID-19 variant B.1.1.7 was identified in Washtenaw County"
+3/8/21,14400,start,1st MI case of B.1.351 variant,"The first Michigan case of the COVID-19 variant B.1.351 was identified in Jackson County"
+3/22/21,13600,start,Vaccination Phase 1C,Anyone 16+ with a qualifying medical condition or anyone 50+ is eligible for COVID vaccine in MI
+4/5/21,12800,start,Vaccination Phase 2,All MI residents 16+ are eligible for COVID vaccination
+5/15/21,12000,start,Gatherings and Face Mask Order, Gatherings are restricted and face masks are required indoors unless the individual falls under certain exceptions
+6/7/21,11200,start,MI Gov rescinds emergency orders,"Due to the decrease in positivity rates and due to the effectiveness of COVID vaccines, previous emergency orders were lifted"
+8/21/21,10400,middle,Delta becomes predominant strain, MDHHS notes that 99% of sampled cases were delta variant cases
 12/3/21,19200,end,1st MI case of B.1.1.529 variant,"The first Michigan case of the COVID-19 variant B.1.1.529 was identified in Kent County"
 1/11/22,20000,end,CDC recommends vaccines for 5+ years old,The CDC recommends everyone ages 5 years and older get a COVID-19 vaccine to help protect against COVID-19
+3/29/22,24000,end,BA.2 variant becomes dominant,"The CDC announces that the BA.2 variant of COVID-19 has become the dominant strain across the U.S."

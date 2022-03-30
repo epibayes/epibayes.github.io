@@ -27,6 +27,7 @@ This site doesn't use any special JS frameworks, but you do need to download [Py
 - **The Team:** `team.html` - a page with the current members of the Epibayes Lab. The page includes a short bio for each member as well as a picture. Two former members who still work in the Epidemiology world are also featured.
     - A more thorough look at lab members can be found on the [Epibayes Lab website](https://epibayes.io/)
 - **MI COVID Timeline:** `timeline.html` - a page with the timeline (bar chart and trend line) of COVID-19 case counts in Michigan starting in March of 2020. This page also has some notes about vaccination and more about understanding the timeline.
+    - As of 2022, the timeline has a focus view (chart on the top, which can "zoom in" on a more focused portion) and context view (chart on the bottom, which can be "brushed" to select a specific timeframe of data to view in the focus view).
     - The numbers of cases and deaths from JHU and the number of vaccinations in the US/MI from the CDC are fetched on the front-end.
 
 ### CSS
