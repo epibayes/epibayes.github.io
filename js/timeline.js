@@ -53,7 +53,7 @@ async function makeTimeline() {
     //     .domain([0, d3.max(daily, d => d.daily)])
     //     .range([height, 0])
     y = d3.scaleLinear()
-        .domain([0, 20000])
+        .domain([0, 24000])
         .range([height, 0])
     y2 = d3.scaleLinear()
         // .domain([0, d3.max(daily, d => d.daily)])
@@ -61,10 +61,10 @@ async function makeTimeline() {
         .range([height2, 0])
     
     //set ticks
-    ticks = [0,4000,8000,12000,16000,18000,20000],
+    ticks = [0,4000,8000,12000,16000,18000,20000,24000],
     xAxis = d3.axisBottom(x).ticks(7).tickSizeOuter(0),
     yAxis = d3.axisRight(y)
-            .ticks(7)
+            .ticks(ticks.length)
             .tickSize(3)
     xAxis2 = d3.axisBottom(x2).ticks(7).tickSizeOuter(0)
     yAxis2 = d3.axisRight(y2)
@@ -348,14 +348,14 @@ function addMilestoneText(minDate, maxDate){
 
     focus.append('line')
         .attr('class', 'avgLine sevendayavline')
-        .attr('x1', 360)
-        .attr('x2', 380)
+        .attr('x1', 240) //originally: 360
+        .attr('x2', 260) //originally: 380
         .attr('y1', y0)
         .attr('y2', y0)
 
     focus.append('text')
         .attr('class', 'sevenday')
-        .attr('x', 385)
+        .attr('x', 185) //originally: 285
         .attr('y', y0)
         .attr('dy', '0.35em')
         .text('7-day average')
