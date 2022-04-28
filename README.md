@@ -20,8 +20,6 @@ This site doesn't use any special JS frameworks, but you do need to download [Py
 - `embedmap.html` - a smaller module of the main COVID-19 map of case counts, rates, confirmed+propable cases, and confirmed cases to be displayed if anyone chooses to embed the map on their site.
 - `index.html` - the landing page which consists of the main COVID-19 map of case counts, rates, confirmed+propable cases, and confirmed cases. Also has a line graph mapping case trends, and a couple of notes on COVID, numbers, and takeaways.
 - **MI Symptoms:** `misymptoms.html` - a map with MI Symptoms data, including a map and chart as well as notes about where the numbers come from and COVID-like symptoms.
-    - **NOTE:** \[Last Update: August 29, 2021\]
-    - Issues in compiling Symptoms data has resulted in this page being stagnant since August 2021
 - **Your COVID Risk:** `storymap.html` - a scrollytelling page with a map and scrollable text blocks that explain personal COVID risk in a given area.
     - Map uses Mapbox's [scrollytelling module](https://demos.mapbox.com/scrollytelling/)
 - **The Team:** `team.html` - a page with the current members of the Epibayes Lab. The page includes a short bio for each member as well as a picture. Two former members who still work in the Epidemiology world are also featured.
