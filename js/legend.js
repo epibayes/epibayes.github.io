@@ -11,8 +11,8 @@ let tickValues = {
     'symptoms': {
         'cumulative': [10, 100, 1000, 10000, 100000],
         'weekly': [10, 100, 1000],
-        'cumulativerate': [0.05, 0.10, 0.15],
-        'weeklyrate': [0.05, 0.10, 0.15],
+        'cumulativerate': [0.5, 1, 1.5],
+        'weeklyrate': [0.5, 1, 1.5],
     },
 }
 
