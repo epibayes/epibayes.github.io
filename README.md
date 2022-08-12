@@ -55,7 +55,7 @@ There are 2 local CSVs used in this project
         - **index:** associated with each unique hexagon on the map
         - **POP:** the population count for that hexagon
         - **hex:** either 10 or 20 based on the hex size in kilometers
-- `timeline.csv` - used to create and place the milestone labels on the timeline, as well as to create the tooltips that show up when hovering over the milestone labels
+- `timeline.csv` - used to create and place the milestone labels on the timeline, as well as to create the tooltips that show up when hovering over the milestone labels; is updated occasionally with notable COVID-19-related events with a focus on events that happen in Michigan
     - Has the following attributes:
         - **date:** a `m/dd/yy` format date associated with the milestone
         - **y2:** the top `y` position that determines how long the line from the milestone to the bar graph section for that date is. `timeline.js` performs some math on this number (check starting from around line 100 in `timeline.js`)
@@ -123,7 +123,7 @@ The following tilesets (not styles!) are used to build out the main maps:
     - used in `michigan.js` to create a map layer with hexagons that are 10km big (toggles based on zoom threshold)
     - *doesn't seem to ever be used...*
 - - - -
-## GISTS
+## GISTS ("CASE COUNTS PER HEX OVER TIME" DATA)
 ### WORKFLOW
 [***as of Spring 2022***] Gists (`.csv` files) of case data and MI Symptoms data (called in `init.js`,`michigan.js`, and `timeline.js`) are uploaded by Stephanie to her personal gists. Gist data is compiled and uploaded to Dropbox by Kelly, usually on Wednesdays.
 
@@ -133,7 +133,9 @@ The current data validation checks are being conducted on csvs before upload:
 
 - Checks that csvs have more than 1 line (the csv was populated with content)
 - Checks that date strings are a certain length (6, to correspond with the necessary yymmdd format)
-- [***not currently implemented, WIP***] Checks that the most recent date exists in the csv somewhere
+- Checks that the most recent date exists in the csv somewhere
+
+A copy of the Python file, called `gistupdater.py`, can be requested by contacting Stephanie. 
 
 ### HOW GIST DATA IS USED BY COVIDMAPPING
 Gist data is fetched with the `await d3.csv()` method, and csv contents are parsed further using `d3` utilities.
