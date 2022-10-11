@@ -125,7 +125,7 @@ The following tilesets (not styles!) are used to build out the main maps:
 - - - -
 ## GISTS ("CASE COUNTS PER HEX OVER TIME" DATA)
 ### WORKFLOW
-[***as of Spring 2022***] Gists (`.csv` files) of case data and MI Symptoms data (called in `init.js`,`michigan.js`, and `timeline.js`) are uploaded by Stephanie to her personal gists. Gist data is compiled and uploaded to Dropbox by Kelly, usually on Wednesdays.
+[***as of Summer 2022***] Gists (`.csv` files) of case data and MI Symptoms data (called in `init.js`,`michigan.js`, and `timeline.js`) are uploaded by Stephanie to her personal gists. Gist data is compiled and uploaded to Dropbox by Kelly, usually on Wednesdays.
 
 Once Kelly messages Stephanie about data being uploaded to Dropbox, Stephanie runs a Python file that does some simple (and non-comprehensive) data validation checks before uploading each csv to gist.
 
@@ -136,6 +136,13 @@ The current data validation checks are being conducted on csvs before upload:
 - Checks that the most recent date exists in the csv somewhere
 
 A copy of the Python file, called `gistupdater.py`, can be requested by contacting Stephanie. 
+
+#### IMPORTANT NOTE ABOUT DATA (as of Fall 2022)
+As per data usage agreements, MI Symptoms data is no longer available. The last "good" day of MI Symptoms data we have access to is **June 13, 2022**. 
+
+"Standard" case data seems to also be transitioning away from Guildenstern to a different pipeline system. The last "good" day of case data we have access to is **July 1, 2022**.
+ 
+ *(response from Michael Hayashi, who is in charge of the overall data we used to update our website)*
 
 ### HOW GIST DATA IS USED BY COVIDMAPPING
 Gist data is fetched with the `await d3.csv()` method, and csv contents are parsed further using `d3` utilities.
