@@ -1110,8 +1110,7 @@ text .milestone-text{
   padding-top: 10px;
   padding-bottom: 20px;
 }
-ts
-c
+
 .gingerlabel{
   color: white;
 }
@@ -1143,6 +1142,10 @@ c
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.event-summary {
+  font-size: 18px;
 }
 
 /* ||adjustments based on screen size|| */
