@@ -401,6 +401,11 @@ h6{
   padding: 0px 5px;
 }
 
+/* add padding to top of where/why sections */
+.covidfacts {
+  padding-top: 15px;
+}
+
 /* || TEAM.html || */
 /* style h4 elements */
 h4{
