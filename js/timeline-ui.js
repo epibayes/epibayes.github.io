@@ -132,3 +132,53 @@ async function cdcVaxNumbers(){
     
 }
 
+/* grab timeline data and return a csv with just the date and description */
+async function getTimelineData() {
+    let unfilteredData = await d3.csv('data/timeline.csv', d3.autotype);
+    let neededData = unfilteredData.map(d => new Object({
+      date: d.date,
+      description: `"${d.description}"`
+    }))
+
+    /* convert to json */
+    let jsonified = JSON.stringify(neededData);
+    
+    /* convert back to csv */
+    /* https://stackoverflow.com/questions/11257062/converting-json-object-to-csv-format-in-javascript */
+    function csvConverter(objArray) {
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = 'data:text/csv;charset=utf-8,';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+
+            str += line + '\r\n';
+        }
+
+        return str;
+      }
+    
+    // console.log("convertedtocsv", csvConverter(jsonified))
+
+    /* make it download */
+    let encodedURI = encodeURI(csvConverter(jsonified));
+    // console.log("encodedURI is", encodedURI)
+
+    /* https://www.javatpoint.com/javascript-create-and-download-csv-file */
+    let dl = document.querySelector(".time-downbutton-col");
+    let node = document.createElement('a');
+    let link = dl.appendChild(node);
+    link.classList.add("btn", "btn-outline-secondary");
+    link.id = "timelineDLButton"
+    link.innerHTML = "Download Timeline Milestones (.csv)";
+    link.title = "Download Timeline Milestones"
+    link.href = encodedURI
+    link.target = "_blank";
+    link.download = "timelinedata.csv"
+
+}
