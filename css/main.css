@@ -122,7 +122,6 @@ footer{
 
 }
 
-
 /* style daterangepick stuff */
 .drprow{
   padding: 10px 0px;
@@ -294,10 +293,10 @@ textarea{
 }
 
 /* style the goal text paragraph */
-#ourgoal{
-  margin: 0;
+.thegoal, .goaltext {
   padding: 0;
-  padding-top: 10px;
+  margin: 0;
+  padding-bottom: 5px;
 }
 
 /* style covidfacts row */
@@ -400,6 +399,11 @@ h6{
 .fa-calendar{
   color:white;
   padding: 0px 5px;
+}
+
+/* add padding to top of where/why sections */
+.covidfacts {
+  padding-top: 15px;
 }
 
 /* || TEAM.html || */
