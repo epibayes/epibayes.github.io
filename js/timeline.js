@@ -22,13 +22,13 @@ async function makeTimeline() {
     W = 600;
 
     // Set the height and margins for the focus view
-    margin = {top: 10, right: 70, bottom: 80, left: 70};
+    margin = {top: 10, right: 70, bottom: 60, left: 70};
     width = W - margin.left - margin.right;
     // console.log("width is", width)
     height = H - margin.top - margin.bottom;
 
     // Set the height and margins for the context view (this goes below the focus view)
-    margin2 = {top: H-60, right: margin.right, bottom: 40, left: margin.left}
+    margin2 = {top: H-40, right: margin.right, bottom: 20, left: margin.left}
     height2 = H - margin2.top - margin2.bottom
 
     // append timetable svg

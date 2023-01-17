@@ -445,7 +445,7 @@ h5{
 
 /* || TIMELINE.html || */
 /* adding margin to the timeline and text */
-#timeline, .timeline-text {
+.timeline-text {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -513,6 +513,11 @@ text .milestone-text{
 .hideSHSS {
   display: none;
 }
+
+.timeline-download{
+  margin-bottom: 15px;
+}
+
 /* || STORYMAP.html || */
 #storymappage h1{
   font-size: 24pt;
@@ -1114,8 +1119,7 @@ text .milestone-text{
   padding-top: 10px;
   padding-bottom: 20px;
 }
-ts
-c
+
 .gingerlabel{
   color: white;
 }
@@ -1147,6 +1151,10 @@ c
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.event-summary {
+  font-size: 18px;
 }
 
 /* ||adjustments based on screen size|| */
