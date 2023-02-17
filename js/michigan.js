@@ -3,8 +3,8 @@ async function initDashboard() {
     hexpop = d3.group(popdata, d => d.hex)
     km = 20
     const data20 = await d3.csv(datafiles[datatype]['weeklycum_20km'], type)
-    km = 10
-    const data10 = await d3.csv(datafiles[datatype]['weeklycum_10km'], type)
+    // km = 10
+    // const data10 = await d3.csv(datafiles[datatype]['weeklycum_10km'], type)
     const dateExtent = d3.extent(data20, d => d.date)
     minDate = dateExtent[0]
     maxDate = dateExtent[1]
@@ -34,7 +34,7 @@ async function initDashboard() {
     // console.log("hexfill is", hexfill)
     hexdata = {
         'hex20': d3.group(data20, d => +d.date, d => d.index),
-        'hex10': d3.group(data10, d => +d.date, d => d.index),
+        // 'hex10': d3.group(data10, d => +d.date, d => d.index),
     }
 
     initTimeScale()
@@ -115,18 +115,18 @@ async function initMap() {
                 "fill-opacity": alpha,
             },
         });
-        map.addLayer({
-            "id": "hex10",
-            "type": "fill",
-            "source": hex10TilesetSrc,
-            "source-layer": hex10Tileset,
-            "minzoom": zoomThreshold,
-            "layout": { 'visibility': 'visible' },
-            "paint": {
-                "fill-color": hexfill[riskStatus][metric][1],
-                "fill-opacity": alpha,
-            },
-        });
+        // map.addLayer({
+        //     "id": "hex10",
+        //     "type": "fill",
+        //     "source": hex10TilesetSrc,
+        //     "source-layer": hex10Tileset,
+        //     "minzoom": zoomThreshold,
+        //     "layout": { 'visibility': 'visible' },
+        //     "paint": {
+        //         "fill-color": hexfill[riskStatus][metric][1],
+        //         "fill-opacity": alpha,
+        //     },
+        // });
         map.addLayer({
             "id": "county-border",
             "type": "line",

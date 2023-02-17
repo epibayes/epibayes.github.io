@@ -9,11 +9,11 @@ const hex20TilesetSrc = {
     type: 'vector',
     url: 'mapbox://epibayes.ckcqmt8ey0paa2bt69m7pyfdn-6k0du',
 }
-const hex10Tileset = 'hexagons_10km_polygons'
-const hex10TilesetSrc = {
-    type: 'vector',
-    url: 'mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk',
-}
+// const hex10Tileset = 'hexagons_10km_polygons'
+// const hex10TilesetSrc = {
+//     type: 'vector',
+//     url: 'mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk',
+// }
 // const schoolTileset = 'school_districts'
 // const schoolTilesetSrc = {
 //     type: 'vector',
@@ -23,12 +23,12 @@ const hex10TilesetSrc = {
 const datafiles = {
     'cases': {
         'weeklycum_20km': 'https://gist.githubusercontent.com/choisteph/1ee6eac84d6c9c1c4cea22bd046c1113/raw',
-        'weeklycum_10km': 'https://gist.githubusercontent.com/choisteph/9a7d7e541969c00b252526b8b5cd3b13/raw',
+        // 'weeklycum_10km': 'https://gist.githubusercontent.com/choisteph/9a7d7e541969c00b252526b8b5cd3b13/raw',
         'dailyweeklycum_statewide': 'https://gist.githubusercontent.com/choisteph/494b84d649a51bfb764e4792567ccb0f/raw',
     },
     'symptoms': {
         'weeklycum_20km': 'https://gist.githubusercontent.com/choisteph/155c3f691a975d901be675311d9937c4/raw',
-        'weeklycum_10km': 'https://gist.githubusercontent.com/choisteph/2bada37d1c9c04b428c7a26aaa54a317/raw',
+        // 'weeklycum_10km': 'https://gist.githubusercontent.com/choisteph/2bada37d1c9c04b428c7a26aaa54a317/raw',
         'dailyweeklycum_statewide': 'https://gist.githubusercontent.com/choisteph/bf6d330edb7a92c84aabf53700bfc176/raw',
     },
     'embed':{
@@ -36,7 +36,9 @@ const datafiles = {
     }
 }
 
-const hexLayers = ['hex20','hex10']
+const hexLayers = ['hex20'
+// ,'hex10'
+]
 const dateParser = d3.timeParse('%y%m%d')
 const daterangeFmt = d3.timeFormat('%B %e, %Y')
 const tooltipFmt = d3.timeFormat('%b %e')
