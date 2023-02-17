@@ -1,4 +1,4 @@
-# COVIDMAPPING
+# COVIDMAPPING: ARCHIVE
 *A tool to put COVID-19 in its spatial and social context*
 - - - -
 ## WORKFLOW
@@ -18,15 +18,16 @@ This site doesn't use any special JS frameworks, but you do need to download [Py
 ### HTML
 - **COVID Disparities:** `disparities.html` - info page on racial disparities in COVID-19 Fatality and Incidence in MI.
 - `embedmap.html` - a smaller module of the main COVID-19 map of case counts, rates, confirmed+propable cases, and confirmed cases to be displayed if anyone chooses to embed the map on their site.
-- `index.html` - the landing page which consists of the main COVID-19 map of case counts, rates, confirmed+propable cases, and confirmed cases. Also has a line graph mapping case trends, and a couple of notes on COVID, numbers, and takeaways.
-- **MI Symptoms:** `misymptoms.html` - a map with MI Symptoms data, including a map and chart as well as notes about where the numbers come from and COVID-like symptoms.
+- **Main Page:** `index.html` - the landing page which consists of the main COVID-19 map of case counts, rates, confirmed+propable cases, and confirmed cases. Also has a line graph mapping case trends, and a couple of notes on COVID, numbers, and takeaways.
+- ***MI Symptoms:*** `misymptoms.html` - *a map with MI Symptoms data, including a map and chart as well as notes about where the numbers come from and COVID-like symptoms.*
+    - **REMOVED during archiving, in this readme for reference only.**
 - **Your COVID Risk:** `storymap.html` - a scrollytelling page with a map and scrollable text blocks that explain personal COVID risk in a given area.
     - Map uses Mapbox's [scrollytelling module](https://demos.mapbox.com/scrollytelling/)
-- **The Team:** `team.html` - a page with the current members of the Epibayes Lab. The page includes a short bio for each member as well as a picture. Two former members who still work in the Epidemiology world are also featured.
+- **The Team:** `team.html` - a page with the current members of the Epibayes Lab. The page includes a short bio for each member as well as a picture.
     - A more thorough look at lab members can be found on the [Epibayes Lab website](https://epibayes.io/)
 - **MI COVID Timeline:** `timeline.html` - a page with the timeline (bar chart and trend line) of COVID-19 case counts in Michigan starting in March of 2020. This page also has some notes about vaccination and more about understanding the timeline.
     - As of 2022, the timeline has a focus view (chart on the top, which can "zoom in" on a more focused portion) and context view (chart on the bottom, which can be "brushed" to select a specific timeframe of data to view in the focus view).
-    - The numbers of cases and deaths from JHU and the number of vaccinations in the US/MI from the CDC are fetched on the front-end.
+    - *The numbers of cases and deaths from JHU and the number of vaccinations in the US/MI from the CDC are fetched on the front-end.* - **REMOVED during archiving, in this readme for reference only.**
 
 ### CSS
 - `main.css` - all styling is contained in this file
@@ -54,7 +55,7 @@ There are 2 local CSVs used in this project
     - Has the following attributes:
         - **index:** associated with each unique hexagon on the map
         - **POP:** the population count for that hexagon
-        - **hex:** either 10 or 20 based on the hex size in kilometers
+        - **hex:** either 10 or 20 based on the hex size in kilometers.
 - `timeline.csv` - used to create and place the milestone labels on the timeline, as well as to create the tooltips that show up when hovering over the milestone labels; is updated occasionally with notable COVID-19-related events with a focus on events that happen in Michigan
     - Has the following attributes:
         - **date:** a `m/dd/yy` format date associated with the milestone
@@ -121,10 +122,12 @@ The following tilesets (not styles!) are used to build out the main maps:
     - used in `michigan.js` to create a map layer with hexagons that are 20km big (toggles based on zoom threshold)
 - **hex_10km_polygons** *(mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk)*
     - used in `michigan.js` to create a map layer with hexagons that are 10km big (toggles based on zoom threshold)
-    - *doesn't seem to ever be used...*
+    **IMPORTANT NOTE:** 10 km views are not used, so all code mentioning 10km should be commented out.
 - - - -
 ## GISTS ("CASE COUNTS PER HEX OVER TIME" DATA)
 ### WORKFLOW
+[***as of Archiving COVIDMAPPING***] No gists are currently updated, as the data is no longer being compiled for this website.
+
 [***as of Summer 2022***] Gists (`.csv` files) of case data and MI Symptoms data (called in `init.js`,`michigan.js`, and `timeline.js`) are uploaded by Stephanie to her personal gists. Gist data is compiled and uploaded to Dropbox by Kelly, usually on Wednesdays.
 
 Once Kelly messages Stephanie about data being uploaded to Dropbox, Stephanie runs a Python file that does some simple (and non-comprehensive) data validation checks before uploading each csv to gist.
@@ -139,21 +142,26 @@ A copy of the Python file, called `gistupdater.py`, can be requested by contacti
 
 #### IMPORTANT NOTE ABOUT DATA (as of Fall 2022)
 As per data usage agreements, MI Symptoms data is no longer available. The last "good" day of MI Symptoms data we have access to is **June 13, 2022**. 
+- ***As we have STOPPED having MI Symptoms data on our website, we no longer need to worry about this data.***
 
 "Standard" case data seems to also be transitioning away from Guildenstern to a different pipeline system. The last "good" day of case data we have access to is **July 1, 2022**.
  
  *(response from Michael Hayashi, who is in charge of the overall data we used to update our website)*
 
 ### HOW GIST DATA IS USED BY COVIDMAPPING
-Gist data is fetched with the `await d3.csv()` method, and csv contents are parsed further using `d3` utilities.
+Gist data is fetched asynchronously with the `await d3.csv()` method, and csv contents are parsed further using `d3` utilities.
 
 ### FILES
 The following are the names of the files:
 
 - dailyweeklycum_cases_statewide.csv
 - weeklycum_cases_10km.csv
+    -  **UNUSED, in this readme for reference only.**
 - weeklycum_cases_20km.csv
 - dailyweeklycum_symptoms_statewide.csv
+    -  **UNUSED, in this readme for reference only.**
 - weeklycum_symptoms_10km.csv
+    -  **UNUSED, in this readme for reference only.**
 - weeklycum_symptoms_20km.csv
+    -  **UNUSED, in this readme for reference only.**
 - hex_lastday.csv
