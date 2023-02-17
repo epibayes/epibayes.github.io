@@ -122,7 +122,7 @@ The following tilesets (not styles!) are used to build out the main maps:
     - used in `michigan.js` to create a map layer with hexagons that are 20km big (toggles based on zoom threshold)
 - **hex_10km_polygons** *(mapbox://epibayes.ckcqms42v0gv229qk9hakzxbe-70thk)*
     - used in `michigan.js` to create a map layer with hexagons that are 10km big (toggles based on zoom threshold)
-    **IMPORTANT NOTE:** 10 km views are not used, so all code mentioning 10km should be commented out.
+    - **IMPORTANT NOTE:** 10 km views are not used, so all code mentioning 10km should be commented out.
 - - - -
 ## GISTS ("CASE COUNTS PER HEX OVER TIME" DATA)
 ### WORKFLOW
@@ -140,9 +140,10 @@ The current data validation checks are being conducted on csvs before upload:
 
 A copy of the Python file, called `gistupdater.py`, can be requested by contacting Stephanie. 
 
-#### IMPORTANT NOTE ABOUT DATA (as of Fall 2022)
+#### IMPORTANT NOTE ABOUT DATA (as of Winter 2023)
+***As we have STOPPED having new data and MI Symptoms data altogether on our website, we no longer need to worry about best usable dates. Below dates are for reference only.***
+
 As per data usage agreements, MI Symptoms data is no longer available. The last "good" day of MI Symptoms data we have access to is **June 13, 2022**. 
-- ***As we have STOPPED having MI Symptoms data on our website, we no longer need to worry about this data.***
 
 "Standard" case data seems to also be transitioning away from Guildenstern to a different pipeline system. The last "good" day of case data we have access to is **July 1, 2022**.
  
