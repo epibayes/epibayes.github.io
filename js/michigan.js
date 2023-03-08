@@ -3,6 +3,10 @@ async function initDashboard() {
     hexpop = d3.group(popdata, d => d.hex)
     km = 20
     const data20 = await d3.csv(datafiles[datatype]['weeklycum_20km'], type)
+
+    // const data20 = await getLocalStorage('weeklycum_20km')
+
+
     // km = 10
     // const data10 = await d3.csv(datafiles[datatype]['weeklycum_10km'], type)
     const dateExtent = d3.extent(data20, d => d.date)
@@ -71,6 +75,33 @@ async function initDashboard() {
 
         })
     }
+}
+
+async function checkLocalStorage(csvname) {
+    console.log("csv name is", csvname)
+    if (localStorage.getItem(csvname) === null) {
+
+        console.log("data doesn't exist in localstorage, so add it")
+        
+        // let data = await d3.csv(datafiles[datatype][`'${csvname}'`], type)
+
+        // localStorage.setItem(csvname, JSON.stringify(data))
+    }
+    else {
+        console.log("data exists in localStorage, it is", localStorage.getItem(csvname))
+    }
+    // return 
+}
+
+function getLocalStorage(csvData) {
+    console.log("getlocalstorage")
+    return new Promise((resolve) => {
+        console.log("resolve")
+        setTimeout(()=>{
+            console.log("timeout")
+            return resolve(JSON.parse(localStorage.getItem(csvData)))
+        }, 3000)
+    })
 }
 
 // Mapbox Related Functions
